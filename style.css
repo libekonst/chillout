@@ -1,0 +1,27 @@
+* {
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1;
+    background-color: #191A22;
+}
+.radioContainer{
+    padding: 10px;
+}
+.radioPlayer{
+    background-color: #272833;
+    margin: 10px;
+}
+p {
+    margin-bottom: 5px;
+}
+button {
+    background-color: #4e5174;
+    height: 30px;
+    width: 50px;
+}
