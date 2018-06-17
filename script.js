@@ -3,7 +3,7 @@
 let audio = document.getElementById('radioSource');
 let url = 'http://46.28.53.118:7062/stream?1529011397134';
  */
-
+//@ts-check
 const radios = {
     offradio: 'http://46.28.53.118:7062/stream?1529011397134',
     enlefko: 'http://stream.radiojar.com/enlefko877',
@@ -11,31 +11,23 @@ const radios = {
     skai: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8'
 };
 
+let currentRadio = '';
 const player = new Audio();
 
-function playAudio(){
-    player.src = radios.offradio;
+function playAudio(source){
+    player.src = source;
     player.play();
-    // player.msPlayToPreferredSourceUri
+    currentRadio = source;
 }
 
-function playEnlefko(){
-    player.pause();
-    player.src = radios.enlefko;
+function playButton(){
+    // player.muted = false;
     player.play();
-}
 
-function playOffradio(){
-    player.pause();
-    player.src = radios.offradio;
-    player.play();
-}
-function playParapolitika(){
-    player.pause();
-    player.src = radios.parapolitika;
-    player.play();
+    
 }
 
 function pauseAudio(){
+    // player.muted = true;
     player.pause();
 }

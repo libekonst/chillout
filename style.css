@@ -23,5 +23,5 @@ p {
 button {
     background-color: #4e5174;
     height: 30px;
-    width: 50px;
+    min-width: 50px;
 }

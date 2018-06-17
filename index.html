@@ -12,14 +12,14 @@
 <body>
     <h1>A sophisticated radio player</h1>
       <!-- First Implementation. Each radio loads its own audio player -->
-    <section id="musicRadios" class="radioContainer">
+    <!-- <section id="musicRadios" class="radioContainer">
         <h2>Music Radios</h2>
-        <!-- <div id="off-radio" class="radioPlayer">
+        <div id="off-radio" class="radioPlayer">
             <p>Off radio</p>
             <audio src="http://46.28.53.118:7062/stream?1529011397134" autoplay="false" controls="true" volume="0.8">
             Your browser does not support the audio element.
             </audio>
-        </div> -->
+        </div>
         
         
         <div id="enlefko" class="radioPlayer">
@@ -52,29 +52,31 @@
             Your browser does not support the audio element.
             </audio>
         </div>
-    </section>
+    </section> -->
     
 
 <!-- Second Implementation: No audio player, a button plays the audio object. -->
 <!-- Objective is to have each radio's image call a function which changes the audio source -->
     <section>
         <div id="off-radio" class="radioPlayer">
-            <p>Off Radio. Click Play! to start playing.</p>
+            <!-- <p>Off Radio. Click Play! to start playing.</p>
             <audio id="offRadio" type="audio">
                 <source id="radioSource" src="http://46.28.53.118:7062/stream?1529011397134">
                 Your browser does not support the audio element.
-            </audio>
+            </audio> -->
         </div>
     </section>
 
     <div id="buttonContainer">
-        <button onclick="playAudio()" type="button">Play!</button>
+        <button onclick="playButton()" type="button">Play!</button>
         <button onclick="pauseAudio()">Pause</button>
     </div>
 
-    <!-- <img src="http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="alert('You\'re a right little nosey parker, aren\'t you?')"> -->
-    <img src="http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playOffradio()">
-    <img src="https://static-media.streema.com/media/cache/4d/a1/4da1dc3f1a1ad731f7e2744bafc2a132.jpg" height="400" width="400" alt="nosey" onclick="playEnlefko()">
-    <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" height="400" width="400" alt="nosey" onclick="playParapolitika()">
+    <img src="http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.offradio)">
+    <img src="https://static-media.streema.com/media/cache/4d/a1/4da1dc3f1a1ad731f7e2744bafc2a132.jpg" height="400" width="400" alt="nosey" onclick="playAudio(radios.enlefko)">
+    <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" height="400" width="400" alt="nosey" onclick="playAudio(radios.parapolitika)">
+
+
+    <button onclick="alert('You\'re a right little nosey parker, aren\'t you?')" type="button">Testing in progress!</button>
 </body>
 </html>
