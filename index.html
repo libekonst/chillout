@@ -7,7 +7,6 @@
     <title>Radio Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <script src="script.js"></script>
 </head>
 <body>
     <h1>A sophisticated radio player</h1>
@@ -68,15 +67,16 @@
     </section>
 
     <div id="buttonContainer">
-        <button onclick="player.play()" type="button">Play!</button>
-        <button onclick="player.pause()">Pause</button>
+        <button id="playButton" onclick="buttonText()">Choose a radio by clicking on an image</button>
+        <!-- <button onclick="playAudio(currentRadio)">Pause</button> -->
     </div>
 
-    <img src="http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.offradio)">
+    <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.offradio)">
     <img src="https://static-media.streema.com/media/cache/4d/a1/4da1dc3f1a1ad731f7e2744bafc2a132.jpg" height="400" width="400" alt="nosey" onclick="playAudio(radios.enlefko)">
     <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" height="400" width="400" alt="nosey" onclick="playAudio(radios.parapolitika)">
 
 
     <button onclick="alert('You\'re a right little nosey parker, aren\'t you?')" type="button">Testing in progress!</button>
+    <script src="script.js"></script>
 </body>
 </html>
