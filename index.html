@@ -7,6 +7,7 @@
     <title>Radio Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+
 </head>
 <body>
     <h1>A sophisticated radio player</h1>
@@ -68,15 +69,15 @@
 
     <div id="buttonContainer">
         <button id="playButton" onclick="buttonText()">Choose a radio by clicking on an image</button>
-        <!-- <button onclick="playAudio(currentRadio)">Pause</button> -->
     </div>
 
-    <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.offradio)">
-    <img src="https://static-media.streema.com/media/cache/4d/a1/4da1dc3f1a1ad731f7e2744bafc2a132.jpg" height="400" width="400" alt="nosey" onclick="playAudio(radios.enlefko)">
+    <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.offradio.url);alert('you clicked the invisible image!')">
+    <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="nosey" onclick="playAudio(radios.sources.offradio)">
+    <img src="https://static-media.streema.com/media/cache/4d/a1/4da1dc3f1a1ad731f7e2744bafc2a132.jpg" height="400" width="400" alt="nosey" onclick="playAudio(radios.sources.enlefko)">
     <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" height="400" width="400" alt="nosey" onclick="playAudio(radios.parapolitika)">
 
 
-    <button onclick="alert('You\'re a right little nosey parker, aren\'t you?')" type="button">Testing in progress!</button>
+    <button id="lastButton" onclick="alert('You\'re a right little nosey parker, aren\'t you?')" type="button">Testing in progress!</button>
     <script src="script.js"></script>
 </body>
 </html>
