@@ -1,4 +1,22 @@
 //@ts-check
+class Player {
+    constructor(){
+        this.audioObject = new Audio();
+        this.isPlaying = false;
+        this.currentRadio = "";
+    }
+    
+    loadAndPlayRadio(myRadioSource) {
+        this.audioObject.src = myRadioSource;
+        this.audioObject.play();
+        this.isPlaying = true;
+    }
+    
+}
+let myRadioPlayer = new Player();
+
+
+
 const player = new Audio();
 let isPlaying = false;
 let currentRadio = '';
