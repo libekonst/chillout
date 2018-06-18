@@ -54,7 +54,7 @@ const radios = {
         id: 'offradio',
         image: 'https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png',
         url: 'http://46.28.53.118:7062/stream?1529011397134',
-        clickHandler: playAudio()
+        clickHandler: function(){return playAudio("http://46.28.53.118:7062/stream?1529011397134")}
     },
     sources: {
         offradio: 'http://46.28.53.118:7062/stream?1529011397134',
@@ -71,9 +71,14 @@ function newImage() {
     newImg.width = 200;
     newImg.src = radios.offradio.image;
     newImg.id = radios.offradio.id;
+    //newImg.onclick = radios.offradio.clickHandler;
+
+    let clickHandlerr = function(){return playAudio(radios.offradio.url);};
+    newImg.onclick = clickHandlerr;
+
     /* let clickHandler = () => {return playAudio(radios.offradio.url);};
     newImg.onclick = () => {radios.offradio.clickHandler;}; */
-    newImg.addEventListener('click', function(){playAudio(radios.offradio.url);alert('lol');});
+    //newImg.addEventListener('click', function(){playAudio(radios.offradio.url);alert('lol');});
     document.body.insertBefore(newImg, document.getElementById('lastButton'));
 }
 
