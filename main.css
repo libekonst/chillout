@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: 'Tajawal', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+body {
+    line-height: 1;
+    background-color: #191A22;
+}
+
+header,
+main,
+footer {
+    /* border: 1px solid white; */
+    margin: 10px;
+    max-width: 100%;
+}
+
+
+h1 {
+    font-size: 36px;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 200;
+}
+
+h1,
+#playerWrapper,
+#sectionWrapper,
+ul,
+section {
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    list-style: none;
+}
+
+
+#radioWrapper{
+    width: 100%;
+    border: 10px solid white;
+    /* padding: 1000px; */
+}
+
+.column {
+    background-color: #272833;
+    /* border: 0.5px dotted white; */
+    float: left;
+    width: 15%;
+    height: auto;
+    padding: 20px;
+    align-content: center;
+    margin: 10px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+img {
+    width:100%;
+    height: auto;
+}
+
+
+
+button {
+    background-color: #4e5174;
+    height: 30px;
+    min-width: 50px;
+}
+
+/* vertical-align: baseline; This is for the images. */
+
+/* Use Display:inline-block for the images. https://www.w3schools.com/css/css_inline-block.asp */

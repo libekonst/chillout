@@ -1,21 +1,19 @@
 //@ts-check
 class Player {
-    constructor(){
+    constructor() {
         this.audioObject = new Audio();
         this.isPlaying = false;
-        this.currentRadio = "";
+        this.currentRadio = '';
     }
-    
+
     loadAndPlayRadio(myRadioSource) {
         this.audioObject.src = myRadioSource;
         this.audioObject.play();
         this.isPlaying = true;
     }
-    
+
 }
 let myRadioPlayer = new Player();
-
-
 
 const player = new Audio();
 let isPlaying = false;
@@ -40,8 +38,9 @@ function playAudio(source) {
 }
 
 let playButton = document.getElementById('playButton');
-function buttonText(){
-    if (currentRadio === ''){
+
+function buttonText() {
+    if (currentRadio === '') {
         alert('Click an image to load a radio!');
     } else {
         playAudio(currentRadio);
@@ -54,7 +53,9 @@ const radios = {
         id: 'offradio',
         image: 'https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png',
         url: 'http://46.28.53.118:7062/stream?1529011397134',
-        clickHandler: function(){return playAudio("http://46.28.53.118:7062/stream?1529011397134")}
+        clickHandler: function () {
+            return playAudio("http://46.28.53.118:7062/stream?1529011397134");
+        }
     },
     sources: {
         offradio: 'http://46.28.53.118:7062/stream?1529011397134',
@@ -62,9 +63,10 @@ const radios = {
         parapolitika: 'http://netradio.live24.gr/athinaradio',
         skai: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8'
     },
-    
+
 };
 newImage();
+
 function newImage() {
     let newImg = document.createElement('img');
     newImg.height = 200;
@@ -73,7 +75,9 @@ function newImage() {
     newImg.id = radios.offradio.id;
     //newImg.onclick = radios.offradio.clickHandler;
 
-    let clickHandlerr = function(){return playAudio(radios.offradio.url);};
+    let clickHandlerr = function () {
+        return playAudio(radios.offradio.url);
+    };
     newImg.onclick = clickHandlerr;
 
     /* let clickHandler = () => {return playAudio(radios.offradio.url);};
