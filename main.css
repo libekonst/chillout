@@ -51,6 +51,12 @@ ul {
     max-width: 70vw;
 } */
 
+li > div {
+    background-image: url('https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+    height: 100%;
+    width: auto;
+}
+
 .radioWrapper{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
