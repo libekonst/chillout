@@ -6,7 +6,8 @@
     border: 0;
     font-size: 100%;
     font-family: 'Tajawal', sans-serif;
-    color: rgb(255, 255, 255);
+    /* color: rgb(255, 255, 255); */
+    color: #fff;
 }
 
 body {
@@ -73,10 +74,24 @@ li > div {
 
 .radioItem:hover {
     background-color: #4e5174;
+    background-color: #455381;
+    background-color: #305268;
+    background-color: #375b74;
+    background-color: #345b75; /*<----- Most likely*/ 
+width: 120%;
+height: 120%;
 }
 
 .radioItem:active {
     background-color: rgb(51, 185, 125);
+    background-color: #e9c259;
+    background-color: rgb(35, 210, 170);
+    background-color: #83d0f2;
+    background-color: rgb(51, 214, 219);
+    background-color: rgb(73, 150, 180); 
+    background-color: rgb(38, 194, 199); 
+    background-color: rgb(73, 177, 180); /*<----- Most likely*/
+    
 
 }
 
@@ -99,6 +114,12 @@ img {
 
 button {
     background-color: #4e5174;
+    background-color: #83d0f2;
+    background-color: rgb(41, 209, 170);
+    background-color: rgb(51, 214, 219);
+    background-color: rgb(38, 194, 199);
+
+    /* color: #fff; */
     height: 30px;
     min-width: 50px;
 }
