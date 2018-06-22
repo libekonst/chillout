@@ -53,19 +53,31 @@ ul {
 
 li > div {
     background-image: url('https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 100%;
-    width: auto;
+    width: 100%;
 }
 
 .radioWrapper{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
     grid-gap: 0.8rem;
 }
 
 .radioItem {
     background-color: #272833;
     padding: 0.3rem;
+}
+
+.radioItem:hover {
+    background-color: #4e5174;
+}
+
+.radioItem:active {
+    background-color: rgb(51, 185, 125);
+
 }
 
 img {
@@ -75,6 +87,13 @@ img {
     /* Applying width and height on the html doesn't work. */
 }
 
+/* Color ideas:
+    MDN: {
+        background-color: #222;
+        color: #fff;
+        color: #83d0f2 
+    }
+*/
 
 /* ---------Button and player wrapper styles--------- */
 
