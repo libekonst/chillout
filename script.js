@@ -1,7 +1,4 @@
-// JS on click swaps from html class to another, activating each style.
-// Switch: if class hover is visible, on click activates class active and disables hover. This way it works for mobile too (first tap = hover)
-// Three states. notActive:hover, isActive(playing), isActive(puased). The last one will have it remain afloat but blue instead of green.
-// Or no need. Simply hover is blue and isActive is always green.  
+// Try adding support for mobile: onmouseover == tap, onmousedown == second tap.
 
 //@ts-check
 
