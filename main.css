@@ -12,18 +12,14 @@
 
 body {
     line-height: 1;
-    /* background: linear-gradient(-135deg,rgba(131,164,212,.23) 0,rgba(182,251,255,.15) 100%); <= Interesting for a light theme OR the D&D app */
-    background-color: #191A22; /* ADD GRADIENT */
-   
-    
+    /* background: rgb(25,26,34); */
+    background-image: linear-gradient(to bottom, #191a22, #191a21, #191a21, #191a20, #191a1f);
 }
 
 header,
 main,
 footer {
-    /* border: 1px solid white; */
     margin: 1rem;
-    /* max-width: 100%; */
 }
 
 h1 {
@@ -55,8 +51,18 @@ ul {
     max-width: 70vw;
 } */
 
-.bgImage {
-    background-image: url('https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+.radioContainer{ /*Might use #radioSectionsContianer but will have to format the h2 too.*/
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 0.8rem;
+}
+
+.radioImage {
+    background-image: url('./radio-images/parapolitika.svg');
+    background-image: url('http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+    background-image: url('./radio-images/imagine897.png');
+    background-color: #191A22;
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -64,67 +70,70 @@ ul {
     border-radius: 4px;
 }
 
-.radioWrapper{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr;
-    grid-gap: 0.8rem;
-}
+.radioItem, .radioItemTest {
+    cursor: pointer;
 
-.radioItem {
     background-color: #272833;
-    padding: 0.3rem;
+    padding: 1.5%;
     border-radius: 4px;
     opacity: 0.85;
-    transition:  0.08s ease-in-out;
-    /* -webkit-transition: all 0.08s easy-in;
-    -moz-transition: all 0.08s easy-in;
-    -o-transition: all 0.08s easy-in; */
+    transition:  0.08s ease-in-out;    
 }
 
-.radioItem:hover {
+.radioItem:hover,
+ .radioItemHover {
     z-index: 100;
-    cursor:pointer;
-    background-color: #345b75; /*<----- Most likely*/ 
-    transition:  0.15s ease-out;
-    /* -webkit-transition: 0.15s easy-out;
-    -moz-transition: 0.15s easy-out;
-    -o-transition: 0.15s easy-out; */
-    transform: translateY(-20px) scale(1.07) scaley(1.05) ;
+    cursor: pointer;
+    background-color: #345b75; 
     opacity: 1;
-}
-.radioItemGlow:hover{
-    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555); /* Pretty but too fancy, not so elegant*/
+    transform: translateY(-20px) scale(1.07) scaley(1.05);
     box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
+    transition: 0.15s ease-out;
 }
 
-.radioItem:active {    
+.radioItem:active, 
+.radioItemActive {  
+    z-index: 100;
+    cursor: pointer;  
     background-color: rgb(73, 177, 180);
-    transition: all 0.05s easy-in-out;
-
+    transform: translateY(-20px) scale(1.07) scaley(1.05);
+    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555);
+    transition: all 0.1s easy-in;
 }
 
+
+
+
+img { /* Temporary. Will be replaced by background. */
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    /* The image will now try to fit to the box containing it. */
+    /* Applying width and height on the html doesn't work. */
+}
+
+
+
+
+/* Play image NYI. PH styles. */
+/* Turn the play image into an inline-block, alongside menu and favorite buttons. */
 .play-image{
-    background-color: #0d131671; 
-    border-radius: 50px;
+    background-color: rgba(110, 130, 141, 0.192); 
+    border-radius: 50%;
 }
 .play-image-container{
     padding: 27%;
     opacity: 0;
+    transition: 0.05s ease-out;
 }
 
 .play-image-container:hover{
-    transition: 0.1s ease-out;
+    transition: 0.05s ease-out;
     opacity: 1;
 }
 
 
-img {
-    width: 100%;
-    height: 100%;
-    /* The image will now try to fit to the box containing it. */
-    /* Applying width and height on the html doesn't work. */
-}
+
 
 /* Color ideas:
     MDN: {
@@ -146,6 +155,8 @@ img {
         background-color: rgb(51, 214, 219);
         background-color: rgb(73, 150, 180); 
         background-color: rgb(38, 194, 199);
+        background-color: #00c9b7;
+
     }
 */
 
