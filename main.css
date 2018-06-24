@@ -82,7 +82,7 @@ ul {
 
 .radioItem:hover,
  .radioItemHover {
-    z-index: 100;
+    z-index: 1;
     cursor: pointer;
     background-color: #345b75; 
     opacity: 1;
@@ -93,7 +93,7 @@ ul {
 
 .radioItem:active, 
 .radioItemActive {  
-    z-index: 100;
+    z-index: 2;
     cursor: pointer;  
     background-color: rgb(73, 177, 180);
     transform: translateY(-20px) scale(1.07) scaley(1.05);
