@@ -58,6 +58,7 @@ li > div {
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
+    border-radius: 4px;
 }
 
 .radioWrapper{
@@ -70,6 +71,7 @@ li > div {
 .radioItem {
     background-color: #272833;
     padding: 0.3rem;
+    border-radius: 4px;
 }
 
 .radioItem:hover {
@@ -78,8 +80,17 @@ li > div {
     background-color: #305268;
     background-color: #375b74;
     background-color: #345b75; /*<----- Most likely*/ 
-width: 120%;
-height: 120%;
+    cursor:pointer;
+    transform: translateY(-20px) scale(1.07) scaley(1.05) ;
+    transition: all 0.15s ease-out;
+    -webkit-transition: all 0.15s easy-in-out;
+    /* animation: float; */
+    /* opacity: 0.4; */
+    
+}
+.radioItemGlow:hover{
+    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555); /* Pretty but too fancy, not so elegant*/
+    box-shadow: 0 5px 10px rgba(20, 20, 20, 0.63);
 }
 
 .radioItem:active {
@@ -91,9 +102,21 @@ height: 120%;
     background-color: rgb(73, 150, 180); 
     background-color: rgb(38, 194, 199); 
     background-color: rgb(73, 177, 180); /*<----- Most likely*/
-    
+    transition: all 0.05s easy-in-out;
 
 }
+
+
+.play-image-container{
+    padding: 10%;
+    opacity: 0;
+}
+
+.play-image-container:hover{
+    transition: 0.1s;
+    opacity: 1;
+}
+
 
 img {
     width: 100%;
