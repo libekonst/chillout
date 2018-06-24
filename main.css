@@ -12,7 +12,10 @@
 
 body {
     line-height: 1;
-    background-color: #191A22;
+    /* background: linear-gradient(-135deg,rgba(131,164,212,.23) 0,rgba(182,251,255,.15) 100%); <= Interesting for a light theme OR the D&D app */
+    background-color: #191A22; /* ADD GRADIENT */
+   
+    
 }
 
 header,
@@ -82,10 +85,6 @@ ul {
 .radioItem:hover {
     z-index: 100;
     cursor:pointer;
-    background-color: #4e5174;
-    background-color: #455381;
-    background-color: #305268;
-    background-color: #375b74;
     background-color: #345b75; /*<----- Most likely*/ 
     transition:  0.15s ease-out;
     /* -webkit-transition: 0.15s easy-out;
@@ -99,27 +98,23 @@ ul {
     box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
 }
 
-.radioItem:active {
-    background-color: rgb(51, 185, 125);
-    background-color: #e9c259;
-    background-color: rgb(35, 210, 170);
-    background-color: #83d0f2;
-    background-color: rgb(51, 214, 219);
-    background-color: rgb(73, 150, 180); 
-    background-color: rgb(38, 194, 199); 
-    background-color: rgb(73, 177, 180); /*<----- Most likely*/
+.radioItem:active {    
+    background-color: rgb(73, 177, 180);
     transition: all 0.05s easy-in-out;
 
 }
 
-
+.play-image{
+    background-color: #0d131671; 
+    border-radius: 50px;
+}
 .play-image-container{
-    padding: 10%;
+    padding: 27%;
     opacity: 0;
 }
 
 .play-image-container:hover{
-    transition: 0.1s;
+    transition: 0.1s ease-out;
     opacity: 1;
 }
 
@@ -136,6 +131,21 @@ img {
         background-color: #222;
         color: #fff;
         color: #83d0f2 
+    }
+    hover:{
+        background-color: #4e5174;
+        background-color: #455381;
+        background-color: #305268;
+        background-color: #375b74;
+    }
+    active: {
+        background-color: rgb(51, 185, 125);
+        background-color: #e9c259;
+        background-color: rgb(35, 210, 170);
+        background-color: #83d0f2;
+        background-color: rgb(51, 214, 219);
+        background-color: rgb(73, 150, 180); 
+        background-color: rgb(38, 194, 199);
     }
 */
 
