@@ -52,7 +52,7 @@ ul {
     max-width: 70vw;
 } */
 
-li > div {
+.bgImage {
     background-image: url('https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
     background-size: cover;
     background-repeat: no-repeat;
