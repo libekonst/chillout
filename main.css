@@ -72,24 +72,31 @@ ul {
     background-color: #272833;
     padding: 0.3rem;
     border-radius: 4px;
-    opacity: 0.9;
+    opacity: 0.85;
+    transition:  0.08s ease-in-out;
+    /* -webkit-transition: all 0.08s easy-in;
+    -moz-transition: all 0.08s easy-in;
+    -o-transition: all 0.08s easy-in; */
 }
 
 .radioItem:hover {
+    z-index: 100;
+    cursor:pointer;
     background-color: #4e5174;
     background-color: #455381;
     background-color: #305268;
     background-color: #375b74;
     background-color: #345b75; /*<----- Most likely*/ 
-    cursor:pointer;
+    transition:  0.15s ease-out;
+    /* -webkit-transition: 0.15s easy-out;
+    -moz-transition: 0.15s easy-out;
+    -o-transition: 0.15s easy-out; */
     transform: translateY(-20px) scale(1.07) scaley(1.05) ;
-    transition: all 0.15s ease-out;
-    -webkit-transition: all 0.15s easy-in-out;
     opacity: 1;
 }
 .radioItemGlow:hover{
     box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555); /* Pretty but too fancy, not so elegant*/
-    box-shadow: 0 5px 10px rgba(8, 8, 8, 0.26);
+    box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
 }
 
 .radioItem:active {
