@@ -77,7 +77,7 @@ ul {
     padding: 1.5%;
     border-radius: 4px;
     opacity: 0.85;
-    transition:  0.08s ease-in-out;    
+    transition:  0.1s ease-in;
 }
 
 .radioItem:hover,
@@ -88,7 +88,7 @@ ul {
     background-color: #345b75; 
     transform: translateY(-20px) scale(1.07) scaley(1.05);
     box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
-    transition: 0.15s ease-out;
+    transition: 0.12s ease-out;
 }
 
 .radioItem:active, 
@@ -97,9 +97,9 @@ ul {
     cursor: pointer;  
     opacity: 1;
     background-color: rgb(73, 177, 180);
-    transform: translateY(-20px) scale(1.07) scaley(1.05);
+    transform: translateY(-23px) scale(1.09) scaley(1.07);
     box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555);
-    transition: all 0.1s easy-in;
+    transition: all 0.1s ease-out;
 }
 
 
