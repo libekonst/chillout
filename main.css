@@ -91,6 +91,15 @@ ul {
     transition: 0.12s ease-out;
 }
 
+@keyframes grow{
+    0% {
+        -webkit-transform: translateY(-20px) scale(1.07) scaley(1.05);
+    }
+    100% {
+        -webkit-transform: translateY(-23px) scale(1.09) scaley(1.07)
+    }
+}  
+
 .radioItem:active, 
 .radioItemActive {  
     z-index: 2;
@@ -100,7 +109,10 @@ ul {
     transform: translateY(-23px) scale(1.09) scaley(1.07);
     box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555);
     transition: all 0.1s ease-out;
+    /* animation: grow 0.2s ; */
 }
+
+ 
 
 
 
