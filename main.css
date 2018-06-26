@@ -106,13 +106,20 @@ ul {
     cursor: pointer;  
     opacity: 1;
     /* background-color: #30E9EC; Logo color */
-    background-color: rgb(73, 180, 180);
+    
+    background-color: #37bfc2; /* Old, too bright. A weird mix of blue and green. */
     background-color: rgb(50, 193, 196);
-    background-color: #37bfc2;
-
+    background-color: rgb(73, 180, 180);
+    background-color: #a23663;
+    background-color: #36b5c1; /* Activated when the box is un-clicked. Makes the animation more natural. Temporary until proper animation isintroduced. */
+    background-image: linear-gradient(to right top, #36b5c1, #219dce, #617fc6, #915aa0, #a23663);
+    background-image: linear-gradient(to right top, #36b5c1, #25bbbe, #1bc1b8, #22c6af, #35cba4);
+    background-image: linear-gradient(to right top, #008f8f, #009b91, #00a791, #16b38e, #35be88);
+    background-color: linear-gradient(to left bottom, #35be88, #17bd9b, #00bbac, #18b8b8, #36b5c1);
+    
 
     transform: translateY(-23px) scale(1.09) scaley(1.07);
-    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.555);
+    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.514);
     transition: all 0.1s ease-out;
     /* animation: grow 0.2s ; */
 }
