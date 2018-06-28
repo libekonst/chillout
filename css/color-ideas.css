@@ -1,0 +1,85 @@
+#MDN {
+    background-color: #222;
+    background-color: #fff;
+    background-color: #83d0f2 ;
+}
+
+#SIGNEDBLOCK {
+    background-color: #37BF88;
+    background-color: #5580EF;
+}
+#Logo-color {
+    background-color: #30E9EC; /*Headphones*/
+}
+#body {
+    background-color: #191a22;
+}
+tile-background-color {
+    background-color: #b91d47;
+}
+
+favorite {
+background-color: #35BE88;
+}
+
+:hover {
+    background-color: #4e5174;
+    background-color: #455381;
+    background-color: #305268;
+    background-color: #375b74;
+}
+active {
+    background-color: #33b97d;
+    background-color: #e9c259;
+    background-color: #23d2aa;
+    background-color: #83d0f2;
+    background-color: rgb(51, 214, 219);
+    background-color: rgb(73, 150, 180); 
+    background-color: rgb(38, 194, 199);
+    background-color: #00c9b7;
+    background-color: #37bfc2;
+    background-color: rgb(50, 193, 196);
+    background-color: rgb(73, 180, 180);
+    background-color: #a23663;
+    background-color: #36b5c1;
+    background-image: linear-gradient(to right top, #36b5c1, #219dce, #617fc6, #915aa0, #a23663);
+    background-image: linear-gradient(to right top, #36b5c1, #25bbbe, #1bc1b8, #22c6af, #35cba4);
+    background-image: linear-gradient(to right top, #008f8f, #009b91, #00a791, #16b38e, #35be88);
+
+}
+idle {
+    background-color: #424143;
+}
+
+button {
+    background-color: #4e5174;
+    background-color: #83d0f2;
+    background-color: rgb(51, 214, 219);
+    background-color: rgb(73, 177, 180);
+    background-color: rgb(38, 194, 199);
+    background-color: #36DDA3;
+    background-color: rgb(41, 209, 170);
+}
+
+
+/* Play image on radio-item:hover. Obsolete. */
+.play-image{
+    background-color: rgba(110, 130, 141, 0.192); 
+    border-radius: 50%;
+}
+.play-image-container{
+    padding: 27%;
+    opacity: 0;
+    transition: 0.05s ease-out;
+}
+
+.play-image-container:hover{
+    transition: 0.05s ease-out;
+    opacity: 1;
+}
+
+/* ---------Button and player wrapper styles--------- */
+button {
+    height: 30px;
+    min-width: 50px;
+}

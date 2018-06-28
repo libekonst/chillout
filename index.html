@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>The Chillout App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
 
     <!-- Favicon and app icon support -->
     
@@ -19,12 +19,12 @@
     <meta name="application-name" content="The Chillout App">
     <meta name="msapplication-TileColor" content="#b91d47">
     <meta name="theme-color" content="#eb0d35">
-    <!-- <link href="assets/favicon.ico" rel="icon" type="image/x-icon" /> -->
+    <link href="assets/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 
 <body>
     <header>
-        <img class="logo" src="./assets/logo-green.png" alt="">
+        <img id="logo" src="./assets/logo-green.png" alt="">
         <!-- <img class="logo" src="/assets/logo-blue.png" width="940" height="550" alt=""> -->
         <h1>A sophisticated radio player</h1>
         <div id="playerWrapper">
@@ -33,103 +33,70 @@
     </header>
 
     <main>
-        <div id="radioSectionsContainer">
 
-            <!-- This  contains all the radios.  -->
+        <div id="radio-sections-container">
             <section>
                 <h2>Favorite Radios</h2>
-                <ul id="favoriteRadios" class="radioContainer row">
+                <!-- <h3> reserved for subcategories -->
 
-                    <li class="radioItem">
-                        <div class="radioImage"></div>
+                <ul id="favorite-radios-list" class="radio-item-list">
+                    <li id="offradio" class="radio-item">
+                        <div id="fav1" class="radio-image"></div>
+                        <!-- <div class="radio-name-wrapper">
+                            <h4>Off Radio</h4>
+                        </div> -->
+                    </li>
+                    
+                    <li id="best" class="radio-item">
+                        <div id="fav2" class="radio-image"></div>
+                        <!-- <div class="radio-name-wrapper">
+                            <h4>En Lefko 87.7</h4>
+                        </div> -->
                     </li>
 
-                    <li class="radioItem">
-                        <div class="radioImage"></div>
+                    <li id="enlefko" class="radio-item">
+                        <div id="fav3" class="radio-image"></div>
+                        <!-- <div class="radio-name-wrapper">
+                            <h4>Pepper 96.6</h4>
+                        </div> -->
                     </li>
 
-                    <li class="radioItem">
-                        <div class="radioImage"></div>
+                    <li id="imagine" class="radio-item">
+                        <div id="fav4" class="radio-image"></div>
+                        <!-- <div class="radio-name-wrapper">
+                            <h4>imagine 89.7</h4>
+                        </div> -->
                     </li>
 
-                    <li class="radioItem">
-                        <div class="radioImage"></div>
+                    <li id="pepper" class="radio-item">
+                        <div id="fav5" class="radio-image"></div>
+                        <!-- <div class="radio-name-wrapper">
+                            <h4>imagine 89.7</h4>
+                        </div> -->
                     </li>
-
                 </ul>
+
             </section>
 
             <section>
                 <h2>Music Radios</h2>
                 <ul id="musicRadios" class="radioWrapper radioContainer row">
-                    <li class="radioItem">
-                        <img src="http://www.imagine897.gr/images/folder/logos/mobile-logos/logomobile.png" alt="off-radio">
-                    </li>
-                    <li id="offradio" class="radioItemTest">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li id="#palette1" class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li id="#palette2" class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li id="#palette3" class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li id="#palette4" class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
                 </ul>
             </section>
 
             <section>
                 <h2>News Radios</h2>
                 <ul id="newsRadios" class="radioWrapper radioContainer row">
-                    <li class="radioItem">
-                        <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
-                    <li class="radioItem">
-                        <img src="https://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" alt="off-radio">
-                    </li>
                 </ul>
             </section>
         </div>
          
-
         <aside>
-            Some information irrelevant to our radios. Can be placed to the side.
+            Aside
         </aside>
     </main>
 
-    <footer>Link to Github. </footer>
+    <footer> Footer </footer>
     <script src="script.js"></script>
 
 </body>

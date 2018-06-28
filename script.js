@@ -2,28 +2,38 @@
 
 //@ts-check
 
-let offradio = document.getElementById('offradio');
-
-function changeToHover(){
-    if(offradio.className != "radioItemTest radioItemActive"){
-        offradio.className = "radioItemTest radioItemHover";
+class Highlighter {
+    constructor(radio){
+        radio = document.getElementById(radio);
+        function changeToHover(){
+            if(radio.className != "radioItemTest radioItemActive"){
+                radio.className = "radioItemTest radioItemHover";
+            }
+        }
+        
+        function changeToActive(){
+            if(radio.className != "radioItemTest radioItemActive"){
+                radio.className = "radioItemTest radioItemActive";
+            } else {
+                radio.className = "radioItemTest radioItemHover";
+            }
+        }
+        
+        function resetClassName(){
+            if(radio.className != "radioItemTest radioItemActive"){
+                radio.className = "radioItemTest";
+            }
+        }
+        radio.onmousedown = changeToActive;
+        radio.onmouseover = changeToHover;
+        radio.onmouseout = resetClassName;
     }
 }
 
-function changeToActive(){
-    if(offradio.className != "radioItemTest radioItemActive"){
-        offradio.className = "radioItemTest radioItemActive";
-    } else {
-        offradio.className = "radioItemTest";
-    }
-}
+// let offradio = document.getElementById('offradio');
 
-function resetClassName(){
-    if(offradio.className != "radioItemTest radioItemActive"){
-        offradio.className = "radioItemTest";
-    }
-}
-
-offradio.onmousedown = changeToActive;
-offradio.onmouseover = changeToHover;
-offradio.onmouseout = resetClassName;
+new Highlighter('offradio');
+new Highlighter('best');
+new Highlighter('enlefko');
+new Highlighter('imagine');
+new Highlighter('pepper');
