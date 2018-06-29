@@ -6,8 +6,7 @@ function animationHandler (radio) {
     // A function responsible for listening to mouse events and responding with the proper animation
 
     radio = document.getElementById(radio);  // returns object
-    let isActive = false;
-
+  
     function changeToHover(){
         if(radio.className != "radio-item radio-item-active"){
             radio.className = "radio-item radio-item-hover";
@@ -16,7 +15,7 @@ function animationHandler (radio) {
     
     function changeToActive(){
         if(radio.className != "radio-item radio-item-active"){
-            let otherActive = document.getElementsByClassName('radio-item radio-item-active')
+            let otherActive = document.getElementsByClassName('radio-item radio-item-active');  // returns an indexable NodeList object 
             for (let index = 0; index < otherActive.length; index++) {
                 otherActive[index].className = 'radio-item';                
             }
