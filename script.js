@@ -2,38 +2,49 @@
 
 //@ts-check
 
-class Highlighter {
-    constructor(radio){
-        radio = document.getElementById(radio);
-        function changeToHover(){
-            if(radio.className != "radioItemTest radioItemActive"){
-                radio.className = "radioItemTest radioItemHover";
-            }
+function animationHandler (radio) {
+    // A function responsible for listening to mouse events and responding with the proper animation
+
+    radio = document.getElementById(radio);  // returns object
+    let isActive = false;
+
+    function changeToHover(){
+        if(radio.className != "radio-item radio-item-active"){
+            radio.className = "radio-item radio-item-hover";
         }
-        
-        function changeToActive(){
-            if(radio.className != "radioItemTest radioItemActive"){
-                radio.className = "radioItemTest radioItemActive";
-            } else {
-                radio.className = "radioItemTest radioItemHover";
+    }
+    
+    function changeToActive(){
+        if(radio.className != "radio-item radio-item-active"){
+            let otherActive = document.getElementsByClassName('radio-item radio-item-active')
+            for (let index = 0; index < otherActive.length; index++) {
+                otherActive[index].className = 'radio-item';                
             }
+            radio.className = "radio-item radio-item-active";
+        } else {
+            radio.className = "radio-item radio-item-hover";
         }
-        
-        function resetClassName(){
-            if(radio.className != "radioItemTest radioItemActive"){
-                radio.className = "radioItemTest";
-            }
+    }
+    
+    function resetClassName(){
+        if(radio.className != "radio-item radio-item-active"){
+            radio.className = "radio-item";
         }
-        radio.onmousedown = changeToActive;
-        radio.onmouseover = changeToHover;
-        radio.onmouseout = resetClassName;
+    }
+    radio.onmousedown = changeToActive;
+    radio.onmouseover = changeToHover;
+    radio.onmouseout = resetClassName;
+}
+
+
+function animationInitializer(){
+    // Calls the animationHandler() for every radio.
+    // might accept as an argument an array or an object to iterate on and create the radioID array
+
+    let radioID = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
+    for (let i = 0; i < radioID.length; i++) {
+        animationHandler(radioID[i]);
     }
 }
 
-// let offradio = document.getElementById('offradio');
-
-new Highlighter('offradio');
-new Highlighter('best');
-new Highlighter('enlefko');
-new Highlighter('imagine');
-new Highlighter('pepper');
+animationInitializer();

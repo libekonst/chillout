@@ -42,7 +42,7 @@ h4 {
 
 #logo {
     display:inline-block;
-    width: 100%;
+    width: 40%;
 }
 
 
@@ -87,10 +87,9 @@ h4 {
     background-image: url('http://cdn.e-radio.gr/logos/gr/big/pepper966.png');
 }
 
-.radio-item, .radioItemTest {
+.radio-item {
     cursor: pointer;
     background-color: #272833;
-    padding: 1.5%;
     border-radius: 4px;
     opacity: 0.85;
     transition:  0.1s ease-in;
@@ -99,25 +98,25 @@ h4 {
     padding: 1%;
 }
 
-.radio-item:hover,
- .radioItemHover {
+.radio-item-hover {
     z-index: 1;
     cursor: pointer;
-    opacity: 1;
-    background-color: #36b5c1; 
+    opacity: 0.95;
     background-color: #345b75; 
+    background-color: #289faa; 
     transform: translateY(-20px) scale(1.07) scaley(1.05);
     box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
     transition: 0.12s ease-out;
 }
 
-.radio-item:active, 
-.radioItemActive {  
+.radio-item-active {  
     z-index: 2;
     cursor: pointer;  
     opacity: 1;    
-    background-image: linear-gradient(to left bottom, #35be88, #17bd9b, #00bbac, #18b8b8, #36b5c1);
+   
+    background: #31c88c;
+    background-image: linear-gradient(to left bottom, #31c88c, #28c692, #20c498, #19c29d, #16c0a2);
     transform: translateY(-23px) scale(1.09) scaley(1.07);
-    box-shadow: 0 3px 10px rgba(31, 80, 99, 0.514);
+    box-shadow: 0 3px 10px rgba(31, 99, 98, 0.514);
     transition: all 0.1s ease-out;
 }

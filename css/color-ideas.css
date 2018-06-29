@@ -42,11 +42,19 @@ active {
     background-color: rgb(73, 180, 180);
     background-color: #a23663;
     background-color: #36b5c1;
-    background-image: linear-gradient(to right top, #36b5c1, #219dce, #617fc6, #915aa0, #a23663);
     background-image: linear-gradient(to right top, #36b5c1, #25bbbe, #1bc1b8, #22c6af, #35cba4);
     background-image: linear-gradient(to right top, #008f8f, #009b91, #00a791, #16b38e, #35be88);
+    background-image: linear-gradient(to left bottom, #35be88, #32c192, #31c49c, #32c6a6, #35c9af);
+    background-image: linear-gradient(to left bottom, #31c88c, #00c7a2, #00c5b5, #00c3c4, #10bfcf);
+    background-image: linear-gradient(to left bottom, #35be88, #17bd9b, #00bbac, #18b8b8, #36b5c1);
 
+    /* For red theme: */
+    background-image: linear-gradient(to right top, #36b5c1, #219dce, #617fc6, #915aa0, #a23663);
+    background-image: linear-gradient(to right top, #2b73f9, #9256d3, #b636a4, #c11c73, #b91d47);
+    background-image: linear-gradient(to right top, #2b73f9, #a354db, #d924ab, #ef0071, #eb0d35);
+    background-image: linear-gradient(to right top, #36b5c1, #00a5d4, #0091e2, #5774dc, #994abc);
 }
+
 idle {
     background-color: #424143;
 }
