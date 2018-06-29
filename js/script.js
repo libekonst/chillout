@@ -61,7 +61,7 @@ function playButtonAnimation() {
     
     
     function changeToActive(){
-        if(playImage.className == "play-image play-image-hover"){
+        if(playImage.className == "play-image play-image-hover"|| playImage.className == "play-image"){
             playImage.className = "play-image play-image-active";
         } else {
             playImage.className = "play-image play-image-hover";

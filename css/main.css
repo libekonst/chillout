@@ -121,13 +121,14 @@ h4 {
 
 /* ------------------PLAY IMAGE------------------ */
 .play-image {
+    cursor: pointer;
     display: inline-block;
+    width: 150px;
+    height: 150px; 
     background-image: url('/assets/play-image-white.svg');
-    background-size: 60%;
+    background-size: 50%;
     background-repeat: no-repeat;
-    background-position: center ;
-    width: 100px;
-    height: 100px; 
+    background-position: center;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 50%;
     transition: 0.2s ease-out;
@@ -147,7 +148,7 @@ h4 {
     border: 1px solid #35BE88;
     transform: rotate(180deg);
     background-image: url('/assets/pause-image-white.svg');
-    background-size: 50%;
+    background-size: 40%;
     transition: 0.25s ease-out;
 }
 
@@ -155,9 +156,9 @@ h4 {
     cursor: pointer;
     background-image: url('/assets/pause-image-white.svg');
     transform: rotate(180deg);
-    border: 1px solid #35BE88;
+    border: 1px solid rgb(53, 190, 136, 0.9);
     background-color: #35BE88;
-    background-size: 0%;
+    background-size: 60%;
     transition: 0.25s ease-out;
 }
 
