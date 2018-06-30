@@ -7,3 +7,8 @@ are rather primitive and non-interactive.
 
 This app is an attempt to solve this problem by introducing a contemporary and interactive platform that combines a customizable
 collection of radios and an audio player in a single lightweight page, promising a modern and refined experience.
+
+## Usage
+Simply click on a radio you like and enjoy the music! [Take me to the chillout.](https://kostaslib.github.io/chillout/)
+
+## Acknowledgments
