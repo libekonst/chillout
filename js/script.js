@@ -15,7 +15,7 @@ class AnimationState {
     }
 }
 
-let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
+let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];  // Fn that parses json and returns array?
 animationInitializer(radioIDs);
 
 
