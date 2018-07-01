@@ -8,10 +8,10 @@
     font-family: 'Tajawal', sans-serif;
     color: rgb(255, 255, 255);
     -webkit-tap-highlight-color: transparent; /*Chrome on Android, Brave.*/
-    /* -webkit-user-select: none;
+    -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; */
+    user-select: none;
 }
 
 :root {
@@ -140,6 +140,7 @@ h4 {
 
 /* ------------------PLAY IMAGE------------------ */
 .play-image {
+    /* Prompt the user to select a radio first. No animation unless a radio is selected. */
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.678);
     display: inline-block;
@@ -190,5 +191,5 @@ play-image {
 play-image: hover {
     border: #35BE88;
 */
-/* On mobile, Play has a green background (as hover) ONLY when a radio is selected and paused. By default it's green. */
+/* On mobile, Play has a green background (as hover) ONLY when a radio is selected and paused. By default it's white. This indicates that it won't do anything if a radio is not selected. */
 /* The theme changes based on current time (sunset theme - more orangy, Zen theme - green dark background at night, funky white during the day, etc.). Menu which lets you choose your theme. */
