@@ -1,10 +1,10 @@
 //@ts-check
 
-let radioID = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
-animationInitializer(radioID);
+let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
+animationInitializer(radioIDs);
 
 function animationInitializer(arrayOfIDs) {
-    // Calls addEventHandlers on every event target.
+    // Calls addEventHandlers on every event target (parameter is the array member).
     
     if (!Array.isArray(arrayOfIDs)) {
         console.error('Parameter must be an array');
@@ -13,14 +13,19 @@ function animationInitializer(arrayOfIDs) {
     }
 }
 
-function addEventHandlers(radio) {
+
+function addEventHandlers(radioID) {
     // Adds event handlers to the event target.
 
-    radio = document.getElementById(radio); // returns an Element object
+    let radio = document.getElementById(radioID); // returns an Element object
+
     radio.onmousedown = changeToActive;
-    radio.onmouseover = AnimationHandler.changeToHover(radio);
-    radio.onmouseout = resetClassName;    
-}
+    radio.onmouseover = changeToHover;
+    radio.onmouseout = resetClassName;
+
+    let active = 'radio-item radio-item-active';
+    let hover = 'radio-item radio-item-hover';
+    let idle = 'radio-item';
 
     function changeToHover() {
         if (radio.className != active) {
@@ -47,13 +52,8 @@ function addEventHandlers(radio) {
         if (radio.className != active) {
             radio.className = idle;
         }
-    }
+    }  
 }
-
-
-
-
-
 
 
 /* ------------------PLAY IMAGE------------------ */
