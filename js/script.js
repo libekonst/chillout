@@ -6,22 +6,16 @@ class AnimationState {
         this.active = `${name} ${name}-active`;
         this.hover = `${name} ${name}-hover`;
         this.idle = name;
-    }
-
-    setHover() {
-        if (this.className !== this.active) {
-            this.className = this.hover;
-        }
-    }
+    }    
 }
+
 
 let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];  // Fn that parses json and returns array?
 animationInitializer(radioIDs);
 
 
-function animationInitializer(arrayOfIDs) {
-    // Calls addEventHandlers() for each array element (i.e. event target).
-    
+// Calls addEventHandlers() for each array element (i.e. event target).
+function animationInitializer(arrayOfIDs) {    
     if (!Array.isArray(arrayOfIDs)) {
         console.error('Parameter must be an array');  // Ensures the parameter is an array.
     } else {
@@ -29,48 +23,51 @@ function animationInitializer(arrayOfIDs) {
     }
 }
 
+// A callback fn. Adds event handlers to the event target.
 function addEventHandlers(radioID) {
-    // A callback fn. Adds event handlers to the event target.
+    const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
 
-    const radio = document.getElementById(radioID); // Returns an Element object.
-
-    radio.onmousedown = changeToActive;
-    radio.onmouseover = changeToHover;
-    radio.onmouseout = resetClassName;
+    radio.onmousedown = () => { changeToActive(radio); };
+    radio.onmouseover = () => { changeToHover(radio); };
+    radio.onmouseout = () => { resetClassName(radio); };
 
     // 1. Javascript finds the declarations for the functions referenced above.
-    // 2. Object state is created and its properties' values are assigned into the functions (active-hover-idle).
-    // 3. After the addEventHandlers() finishes, state ceases to exist. This means that its properties and the setHover() method can no longer be called.
-
-    const state = new AnimationState('radio-item');
-
-    function changeToHover() {
-        if (radio.className !== state.active) {
-            radio.className = state.hover;
-        }
-    }
-
-    function changeToActive() {
-        if (radio.className !== state.active) {
-            // Change other active items (normally 1) to idle, then change current item to active.
-
-            let otherActive = document.getElementsByClassName(state.active); // HTMLCollection, indexable array-like object.
-            for (let i = 0; i < otherActive.length; i++) {  // Fail safe. Could just use otherActive[0].
-                otherActive[i].className = state.idle;
-            }
-            radio.className = state.active;
-
-        } else {
-            radio.className = state.hover;
-        }
-    }
-
-    function resetClassName() {
-        if (radio.className !== state.active) {
-            radio.className = state.idle;
-        }
-    }  
+    // 2. The object's properties are updated.
+    // 3. After addEvenetHandlers() finishes executing, the reference to the object is lost and freed up.
+    // 4. As a result, the variable 'radio' can be reassigned and this allows the fn to be used as a callback repeatedly.
 }
+
+
+let testState = new AnimationState('radio-item');
+
+function changeToHover(radio = {}) {
+    if (radio.className !== testState.active) {
+        radio.className = testState.hover;
+    }
+}
+
+function changeToActive(radio = {}) {
+    if (radio.className !== testState.active) {
+        // Change other active items (normally 1) to idle, then change current item to active.
+
+        let otherActive = document.getElementsByClassName(testState.active); // HTMLCollection, indexable array-like object.
+        for (let i = 0; i < otherActive.length; i++) {  // Fail safe. Could just use otherActive[0].
+            otherActive[i].className = testState.idle;
+        }
+        radio.className = testState.active;
+
+    } else {
+        radio.className = testState.hover;
+    }
+}
+
+function resetClassName(radio = {}) {
+    if (radio.className !== testState.active) {
+        radio.className = testState.idle;
+    }
+} 
+
+
 
 
 /* ------------------PLAY IMAGE------------------ */
