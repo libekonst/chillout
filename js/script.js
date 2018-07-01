@@ -1,5 +1,6 @@
 //@ts-check
 
+// Creates an object that holds class names used by the event handlers.
 class AnimationState {
     constructor(name='') {
         this.className = name;
@@ -9,6 +10,7 @@ class AnimationState {
     }    
 }
 
+// Contains static methods that can be used as event handlers.
 class BasicAnimations {
     static changeToHover(radio = {}) {
         if (radio.className !== testState.active) {
@@ -63,10 +65,10 @@ function addEventHandlers(radioID) {
     radio.onmouseover = () => { BasicAnimations.changeToHover(radio); };
     radio.onmouseout = () => { BasicAnimations.resetClassName(radio); };
 /**
-  * Javascript finds the declarations for the functions referenced in above.
+  * Javascript finds the declarations for the functions referenced above.
   * The object's properties are updated.
   * After addEvenetHandlers() finishes executing, the reference to the object is lost and freed up.
-  * As a result, the variable 'radio' can be reassigned and this allows the fn to be used as a callback repeatedly.
+  * As a result, the variable 'radio' can be reassigned and this allows the fn to be used as a callback repeatedly by animationInitializer().
   */
 }
 
