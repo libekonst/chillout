@@ -8,10 +8,18 @@
     font-family: 'Tajawal', sans-serif;
     color: rgb(255, 255, 255);
     -webkit-tap-highlight-color: transparent; /*Chrome on Android, Brave.*/
-    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none; 
+    Those break desktop too. */
+}
+*::selection{
+    color: var(--green);
+}
+*::-moz-selection{
+    color: var(--green);
 }
 
 :root {
@@ -38,6 +46,9 @@ h1 {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+
+
 
 h2 {
     font-size: 24px;
