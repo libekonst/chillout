@@ -1,56 +1,73 @@
 //@ts-check
 
+class AnimationState {
+    constructor(name='') {
+        this.className = name;
+        this.active = `${name}-item ${name}-item-active`;
+        this.hover = `${name}-item ${name}-item-hover`;
+        this.idle = `${name}-item`;
+    }
+
+    setHover() {
+        if (this.className !== this.active) {
+            this.className = this.hover;
+        }
+    }
+}
+
 let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
 animationInitializer(radioIDs);
 
+
 function animationInitializer(arrayOfIDs) {
-    // Calls addEventHandlers on every event target (parameter is the array member).
+    // Calls addEventHandlers() for each array element (i.e. event target).
     
     if (!Array.isArray(arrayOfIDs)) {
-        console.error('Parameter must be an array');
+        console.error('Parameter must be an array');  // Ensures the parameter is an array.
     } else {
         arrayOfIDs.forEach(addEventHandlers);
     }
 }
 
-
 function addEventHandlers(radioID) {
-    // Adds event handlers to the event target.
+    // A callback fn. Adds event handlers to the event target.
 
-    let radio = document.getElementById(radioID); // returns an Element object
+    const radio = document.getElementById(radioID); // Returns an Element object.
 
     radio.onmousedown = changeToActive;
     radio.onmouseover = changeToHover;
     radio.onmouseout = resetClassName;
 
-    let active = 'radio-item radio-item-active';
-    let hover = 'radio-item radio-item-hover';
-    let idle = 'radio-item';
+    // 1. Javascript finds the declarations for the functions referenced above.
+    // 2. Object state is created and its properties' values are assigned into the functions (active-hover-idle).
+    // 3. After the addEventHandlers() finishes, state ceases to exist. This means that its properties and the setHover() method can no longer be called.
+
+    const state = new AnimationState('radio');
 
     function changeToHover() {
-        if (radio.className != active) {
-            radio.className = hover;
+        if (radio.className !== state.active) {
+            radio.className = state.hover;
         }
     }
 
     function changeToActive() {
-        if (radio.className != active) {
+        if (radio.className !== state.active) {
             // Change other active items (normally 1) to idle, then change current item to active.
 
-            let otherActive = document.getElementsByClassName(active); // HTMLCollection, indexable array-like object.
-            for (let i = 0; i < otherActive.length; i++) {
-                otherActive[i].className = idle;
+            let otherActive = document.getElementsByClassName(state.active); // HTMLCollection, indexable array-like object.
+            for (let i = 0; i < otherActive.length; i++) {  // Fail safe. Could just use otherActive[0].
+                otherActive[i].className = state.idle;
             }
-            radio.className = active;
+            radio.className = state.active;
 
         } else {
-            radio.className = hover;
+            radio.className = state.hover;
         }
     }
 
     function resetClassName() {
-        if (radio.className != active) {
-            radio.className = idle;
+        if (radio.className !== state.active) {
+            radio.className = state.idle;
         }
     }  
 }
