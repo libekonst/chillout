@@ -1,5 +1,8 @@
 //@ts-check
 
+let radioID = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
+animationInitializer(radioID);
+
 function animationHandler (radio) {
     // A function responsible for listening to mouse events and responding with the proper animation
 
@@ -35,17 +38,17 @@ function animationHandler (radio) {
 }
 
 
-function animationInitializer(){
-    // Calls the animationHandler() for every radio.
-    // might accept as an argument an array or an object to iterate on and create the radioID array
-
-    let radioID = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
-    for (let i = 0; i < radioID.length; i++) {
-        animationHandler(radioID[i]);
+function animationInitializer(radioArray){
+    if (!Array.isArray(radioArray)) {
+        console.error('Parameter must be an array');
+    } else {
+        radioArray.forEach(animationHandler);
     }
 }
 
-animationInitializer();
+
+
+
 
 /* ------------------PLAY IMAGE------------------ */
 function playButtonAnimation() {
