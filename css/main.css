@@ -190,5 +190,5 @@ play-image {
 play-image: hover {
     border: #35BE88;
 */
-
+/* On mobile, Play has a green background (as hover) ONLY when a radio is selected and paused. By default it's green. */
 /* The theme changes based on current time (sunset theme - more orangy, Zen theme - green dark background at night, funky white during the day, etc.). Menu which lets you choose your theme. */
