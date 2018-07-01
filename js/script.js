@@ -3,9 +3,9 @@
 class AnimationState {
     constructor(name='') {
         this.className = name;
-        this.active = `${name}-item ${name}-item-active`;
-        this.hover = `${name}-item ${name}-item-hover`;
-        this.idle = `${name}-item`;
+        this.active = `${name} ${name}-active`;
+        this.hover = `${name} ${name}-hover`;
+        this.idle = name;
     }
 
     setHover() {
@@ -42,7 +42,7 @@ function addEventHandlers(radioID) {
     // 2. Object state is created and its properties' values are assigned into the functions (active-hover-idle).
     // 3. After the addEventHandlers() finishes, state ceases to exist. This means that its properties and the setHover() method can no longer be called.
 
-    const state = new AnimationState('radio');
+    const state = new AnimationState('radio-item');
 
     function changeToHover() {
         if (radio.className !== state.active) {
