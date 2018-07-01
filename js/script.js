@@ -4,20 +4,23 @@ let radioID = ['offradio', 'best', 'enlefko', 'imagine', 'pepper'];
 animationInitializer(radioID);
 
 function animationInitializer(arrayOfIDs) {
+    // Calls addEventHandlers on every event target.
+    
     if (!Array.isArray(arrayOfIDs)) {
         console.error('Parameter must be an array');
     } else {
-        arrayOfIDs.forEach(animationHandler);
+        arrayOfIDs.forEach(addEventHandlers);
     }
 }
 
-function animationHandler(radio) {
-    // A function responsible for listening to mouse events and responding with the proper animation
+function addEventHandlers(radio) {
+    // Adds event handlers to the event target.
 
     radio = document.getElementById(radio); // returns an Element object
-    let active = 'radio-item radio-item-active';
-    let hover = 'radio-item radio-item-hover';
-    let idle = 'radio-item';
+    radio.onmousedown = changeToActive;
+    radio.onmouseover = AnimationHandler.changeToHover(radio);
+    radio.onmouseout = resetClassName;    
+}
 
     function changeToHover() {
         if (radio.className != active) {
@@ -45,12 +48,7 @@ function animationHandler(radio) {
             radio.className = idle;
         }
     }
-
-    radio.onmousedown = changeToActive;
-    radio.onmouseover = changeToHover;
-    radio.onmouseout = resetClassName;
 }
-
 
 
 
