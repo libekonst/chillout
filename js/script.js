@@ -47,18 +47,18 @@ class AnimationTools {
     }
 }
 
-const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array.
+const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array. Export for general use.
 
 initializeAnimations(radioIDs);
 initializeAnimations('play-button');
 initializeAnimations(3); // Intentionally logs an error in the console.
 
-// Calls fns that add event listeners to the event target.
+// Calls functions that add event listeners to the event target.
 function initializeAnimations(eventTarget) {
     if (isValidEventTarget(eventTarget) && Array.isArray(eventTarget)) {
-        eventTarget.forEach(addEventListenersToRadio); // Calls addEventListenersToRadio() for each element in the array.
+        eventTarget.forEach(addEventListenersToRadio); // Indexes an array of event targets and calls the fn on each target.
     } else if (isValidEventTarget(eventTarget)) {
-        addEventListenersToPlayButton(); // Calls addEventListenersToPlayButton(). TODO: Make it universal, not play-button specific.
+        addEventListenersToPlayButton();
     }
 }
 
@@ -92,16 +92,18 @@ function addEventListenersToPlayButton() {
     playImage.onmouseout = () => {
         playImageState.changeToIdle(playImage);
     };
+    // TODO: Make it universal, not play-button specific.
 }
 
 function isValidEventTarget(eventTarget) {
     if (Array.isArray(eventTarget)) {
-        if (eventTarget.every((target) => {
+        if (eventTarget.every((target) => { // Checks if every array element passes the test. Test must return true/false.
             return typeof target === 'string';
         })) {
-            console.log('BINGO: Every element in the array is of type string.');
+            console.log('BINGO: Every array element is of type string.');
             return true;
         } else {
+            console.error('Array elements must be of type string.');
             return false;
         }
     } else if (typeof eventTarget === 'string') {
