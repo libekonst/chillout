@@ -56,7 +56,7 @@ initializeAnimations(3); // Intentionally logs an error in the console.
 // Calls functions that add event listeners to the event target.
 function initializeAnimations(eventTarget) {
     if (isValidEventTarget(eventTarget) && Array.isArray(eventTarget)) {
-        eventTarget.forEach(addEventListenersToRadio); // Indexes an array of event targets and calls the fn on each target.
+        eventTarget.forEach(addEventListenersToRadio); // Indexes the array of event targets and passes each target as arg to the callback fn.
     } else if (isValidEventTarget(eventTarget)) {
         addEventListenersToPlayButton();
     }
@@ -97,7 +97,7 @@ function addEventListenersToPlayButton() {
 
 function isValidEventTarget(eventTarget) {
     if (Array.isArray(eventTarget)) {
-        if (eventTarget.every((target) => { // Checks if every array element passes the test. Test must return true/false.
+        if (eventTarget.every((target) => { // Similar to .forEach() but checks if every array element passes the test. Test must return true/false.
             return typeof target === 'string';
         })) {
             console.log('BINGO: Every array element is of type string.');
