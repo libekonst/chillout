@@ -4,12 +4,12 @@
 class AnimationTools {
 
     // Creates an object with data used by the event handlers.
-    constructor(name = '', bool = false) {
+    constructor(name = '', hasActiveHover = false) {
         this.active = `${name} ${name}-active`;
         this.hover = `${name} ${name}-hover`;
         this.activeHover = `${name} ${name}-active-hover`;
         this.idle = name;
-        this.hasActiveHover = bool;
+        this.hasActiveHover = hasActiveHover;
     }
 
     // onMouseOver
@@ -47,22 +47,24 @@ class AnimationTools {
     }
 }
 
-const radioState = new AnimationTools('radio-item');
 const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array.
-initializeRadioAnimation(radioIDs);
 
-// Calls addEventListenersToRadio() for each element in the array (i.e. event target).
-function initializeRadioAnimation(arrayOfIDs) {
-    if (!Array.isArray(arrayOfIDs)) {
-        console.error('Parameter must be an array');
-    } else {
-        arrayOfIDs.forEach(addEventListenersToRadio);
+initializeAnimations(radioIDs);
+initializeAnimations('play-button');
+initializeAnimations(3); // Intentionally logs an error in the console.
+
+// Calls fns that add event listeners to the event target.
+function initializeAnimations(eventTarget) {
+    if (isValidEventTarget(eventTarget) && Array.isArray(eventTarget)) {
+        eventTarget.forEach(addEventListenersToRadio); // Calls addEventListenersToRadio() for each element in the array.
+    } else if (isValidEventTarget(eventTarget)) {
+        addEventListenersToPlayButton(); // Calls addEventListenersToPlayButton(). TODO: Make it universal, not play-button specific.
     }
 }
 
-// A callback fn. Adds event listeners to the event target.
 function addEventListenersToRadio(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
+    const radioState = new AnimationTools(radio.className);
     radio.onmousedown = () => {
         radioState.changeToActive(radio);
     };
@@ -74,16 +76,13 @@ function addEventListenersToRadio(radioID) {
     };
     /* Javascript finds the declarations for the functions referenced above and updates the returned object's properties.
      * After addEventListenersToRadio() finishes executing, the reference to the object is freed up.
-     * As a result, the variable 'radio' can be redeclared and this allows the fn to be used repeatedly as a callback by initializeRadioAnimation().
+     * As a result, the variables 'radio' and 'radioState' can be redeclared and this allows the fn to be used repeatedly as a callback.
      */
 }
 
-
-const playImageState = new AnimationTools('play-image', true);
-initializePlayButtonAnimation();
-
-function initializePlayButtonAnimation() {
+function addEventListenersToPlayButton() {
     const playImage = document.getElementById('play-image');
+    const playImageState = new AnimationTools(playImage.className, true);
     playImage.onmousedown = () => {
         playImageState.changeToActive(playImage);
     };
@@ -93,4 +92,23 @@ function initializePlayButtonAnimation() {
     playImage.onmouseout = () => {
         playImageState.changeToIdle(playImage);
     };
+}
+
+function isValidEventTarget(eventTarget) {
+    if (Array.isArray(eventTarget)) {
+        if (eventTarget.every((target) => {
+            return typeof target === 'string';
+        })) {
+            console.log('BINGO: Every element in the array is of type string.');
+            return true;
+        } else {
+            return false;
+        }
+    } else if (typeof eventTarget === 'string') {
+        console.log('BINGO: Parameter is of type ' + typeof eventTarget + '.');
+        return true;
+    } else {
+        console.error('Parameter must be string or array of strings.');
+        return false;
+    }
 }
