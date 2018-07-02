@@ -1,7 +1,7 @@
 //@ts-check
 
 // Contains static methods to be used as event handlers.
-class AnimationState {
+class AnimationTools {
 
     // Creates an object with data used by the event handlers.
     constructor(name = '') {
@@ -57,7 +57,7 @@ class AnimationState {
     }
 }
 
-const radioState = new AnimationState('radio-item');
+const radioState = new AnimationTools('radio-item');
 const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array.
 initializeRadioAnimation(radioIDs);
 
@@ -74,13 +74,13 @@ function initializeRadioAnimation(arrayOfIDs) {
 function addEventHandlers(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
     radio.onmousedown = () => {
-        AnimationState.makeRadioActive(radio);
+        AnimationTools.makeRadioActive(radio);
     };
     radio.onmouseover = () => {
-        AnimationState.makeRadioHover(radio);
+        AnimationTools.makeRadioHover(radio);
     };
     radio.onmouseout = () => {
-        AnimationState.makeRadioIdle(radio);
+        AnimationTools.makeRadioIdle(radio);
     };
     /**
      * Javascript finds the declarations for the functions referenced above and the object's properties are updated.
@@ -89,19 +89,19 @@ function addEventHandlers(radioID) {
      */
 }
 
-const imageState = new AnimationState('play-image');
+const imageState = new AnimationTools('play-image');
 initializePlayButtonAnimation();
 
 function initializePlayButtonAnimation() {
     const playImage = document.getElementById('play-image');
 
     playImage.onmousedown = function () {
-        AnimationState.makeImgActive(playImage);
+        AnimationTools.makeImgActive(playImage);
     };
     playImage.onmouseover = () => {
-        AnimationState.makeImgHover(playImage);
+        AnimationTools.makeImgHover(playImage);
     };
     playImage.onmouseout = () => {
-        AnimationState.makeImgIdle(playImage);
+        AnimationTools.makeImgIdle(playImage);
     };
 }
