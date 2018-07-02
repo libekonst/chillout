@@ -6,35 +6,56 @@ class AnimationState {
         this.className = name;
         this.active = `${name} ${name}-active`;
         this.hover = `${name} ${name}-hover`;
+        this.activeHover = `${name} ${name}-active-hover`;
         this.idle = name;
     }
 }
 
-// Contains static methods that can be used as event handlers.
-class BasicAnimations {
+// Contains static methods to be used as event handlers.
+class AnimationEffects {
 
-    static changeToHover(radio = {}) {
-        if (radio.className === radioState.idle) {
-            radio.className = radioState.hover;
+    static makeRadioHover(radioObject = {}) {
+        if (radioObject.className === radioState.idle) {
+            radioObject.className = radioState.hover;
         }
     }
-
-    static changeToActive(radio = {}) {
+    static makeRadioActive(radioObject = {}) {
         // Change other active items (normally 1) to idle, then change current item to active.
-        if (radio.className !== radioState.active) {
+        if (radioObject.className !== radioState.active) {
             let otherActive = document.getElementsByClassName(radioState.active); // HTMLCollection, indexable array-like object.
             for (let i = 0; i < otherActive.length; i++) { // Fail safe. Could just use otherActive[0].
                 otherActive[i].className = radioState.idle;
             }
-            radio.className = radioState.active;
+            radioObject.className = radioState.active;
         } else {
-            radio.className = radioState.hover;
+            radioObject.className = radioState.hover;
+        }
+    }
+    static makeRadioIdle(radioObject = {}) {
+        if (radioObject.className !== radioState.active) {
+            radioObject.className = radioState.idle;
         }
     }
 
-    static changeToIdle(radio = {}) {
-        if (radio.className !== radioState.active) {
-            radio.className = radioState.idle;
+    static makeImgHover(imageObject = {}) {
+        if (imageObject.className === imageState.idle) {
+            imageObject.className = imageState.hover;
+        } else {
+            imageObject.className = imageState.activeHover;
+        }
+    }
+    static makeImgActive(imageObject = {}) {
+        if (imageObject.className === imageState.hover || imageObject.className === imageState.idle) {
+            imageObject.className = imageState.active;
+        } else {
+            imageObject.className = imageState.hover;
+        }
+    }
+    static makeImgIdle(imageObject = {}) {
+        if (imageObject.className === imageState.hover) {
+            imageObject.className = imageState.idle;
+        } else if (imageObject.className == imageState.activeHover) {
+            imageObject.className = imageState.active;
         }
     }
 }
@@ -42,7 +63,6 @@ class BasicAnimations {
 let radioState = new AnimationState('radio-item');
 let radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json and returns array.
 animationInitializer(radioIDs);
-
 
 // Calls addEventHandlers() for each element in the array (i.e. event target).
 function animationInitializer(arrayOfIDs) {
@@ -53,18 +73,17 @@ function animationInitializer(arrayOfIDs) {
     }
 }
 
-
 // A callback fn. Adds event handlers to the event target.
 function addEventHandlers(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
     radio.onmousedown = () => {
-        BasicAnimations.changeToActive(radio);
+        AnimationEffects.makeRadioActive(radio);
     };
     radio.onmouseover = () => {
-        BasicAnimations.changeToHover(radio);
+        AnimationEffects.makeRadioHover(radio);
     };
     radio.onmouseout = () => {
-        BasicAnimations.changeToIdle(radio);
+        AnimationEffects.makeRadioIdle(radio);
     };
     /**
      * Javascript finds the declarations for the functions referenced above.
@@ -75,38 +94,19 @@ function addEventHandlers(radioID) {
 }
 
 
-/* ------------------PLAY IMAGE------------------ */
+const imageState = new AnimationState('play-image');
+playButtonAnimation();
+
 function playButtonAnimation() {
     const playImage = document.getElementById('play-image');
 
-    function changeToHover() {
-        if (playImage.className == "play-image") {
-            playImage.className = "play-image play-image-hover";
-        } else {
-            playImage.className = "play-image play-image-active-hover";
-        }
-    }
-
-
-    function changeToActive() {
-        if (playImage.className == "play-image play-image-hover" || playImage.className == "play-image") {
-            playImage.className = "play-image play-image-active";
-        } else {
-            playImage.className = "play-image play-image-hover";
-        }
-    }
-
-    function resetClassName() {
-        if (playImage.className == "play-image play-image-hover") {
-            playImage.className = "play-image";
-        } else if (playImage.className == "play-image play-image-active-hover") {
-            playImage.className = "play-image play-image-active";
-        }
-    }
-
-    playImage.onmousedown = changeToActive;
-    playImage.onmouseover = changeToHover;
-    playImage.onmouseout = resetClassName;
+    playImage.onmousedown = function() {
+        AnimationEffects.makeImgActive(playImage);
+    };
+    playImage.onmouseover = () => {
+        AnimationEffects.makeImgHover(playImage);
+    };
+    playImage.onmouseout = () => {
+        AnimationEffects.makeImgIdle(playImage);
+    };
 }
-
-playButtonAnimation();
