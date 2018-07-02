@@ -1,6 +1,6 @@
 //@ts-check
 
-// Contains static methods to be used as event handlers.
+// Contains methods to be used as event handlers.
 class AnimationTools {
 
     // Creates an object with data used by the event handlers.
@@ -11,48 +11,48 @@ class AnimationTools {
         this.idle = name;
     }
 
-    static makeRadioHover(obj = {}) {
-        if (obj.className === radioState.idle) {
-            obj.className = radioState.hover;
+    makeRadioHover(obj = {}) {
+        if (obj.className === this.idle) {
+            obj.className = this.hover;
         }
     }
-    static makeRadioActive(obj = {}) {
+    makeRadioActive(obj = {}) {
         // Change other active items (normally 1) to idle, then change current item to active.
-        if (obj.className !== radioState.active) {
-            let otherActive = document.getElementsByClassName(radioState.active); // HTMLCollection, indexable array-like object.
+        if (obj.className !== this.active) {
+            let otherActive = document.getElementsByClassName(this.active); // HTMLCollection, indexable array-like object.
             for (let i = 0; i < otherActive.length; i++) { // Fail safe. Could just use otherActive[0].
-                otherActive[i].className = radioState.idle;
+                otherActive[i].className = this.idle;
             }
-            obj.className = radioState.active;
+            obj.className = this.active;
         } else {
-            obj.className = radioState.hover;
+            obj.className = this.hover;
         }
     }
-    static makeRadioIdle(obj = {}) {
-        if (obj.className !== radioState.active) {
-            obj.className = radioState.idle;
+    makeRadioIdle(obj = {}) {
+        if (obj.className !== this.active) {
+            obj.className = this.idle;
         }
     }
 
-    static makeImgHover(obj = {}) {
-        if (obj.className === imageState.idle) {
-            obj.className = imageState.hover;
+    makeImgHover(obj = {}) {
+        if (obj.className === this.idle) {
+            obj.className = this.hover;
         } else {
-            obj.className = imageState.activeHover;
+            obj.className = this.activeHover;
         }
     }
-    static makeImgActive(obj = {}) {
-        if (obj.className === imageState.hover || obj.className === imageState.idle) {
-            obj.className = imageState.active;
+    makeImgActive(obj = {}) {
+        if (obj.className === this.hover || obj.className === this.idle) {
+            obj.className = this.active;
         } else {
-            obj.className = imageState.hover;
+            obj.className = this.hover;
         }
     }
-    static makeImgIdle(item = {}) {
-        if (item.className === imageState.hover) {
-            item.className = imageState.idle;
-        } else if (item.className == imageState.activeHover) {
-            item.className = imageState.active;
+    makeImgIdle(obj = {}) {
+        if (obj.className === this.hover) {
+            obj.className = this.idle;
+        } else if (obj.className == this.activeHover) {
+            obj.className = this.active;
         }
     }
 }
@@ -73,35 +73,22 @@ function initializeRadioAnimation(arrayOfIDs) {
 // A callback fn. Adds event handlers to the event target.
 function addEventHandlers(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
-    radio.onmousedown = () => {
-        AnimationTools.makeRadioActive(radio);
-    };
-    radio.onmouseover = () => {
-        AnimationTools.makeRadioHover(radio);
-    };
-    radio.onmouseout = () => {
-        AnimationTools.makeRadioIdle(radio);
-    };
+    radio.onmousedown = () => {radioState.makeRadioActive(radio);};
+    radio.onmouseover = () => {radioState.makeRadioHover(radio);};
+    radio.onmouseout = () => {radioState.makeRadioIdle(radio);};
     /**
-     * Javascript finds the declarations for the functions referenced above and the object's properties are updated.
+     * Javascript finds the declarations for the functions referenced above and updates the object's properties.
      * After addEvenetHandlers() finishes executing, the reference to the object is freed up.
      * As a result, the variable 'radio' can be redeclared and this allows the fn to be used repeatedly as a callback by initializeRadioAnimation().
      */
 }
 
-const imageState = new AnimationTools('play-image');
+const playImageState = new AnimationTools('play-image');
 initializePlayButtonAnimation();
 
 function initializePlayButtonAnimation() {
     const playImage = document.getElementById('play-image');
-
-    playImage.onmousedown = function () {
-        AnimationTools.makeImgActive(playImage);
-    };
-    playImage.onmouseover = () => {
-        AnimationTools.makeImgHover(playImage);
-    };
-    playImage.onmouseout = () => {
-        AnimationTools.makeImgIdle(playImage);
-    };
+    playImage.onmousedown = () => {playImageState.makeImgActive(playImage);};
+    playImage.onmouseover = () => {playImageState.makeImgHover(playImage);};
+    playImage.onmouseout = () => {playImageState.makeImgIdle(playImage);};
 }
