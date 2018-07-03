@@ -1,11 +1,14 @@
 /**
+ * Event target: an Element object that is targeted by an event. Event listener: responds to the event with a function.
  * The purpose of this script is to streamline the Event Listener assignment process.
+ * Each event target will have its own set of listeners, so we need to refer to it by ID.
  * The intention is to have a single function that accepts a DOM Element ID or array of IDs as a parameter,
- * then assigns the appropriate listeners and functions to the ID (i.e. the event target).
+ * then assigns the appropriate listeners and functions to the target.
  * The fn should complete the assignment based on the target's purpose in the app and its animation complexity.
  */
 
 /**
+ * The event listeners will change the target's class names, accessible via its .className property.
  * The instances of AnimationTools accept a DOM Element's class name as arg and create related data,
  * which is then directly used by the methods. It's a loop that accepts a class name and produces the appropriate functions.
  * Then, the instance is no longer needed.
@@ -84,6 +87,7 @@ function addEventListenersToRadio(radioID) {
         radioState.changeToActive(radio);
     };
     radio.onmouseover = () => {
+        console.log(`Did you just mouse over ${radio.id} :O ?`);
         radioState.changeToHover(radio);
     };
     radio.onmouseout = () => {
