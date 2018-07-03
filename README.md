@@ -49,7 +49,7 @@ changeToHover(obj = {}) {
 Since ```hasActiveHover``` is not specified, it defaults to false and the radio object does not follow the active-hover behavior. For a play-button on the other hand, we want the active-hover behavior, so the event listener will be initialized like this:
 ```Javascript
 const playButton = document.getElementById('play-button');
-const playButtonState = new AnimationTools(playButton.className, true); //Happens to be "play-button".
+const playButtonState = new AnimationTools(playButton.className, true);
 playButton.onmouseover = () => {
     playButtonState.changeToHover(playButton);
 };
