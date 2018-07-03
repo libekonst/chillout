@@ -27,7 +27,7 @@ Some items, however, can enter a fourth state which is triggered when an already
 
 To help ```changeToHover()``` decide which of the two states to activate, the ```.hasActiveHover``` property is introduced. This property takes a ```Boolean``` value that can be passed as an optional arguement to the constructor. If not specificed, ```hasActiveHover``` defaults to false, which invokes the default behavior referenced in the three basic states.
 
-### Attaching an event listener to ```onmouseover```.
+### Attaching an Event Listener to ```onmouseover```.
 
 To attach event listeners on the desired object (event target), an instance of the ```AnimationTools``` class must be created first and the object's ```.className``` property should be passed as the first arguement. If we want the additional **active-hover** state, we also pass ```true``` as the second arguement. Then, each event listener is initialized by calling the respective ```AnimationTools``` method and passing the object itself as the arguement. For example: 
 ```Javascript
