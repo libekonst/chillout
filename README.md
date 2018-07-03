@@ -36,13 +36,26 @@ const radioState = new AnimationTools(radio.className);
 radio.onmouseover = () => {
     radioState.changeToHover(radio);
 ```
-The ```changeToHover()``` method is declared as follows:
-```Javascript   
-changeToHover(obj = {}) {
-    if (obj.className === this.idle) {
-        obj.className = this.hover;
-    } else if (this.hasActiveHover) {
-        obj.className = this.activeHover;
+The ```changeToHover()``` method is declared in the ```AnimationTools``` class:
+```Javascript
+// Contains methods to be used as event handlers.
+class AnimationTools {
+
+    // Creates an object with data used by the event handlers.
+    constructor(name = '', hasActiveHover = false) {
+        this.idle = name;
+        this.hover = `${name} ${name}-hover`;
+        this.active = `${name} ${name}-active`;
+        this.activeHover = `${name} ${name}-active-hover`;
+        this.hasActiveHover = hasActiveHover;
+    }
+    
+    changeToHover(obj = {}) {
+        if (obj.className === this.idle) {
+            obj.className = this.hover;
+        } else if (this.hasActiveHover) {
+            obj.className = this.activeHover;
+        }
     }
 }
 ```
