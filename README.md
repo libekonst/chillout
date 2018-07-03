@@ -18,11 +18,11 @@ Most interactive items in the app (event targets) have three different animation
 - **Active:** This state is activated when the user clicks on an item. Activated by the ```changeToActive()``` method (bound to ```onmousedown```).
 
 An item can stay in the **active** state either momentarily, only to provide the animation, or until it is deactivated. The main features of the app stay in their active state until directed otherwise. For this reason, the active state is the most prominent state, meaning that:
-1. When an item is **active**, other event listeners stop listening to raised events.
-2. Only one item of the same type (e.g. ```<div class = "radio-item">```) can be active at any time. If a similar item is already active, it will be deactivated.
+1. When an item is **active**, its other event listeners stop responding to raised events.
+2. Only one item of the same type (e.g. ```<div class="radio-item">```) can be **active** at any time. If a similar item is already active, it will be deactivated.
 
 Some items, however, can enter a fourth state which is triggered when an already ***active*** item gets ***hovered***. This state, namely **Active-hover**, provides visual feedback to the user that when clicked, this item will be deactivated.
 
-**Active-hover** is a different state than **hover** in that it can be trigerred only when an item is already **active**, its styles override the **active** styles and when the item leaves the **active-hover** state, it returns to **active**. This state should also be activated when the ```.onmouseenter``` event is raised.
+**Active-hover** is a different state than **hover** in that it can be trigerred only when an item is already **active**, its styles override the **active** styles and when the item leaves the **active-hover** state, it returns to **active**. Similar to **hover**, **active-hover** can be activated when the ```onmouseenter``` event is raised.
 
 To help ```changeToHover()``` decide which of the two states to activate, the ```.hasActiveHover``` property is introduced. This property takes a ```Boolean``` value that can be passed as an optional arguement to the constructor. If not specificed, ```hasActiveHover``` defaults to false, which invokes the default behavior referenced in the three basic states.
