@@ -1,14 +1,21 @@
+/**
+ * The purpose of this script is to streamline the Event Listener assignment process.
+ * The intention is to have a single function that accepts a DOM Element ID or array of IDs as a parameter,
+ * then assigns the appropriate listeners and functions to the ID (i.e. the event target).
+ * The fn should complete the assignment based on the target's purpose in the app and its animation complexity.
+ */
+
 //@ts-check
 
-// Contains methods to be used as event handlers.
+//Contains methods to be used as event handlers.
 class AnimationTools {
 
-    // Creates an object with data used by the event handlers.
+    // Creates an object that holds data used by the event handlers.
     constructor(name = '', hasActiveHover = false) {
-        this.active = `${name} ${name}-active`;
-        this.hover = `${name} ${name}-hover`;
-        this.activeHover = `${name} ${name}-active-hover`;
         this.idle = name;
+        this.hover = `${name} ${name}-hover`;
+        this.active = `${name} ${name}-active`;
+        this.activeHover = `${name} ${name}-active-hover`;
         this.hasActiveHover = hasActiveHover;
     }
 
@@ -36,8 +43,9 @@ class AnimationTools {
             if (!this.hasActiveHover) {
                 // Change other active items (normally 1) to idle.
                 let otherActive = document.getElementsByClassName(this.active); // HTMLCollection, indexable array-like object.
-                for (let i = 0; i < otherActive.length; i++) { // Fail safe - could just use otherActive[0].
+                for (let i = 0; i < otherActive.length; i++) {
                     otherActive[i].className = this.idle;
+                    // Fail safe - could just use otherActive[0].
                 }
             }
             obj.className = this.active;
@@ -47,11 +55,11 @@ class AnimationTools {
     }
 }
 
-const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array. Export for general use.
+const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array.
 
 initializeAnimations(radioIDs);
 initializeAnimations('play-button');
-initializeAnimations(3); // Intentionally logs an error in the console.
+initializeAnimations(3); // Intentionally throws an error.
 
 // Calls functions that add event listeners to the event target.
 function initializeAnimations(eventTarget) {
@@ -74,9 +82,10 @@ function addEventListenersToRadio(radioID) {
     radio.onmouseout = () => {
         radioState.changeToIdle(radio);
     };
-    /* Javascript finds the declarations for the functions referenced above and updates the returned object's properties.
+    /**
+     * Javascript updates the returned object's properties to include Event Listeners.
      * After addEventListenersToRadio() finishes executing, the reference to the object is freed up.
-     * As a result, the variables 'radio' and 'radioState' can be redeclared and this allows the fn to be used repeatedly as a callback.
+     * The variables 'radio' and 'radioState' can now be redeclared and this allows the fn to be used repeatedly as a callback.
      */
 }
 
@@ -92,13 +101,15 @@ function addEventListenersToPlayButton() {
     playImage.onmouseout = () => {
         playImageState.changeToIdle(playImage);
     };
-    // TODO: Make it universal, not play-button specific.
+    // TODO: Make it universal for all single string IDs, not play-button specific.
 }
 
 function isValidEventTarget(eventTarget) {
     if (Array.isArray(eventTarget)) {
-        if (eventTarget.every((target) => { // Similar to .forEach() but checks if every array element passes the test. Test must return true/false.
+        if (eventTarget.every((target) => { 
             return typeof target === 'string';
+            // Similar to .forEach() but checks if every array element passes the test.
+            // Test must return Boolean.
         })) {
             console.log('BINGO: Every array element is of type string.');
             return true;
