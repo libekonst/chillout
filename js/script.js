@@ -6,8 +6,9 @@
  */
 
 /**
- * The instances of AnimationTools also accept IDs as arg and create related data, whice is then directly used by the methods.
- * It's a loop that accepts an ID and produces the appropriate functions. Then, the instance is no longer needed.
+ * The instances of AnimationTools accept a DOM Element's class name as arg and create related data,
+ * which is then directly used by the methods. It's a loop that accepts a class name and produces the appropriate functions.
+ * Then, the instance is no longer needed.
  */
 
 //@ts-check
