@@ -64,7 +64,7 @@ class AnimationTools {
 ```
 Since ```hasActiveHover``` is not specified, it defaults to false and the radio object follows the default animation states behavior. For a play-button on the other hand, we want the additional **active-hover** state, so we pass ```true``` as the second parameter:
 ```Javascript
-function addASecondEventListener(){
+function addAnotherEventListener(){
     const playButton = document.getElementById('play-button');
     const playButtonState = new AnimationTools(playButton.className, true);
     playButton.onmouseover = () => {
