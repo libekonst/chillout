@@ -29,7 +29,7 @@ To help ```changeToHover()``` decide which of the two states to activate, the ``
 
 ### Attaching an Event Listener to ```onmouseover```.
 
-To attach event listeners on the desired object (event target), an instance of the ```AnimationTools``` class must be created first and the object's ```.className``` property should be passed as the first arguement. If we want the additional **active-hover** state, we also pass ```true``` as the second arguement. Then, each event listener is initialized by calling the respective ```AnimationTools``` method and passing the object itself as the arguement. For example: 
+To attach event listeners on the desired object (event target), an instance of the ```AnimationTools``` class must be created first and the object's ```.className``` property should be passed as the first arguement. Then, the event listener is initialized by calling the respective ```AnimationTools``` method and passing the object itself as the arguement. For example: 
 ```Javascript
 const radio = document.getElementById(radioID); // Returns the desired Element object.
 const radioState = new AnimationTools(radio.className);
@@ -46,7 +46,7 @@ changeToHover(obj = {}) {
     }
 }
 ```
-Since ```hasActiveHover``` is not specified, it defaults to false and the radio object does not follow the active-hover behavior. For a play-button on the other hand, we want the active-hover behavior, so the event listener will be initialized like this:
+Since ```hasActiveHover``` is not specified, it defaults to false and the radio object does not follow the **active-hover** behavior. For a play-button on the other hand, we want the additional **active-hover** state, so we pass ```true``` as the second parameter.
 ```Javascript
 const playButton = document.getElementById('play-button');
 const playButtonState = new AnimationTools(playButton.className, true);
