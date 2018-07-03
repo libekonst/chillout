@@ -5,6 +5,11 @@
  * The fn should complete the assignment based on the target's purpose in the app and its animation complexity.
  */
 
+/**
+ * The instances of AnimationTools also accept IDs as arg and create related data, whice is then directly used by the methods.
+ * It's a loop that accepts an ID and produces the appropriate functions. Then, the instance is no longer needed.
+ */
+
 //@ts-check
 
 //Contains methods to be used as event handlers.
@@ -64,14 +69,15 @@ initializeAnimations(3); // Intentionally throws an error.
 // Calls functions that add event listeners to the event target.
 function initializeAnimations(eventTarget) {
     if (isValidEventTarget(eventTarget) && Array.isArray(eventTarget)) {
-        eventTarget.forEach(addEventListenersToRadio); // Indexes the array of event targets and passes each target as arg to the callback fn.
+        eventTarget.forEach(addEventListenersToRadio);
+        // Indexes the array of event targets and passes each target as arg to the callback fn.
     } else if (isValidEventTarget(eventTarget)) {
         addEventListenersToPlayButton();
     }
 }
 
 function addEventListenersToRadio(radioID) {
-    const radio = document.getElementById(radioID); // Returns an Element object. This object already exists in the DOM.
+    const radio = document.getElementById(radioID); // Returns an Element object that exists in the DOM.
     const radioState = new AnimationTools(radio.className);
     radio.onmousedown = () => {
         radioState.changeToActive(radio);
@@ -101,7 +107,7 @@ function addEventListenersToPlayButton() {
     playImage.onmouseout = () => {
         playImageState.changeToIdle(playImage);
     };
-    // TODO: Make it universal for all single string IDs, not play-button specific.
+    // TODO: Make fn universal for all single string IDs, not play-button specific.
 }
 
 function isValidEventTarget(eventTarget) {
