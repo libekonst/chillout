@@ -9,11 +9,11 @@
 //@ts-check
 
 /**
- * ElementAnimationState constructor accepts a DOM Element's className as a parameter and creates an object that holds data
+ * ElementAnimationState constructor accepts a DOM Element as a parameter and creates an object that holds data
  * related to that Element. We'll refer to this object as "state" object, because it dynamically matches the animation states
- * with the related className strings for an Element. ElementAnimationState methods accept the DOM Element itself as a parameter,
- * to provide event handler functions. These functions rely on the "state" object's ability to provide the necessary className strings.
- * This way, specific event handlers can be dynamically generated for each specific Element's event listeners.
+ * with the related className strings for an Element. ElementAnimationState methods accept the same DOM Element as a parameter,
+ * to provide event handler functions. These functions rely on our "state" object's ability to provide the necessary className strings.
+ * This way, specialized event handlers can be dynamically generated for each specific Element's event listeners.
  */
 class ElementAnimationState {
 
@@ -25,7 +25,7 @@ class ElementAnimationState {
         this.activeHover = `${element.className} ${element.className}-active-hover`;
         this.hasActiveHover = hasActiveHover;
     }
-    
+
 
     // onMouseOver
     changeToHover(element = {}) {
@@ -63,14 +63,23 @@ class ElementAnimationState {
     }
 }
 
-const radioIDs = ['offradio', 'best', 'enlefko', 'imagine', 'pepper']; // TODO: Fn that parses json or the DOM and returns array.
+let radioIDs = populateArray();
 
-initializeAnimations(radioIDs);
-initializeAnimations('play-button');
-initializeAnimations(3); // Intentionally throws an error.
+function populateArray(){
+    let radioItems = document.getElementsByClassName('radio-item');
+    let array = [];
+    for (let i = 0; i < radioItems.length; i++) {
+        array.push(radioItems[i].id);        
+    }
+    return array;
+}
+
+assignEventListeners(radioIDs);
+assignEventListeners('play-button');
+assignEventListeners(3); // Intentionally throws an error.
 
 // Calls functions that add event listeners to the event target.
-function initializeAnimations(eventTarget) {
+function assignEventListeners(eventTarget) {
     if (isValidEventTarget(eventTarget)) {
         if (Array.isArray(eventTarget)) {
             eventTarget.forEach(addEventListenersToRadio);
@@ -83,21 +92,13 @@ function initializeAnimations(eventTarget) {
 function addEventListenersToRadio(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object that exists in the DOM.
     const radioState = new ElementAnimationState(radio);
-    radio.onmousedown = () => {
-        radioState.changeToActive(radio);
-    };
-    radio.onmouseover = () => {
-        console.log(`Did you just mouse over ${radio.id} :O ?`);
-        radioState.changeToHover(radio);
-    };
-    radio.onmouseout = () => {
-        radioState.changeToIdle(radio);
-    };
-    /**
-     * Javascript updates the returned object's properties to include Event Listeners.
-     * After addEventListenersToRadio() finishes executing, the reference to the object is freed up.
-     * The variables 'radio' and 'radioState' can now be redeclared and this allows the fn to be used repeatedly as a callback.
-     */
+    
+    radio.addEventListener('click', () => radioState.changeToActive(radio));
+    radio.addEventListener('mouseover', () => radioState.changeToHover(radio));
+    radio.addEventListener('mouseout', () => radioState.changeToIdle(radio));
+ 
+    // After addEventListenersToRadio() finishes executing, the reference to the objects is freed up.
+    // The variables 'radio' and 'radioState' can now be redeclared and this allows the fn to be used repeatedly as a callback.
 }
 
 function addEventListenersToPlayButton() {
