@@ -29,31 +29,31 @@ To help ```changeToHover()``` decide which of the two states to activate, the ``
 
 ### Adding an Event Listener for the ```onmouseover``` event.
 
-To attach event listeners on the desired object (event target), an instance of the ```AnimationTools``` class must be created first and the object's ```.className``` property should be passed as the first arguement. Then, the event listener is initialized by calling the respective ```AnimationTools``` method and passing the object itself as the arguement. For example: 
+To add event listeners on the desired Element object (the event target), an instance of the ```ElementAnimationState``` class must be created first and the event target object should be passed as the arguement. Then, the event listener is initialized by calling the respective ```ElementAnimationState``` method. For example: 
 ```Javascript
-function addAnEventListener(){
+function addEventListeners(){
     const radio = document.getElementById(radioID); // Returns the desired Element object.
-    const radioState = new AnimationTools(radio.className);
-    radio.onmouseover = () => {
-        radioState.changeToHover(radio);
+    const animationHandler = new ElementAnimationState(radio);
+    radio.addEventListener('mouseenter',() => animationHandler.changeToHover(radio));
+    radio.addEventListeners('mouseout',() => animationHandler.changeToIdle(radio));
     }
 }
 ```
-The ```changeToHover()``` method is declared in the ```AnimationTools``` class:
+The ```changeToHover()``` and ```changeToIdle()``` methods are declared in the ```AnimationTools``` class:
 ```Javascript
 // Contains methods to be used as event handlers.
 class AnimationTools {
 
     // Creates an object with data used by the event handlers.
-    constructor(name = '', hasActiveHover = false) {
-        this.idle = name;
-        this.hover = `${name} ${name}-hover`;
-        this.active = `${name} ${name}-active`;
-        this.activeHover = `${name} ${name}-active-hover`;
+    constructor(element = {}, hasActiveHover = false) {
+        this.idle = element.className;
+        this.hover = `${element.className} ${element.className}-hover`;
+        this.active = `${element.className} ${element.className}-active`;
+        this.activeHover = `${element.className} ${element.className}-active-hover`;
         this.hasActiveHover = hasActiveHover;
     }
     
-    changeToHover(obj = {}) {
+    changeToHover(element) {
         if (obj.className === this.idle) {
             obj.className = this.hover;
         } else if (this.hasActiveHover) {
@@ -62,7 +62,7 @@ class AnimationTools {
     }
 }
 ```
-Since ```hasActiveHover``` is not specified, it defaults to false and the radio object follows the default animation states behavior. For a play-button on the other hand, we want the additional **active-hover** state, so we pass ```true``` as the second parameter:
+Since ```hasActiveHover``` is not specified, it defaults to false and the radio object follows the default animation states behavior. For a play-button on the other hand, we want the additional **active-hover** state, so we pass ```true``` as the second parameter in the constructor:
 ```Javascript
 function addAnotherEventListener(){
     const playButton = document.getElementById('play-button');
