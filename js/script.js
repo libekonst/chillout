@@ -1,4 +1,5 @@
 /**
+ * Event target: an Element object that is targeted by an event. Event listener: responds to the event with a function.
  * The purpose of this script is to streamline the Event Listener assignment process.
  * Each Element will have its own set of listeners, so we need to refer to it by ID.
  * The intention is to have a single function that accepts a DOM Element ID or array of IDs as a parameter,
