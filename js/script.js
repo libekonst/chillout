@@ -16,35 +16,31 @@
  */
 class ElementAnimationState {
 
-//@ts-check
-
-//Contains methods to be used as event handlers.
-class AnimationTools {
-
     // Creates an object that holds data used by the event handlers.
-    constructor(name = '', hasActiveHover = false) {
-        this.idle = name;
-        this.hover = `${name} ${name}-hover`;
-        this.active = `${name} ${name}-active`;
-        this.activeHover = `${name} ${name}-active-hover`;
+    constructor(element = {}, hasActiveHover = false) {
+        this.idle = element.className;
+        this.hover = `${element.className} ${element.className}-hover`;
+        this.active = `${element.className} ${element.className}-active`;
+        this.activeHover = `${element.className} ${element.className}-active-hover`;
         this.hasActiveHover = hasActiveHover;
     }
+    
 
     // onMouseOver
-    changeToHover(obj = {}) {
-        if (obj.className === this.idle) {
-            obj.className = this.hover;
+    changeToHover(element = {}) {
+        if (element.className === this.idle) {
+            element.className = this.hover;
         } else if (this.hasActiveHover) {
-            obj.className = this.activeHover;
+            element.className = this.activeHover;
         }
     }
 
     // onMouseOut
-    changeToIdle(obj = {}) {
-        if (obj.className === this.hover) {
-            obj.className = this.idle;
+    changeToIdle(element = {}) {
+        if (element.className === this.hover) {
+            element.className = this.idle;
         } else if (this.hasActiveHover) {
-            obj.className = this.active;
+            element.className = this.active;
         }
     }
 
@@ -59,9 +55,9 @@ class AnimationTools {
                     // Fail safe - could just use otherActive[0].
                 }
             }
-            obj.className = this.active;
+            element.className = this.active;
         } else {
-            obj.className = this.hover;
+            element.className = this.hover;
         }
     }
 }
@@ -74,21 +70,23 @@ initializeAnimations(3); // Intentionally throws an error.
 
 // Calls functions that add event listeners to the event target.
 function initializeAnimations(eventTarget) {
-    if (isValidEventTarget(eventTarget) && Array.isArray(eventTarget)) {
-        eventTarget.forEach(addEventListenersToRadio);
-        // Indexes the array of event targets and passes each target as arg to the callback fn.
-    } else if (isValidEventTarget(eventTarget)) {
-        addEventListenersToPlayButton();
+    if (isValidEventTarget(eventTarget)) {
+        if (Array.isArray(eventTarget)) {
+            eventTarget.forEach(addEventListenersToRadio);
+        } else {
+            addEventListenersToPlayButton();
+        }
     }
 }
 
 function addEventListenersToRadio(radioID) {
     const radio = document.getElementById(radioID); // Returns an Element object that exists in the DOM.
-    const radioState = new AnimationTools(radio.className);
+    const radioState = new ElementAnimationState(radio);
     radio.onmousedown = () => {
         radioState.changeToActive(radio);
     };
     radio.onmouseover = () => {
+        console.log(`Did you just mouse over ${radio.id} :O ?`);
         radioState.changeToHover(radio);
     };
     radio.onmouseout = () => {
@@ -103,7 +101,7 @@ function addEventListenersToRadio(radioID) {
 
 function addEventListenersToPlayButton() {
     const playImage = document.getElementById('play-image');
-    const playImageState = new AnimationTools(playImage.className, true);
+    const playImageState = new ElementAnimationState(playImage, true);
     playImage.onmousedown = () => {
         playImageState.changeToActive(playImage);
     };
@@ -118,10 +116,9 @@ function addEventListenersToPlayButton() {
 
 function isValidEventTarget(eventTarget) {
     if (Array.isArray(eventTarget)) {
-        if (eventTarget.every((target) => { 
+        if (eventTarget.every((target) => {
             return typeof target === 'string';
-            // Similar to .forEach() but checks if every array element passes the test.
-            // Test must return Boolean.
+            // Checks if every array element passes the test. Test must return Boolean.
         })) {
             console.log('BINGO: Every array element is of type string.');
             return true;
