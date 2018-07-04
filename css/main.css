@@ -68,20 +68,21 @@ h4 {
 
 
 /* ------------------RADIO SECTIONS------------------ */
-.container-section {
-    display:grid;
-    /* grid-template-columns: 1fr; */
-    grid-gap: 1rem;
+.grid-container {
+    display:flex;
+    flex-direction: column;
     margin-top: 2rem;
-    /* width: 50%; */
+    flex: content;
 }
 
 .radio-item-list{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
-    grid-auto-rows: minmax(150px, 300px);
+    /* grid-template-columns: repeat(auto-fit, 300px); */
+    grid-template-columns: repeat(auto-fill, minmax(300px,max-content));
+    justify-content: center; /* Works right only if one of two above rules are present. */
+    grid-auto-rows: 300px;
     grid-auto-flow: row;
-    grid-gap: 0.8rem;
+    grid-gap: 1rem;
 }
 
 .radio-image {
