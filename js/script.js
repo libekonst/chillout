@@ -1,15 +1,20 @@
 /**
  * The purpose of this script is to streamline the Event Listener assignment process.
+ * Each Element will have its own set of listeners, so we need to refer to it by ID.
  * The intention is to have a single function that accepts a DOM Element ID or array of IDs as a parameter,
- * then assigns the appropriate listeners and functions to the ID (i.e. the event target).
+ * then assigns the appropriate listeners and functions to the target.
  * The fn should complete the assignment based on the target's purpose in the app and its animation complexity.
  */
+//@ts-check
 
 /**
- * The instances of AnimationTools accept a DOM Element's class name as arg and create related data,
- * which is then directly used by the methods. It's a loop that accepts a class name and produces the appropriate functions.
- * Then, the instance is no longer needed.
+ * ElementAnimationState constructor accepts a DOM Element's className as a parameter and creates an object that holds data
+ * related to that Element. We'll refer to this object as "state" object, because it dynamically matches the animation states
+ * with the related className strings for an Element. ElementAnimationState methods accept the DOM Element itself as a parameter,
+ * to provide event handler functions. These functions rely on the "state" object's ability to provide the necessary className strings.
+ * This way, specific event handlers can be dynamically generated for each specific Element's event listeners.
  */
+class ElementAnimationState {
 
 //@ts-check
 
@@ -44,8 +49,8 @@ class AnimationTools {
     }
 
     // onClick
-    changeToActive(obj = {}) {
-        if (obj.className === this.hover || obj.className === this.idle) {
+    changeToActive(element = {}) {
+        if (element.className === this.hover || element.className === this.idle) {
             if (!this.hasActiveHover) {
                 // Change other active items (normally 1) to idle.
                 let otherActive = document.getElementsByClassName(this.active); // HTMLCollection, indexable array-like object.
