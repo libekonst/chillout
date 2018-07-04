@@ -53,11 +53,21 @@ class AnimationTools {
         this.hasActiveHover = hasActiveHover;
     }
     
-    changeToHover(element) {
-        if (obj.className === this.idle) {
-            obj.className = this.hover;
+        // onMouseOver
+    changeToHover(element = {}) {
+        if (element.className === this.idle) {
+            element.className = this.hover;
         } else if (this.hasActiveHover) {
-            obj.className = this.activeHover;
+            element.className = this.activeHover;
+        }
+    }
+
+    // onMouseOut
+    changeToIdle(element = {}) {
+        if (element.className === this.hover) {
+            element.className = this.idle;
+        } else if (this.hasActiveHover) {
+            element.className = this.active;
         }
     }
 }
