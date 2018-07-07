@@ -9,7 +9,7 @@
     display: grid;
     /* grid-template-columns: repeat(auto-fit, 300px); */
     grid-template-columns: repeat(auto-fill, minmax(250px,max-content));
-    justify-content: center; /* Works right only if one of two above rules are present. */
+    justify-content: center; /* Works right only if one of the two rules above are present. */
     grid-auto-rows: 250px;
     grid-auto-flow: row;
     grid-gap: 1rem;
@@ -78,6 +78,23 @@
     transition: all 0.1s ease-out;
 }
 
+.radio-item:hover::after{
+    content: attr(data-name);
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 4px 4px;
+    width: 249px;
+    align-self: center;
+    line-height: 20px;
+    background-color: #289faa;
+}
+
+.radio-item-active:hover::after{
+    content: attr(data-name);
+    background-color: var(--green);
+}
+
 /*
 No border around image for convenience. One padding style works for future child elements. Might also use some gradient 
 */
@@ -105,7 +122,12 @@ No border around image for convenience. One padding style works for future child
 }
 
 
-
+/* h4 {
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    
+} */
 
 /* #play-font::selection{color: none;background-color: none;} */
 
