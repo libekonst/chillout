@@ -78,7 +78,7 @@
     transition: all 0.1s ease-out;
 }
 
-.radio-item:hover::after{
+/* .radio-item:hover::after{
     content: attr(data-name);
     display: inline-block;
     position: absolute;
@@ -88,10 +88,41 @@
     align-self: center;
     line-height: 20px;
     background-color: #289faa;
+} */
+
+.radio-item:hover::after{
+    content: "\f04b";
+    content: "\f16a";
+    content: "\f144";
+    font-family: FontAwesome;
+
+
+    content: "\e037";
+    font-family: "Material Icons";
+
+
+    font-style: normal;
+    font-size: 60px;
+    color: white;
+    background-color: #289faa;
+    border-radius: 50%;
+
+    position: absolute;
+    /* width: 100%;
+    align-self: center;
+    line-height: 250px; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .radio-item-active:hover::after{
-    content: attr(data-name);
+    content: "\f04c";
+    font-family: FontAwesome;
+    
+    content: "\e034";
+    font-family: "Material Icons";
+
     background-color: var(--green);
 }
 
@@ -101,12 +132,12 @@ No border around image for convenience. One padding style works for future child
 
 /* ------Play Font Icon------ */
 
-#icon-wrapper-active {
+/* #icon-wrapper-active {
     transform: translate(-50%, -50%) rotate(180deg);
     transition: 0.35s ease-out;
-}
+} */
 
-#play-icon {
+/* #play-icon {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -114,12 +145,10 @@ No border around image for convenience. One padding style works for future child
     font-size: 65px;
     transition: 0.2s ease-out;
     color: #3bb0bb;
-    /* color: var(--green); */
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     border: 2px solid;
-    /* padding: 2px; */
-}
+} */
 
 
 /* h4 {
