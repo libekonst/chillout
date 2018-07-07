@@ -1,0 +1,112 @@
+.section-row {
+    display:flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    flex: content;
+}
+
+.radio-item-list{
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, 300px); */
+    grid-template-columns: repeat(auto-fill, minmax(250px,max-content));
+    justify-content: center; /* Works right only if one of two above rules are present. */
+    grid-auto-rows: 250px;
+    grid-auto-flow: row;
+    grid-gap: 1rem;
+}
+
+.radio-image {
+    /* Set two background images, the second for the Play image. */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #272833; 
+
+    width: 100%;
+    border-radius: 4px;
+}
+
+#fav1 {
+    background-image: url('http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+}
+#fav2 {
+    background-image: url('http://cdn.e-radio.gr/logos/gr/big/bestradio.png');
+}
+#fav3 {
+    background-image: url('../radio-images/enlefko.png');
+}
+#fav4 {
+    background-image: url('https://www.imagine897.gr/images/folder/logos/mobile-logos/logomobile.png');
+}
+#fav5 {
+    background-image: url('http://cdn.e-radio.gr/logos/gr/big/pepper966.png');
+}
+
+.radio-item {
+    background-color: #2C2E3D; 
+    background-color: #272833;
+    border-radius: 4px;
+    opacity: 0.85;
+    transition:  0.1s ease-in;
+    display: flex;
+    /* justify-content: center; */
+    position: relative;
+    text-align: center;
+    padding: 1px;
+    transition: 0.15s ease-out;
+}
+.radio-item-hover {
+    z-index: 1;
+    cursor: pointer;
+    opacity: 1;
+    background-color: #345b75; 
+    background-color: #289faa; 
+    transform: translateY(-20px) scale(1.07) scaley(1.05);
+    box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
+    transition: 0.15s ease-out;
+}
+
+.radio-item-active {  
+    z-index: 2;
+    cursor: pointer;  
+    opacity: 1;    
+    
+    /* background: #31c88c; */
+    background: var(--green);
+    /* background-image: linear-gradient(to left bottom, #31c88c, #28c692, #20c498, #19c29d, #16c0a2); */
+    transform: translateY(-23px) scale(1.09) scaley(1.07);
+    box-shadow: 0 3px 10px rgba(31, 99, 98, 0.514);
+    transition: all 0.1s ease-out;
+}
+
+/*
+No border around image for convenience. One padding style works for future child elements. Might also use some gradient 
+*/
+
+/* ------Play Font Icon------ */
+
+#icon-wrapper-active {
+    transform: translate(-50%, -50%) rotate(180deg);
+    transition: 0.35s ease-out;
+}
+
+#play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 65px;
+    transition: 0.2s ease-out;
+    color: #3bb0bb;
+    /* color: var(--green); */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    border: 2px solid;
+    /* padding: 2px; */
+}
+
+
+
+
+/* #play-font::selection{color: none;background-color: none;} */
+
+/* #play-font::-moz-selection{color: none;background-color: none;} */

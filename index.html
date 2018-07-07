@@ -7,9 +7,14 @@
     <title>The Chillout App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/radio-item.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/play-button.css" />
+
+    <!-- Icon Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Favicon and app icon support -->
-
     <link rel="apple-touch-icon" sizes="180x180" href="./favicon-package/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-package/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-package/favicon-16x16.png">
@@ -29,104 +34,107 @@
         <h1>A sophisticated radio player</h1>
         <div id="playerWrapper">
             <button id="play">Play!</button>
-            <div id="play-image" class="play-image"></div>
+            <div id="play-button" class="play-button">
+            <div id="icon-wrapper" class="icon-wrapper"></div>
+        </div>
         </div>
 
     </header>
 
     <main>
-
+        <!-- RADIO SECTIONS -->
         <div id="radio-sections-container">
-            <section class="grid-container">
+            <section id="favorite-radios-section" class="section-row">
                 <h2>Favorite Radios</h2>
                 <!-- <h3> reserved for subcategories -->
-                <div class="radio-list-wrapper">
-                    <ul id="favorite-radios-list" class="radio-item-list">
-                        <li id="offradio" class="radio-item">
-                            <div id="fav1" class="radio-image"></div>
-                            <!-- <div class="radio-name-wrapper">
+
+                <ul id="favorite-radios-list" class="radio-item-list">
+                    <li id="offradio" class="radio-item">
+                        <div id="fav1" class="radio-image"></div>
+                        <i id="play-icon" class="material-icons">play_arrow</i>
+
+
+                        <!-- <div class="radio-name-wrapper">
                             <h4>Off Radio</h4>
                         </div> -->
-                        </li>
+                    </li>
 
-                        <li id="best" class="radio-item">
-                            <div id="fav2" class="radio-image"></div>
-                        </li>
+                    <li id="best" class="radio-item">
+                        <div id="fav2" class="radio-image"></div>
+                    </li>
 
-                        <li id="enlefko" class="radio-item">
-                            <div id="fav3" class="radio-image"></div>
-                        </li>
+                    <li id="enlefko" class="radio-item">
+                        <div id="fav3" class="radio-image"></div>
+                    </li>
 
-                        <li id="imagine" class="radio-item">
-                            <div id="fav4" class="radio-image"></div>
-                        </li>
+                    <li id="imagine" class="radio-item">
+                        <div id="fav4" class="radio-image"></div>
+                    </li>
 
-                        <li id="pepper" class="radio-item">
-                            <div id="fav5" class="radio-image"></div>
-                        </li>
+                    <li id="pepper" class="radio-item">
+                        <div id="fav5" class="radio-image"></div>
+                    </li>
 
-                        <li id="test1" class="radio-item">
-                            <div class="radio-image">1</div>
-                        </li>
+                    <li id="test1" class="radio-item">
+                        <div class="radio-image">1</div>
+                    </li>
 
-                        <li id="test2" class="radio-item">
-                            <div class="radio-image">2</div>
-                        </li>
+                    <li id="test2" class="radio-item">
+                        <div class="radio-image">2</div>
+                    </li>
 
-                        <li id="test3" class="radio-item">
-                            <div class="radio-image">3</div>
-                        </li>
+                    <li id="test3" class="radio-item">
+                        <div class="radio-image">3</div>
+                    </li>
 
-                        <li id="test4" class="radio-item">
-                            <div class="radio-image">4</div>
-                        </li>
+                    <li id="test4" class="radio-item">
+                        <div class="radio-image">4</div>
+                    </li>
 
-                        <li id="test5" class="radio-item">
-                            <div class="radio-image">5</div>
-                        </li>
+                    <li id="test5" class="radio-item">
+                        <div class="radio-image">5</div>
+                    </li>
 
-                        <li id="test6" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test7" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test8" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test9" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test10" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test11" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test12" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test13" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test14" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                        <li id="test15" class="radio-item">
-                            <div class="radio-image"></div>
-                        </li>
-                    </ul>
-                </div>
-
+                    <li id="test6" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test7" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test8" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test9" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test10" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test11" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test12" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test13" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test14" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                    <li id="test15" class="radio-item">
+                        <div class="radio-image"></div>
+                    </li>
+                </ul>
             </section>
 
-            <section>
+            <section id="music-radios-section" class="section-row">
                 <h2>Music Radios</h2>
                 <ul id="musicRadios" class="radioWrapper radioContainer row">
                 </ul>
             </section>
 
-            <section>
+            <section id="news-radios-section" class="section-row">
                 <h2>News Radios</h2>
                 <ul id="newsRadios" class="radioWrapper radioContainer row">
                 </ul>
@@ -134,12 +142,15 @@
         </div>
 
         <aside>
-            Aside
+            Aside floating button.
         </aside>
     </main>
 
-    <footer> Footer </footer>
-    <script src="./js/script.js"></script>
+    <footer>
+        Find the source code on 
+        <a href="https://github.com/KostasLib/chillout" target="_blance"><i class="fa fa-github"></i>Github!</a>
+    </footer>
+    <script src="./js/animate.js"></script>
 
 </body>
 
