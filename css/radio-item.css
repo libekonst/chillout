@@ -45,7 +45,7 @@
     background-color: #2C2E3D; 
     background-color: #272833;
     border-radius: 4px;
-    opacity: 0.85;
+    opacity: 0.9;
     transition:  0.1s ease-in;
     display: flex;
     /* justify-content: center; */
@@ -54,6 +54,7 @@
     padding: 1px;
     transition: 0.15s ease-out;
 }
+
 .radio-item-hover {
     z-index: 1;
     cursor: pointer;
@@ -108,12 +109,27 @@
     border-radius: 50%;
 
     position: absolute;
-    /* width: 100%;
-    align-self: center;
-    line-height: 250px; */
+    
+    /* Positions on center. */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.radio-item:hover::after {
+    content: "\e038";
+    font-family: "Material Icons";
+
+    color: #289faa;
+    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 1px;
+
+    width: 249px;
+    align-self: center;
+    line-height: 245px;
+    margin: 1px;
 }
 
 .radio-item-active:hover::after{
@@ -123,7 +139,10 @@
     content: "\e034";
     font-family: "Material Icons";
 
-    background-color: var(--green);
+    color: var(--green);
+    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(0, 0, 0, 0.1);
+
 }
 
 /*
@@ -157,6 +176,9 @@ No border around image for convenience. One padding style works for future child
     position: absolute;
     
 } */
+
+
+/* MOBILE: Make a radio item hover when the user scrolls far enough to get the radio item at the top of the screen. If hovered, the play button activates that item. */
 
 /* #play-font::selection{color: none;background-color: none;} */
 

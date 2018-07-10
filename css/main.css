@@ -17,7 +17,7 @@
 
 *::-moz-selection{
     color:var(--green);
-    background-color: var(--red);
+    /* background-color: var(--orange); */
 }
 
 :root {
@@ -50,13 +50,14 @@ h1 {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
 a {
     text-decoration-color: var(--green);
 }
 a:hover{
-    /* background-color: white; */
     color: var(--green);
 }
+
 
 
 h2 {
