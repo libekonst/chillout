@@ -75,9 +75,11 @@
     background: var(--green);
     /* background-image: linear-gradient(to left bottom, #31c88c, #28c692, #20c498, #19c29d, #16c0a2); */
     transform: translateY(-23px) scale(1.09) scaley(1.07);
-    box-shadow: 0 3px 10px rgba(31, 99, 98, 0.514);
+    box-shadow: 0 1px 8px rgba(31, 99, 98, 0.514);
     transition: all 0.1s ease-out;
 }
+
+
 
 /* .radio-item:hover::after{
     content: attr(data-name);
@@ -116,13 +118,13 @@
     transform: translate(-50%, -50%);
 }
 
-.radio-item:hover::after {
+.-radio-item:hover::after {
     content: "\e038";
     font-family: "Material Icons";
 
     color: #289faa;
     background-color: rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
     padding: 1px;
 
@@ -143,6 +145,10 @@
     background-color: rgba(255, 255, 255, 0.08);
     background-color: rgba(0, 0, 0, 0.1);
 
+    width: 249px;
+    align-self: center;
+    line-height: 245px;
+    margin: 1px;
 }
 
 /*

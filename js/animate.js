@@ -38,7 +38,7 @@ class Animate {
             let otherActive = document.getElementsByClassName(myClass + '-active');
 
             for (let i = 0; i < otherActive.length; i++) {
-                // otherActive[i].classList.remove(`${myClass}-hover`);
+                otherActive[i].classList.remove(`${myClass}-hover`);
                 otherActive[i].classList.remove(`${myClass}-active`); // Na rotiso alex giati den piani to anapodo.
             }
         }
@@ -116,17 +116,14 @@ function assignListenersToPlayButton() {
 // TEMP
 function togglePlayButton() {
     const playButton = document.getElementById('play-button');
-    let playIcon = document.getElementById('play-icon');
     let iconWrapper = document.getElementById('icon-wrapper');
 
-    if (!playButton.classList.contains('play-button-active')) {
-        playButton.classList.add('play-button-active');
-        iconWrapper.classList.add('icon-wrapper-active');
-        playIcon.innerHTML = 'pause';
-    } else {
+    if (playButton.classList.contains('play-button-active')) {
         playButton.classList.remove('play-button-active');
         iconWrapper.classList.remove('icon-wrapper-active');
-        playIcon.innerHTML = 'play_arrow';
+    } else {
+        playButton.classList.add('play-button-active');
+        iconWrapper.classList.add('icon-wrapper-active');
     }
 }
 
