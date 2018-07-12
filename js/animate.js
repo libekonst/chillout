@@ -21,7 +21,6 @@ class Animate {
         // }
     }
 
-
     // onClick
     static makeActive(element = {}) {
         let myClasslist = element.classList;
@@ -44,10 +43,12 @@ class Animate {
         }
         myClasslist.toggle(`${myClass}-active`);
 
-    }    
+    }
 }
 
-const eventTargets = [{
+
+const eventTargets = [
+    {
         type: 'radio',
         baseClass: 'radio-item'
     },
@@ -101,6 +102,8 @@ function assignListenersToRadio(radioID) {
 
 function assignListenersToPlayButton() {
     const playButton = document.getElementById('play-button');
+
+    
     playButton.addEventListener('mousedown', function () {
         Animate.makeActive(playButton);
         togglePlayButton();

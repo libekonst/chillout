@@ -81,18 +81,6 @@
 
 
 
-/* .radio-item:hover::after{
-    content: attr(data-name);
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
-    border-radius: 0 0 4px 4px;
-    width: 249px;
-    align-self: center;
-    line-height: 20px;
-    background-color: #289faa;
-} */
-
 .radio-item:hover::after{
     content: "\f04b";
     content: "\f16a";
@@ -118,6 +106,8 @@
     transform: translate(-50%, -50%);
 }
 
+
+/* ------Play Icon Font------ */
 .-radio-item:hover::after {
     content: "\e038";
     font-family: "Material Icons";
@@ -145,43 +135,22 @@
     background-color: rgba(255, 255, 255, 0.08);
     background-color: rgba(0, 0, 0, 0.1);
 
+    margin: 1px;
+    border-radius: 4px;
+
+
     width: 249px;
     align-self: center;
-    line-height: 245px;
-    margin: 1px;
+    line-height: 250px;
 }
 
 /*
 No border around image for convenience. One padding style works for future child elements. Might also use some gradient 
 */
 
-/* ------Play Font Icon------ */
-
-/* #icon-wrapper-active {
-    transform: translate(-50%, -50%) rotate(180deg);
-    transition: 0.35s ease-out;
-} */
-
-/* #play-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 65px;
-    transition: 0.2s ease-out;
-    color: #3bb0bb;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    border: 2px solid;
-} */
 
 
-/* h4 {
-    display: inline-block;
-    width: 100%;
-    position: absolute;
-    
-} */
+
 
 
 /* MOBILE: Make a radio item hover when the user scrolls far enough to get the radio item at the top of the screen. If hovered, the play button activates that item. */
