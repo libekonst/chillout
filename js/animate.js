@@ -2,25 +2,6 @@
 
 // Contains static methods that are used as Event Handlers responsible for the animations.
 class Animate {
-
-    // onMouseOver
-    static makeHover(element = {}) {
-        let item = element.classList.item(0);
-
-        element.classList.add(`${item}-hover`);
-        // if (!element.classList.contains(`${item}-active`)) {
-        // }
-    }
-
-    // onMouseOut
-    static makeIdle(element = {}) {
-        let item = element.classList.item(0);
-
-        element.classList.remove(`${item}-hover`);
-        // if (!element.classList.contains(`${item}-active`)) {
-        // }
-    }
-
     // onClick
     static makeActive(element = {}) {
         let myClasslist = element.classList;
@@ -40,22 +21,40 @@ class Animate {
                 otherActive[i].classList.remove(`${myClass}-hover`);
                 otherActive[i].classList.remove(`${myClass}-active`); // Na rotiso alex giati den piani to anapodo.
             }
+            Animate.makeButtonActive();
+        } else {
+            Animate.makeButtonIdle();
         }
         myClasslist.toggle(`${myClass}-active`);
 
     }
+
+    static makeButtonActive() {
+        let playButton = document.getElementById('play-button');
+        let buttonWrapper = document.getElementById('play-button-wrapper');
+    
+        playButton.classList.add('play-button-active');
+        buttonWrapper.classList.add('play-button-wrapper-active');
+    }
+    
+    static makeButtonIdle() {
+        let playButton = document.getElementById('play-button');
+        let buttonWrapper = document.getElementById('play-button-wrapper');
+    
+        playButton.classList.remove('play-button-active');
+        buttonWrapper.classList.remove('play-button-wrapper-active');
+    }
 }
 
 
-const eventTargets = [
-    {
-        type: 'radio',
-        baseClass: 'radio-item'
-    },
-    {
-        type: 'play',
-        baseClass: 'play-button'
-    }
+const eventTargets = [{
+    type: 'radio',
+    baseClass: 'radio-item'
+},
+{
+    type: 'play',
+    baseClass: 'play-button'
+}
 ];
 
 
@@ -72,17 +71,15 @@ function populateArray() {
 }
 
 assignEventListeners(radioIDs);
-assignEventListeners('play-button');
-assignEventListeners(3); // Intentionally throws an error.
+assignListenersToPlayButton();
+assignEventListeners([1,2]); // Intentionally throws an error.
 
 // Calls functions that add event listeners to the event target.
-function assignEventListeners(eventTarget) {
-    if (isValid(eventTarget)) {
-        if (Array.isArray(eventTarget)) {
-            eventTarget.forEach(assignListenersToRadio);
-        }
+function assignEventListeners(target) {
+    if (Array.isArray(target) && target.every(target => typeof target === 'string')) {
+        target.forEach(assignListenersToRadio);
     } else {
-        assignListenersToPlayButton();
+        console.error('Parameter must be an array of strings');
     }
 }
 
@@ -90,72 +87,17 @@ function assignEventListeners(eventTarget) {
 function assignListenersToRadio(radioID) {
     const radio = document.getElementById(radioID);
 
-    radio.addEventListener('mousedown', () => {
-        Animate.makeActive(radio);
-        togglePlayButton();
-    });
-    radio.addEventListener('mouseover', () => Animate.makeHover(radio));
-    radio.addEventListener('mouseout', () => Animate.makeIdle(radio));
+    radio.addEventListener('mousedown', () => Animate.makeActive(radio));
 }
-
-
 
 function assignListenersToPlayButton() {
     const playButton = document.getElementById('play-button');
 
-    
     playButton.addEventListener('mousedown', function () {
-        Animate.makeActive(playButton);
-        togglePlayButton();
-
+        if (playButton.classList.contains('play-button-active')) {
+            let activeRadio = document.querySelector('.radio-item.radio-item-active');
+            activeRadio.classList.remove('radio-item-active');
+            Animate.makeButtonIdle();
+        }
     });
-    playButton.addEventListener('mouseover', () => Animate.makeHover(playButton));
-    playButton.addEventListener('mouseout', () => Animate.makeIdle(playButton));
-
-    // TODO: Add active-hover.
-    // TODO: Make fn universal for all single string IDs, not play-button specific.
 }
-
-// TEMP
-function togglePlayButton() {
-    const playButton = document.getElementById('play-button');
-    let iconWrapper = document.getElementById('icon-wrapper');
-
-    if (playButton.classList.contains('play-button-active')) {
-        playButton.classList.remove('play-button-active');
-        iconWrapper.classList.remove('icon-wrapper-active');
-    } else {
-        playButton.classList.add('play-button-active');
-        iconWrapper.classList.add('icon-wrapper-active');
-    }
-}
-
-
-function isValid(eventTarget) {
-    if (Array.isArray(eventTarget)) {
-        // Checks if every array element passes the test. Test must return Boolean.
-        console.log('ii is an Array');
-        return eventTarget.every(target => typeof target === 'string');
-    } else if (typeof eventTarget === 'string') {
-        console.log('it is a String');
-        return true;
-    } else {
-        console.error('Parameter must be string or array of strings.');
-        return false;
-    }
-}
-// function isValid(eventTarget) {
-//     if (Array.isArray(eventTarget)) {
-//         // Checks if every array element passes the test. Test must return Boolean.
-//         if (eventTarget.every(target => typeof target === 'string')) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     } else if (typeof eventTarget === 'string') {
-//         return true;
-//     } else {
-//         console.error('Parameter must be string or array of strings.');
-//         return false;
-//     }
-// }

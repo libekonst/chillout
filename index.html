@@ -32,12 +32,11 @@
         <img id="logo" src="./assets/logo-green.png" alt="">
         <!-- <img class="logo" src="/assets/logo-blue.png" width="940" height="550" alt=""> -->
         <h1>A sophisticated radio player</h1>
-        <div id="playerWrapper">
-            <button id="play">Play!</button>
-            <div id="play-button" class="play-button">
-                <div id="icon-wrapper" class="icon-wrapper"></div>
-            </div>
-        </div>
+        <iv id="playerWrapper">
+            <div id="play-button-wrapper" class="play-button-wrapper">
+                <div id="play-button" class="play-button" data-state="idle"></div>
+            </iv>
+        </iv>
 
     </header>
 
@@ -49,7 +48,8 @@
                 <!-- <h3> reserved for subcategories -->
 
                 <ul id="favorite-radios-list" class="radio-item-list">
-                    <li id="offradio" class="radio-item" data-name="Off-Radio">
+                    
+                    <li id="offradio" class="radio-item" data-name="Off-Radio" data-state="idle">
                         <div id="fav1" class="radio-image" ></div>
 
 
@@ -58,27 +58,27 @@
                         <!-- </div> -->
                     </li>
 
-                    <li id="best" class="radio-item" data-name="Best 92.6">
+                    <li id="best" class="radio-item" data-name="Best 92.6" data-state="idle">
                         <div id="fav2" class="radio-image"></div>
                     </li>
 
-                    <li id="enlefko" class="radio-item" data-name="En Lefko 87.7">
+                    <li id="enlefko" class="radio-item" data-name="En Lefko 87.7" data-state="idle">
                         <div id="fav3" class="radio-image"></div>
                     </li>
 
-                    <li id="imagine" class="radio-item" data-name="Imagine 89.7">
+                    <li id="imagine" class="radio-item" data-name="Imagine 89.7" data-state="idle">
                         <div id="fav4" class="radio-image"></div>
                     </li>
 
-                    <li id="pepper" class="radio-item" data-name="Pepper 96.6">
+                    <li id="pepper" class="radio-item" data-name="Pepper 96.6" data-state="idle">
                         <div id="fav5" class="radio-image"></div>
                     </li>
 
-                    <li id="test1" class="radio-item">
+                    <li id="test1" class="radio-item" data-state="idle">
                         <div class="radio-image">1</div>
                     </li>
 
-                    <li id="test2" class="radio-item">
+                    <li id="test2" class="radio-item" data-state="idle">
                         <div class="radio-image">2</div>
                     </li>
 
@@ -138,7 +138,7 @@
                 <ul id="newsRadios" class="radioWrapper radioContainer row">
                 </ul>
             </section>
-        </div>
+        </v>
 
         <aside>
             Aside floating button.
@@ -151,6 +151,7 @@
     </footer>
 
     <script src="./js/animate.js"></script>
+    <script src="./js/player.js"></script>
 
 </body>
 

@@ -16,7 +16,6 @@
 }
 
 .radio-image {
-    /* Set two background images, the second for the Play image. */
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #272833; 
@@ -52,17 +51,17 @@
     position: relative;
     text-align: center;
     padding: 1px;
-    transition: 0.15s ease-out;
+    transition: 0.2s ease-out;
 }
 
-.radio-item-hover {
+.radio-item:hover {
     z-index: 1;
     cursor: pointer;
     opacity: 1;
     background-color: #345b75; 
     background-color: #289faa; 
     transform: translateY(-20px) scale(1.07) scaley(1.05);
-    box-shadow: 0 5px 10px rgba(8, 8, 8, 0.377);
+    box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.5);
     transition: 0.15s ease-out;
 }
 
@@ -71,85 +70,62 @@
     cursor: pointer;  
     opacity: 1;    
     
-    /* background: #31c88c; */
     background: var(--green);
-    /* background-image: linear-gradient(to left bottom, #31c88c, #28c692, #20c498, #19c29d, #16c0a2); */
+    box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.6);
+
     transform: translateY(-23px) scale(1.09) scaley(1.07);
-    box-shadow: 0 1px 8px rgba(31, 99, 98, 0.514);
+    transition: all 0.2s ease-out;
+}
+
+.radio-item-active:hover{
+    background: var(--green);
+    box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
+
+    transform: translateY(-23px) scale(1.09) scaley(1.07);
     transition: all 0.1s ease-out;
 }
 
 
-
+/* ------Play Icon Font------ */
 .radio-item:hover::after{
-    content: "\f04b";
-    content: "\f16a";
-    content: "\f144";
-    font-family: FontAwesome;
-
-
     content: "\e037";
     font-family: "Material Icons";
-
-
     font-style: normal;
     font-size: 60px;
+
+    
     color: white;
+    background-color: rgba(255, 255, 255, 0.05); 
     background-color: #289faa;
     border-radius: 50%;
 
     position: absolute;
-    
-    /* Positions on center. */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-
-/* ------Play Icon Font------ */
-.-radio-item:hover::after {
-    content: "\e038";
-    font-family: "Material Icons";
-
-    color: #289faa;
-    background-color: rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    padding: 1px;
-
-    width: 249px;
-    align-self: center;
-    line-height: 245px;
-    margin: 1px;
+    
 }
 
 .radio-item-active:hover::after{
-    content: "\f04c";
-    font-family: FontAwesome;
-    
     content: "\e034";
     font-family: "Material Icons";
+    font-style: normal;
+    font-size: 60px;
 
     color: var(--green);
-    background-color: rgba(255, 255, 255, 0.08);
-    background-color: rgba(0, 0, 0, 0.1);
-
-    margin: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
 
-
-    width: 249px;
+    position: absolute;
+    width: 250px;
     align-self: center;
     line-height: 250px;
+    
 }
 
 /*
 No border around image for convenience. One padding style works for future child elements. Might also use some gradient 
 */
-
-
-
 
 
 
