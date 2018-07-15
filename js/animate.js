@@ -3,6 +3,7 @@
 class Animate {
 
     // Accepts an element, finds its type and returns the appropriate Event Handler.
+    // This fn consumes all the other methods.
     static makeActive(element = {}) {
         let myClass = element.classList.item(0);
         const type = eventTargets.find(object => object.baseClass === myClass).type;
@@ -12,9 +13,11 @@ class Animate {
         //     Animate.makeRadioActive;
         // }
 
+        // Should this method check if the passed parameter isValid ?
         // let assigner = type => type === 'radio' ? Animate.makeRadioActive : type === 'play' ? Animate.makeButtonActive;
         // assigner(type);
 
+        // Try to deactivate other similar items first.
         if (document.getElementsByClassName(myClass + '-active').length > 0) {
             Animate.killOtherActive(element);
         }
