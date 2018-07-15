@@ -1,46 +1,62 @@
 //@ts-check
-
-// Contains static methods that are used as Event Handlers responsible for the animations.
+// Contains helper functions used to determine the appropriate Event Handler.
 class Animate {
-    // onClick
+
+    // Accepts an element, finds its type and returns the appropriate Event Handler.
     static makeActive(element = {}) {
-        let myClasslist = element.classList;
         let myClass = element.classList.item(0);
-
-
         const type = eventTargets.find(object => object.baseClass === myClass).type;
-
         console.log(type);
 
+        // if (type === 'radio'){
+        //     Animate.makeRadioActive;
+        // }
 
-        // Deactivate other active radios first.
-        if (!myClasslist.contains(myClass + '-active')) {
-            let otherActive = document.getElementsByClassName(myClass + '-active');
+        // let assigner = type => type === 'radio' ? Animate.makeRadioActive : type === 'play' ? Animate.makeButtonActive;
+        // assigner(type);
 
-            for (let i = 0; i < otherActive.length; i++) {
-                otherActive[i].classList.remove(`${myClass}-hover`);
-                otherActive[i].classList.remove(`${myClass}-active`); // Na rotiso alex giati den piani to anapodo.
-            }
+        if (document.getElementsByClassName(myClass + '-active').length > 0) {
+            Animate.killOtherActive(element);
+        }
+    }
+
+    static makeRadioActive(radioID = '') {
+        let radio = document.getElementById(radioID);
+
+        if (!radio.classList.contains('radio-item-active')) {
+            radio.classList.add('radio-item-active');
             Animate.makeButtonActive();
         } else {
+            radio.classList.remove('radio-item-active');
             Animate.makeButtonIdle();
         }
-        myClasslist.toggle(`${myClass}-active`);
+    }
 
+    // Deactivates other items of the same type.
+    static killOtherActive(element = {}) {
+        let myClassList = element.classList;
+        let myClass = element.classList.item(0);
+
+        if (!myClassList.contains(myClass + '-active')) {
+            let otherActive = document.getElementsByClassName(myClass + '-active');
+            for (let i = 0; i < otherActive.length; i++) {
+                otherActive[i].classList.remove(myClass + '-active');
+            }
+        }
     }
 
     static makeButtonActive() {
         let playButton = document.getElementById('play-button');
         let buttonWrapper = document.getElementById('play-button-wrapper');
-    
+
         playButton.classList.add('play-button-active');
         buttonWrapper.classList.add('play-button-wrapper-active');
     }
-    
+
     static makeButtonIdle() {
         let playButton = document.getElementById('play-button');
         let buttonWrapper = document.getElementById('play-button-wrapper');
-    
+
         playButton.classList.remove('play-button-active');
         buttonWrapper.classList.remove('play-button-wrapper-active');
     }
@@ -64,6 +80,7 @@ let radioIDs = populateArray();
 function populateArray() {
     let radioItems = document.getElementsByClassName('radio-item');
     let array = [];
+
     for (let i = 0; i < radioItems.length; i++) {
         array.push(radioItems[i].id);
     }
@@ -72,12 +89,12 @@ function populateArray() {
 
 assignEventListeners(radioIDs);
 assignListenersToPlayButton();
-assignEventListeners([1,2]); // Intentionally throws an error.
+assignEventListeners([1, 2]); // Intentionally throws an error.
 
 // Calls functions that add event listeners to the event target.
-function assignEventListeners(target) {
-    if (Array.isArray(target) && target.every(target => typeof target === 'string')) {
-        target.forEach(assignListenersToRadio);
+function assignEventListeners(arrayOfTargets) {
+    if (Array.isArray(arrayOfTargets) && arrayOfTargets.every(target => typeof target === 'string')) {
+        arrayOfTargets.forEach(assignListenersToRadio);
     } else {
         console.error('Parameter must be an array of strings');
     }
