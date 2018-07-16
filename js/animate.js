@@ -13,14 +13,17 @@ class Animate {
         //     Animate.makeRadioActive;
         // }
 
-        // Should this method check if the passed parameter isValid ?
-        // let assigner = type => type === 'radio' ? Animate.makeRadioActive : type === 'play' ? Animate.makeButtonActive;
-        // assigner(type);
-
         // Try to deactivate other similar items first.
         if (document.getElementsByClassName(myClass + '-active').length > 0) {
             Animate.killOtherActive(element);
         }
+
+        // let assigner = type => type === 'radio' ? Animate.makeRadioActive : type === 'play' ? Animate.makeButtonActive;
+        // assigner(type);
+
+
+
+
     }
 
     static makeRadioActive(radioID = '') {
@@ -90,12 +93,24 @@ function populateArray() {
     return array;
 }
 
-assignEventListeners(radioIDs);
 assignListenersToPlayButton();
-assignEventListeners([1, 2]); // Intentionally throws an error.
+assignEvHandlersToRadios(radioIDs);
+assignEvHandlersToRadios([1, 2]); // Intentionally throws an error.
 
-// Calls functions that add event listeners to the event target.
-function assignEventListeners(arrayOfTargets) {
+// Adds Event Handlers to each radio item in the DOM.
+function assignEvHandlersToRadios(arrayOfTargets) {
+    let isValidTarget = arrayOfTargets => Array.isArray(arrayOfTargets) ?
+        arrayOfTargets.every(target => typeof target === 'string') : false;
+
+    if (!isValidTarget) {
+        console.error('Parameter must be an array of radioIDs as strings');
+    } else {
+        arrayOfTargets.forEach(assignListenersToRadio);
+    }
+}
+
+// Old version
+function assignEvHandlersToRadiosOld(arrayOfTargets) {
     if (Array.isArray(arrayOfTargets) && arrayOfTargets.every(target => typeof target === 'string')) {
         arrayOfTargets.forEach(assignListenersToRadio);
     } else {
@@ -103,6 +118,17 @@ function assignEventListeners(arrayOfTargets) {
     }
 }
 
+
+// For reference only. Use isValidTarget shorthand instead.
+let isValid = function (arrayOfTargets) {
+    if (Array.isArray(arrayOfTargets)) {
+        return arrayOfTargets.every(function (target) {
+            return typeof target === 'string';
+        });
+    } else {
+        return false;
+    }
+};
 
 function assignListenersToRadio(radioID) {
     const radio = document.getElementById(radioID);
