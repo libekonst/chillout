@@ -9,21 +9,17 @@ class Animate {
         const type = eventTargets.find(object => object.baseClass === myClass).type;
         console.log(type);
 
-        // if (type === 'radio'){
-        //     Animate.makeRadioActive;
-        // }
-
-        // Try to deactivate other similar items first.
+        // Try to deactivate other similar items first. Might merge the if with killOtherActive()
         if (document.getElementsByClassName(myClass + '-active').length > 0) {
             Animate.killOtherActive(element);
         }
 
+        // if (type === 'radio'){
+        //     Animate.makeRadioActive;
+        // }
+
         // let assigner = type => type === 'radio' ? Animate.makeRadioActive : type === 'play' ? Animate.makeButtonActive;
         // assigner(type);
-
-
-
-
     }
 
     static makeRadioActive(radioID = '') {
@@ -93,7 +89,6 @@ function populateArray() {
     return array;
 }
 
-assignListenersToPlayButton();
 assignEvHandlersToRadios(radioIDs);
 assignEvHandlersToRadios([1, 2]); // Intentionally throws an error.
 
@@ -102,6 +97,7 @@ function assignEvHandlersToRadios(arrayOfTargets) {
     let isValidTarget = arrayOfTargets => Array.isArray(arrayOfTargets) ?
         arrayOfTargets.every(target => typeof target === 'string') : false;
 
+    // Error first as per Nodejs guidelines.
     if (!isValidTarget) {
         console.error('Parameter must be an array of radioIDs as strings');
     } else {
@@ -135,6 +131,9 @@ function assignListenersToRadio(radioID) {
 
     radio.addEventListener('mousedown', () => Animate.makeActive(radio));
 }
+
+
+assignListenersToPlayButton();
 
 function assignListenersToPlayButton() {
     const playButton = document.getElementById('play-button');
