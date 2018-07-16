@@ -64,7 +64,6 @@ class Animate {
     }
 }
 
-
 const eventTargets = [{
     type: 'radio',
     baseClass: 'radio-item'
@@ -76,6 +75,7 @@ const eventTargets = [{
 ];
 
 
+/* ----RADIO ITEM FUNCTIONS---- */
 let radioIDs = populateArray();
 
 // Returns an array of all the radio IDs loaded in the DOM.
@@ -86,25 +86,31 @@ function populateArray() {
     for (let i = 0; i < radioItems.length; i++) {
         array.push(radioItems[i].id);
     }
+
     return array;
 }
 
 assignEvHandlersToRadios(radioIDs);
 assignEvHandlersToRadios([1, 2]); // Intentionally throws an error.
 
-// Adds Event Handlers to each radio item in the DOM.
 function assignEvHandlersToRadios(arrayOfTargets) {
     let isValidTarget = arrayOfTargets => Array.isArray(arrayOfTargets) ?
         arrayOfTargets.every(target => typeof target === 'string') : false;
 
-    // Error first as per Nodejs guidelines.
     if (!isValidTarget) {
-        console.error('Parameter must be an array of radioIDs as strings');
+        console.error('Parameter must be an array of radioID strings');
     } else {
         arrayOfTargets.forEach(assignListenersToRadio);
     }
 }
 
+function assignListenersToRadio(radioID) {
+    const radio = document.getElementById(radioID);
+    radio.addEventListener('mousedown', () => Animate.makeActive(radio));
+}
+
+
+/* ----REFERENCE---- */
 // Old version
 function assignEvHandlersToRadiosOld(arrayOfTargets) {
     if (Array.isArray(arrayOfTargets) && arrayOfTargets.every(target => typeof target === 'string')) {
@@ -113,7 +119,6 @@ function assignEvHandlersToRadiosOld(arrayOfTargets) {
         console.error('Parameter must be an array of strings');
     }
 }
-
 
 // For reference only. Use isValidTarget shorthand instead.
 let isValid = function (arrayOfTargets) {
@@ -125,12 +130,7 @@ let isValid = function (arrayOfTargets) {
         return false;
     }
 };
-
-function assignListenersToRadio(radioID) {
-    const radio = document.getElementById(radioID);
-
-    radio.addEventListener('mousedown', () => Animate.makeActive(radio));
-}
+/* ----END OF REFERENCE---- */
 
 
 assignListenersToPlayButton();
