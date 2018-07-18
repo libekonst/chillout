@@ -76,12 +76,12 @@ const eventTargets = [{
 
 
 /* ----RADIO ITEM FUNCTIONS---- */
-const radioIDs = getElementsAttrByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
-let testArr = getElementsAttrByClassName('test-class', 'test-attr'); //Throws an error
-let testArr2 = getElementsAttrByClassName('radio-item', 'test-attr'); //Throws an error
+const radioIDs = getAttributeByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
+let testArr = getAttributeByClassName('test-class', 'test-attr'); //Throws an error
+let testArr2 = getAttributeByClassName('radio-item', 'test-attr'); //Throws an error
 
-// Returns an array of each element's requested attribute 
-function getElementsAttrByClassName(className = '', attr = '') {
+// Returns an array of each element's requested attribute. Elements found by className.
+function getAttributeByClassName(className = '', attr = '') {
     const radioCollection = document.getElementsByClassName(className);
     let arrayOfAttributes = [];
         
@@ -96,7 +96,7 @@ function getElementsAttrByClassName(className = '', attr = '') {
             }
         }
     }
-    
+
     return arrayOfAttributes;
 }
 
