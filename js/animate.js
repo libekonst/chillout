@@ -76,18 +76,28 @@ const eventTargets = [{
 
 
 /* ----RADIO ITEM FUNCTIONS---- */
-let radioIDs = populateArray();
+const radioIDs = getElementsAttrByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
+let testArr = getElementsAttrByClassName('test-class', 'test-attr'); //Throws an error
+let testArr2 = getElementsAttrByClassName('radio-item', 'test-attr'); //Throws an error
 
-// Returns an array of all the radio IDs loaded in the DOM.
-function populateArray() {
-    let radioItems = document.getElementsByClassName('radio-item');
-    let array = [];
-
-    for (let i = 0; i < radioItems.length; i++) {
-        array.push(radioItems[i].id);
+// Returns an array of each element's requested attribute 
+function getElementsAttrByClassName(className = '', attr = '') {
+    const radioCollection = document.getElementsByClassName(className);
+    let arrayOfAttributes = [];
+        
+    if (radioCollection.length < 1) {
+        console.error(`No elements of class '${className}' found.`);
+    } else {
+        for (let i = 0; i < radioCollection.length; i++) {
+            if (!radioCollection[i].hasAttribute(attr)) {
+                console.error(`No ${attr} assigned to this element.`);
+            } else {
+                arrayOfAttributes.push(radioCollection[i].getAttribute(attr));
+            }
+        }
     }
-
-    return array;
+    
+    return arrayOfAttributes;
 }
 
 assignEvHandlersToRadios(radioIDs);
@@ -109,30 +119,7 @@ function assignListenersToRadio(radioID) {
     radio.addEventListener('mousedown', () => Animate.makeActive(radio));
 }
 
-
-/* ----REFERENCE---- */
-// Old version
-function assignEvHandlersToRadiosOld(arrayOfTargets) {
-    if (Array.isArray(arrayOfTargets) && arrayOfTargets.every(target => typeof target === 'string')) {
-        arrayOfTargets.forEach(assignListenersToRadio);
-    } else {
-        console.error('Parameter must be an array of strings');
-    }
-}
-
-// For reference only. Use isValidTarget shorthand instead.
-let isValid = function (arrayOfTargets) {
-    if (Array.isArray(arrayOfTargets)) {
-        return arrayOfTargets.every(function (target) {
-            return typeof target === 'string';
-        });
-    } else {
-        return false;
-    }
-};
-/* ----END OF REFERENCE---- */
-
-
+/* ----PLAY BUTTON FUNCTIONS---- */
 assignListenersToPlayButton();
 
 function assignListenersToPlayButton() {
