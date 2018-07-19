@@ -8,13 +8,15 @@
     color: rgb(255, 255, 255);
     -webkit-tap-highlight-color: transparent; /*Chrome on Android, Brave.*/
     -webkit-touch-callout: none;
-    /*-webkit-user-select: none;
+    /* -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; 
     Those break desktop too. */
 }
-
+*::selection{
+    color: var(--green)
+}
 *::-moz-selection{
     color:var(--green);
     /* background-color: var(--orange); */

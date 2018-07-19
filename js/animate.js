@@ -1,18 +1,12 @@
 //@ts-check
-// Contains helper functions used to determine the appropriate Event Handler.
+// Contains static methods, used as Event Handlers.
 class Animate {
 
-    // Accepts an element, finds its type and returns the appropriate Event Handler.
-    // This fn consumes all the other methods.
+    // Assigns the appropriate Event Handlers to an element, based on its type.
     static makeActive(element = {}) {
         let myClass = element.classList.item(0);
         const type = eventTargets.find(object => object.baseClass === myClass).type;
         console.log(type);
-
-        // Try to deactivate other similar items first. Might merge the if with killOtherActive()
-        if (document.getElementsByClassName(myClass + '-active').length > 0) {
-            Animate.killOtherActive(element);
-        }
 
         // if (type === 'radio'){
         //     Animate.makeRadioActive;
@@ -26,6 +20,7 @@ class Animate {
         let radio = document.getElementById(radioID);
 
         if (!radio.classList.contains('radio-item-active')) {
+            Animate.killOtherActive(radio);
             radio.classList.add('radio-item-active');
             Animate.makeButtonActive();
         } else {
@@ -39,10 +34,10 @@ class Animate {
         let myClassList = element.classList;
         let myClass = element.classList.item(0);
 
-        if (!myClassList.contains(myClass + '-active')) {
-            let otherActive = document.getElementsByClassName(myClass + '-active');
+        if (!myClassList.contains(`${myClass}-active`)) {
+            let otherActive = document.getElementsByClassName(`${myClass}-active`);
             for (let i = 0; i < otherActive.length; i++) {
-                otherActive[i].classList.remove(myClass + '-active');
+                otherActive[i].classList.remove(`${myClass}-active`);
             }
         }
     }
@@ -114,9 +109,9 @@ function assignEvHandlersToRadios(arrayOfTargets) {
     }
 }
 
-function assignListenersToRadio(radioID) {
+function assignListenersToRadio(radioID = '') {
     const radio = document.getElementById(radioID);
-    radio.addEventListener('mousedown', () => Animate.makeActive(radio));
+    radio.addEventListener('mousedown', () => Animate.makeRadioActive(radioID));
 }
 
 /* ----PLAY BUTTON FUNCTIONS---- */

@@ -15,6 +15,9 @@ const radioSources = [
     {name: 'offradio', source: 'http://46.28.53.118:7062/stream?1529011397134'},
     {name: 'enlefko', source: 'http://stream.radiojar.com/enlefko877'},
     {name: 'parapolitika', source: 'http://netradio.live24.gr/athinaradio'},
+    {name: 'best', source: 'http://best.live24.gr:80/best1222'},
+    {name: 'imagine', source: 'http://37.59.32.115:6224/stream'},
+    {name: 'pepper', source: 'http://pepper966.live24.gr:80/pepperorigin'},
     {name: 'skai', source: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8'}
 ];
 
@@ -26,8 +29,6 @@ let myRadioPlayer = new Player();
 function assignAudioSource(radioID){
     let radio = document.getElementById(radioID);
 
-        
-
     radio.addEventListener('mousedown', function(){
         let source = radioSources.find( element => element.name === radio.id ).source;
         if (myRadioPlayer.src === source && !myRadioPlayer.paused) {
@@ -36,13 +37,15 @@ function assignAudioSource(radioID){
             myRadioPlayer.play();
         } else {
             myRadioPlayer.loadAndPlayRadio(source);
-
         }
     });
 }
 
 assignAudioSource('offradio');
 assignAudioSource('enlefko');
+assignAudioSource('best');
+assignAudioSource('imagine');
+assignAudioSource('pepper');
 
 
 controlPlayPause();

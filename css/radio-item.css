@@ -91,12 +91,12 @@
     content: "\e037";
     font-family: "Material Icons";
     font-style: normal;
-    font-size: 60px;
+    font-size: 70px;
 
     
     color: white;
-    background-color: rgba(255, 255, 255, 0.05); 
-    background-color: #289faa;
+    /* background-color: rgba(255, 255, 255, 0.05);  */
+    color: #289faa;
     border-radius: 50%;
 
     position: absolute;
