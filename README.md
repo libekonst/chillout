@@ -9,7 +9,7 @@ This app is an attempt to solve this problem by introducing a contemporary and i
 collection of radios and an audio player in a single lightweight page, promising a modern and refined experience.
 
 ### Usage
-Simply click on a radio you like and enjoy the music! [Take me to the chillout.](https://kostaslib.github.io/chillout/)
+Simply click on a radio you like and enjoy the music! [Tune in to your groove.](https://kostaslib.github.io/chillout/)
 
 ## Animation States and Event Listeners
 Most interactive items in the app (event targets) have three different animation states that can be activated (i.e. styles that can be applied). Each state is bound to a different event listener, which waits for the equivalent event to be raised before calling the function that activates the state.
