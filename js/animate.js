@@ -71,9 +71,8 @@ const eventTargets = [{
 
 /* ----RADIO ITEM FUNCTIONS---- */
 const radioIDs = getAttributeByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
-let testArr = getAttributeByClassName('test-class', 'test-attr'); //Throws an error, no 'test-class' found.
-let testArr2 = getAttributeByClassName('radio-item', 'test-attr'); //Throws an error, no 'test-attr' found.
-
+// let testArr = getAttributeByClassName('test-class', 'test-attr'); //Throws an error, no 'test-class' found.
+// let testArr2 = getAttributeByClassName('radio-item', 'test-attr'); //Throws an error, no 'test-attr' found.
 
 /**
  * Collects Elements by their className and returns an array of each element's requested attribute.
@@ -85,18 +84,24 @@ function getAttributeByClassName(className, attr) {
     const radioCollection = document.getElementsByClassName(className);
     let arrayOfAttributes = [];
 
-    if (radioCollection.length < 1) console.error(`No elements of class '${className}' found.`);
-    else for (let i = 0; i < radioCollection.length; i++)
-        if (!radioCollection[i].hasAttribute(attr)) console.error(`No ${attr} assigned to this element.`);
-        else arrayOfAttributes.push(radioCollection[i].getAttribute(attr));
+    if (radioCollection.length < 1) {
+        throw new Error(`No elements of class '${className}' found.`);
+    }
+    for (let i = 0; i < radioCollection.length; i++) {
+        if (!radioCollection[i].hasAttribute(attr)) {
+            throw new Error(`No ${attr} assigned to this element.`);
+        }
+        arrayOfAttributes.push(radioCollection[i].getAttribute(attr));
+    }
     return arrayOfAttributes;
 }
 
 assignEvHandlersToRadios(radioIDs);
-assignEvHandlersToRadios([1, 2]); // Throws an error, parameter must be an array of strings.
+// assignEvHandlersToRadios([2]);
+ // Throws an error, parameter must be an array of strings.
 
 /**
- * Takes an array of radio IDs and calls a callback fn on each radio.
+ * Takes an array of radio IDs and calls a callback fn on each radio respectively.
  * The callback assigns event listeners.
  * @param {Array<string>} arrayOfTargets An array of radio IDs.
  */
@@ -104,8 +109,8 @@ function assignEvHandlersToRadios(arrayOfTargets) {
     let isValidTarget = arrayOfTargets => Array.isArray(arrayOfTargets) ?
         arrayOfTargets.every(target => typeof target === 'string') : false;
 
-    if (!isValidTarget) console.error('Parameter must be an array of radioID strings');
-    else arrayOfTargets.forEach(assignListenersToRadio);
+    if (!isValidTarget) throw new Error('Parameter must be an array of radioID strings');
+    arrayOfTargets.forEach(assignListenersToRadio);
 }
 
 /**
@@ -132,3 +137,4 @@ function assignListenersToPlayButton() {
         }
     });
 }
+

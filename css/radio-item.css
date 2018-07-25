@@ -78,7 +78,7 @@
 }
 
 .radio-item-active:hover{
-    background: var(--green);
+    background: var(--greenE);
     box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
 
     transform: translateY(-23px) scale(1.09) scaley(1.07);
@@ -88,22 +88,29 @@
 
 /* ------Play Icon Font------ */
 .radio-item:hover::after{
-    content: "\e037";
+    content: "play_arrow";
     font-family: "Material Icons";
     font-style: normal;
     font-size: 70px;
+    font-weight: 900;
+
+    /* content: "\f04b";
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-size: 50px;
+    font-weight: 900; */
 
     
-    color: white;
+    /* color: white; */
     /* background-color: rgba(255, 255, 255, 0.05);  */
+    /* background-color: #289faa;  */
     color: #289faa;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
 }
 
 .radio-item-active:hover::after{
@@ -111,6 +118,12 @@
     font-family: "Material Icons";
     font-style: normal;
     font-size: 60px;
+
+    /* content: "\f04c";
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-size: 60px;
+    font-weight: 900; */
 
     color: var(--green);
     background-color: rgba(0, 0, 0, 0.05);

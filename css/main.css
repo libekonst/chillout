@@ -23,13 +23,16 @@
 }
 
 :root {
-    /* declare all vars here! */
-    /* --green: #31c88c; */
+    /* Color palette */
     --darkred: #D9361F;
     --red: #FE2F14;
     --orangy: #E96727;
     --orange: #FC6713;
     --green: #35BE88;
+    --greenB: #31c88c;
+    --greenC: rgb(44, 192, 150);
+    --greenD: rgb(16, 240, 154);
+    --greenE: rgb(63, 209, 151);
 }
 
 body {
