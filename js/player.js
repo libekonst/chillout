@@ -8,7 +8,10 @@ class Player extends Audio{
         this.src = myRadioSource;
         this.play();
     }
-
+    setAudioSource(){
+        // First check if audio source is valid.
+        // Source must be a String and start with "http://"
+    }
 }
 
 const radioSources = [
