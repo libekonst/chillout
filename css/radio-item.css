@@ -99,9 +99,9 @@
     font-style: normal;
     font-size: 50px;
     font-weight: 900; */
+    color: rgba(39, 158, 169, 0);
 
-    visibility: hidden;
-
+    transition: 0.05s ease-out;
 
     position: absolute;
     top: 50%;
@@ -110,16 +110,18 @@
 }
 
 .radio-item:hover::after{
-    visibility: visible;
+    color: rgba(39, 158, 169, 1);
+
+    transition: .1s ease-out;
     
     /* color: white; */
     /* background-color: rgba(255, 255, 255, 0.05);  */
     /* background-color: #289faa;  */
-    color: #289faa;
+    /* color: #289faa; */
     /* border-radius: 50%; */
 }
 
-.radio-item-active:hover::after{
+.radio-item-active::after{
     content: "\e034";
     font-family: "Material Icons";
     font-style: normal;
@@ -131,15 +133,16 @@
     font-size: 60px;
     font-weight: 900; */
 
-    color: var(--green);
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-
     position: absolute;
     width: 250px;
     align-self: center;
     line-height: 250px;
-    
+}
+
+.radio-item-active:hover::after{
+    color: var(--green);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;   
 }
 
 /*
