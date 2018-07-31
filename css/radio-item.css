@@ -87,30 +87,36 @@
 
 
 /* ------Play Icon Font------ */
-.radio-item:hover::after{
+.radio-item::after{
     content: "play_arrow";
     font-family: "Material Icons";
     font-style: normal;
     font-size: 70px;
     font-weight: 900;
-
+  
     /* content: "\f04b";
     font-family: 'FontAwesome';
     font-style: normal;
     font-size: 50px;
     font-weight: 900; */
 
+    visibility: hidden;
+
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio-item:hover::after{
+    visibility: visible;
     
     /* color: white; */
     /* background-color: rgba(255, 255, 255, 0.05);  */
     /* background-color: #289faa;  */
     color: #289faa;
     /* border-radius: 50%; */
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .radio-item-active:hover::after{
