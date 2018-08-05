@@ -63,8 +63,8 @@ a {
 }
 a:hover{
     color: var(--green);
-}
 
+}
 
 
 h2 {
@@ -81,22 +81,24 @@ h4 {
     margin-right: 3px;
 } */
 
-.github::before{
-    content: "\f09b";
-    font-family: 'FontAwesome';
-    font-style: normal;
-    font-size: 2em;
-    margin-right: 3px;
-    /* text-decoration-color: none; */
-}
 
-.github:hover::before{
-    color: var(--green)
-}
+.github{
+    &:before{
+        content: "\f09b";
+        font-family: 'FontAwesome';
+        font-style: normal;
+        font-size: 1.5em;
+        margin-right: 3px;
+        text-decoration-color: blue;
+    }
 
-.github:hover{
-    color: var(--green);
+    &:hover {
+        color: var(--green);
 
+        &:before {
+            color: var(--green);
+        }
+    }
 }
 
 #logo {

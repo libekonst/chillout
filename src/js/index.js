@@ -1,72 +1,70 @@
 //@ts-check
 
-// Contains static methods, used as Event Handlers.
-class Animate {
+import { Player } from "./player";
+import { Animate } from "./animate";
 
-    // Assigns the appropriate Event Handlers to a DOM Element, based on its type.
-    static makeActive(element = {}) {
-        let myClass = element.classList.item(0);
-        const type = eventTargets.find(object => object.baseClass === myClass).type;
-        console.log(type);
+// RADIO.JS
+const radioSources = [
+    {name: 'offradio', source: 'FAIL-http://46.28.53.118:7062/stream?1529011397134'},
+    {name: 'enlefko', source: 'http://stream.radiojar.com/enlefko877'},
+    {name: 'parapolitika', source: 'http://netradio.live24.gr/athinaradio'},
+    {name: 'best', source: 'http://best.live24.gr:80/best1222'},
+    {name: 'imagine', source: 'http://37.59.32.115:6224/stream'},
+    {name: 'pepper', source: 'http://pepper966.live24.gr:80/pepperorigin'},
+    {name: 'skai', source: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8'}
+];
 
-        if (type === 'radio') {
-            Animate.makeRadioActive(element.getAttribute('id'));
-        }
-    }
 
-    // Applies the radio-item-active styles.
-    static makeRadioActive(radioID) {
-        let radio = document.getElementById(radioID);
+const myRadioPlayer = new Player();
+console.log(`Paused flag: ${myRadioPlayer.paused}. Source = ${myRadioPlayer.src}`);
+myRadioPlayer.src = 'http://stream.radiojar.com/enlefko877';
+console.log(`Paused flag: ${myRadioPlayer.paused}. Source = ${myRadioPlayer.src}`);
 
-        if (!radio.classList.contains('radio-item-active')) {
-            Animate.killOtherActive(radio);
-            radio.classList.add('radio-item-active');
-            Animate.makeButtonActive();
+myRadioPlayer.addEventListener('play', () => console.log(`Trying to play... Paused Flag : ${myRadioPlayer.paused}`));
+myRadioPlayer.addEventListener('pause', () => console.log(`Paused... Flag: ${myRadioPlayer.paused}`  ));
+
+
+
+function assignAudioSource(radioID, source){
+    let radio = document.getElementById(radioID);
+    // const source = radioSources.find(element => element.name === radio.id).source;
+
+    radio.addEventListener('mousedown', () => myRadioPlayer.loadRadio(source));
+}
+
+assignAudioSource('offradio');
+assignAudioSource('enlefko', 'http://stream.radiojar.com/enlefko877');
+assignAudioSource('best', 'http://netradio.live24.gr/athinaradio');
+assignAudioSource('imagine');
+assignAudioSource('pepper');
+
+
+controlPlayPause();
+function controlPlayPause(){
+    let playButton = document.getElementById('play-button');
+    let playButtonWrapper = document.getElementById('play-button-wrapper');
+
+    playButton.addEventListener('mousedown', function(){
+        if (myRadioPlayer.src === ''){
+            alert('Select a radio first!');
         } else {
-            radio.classList.remove('radio-item-active');
-            Animate.makeButtonIdle();
-        }
-    }
+            if (myRadioPlayer.paused) {
+                // Play audio and make the radio item active(animation).
+                myRadioPlayer.play();
+                let lastRadio = radioSources.find(element => element.source === myRadioPlayer.src).name;
+                document.getElementById(lastRadio).classList.add('radio-item-active');
+                playButton.classList.add('play-button-active');
+                playButtonWrapper.classList.add('play-button-wrapper-active');
 
-    // Deactivates other items of the same type.
-    static killOtherActive(element = {}) {
-        let myClassList = element.classList;
-        let myClass = element.classList.item(0);
-
-        if (!myClassList.contains(`${myClass}-active`)) {
-            let otherActive = document.getElementsByClassName(`${myClass}-active`);
-            for (let i = 0; i < otherActive.length; i++) {
-                otherActive[i].classList.remove(`${myClass}-active`);
+            } else {
+                myRadioPlayer.pause();
             }
         }
-    }
-
-    static makeButtonActive() {
-        let playButton = document.getElementById('play-button');
-        let buttonWrapper = document.getElementById('play-button-wrapper');
-
-        playButton.classList.add('play-button-active');
-        buttonWrapper.classList.add('play-button-wrapper-active');
-    }
-
-    static makeButtonIdle() {
-        let playButton = document.getElementById('play-button');
-        let buttonWrapper = document.getElementById('play-button-wrapper');
-
-        playButton.classList.remove('play-button-active');
-        buttonWrapper.classList.remove('play-button-wrapper-active');
-    }
+    });
 }
 
-const eventTargets = [{
-    type: 'radio',
-    baseClass: 'radio-item'
-},
-{
-    type: 'play-button',
-    baseClass: 'play-button'
-}
-];
+// ANIMATE.JS
+
 
 
 /* ----RADIO ITEM FUNCTIONS---- */
@@ -98,7 +96,7 @@ function getAttributeByClassName(className, attr) {
 
 assignEvHandlersToRadios(radioIDs);
 // assignEvHandlersToRadios([2]);
- // Throws an error, parameter must be an array of strings.
+// Throws an error, parameter must be an array of strings.
 
 /**
  * Takes an array of radio IDs and calls a callback fn on each radio respectively.
