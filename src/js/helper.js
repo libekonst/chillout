@@ -11,21 +11,19 @@ export function getAttributeByClassName(className, attr) {
     const radioCollection = document.getElementsByClassName(className);
     let arrayOfAttributes = [];
 
-    if (radioCollection.length < 1) {
+    if (radioCollection.length < 1)
         throw new Error(`No elements of class '${className}' found.`);
-    }
-    for (let i = 0; i < radioCollection.length; i++) {
-        if (!radioCollection[i].hasAttribute(attr)) {
+    for (let radio of radioCollection) {
+        if (!radio.hasAttribute(attr)) 
             throw new Error(`No ${attr} assigned to this element.`);
-        }
-        arrayOfAttributes.push(radioCollection[i].getAttribute(attr));
+        arrayOfAttributes.push(radio.getAttribute(attr));
     }
+
     return arrayOfAttributes;
 }
 
 /**
  * Takes an array of radio IDs and calls a callback fn on each radio respectively.
- * The callback assigns event listeners.
  * @param {Array<string>} arrayOfTargets An array of radio IDs.
  */
 export function assignEvHandlersToRadios(arrayOfTargets) {

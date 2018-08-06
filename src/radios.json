@@ -31,10 +31,10 @@
             "img": "http://cdn.e-radio.gr/logos/gr/big/pepper966.png"
         },
         {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
+            "id": "ertkosmos",
+            "name": "Ert Kosmos 93.6",
+            "source": "http://radiostreaming.ert.gr/ert-kosmos",
+            "img": "https://www.radiofono.gr/sites/www.radiofono.gr/files/kosmos.png"
         }
     ],
 
@@ -50,12 +50,6 @@
             "name": "Parapolitika 90.1",
             "source": "http://netradio.live24.gr/athinaradio",
             "img": "../radio-images/parapolitika.svg"
-        },
-        {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
         },
         {
             "id": "myID",

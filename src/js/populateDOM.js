@@ -1,9 +1,10 @@
 //@ts-check
 export class RadioItem{
     /**
-     * Assign attribute values to the radio item.
      * @param {String} name 
      * @param {String} id 
+     * @param {String} imgURL 
+     * @param {String} type 
      */
     constructor(name, id, imgURL, type){
         this.name = name;
@@ -16,7 +17,6 @@ export class RadioItem{
         const img = document.createElement('div');
         img.setAttribute('class', 'radio-image');
         img.style.backgroundImage = `url(${this.img})`;
-
 
         const radioItem = document.createElement('li');
         radioItem.setAttribute('class', 'radio-item');

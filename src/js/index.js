@@ -35,16 +35,6 @@ function requestJSON() {
 // newRadioItem.render();
 
 // RADIO.JS
-const radioSources = [
-    // {name: 'offradio', source: 'FAIL-http://46.28.53.118:7062/stream?1529011397134'},
-    // {name: 'enlefko', source: 'http://stream.radiojar.com/enlefko877'},
-    // {name: 'parapolitika', source: 'http://netradio.live24.gr/athinaradio'},
-    // {name: 'best', source: 'http://best.live24.gr:80/best1222'},
-    // {name: 'imagine', source: 'http://37.59.32.115:6224/stream'},
-    // {name: 'pepper', source: 'http://pepper966.live24.gr:80/pepperorigin'},
-    // {name: 'skai', source: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8'}
-];
-
 
 const player = new Player();
 console.log(`Paused flag: ${player.paused}. Source = ${player.src}`);
@@ -55,7 +45,6 @@ player.addEventListener('play', () => console.log(`Trying to play... Paused Flag
 player.addEventListener('pause', () => console.log(`Paused... Flag: ${player.paused}`));
 
 
-
 function assignAudioSource(radioID, source) {
     let radio = document.getElementById(radioID);
     // const source = radioSources.find(element => element.name === radio.id).source;
@@ -63,11 +52,12 @@ function assignAudioSource(radioID, source) {
     radio.addEventListener('mousedown', () => player.loadRadio(source));
 }
 
-assignAudioSource('offradio');
+assignAudioSource('offradio', 'FAIL-http://46.28.53.118:7062/stream?1529011397134');
 assignAudioSource('enlefko', 'http://stream.radiojar.com/enlefko877');
-assignAudioSource('best', 'http://netradio.live24.gr/athinaradio');
-assignAudioSource('imagine');
-assignAudioSource('pepper');
+assignAudioSource('best', 'http://best.live24.gr:80/best1222');
+assignAudioSource('imagine', 'http://37.59.32.115:6224/stream');
+assignAudioSource('pepper', 'http://pepper966.live24.gr:80/pepperorigin');
+// assignAudioSource('parapolitika', 'http://netradio.live24.gr/athinaradio');
 
 
 controlPlayPause();
@@ -76,9 +66,8 @@ function controlPlayPause() {
     const playButtonWrapper = document.getElementById('play-button-wrapper');
 
     playButton.addEventListener('mousedown', () => {
-        if (player.src === '') {
-            alert('Select a radio first!');
-        } else {
+        if (player.src === '') alert('Select a radio first!');
+        else {
             if (player.paused) {
                 // Play audio and make the radio item active(animation).
                 player.play();
@@ -86,22 +75,17 @@ function controlPlayPause() {
                 document.getElementById(lastRadio).classList.add('radio-item-active');
                 playButton.classList.add('play-button-active');
                 playButtonWrapper.classList.add('play-button-wrapper-active');
-
-            } else {
-                player.pause();
-            }
+            } else player.pause();
         }
     });
 }
 
 // ANIMATE.JS
 
-
-
 /* ----RADIO ITEM FUNCTIONS---- */
-// const radioIDs = getAttributeByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
-// assignEvHandlersToRadios(radioIDs);
-assignEvHandlersToRadios(getAttributeByClassName('radio-item', 'id'));
+const radioIDs = getAttributeByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
+assignEvHandlersToRadios(radioIDs);
+// assignEvHandlersToRadios(getAttributeByClassName('radio-item', 'id'));
 
 
 /* ----PLAY BUTTON FUNCTIONS---- */
@@ -118,4 +102,3 @@ function assignListenersToPlayButton() {
         }
     });
 }
-
