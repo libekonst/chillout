@@ -14,7 +14,7 @@ export class Player extends Audio {
             console.log(`Source: ${this.src}`);
             this.play()
                 .then(() => console.log(`Audio loaded successfully!`))
-                .catch((e) => console.log(`Failed to load radio... :( ${e} `));
+                .catch( e => console.log(`Failed to load radio... :( ${e}`) );
         } else this.pause();
     }
 
