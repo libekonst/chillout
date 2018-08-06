@@ -2,40 +2,15 @@
 
 import { Player } from "./player";
 import { Animate } from "./animate";
-import { RadioItem } from "./populateDOM";
-import { getAttributeByClassName, assignEvHandlersToRadios, assignListenersToRadio } from "./helper";
+import { getAttributeByClassName, assignEvHandlersToRadios } from "./helper";
+import { requestJSON } from "./requestJSON";
 
 
 // WORKING WITH JSON
 requestJSON();
 
-function requestJSON() {
-    const requestURL = 'http://127.0.0.1:5500/src/radios.json';
-    const request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = () => {
-        const radioData = request.response;
-        console.log(radioData);
-        for (let radio of radioData.music) {
-            console.log(radio);
-            new RadioItem(radio.name, radio.id, radio.img, 'music').render();
-        }
-        for (const radio of radioData.news) {
-            console.log(radio);
-            new RadioItem(radio.name, radio.id, radio.img, 'news').render();
-        }
-
-    };
-}
-
-// new CreateRadio('testRadio', 'testRadio').render();
-// const newRadioItem = new CreateRadio('testRadio', 'testRadio');
-// newRadioItem.render();
 
 // RADIO.JS
-
 const player = new Player();
 console.log(`Paused flag: ${player.paused}. Source = ${player.src}`);
 player.src = 'http://stream.radiojar.com/enlefko877';

@@ -1,6 +1,7 @@
 //@ts-check
 export class RadioItem{
-    /**
+    /** 
+     * Bundles properties and attributes together to create a radio item and loads it to the DOM.
      * @param {String} name 
      * @param {String} id 
      * @param {String} imgURL 
@@ -11,6 +12,7 @@ export class RadioItem{
         this.id = id;
         this.img = imgURL;
         this.type = type;
+        this.render();
     }
 
     render(){
