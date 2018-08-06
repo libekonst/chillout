@@ -20,12 +20,11 @@ function requestJSON() {
         console.log(radioData);
         for (let radio of radioData.music) {
             console.log(radio);
-            new RadioItem(radio.name, radio.id, 'music').render();
-
+            new RadioItem(radio.name, radio.id, radio.img, 'music').render();
         }
         for (const radio of radioData.news) {
             console.log(radio);
-            new RadioItem(radio.name, radio.id, 'news').render();
+            new RadioItem(radio.name, radio.id, radio.img, 'news').render();
         }
 
     };

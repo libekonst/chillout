@@ -16,19 +16,19 @@
             "id": "best",
             "name": "Best Radio 92.6",
             "source": "http://best.live24.gr:80/best1222",
-            "img": "url"
+            "img": "http://cdn.e-radio.gr/logos/gr/big/bestradio.png"
         },
         {
             "id": "imagine",
             "name": "Imagine 89.7",
             "source": "http://37.59.32.115:6224/stream",
-            "img": "../radio-images/imagine.png"
+            "img": "../radio-images/imagine897.png"
         },
         {
             "id": "pepper",
             "name": "Pepper 96.6",
             "source": "http://pepper966.live24.gr:80/pepperorigin",
-            "img": "url"
+            "img": "http://cdn.e-radio.gr/logos/gr/big/pepper966.png"
         },
         {
             "id": "myID",
@@ -43,13 +43,13 @@
             "id": "skai",
             "name": "Skai 100.3",
             "source": "http://liveradio.skai.gr/skaihd/skai/playlist.m3u8",
-            "img": "url"
+            "img": "http://www.skai.gr/files/temp//035A0155C2FF20710E4651556C00435B.jpg"
         },
         {
             "id": "parapolitika",
             "name": "Parapolitika 90.1",
             "source": "http://netradio.live24.gr/athinaradio",
-            "img": "../radio-images/parapolitika.png"
+            "img": "../radio-images/parapolitika.svg"
         },
         {
             "id": "myID",
