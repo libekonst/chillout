@@ -31,10 +31,124 @@
             "img": "http://cdn.e-radio.gr/logos/gr/big/pepper966.png"
         },
         {
+            "id": "vanillagreek",
+            "name": "Vanilla Radio Greek",
+            "source": "//stream.radiojar.com/exdncp89fnwtv.mp3?1533575713",
+            "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgID-7ISICgyiAQNkZXY/image/?resize=210x210"
+        },
+        {
+            "id": "vanillasmooth",
+            "name": "Vanilla Radio Smooth",
+            "source": "//stream.radiojar.com/w0b4xf0q52mtv.mp3?1533575822",
+            "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgICc6p7WCAyiAQNkZXY/image/?resize=210x210"
+        },
+        {
+            "id": "vanilladeep",
+            "name": "Vanilla Radio Deep",
+            "source": "//stream.radiojar.com/egqwgc0q52mtv.mp3?1533575770",
+            "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgIDchPSQCgyiAQNkZXY/image/?resize=210x210"
+        },
+        {
             "id": "ertkosmos",
             "name": "Ert Kosmos 93.6",
             "source": "http://radiostreaming.ert.gr/ert-kosmos",
             "img": "https://www.radiofono.gr/sites/www.radiofono.gr/files/kosmos.png"
+        },
+        {
+            "id": "kiss",
+            "name": "Kiss FM 92.9",
+            "source": "http://kissfm.live24.gr/kissfmathens",
+            "img": "http://live24.gr/resrc/styles/custom-popups/kissfm/images_v2/logo.jpg"
+        },
+        {
+            "id": "nostos",
+            "name": "Nostos 100.6",
+            "source": "http://144.76.92.208:7878/;",
+            "img": "http://resources.live24.gr/resources/images/stations/43d052f9-62c3-4f26-8d41-ba96a60566bb.png"
+        },
+        {
+            "id": "athensvoice",
+            "name": "Athens Voice Radio 102.5",
+            "source": "http://nitro.live24.gr/nitro4555",
+            "img": "http://resources.live24.gr/resources/images/stations/611cb7f6-dd39-4e32-8204-0c6df17a6105.png"
+        },
+        {
+            "id": "galaxy",
+            "name": "Galaxy 92",
+            "source": "http://galaxy.live24.gr/galaxy9292",
+            "img": "http://live24.gr/resrc/styles/custom-popups/galaxy/images/galaxy.jpg"
+        },
+        {
+            "id": "red",
+            "name": "Red FM 96.3",
+            "source": "http://206.190.150.92:8295/stream",
+            "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhtp0Wt54siTNoS0PCK_ImONfHOPMMQ8OJglWAEsMSz1C1NgDb"
+        },
+        {
+            "id": "hit",
+            "name": "Hit FM 88.9",
+            "source": "http://stream.radiojar.com/hit889",
+            "img": "https://hit889.gr/wp-content/uploads/2016/12/HIT-new-logo-transparency-300x300.png"
+        },
+        {
+            "id": "music",
+            "name": "Music 89.2",
+            "source": "http://ample-02.radiojar.com/k0hua7u1yk5tv?",
+            "img": "http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png"
+        },
+        {
+            "id": "mad",
+            "name": "Mad Radio 106.2",
+            "source": "http://mediaserver.mad.tv/stream",
+            "img": "https://mytuner.global.ssl.fastly.net/media/tvos_radios/Sz2VMq3e9T.png"
+        },
+        {
+            "id": "atlantis",
+            "name": "Atlantis 105.2",
+            "source": "http://144.76.140.103:8308/;*.mp3",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/atlantisradio.png"
+        },
+        {
+            "id": "easy",
+            "name": "Easy 97.2",
+            "source": "https://stream.radiojar.com/cthtwxk5yvduv.mp3",
+            "img": "https://www.easy972.gr/Assets/Imgs/easy972_200px.png"
+        },
+        {
+            "id": "melodia",
+            "name": "Melodia 99.2",
+            "source": "http://netradio.live24.gr/melodia",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/melodia.png"
+        },
+        {
+            "id": "athensdj",
+            "name": "Athens DJ 95.2",
+            "source": "http://netradio.live24.gr/athensdeejay",
+            "img": "http://www.athensdeejay.gr/Content/assets/logos-icons/station-logo-beta.svg"
+        },
+        {
+            "id": "love",
+            "name": "Love Radio 97.5",
+            "source": "http://loveradio.live24.gr/loveradio-1000",
+            "img": "http://live24.gr/resrc/styles/custom-popups/loveradio/logo.jpg"
+        },
+        {
+            "id": "ert2",
+            "name": "ERT Deftero 103.7",
+            "source": "http://radiostreaming.ert.gr/ert-deftero",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/ert-deftero.png"
+        },
+        {
+            "id": "lampsi",
+            "name": "Lampsi 92.3",
+            "source": "blob:http://live24.gr/cb91406f-f368-4bda-9ba3-beb5532cc820",
+            "img": "https://mytuner.global.ssl.fastly.net/media/tvos_radios/5xptb7c6dyvv.png"
+        },
+        {
+            "id": "dromos",
+            "name": "Dromos 89.8",
+            "source": "http://dromos898.live24.gr/dromos898",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/dromosfm.png"
         }
     ],
 

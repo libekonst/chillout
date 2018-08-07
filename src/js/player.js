@@ -26,13 +26,3 @@ export class Player extends Audio {
         // else this.load(source);
     }
 }
-
-const radioSources = [
-    { name: 'offradio', source: 'FAIL-http://46.28.53.118:7062/stream?1529011397134' },
-    { name: 'enlefko', source: 'http://stream.radiojar.com/enlefko877' },
-    { name: 'parapolitika', source: 'http://netradio.live24.gr/athinaradio' },
-    { name: 'best', source: 'http://best.live24.gr:80/best1222' },
-    { name: 'imagine', source: 'http://37.59.32.115:6224/stream' },
-    { name: 'pepper', source: 'http://pepper966.live24.gr:80/pepperorigin' },
-    { name: 'skai', source: 'http://liveradio.skai.gr/skaihd/skai/playlist.m3u8' }
-];
