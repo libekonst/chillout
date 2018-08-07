@@ -2,7 +2,7 @@ import { RadioItem } from "./populateDOM";
 
 //@ts-check
 export function requestJSON() {
-    const requestURL = 'http://kostaslib.github.io./chillout/src/radios.json';
+    const requestURL = 'https://kostaslib.github.io/chillout/src/radios.json';
     const request = new XMLHttpRequest();
     request.open('GET', requestURL);
     request.responseType = 'json';
