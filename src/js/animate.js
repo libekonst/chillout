@@ -1,11 +1,12 @@
 //@ts-check
 
-// Contains static methods, used as Event Handlers.
+/** Contains static methods used as Event Handlers for animations.*/
 export class Animate {
 
     // Assigns the appropriate Event Handlers to a DOM Element, based on its type.
+    // Probably remove.
     static makeActive(element = {}) {
-        let myClass = element.classList.item(0);
+        const myClass = element.classList.item(0);
         const type = eventTargets.find(object => object.baseClass === myClass).type;
         console.log(type);
 
@@ -14,44 +15,60 @@ export class Animate {
         }
     }
 
-    // Applies the radio-item-active styles.
-    static makeRadioActive(radioID) {
-        let radio = document.getElementById(radioID);
+    /**
+     * Applies the radio-item-active styles and activates the play button.
+     * @param {Element} element CURRENTLY USING WITH OTHER OBJECTS TOO
+     */
+    static makeRadioActive(element) {
+        const radio = document.getElementById(element.id);
 
         if (!radio.classList.contains('radio-item-active')) {
-            Animate.killOtherActive(radio);
             radio.classList.add('radio-item-active');
             Animate.makeButtonActive();
-        } else {
-            radio.classList.remove('radio-item-active');
-            Animate.makeButtonIdle();
-        }
+        } 
+
     }
 
-    // Deactivates other items of the same type.
-    static killOtherActive(element = {}) {
-        let myClassList = element.classList;
-        let myClass = element.classList.item(0);
+    /**
+     * Removes the radio-item-active styles and deactivates the play button.
+     * @param {Element} element 
+     */
+    static makeRadioIdle(element){
+        const radio = document.getElementById(element.id);
+
+        radio.classList.remove('radio-item-active');
+        Animate.makeButtonIdle();
+    }
+    
+    /**
+     * Removes the '-active' styles from other items of the same type, making them display idle.
+     * @param {Element} element
+     */
+    static killOtherActive(element) {
+        const myClassList = element.classList;
+        const myClass = element.classList.item(0);
 
         if (!myClassList.contains(`${myClass}-active`)) {
-            let otherActive = document.getElementsByClassName(`${myClass}-active`);
-            for (let i = 0; i < otherActive.length; i++) {
-                otherActive[i].classList.remove(`${myClass}-active`);
+            const otherActive = document.getElementsByClassName(`${myClass}-active`);
+            for (const activeItem of otherActive) {
+                activeItem.classList.remove(`${myClass}-active`);
             }
         }
     }
-
+    
+    /** Applies the play-button-active and play-button-wrapper-active styles. */
     static makeButtonActive() {
-        let playButton = document.getElementById('play-button');
-        let buttonWrapper = document.getElementById('play-button-wrapper');
+        const playButton = document.getElementById('play-button');
+        const buttonWrapper = document.getElementById('play-button-wrapper');
 
         playButton.classList.add('play-button-active');
         buttonWrapper.classList.add('play-button-wrapper-active');
     }
 
+    /** Removes the play-button-active and play-button-wrapper-active styles. */
     static makeButtonIdle() {
-        let playButton = document.getElementById('play-button');
-        let buttonWrapper = document.getElementById('play-button-wrapper');
+        const playButton = document.getElementById('play-button');
+        const buttonWrapper = document.getElementById('play-button-wrapper');
 
         playButton.classList.remove('play-button-active');
         buttonWrapper.classList.remove('play-button-wrapper-active');

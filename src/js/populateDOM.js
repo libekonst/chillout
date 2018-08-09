@@ -4,7 +4,7 @@ import { RadioItem } from "./RadioItem";
 /**
  * Sends an HTTP Request to get the radios.json file.
  * When the response property is implemented with the response object, 
- * call a function that handles the json data from the response.
+ * calls a function that handles the json data from the response.
  */
 export function requestJSON() {
     const requestURL = '../src/radios.json';
