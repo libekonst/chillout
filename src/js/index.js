@@ -3,7 +3,7 @@
 import { Player } from "./player";
 import { Animate } from "./animate";
 import { getAttributeByClassName, assignEvHandlersToRadios } from "./helper";
-import { requestJSON } from "./requestJSON";
+import { requestJSON } from "./populateDOM";
 
 
 // WORKING WITH JSON
