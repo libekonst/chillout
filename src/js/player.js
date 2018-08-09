@@ -1,5 +1,5 @@
 //@ts-check
-export class Player extends Audio {
+class Player extends Audio {
     constructor() {
         super();
     }
