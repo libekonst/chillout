@@ -3,7 +3,7 @@
         {
             "id": "offradio",
             "name": "Off Radio",
-            "source": "FAIL-http://46.28.53.118:7062/stream?1529011397134",
+            "source": "http://46.28.53.118:7062/stream?1529011397134",
             "img": "../radio-images/offradio.png"
         },
         {
@@ -31,10 +31,16 @@
             "img": "http://cdn.e-radio.gr/logos/gr/big/pepper966.png"
         },
         {
-            "id": "vanillagreek",
-            "name": "Vanilla Radio Greek",
-            "source": "//stream.radiojar.com/exdncp89fnwtv.mp3?1533575713",
-            "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgID-7ISICgyiAQNkZXY/image/?resize=210x210"
+            "id": "fly",
+            "name": "Fly 104",
+            "source": "http://37.59.32.115:6168/stream",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/fly104.png"
+        },
+        {
+            "id": "dice",
+            "name": "Dice Radio",
+            "source": "http://fire.wavestreamer.com:4868/;stream/1",
+            "img": "https://www.psybient.org/love/wp-content/uploads/dice-radio.jpg"
         },
         {
             "id": "vanillasmooth",
@@ -115,12 +121,6 @@
             "img": "https://www.easy972.gr/Assets/Imgs/easy972_200px.png"
         },
         {
-            "id": "melodia",
-            "name": "Melodia 99.2",
-            "source": "http://netradio.live24.gr/melodia",
-            "img": "http://cdn.e-radio.gr/logos/gr/big/melodia.png"
-        },
-        {
             "id": "athensdj",
             "name": "Athens DJ 95.2",
             "source": "http://netradio.live24.gr/athensdeejay",
@@ -131,6 +131,18 @@
             "name": "Love Radio 97.5",
             "source": "http://loveradio.live24.gr/loveradio-1000",
             "img": "http://live24.gr/resrc/styles/custom-popups/loveradio/logo.jpg"
+        },
+        {
+            "id": "melodia",
+            "name": "Melodia 99.2",
+            "source": "http://netradio.live24.gr/melodia",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/melodia.png"
+        },
+        {
+            "id": "vanillagreek",
+            "name": "Vanilla Radio Greek",
+            "source": "//stream.radiojar.com/exdncp89fnwtv.mp3?1533575713",
+            "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgID-7ISICgyiAQNkZXY/image/?resize=210x210"
         },
         {
             "id": "ert2",
@@ -151,19 +163,54 @@
             "img": "http://cdn.e-radio.gr/logos/gr/big/dromosfm.png"
         }
     ],
-
     "news": [
         {
-            "id": "skai",
-            "name": "Skai 100.3",
-            "source": "http://liveradio.skai.gr/skaihd/skai/playlist.m3u8",
-            "img": "http://www.skai.gr/files/temp//035A0155C2FF20710E4651556C00435B.jpg"
+            "id": "stokokkino",
+            "name": "Sto Kokkino 105.5",
+            "source": "http://stream.radiojar.com/kokkino-ath.mp3",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/kokkino.png"
         },
         {
             "id": "parapolitika",
             "name": "Parapolitika 90.1",
             "source": "http://netradio.live24.gr/athinaradio",
             "img": "../radio-images/parapolitika.svg"
+        },
+        {
+            "id": "sport24",
+            "name": "Sport24 Radio 103.3",
+            "source": "http://sport24radio.live24.gr/sport24radio",
+            "img": "http://www.sport24radio.gr/wp-content/uploads/2015/01/10540640_322923501242773_1133188200173876157_n.jpg"
+        },
+        {
+            "id": "sportfm",
+            "name": "Sport FM 94.6",
+            "source": "http://sportfm.live24.gr/sportfm7712",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/sportfm946.png"
+        },
+        {
+            "id": "real",
+            "name": "Real FM 97.8",
+            "source": "http://realfm.live24.gr/realfm",
+            "img": "http://dsi0l228kf79a.cloudfront.net/sites/default/files/radio/logos/logo-real-fm.png"
+        },
+        {
+            "id": "thema",
+            "name": "Thema Radio 104.6",
+            "source": "http://stream.radiojar.com/cdk030dsvv5tv",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/themaradio.png"
+        },
+        {
+            "id": "alpha",
+            "name": "Alpha 98.9",
+            "source": "http://listen.shoutcast.com/alpha989",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/alpha989.png"
+        },
+        {
+            "id": "skai",
+            "name": "Skai 100.3",
+            "source": "http://liveradio.skai.gr/skaihd/skai/playlist.m3u8",
+            "img": "http://cdn.e-radio.gr/logos/gr/big/skai.png"
         },
         {
             "id": "myID",
