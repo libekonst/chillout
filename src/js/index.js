@@ -1,6 +1,4 @@
 //@ts-check
-
-import { Animate } from "./animate";
 import { getAttributeByClassName, assignEvHandlersToRadios } from "./helper";
 import { requestJSON } from "./populateDOM";
 import { controlPlayPause, assignListenersToPlayButton } from "./playButton";
@@ -24,11 +22,7 @@ requestJSON();
 
 
 
-// RADIO.JS
-// const player = new Player();
-// console.log(`Paused flag: ${player.paused}. Source = ${player.src}`);
-// player.src = 'http://stream.radiojar.com/enlefko877';
-// console.log(`Paused flag: ${player.paused}. Source = ${player.src}`);
+
 
 // player.addEventListener('play', () => console.log(`Trying to play... Paused Flag : ${player.paused}`));
 // player.addEventListener('pause', () => console.log(`Paused... Flag: ${player.paused}`));
@@ -53,8 +47,8 @@ requestJSON();
 
 /* ----RADIO ITEM FUNCTIONS---- */
 const radioIDs = getAttributeByClassName('radio-item', 'id'); // An array of all the Radio IDs loaded in the DOM.
-console.log(radioIDs)
-assignEvHandlersToRadios(radioIDs);
+console.log(`Radio IDs: ${radioIDs}`);
+// assignEvHandlersToRadios(radioIDs);
 // assignEvHandlersToRadios(getAttributeByClassName('radio-item', 'id'));
 
 

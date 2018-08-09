@@ -2,7 +2,7 @@
 import {Animate} from './animate';
 
 /**
- * Collects Elements by their className and returns an array of each element's requested attribute.
+ * Retrieves an HTMLCollection of Elements by their className and returns an array of each Element's requested attribute.
  * @param {string} className The class name by which Elements will be collected.
  * @param {string} attr The requested attribute.
  * @returns {Array<string>} An array of attribute values as strings.

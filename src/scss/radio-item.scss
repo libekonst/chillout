@@ -96,7 +96,8 @@
     transition: all 0.2s ease-out;
 
     &:after {
-        content: "\e034";
+        // content: "pause";
+        content: attr(data-content);
         font-family: "Material Icons";
         font-style: normal;
         font-size: 60px;
