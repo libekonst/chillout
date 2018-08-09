@@ -10,16 +10,23 @@ import {Animate} from './animate';
 export function getAttributeByClassName(className, attr) {
     const radioCollection = document.getElementsByClassName(className);
     let arrayOfAttributes = [];
-
-    if (radioCollection.length < 1)
-        throw new Error(`No elements of class '${className}' found.`);
+    
+    validateRequest();
     for (let radio of radioCollection) {
-        if (!radio.hasAttribute(attr)) 
-            throw new Error(`No ${attr} assigned to this element.`);
         arrayOfAttributes.push(radio.getAttribute(attr));
     }
-
     return arrayOfAttributes;
+
+    function validateRequest() {
+        if (radioCollection.length < 1){
+            throw new Error(`No elements of class '${className}' found.`);
+        }
+        
+        for (let radio of radioCollection) {
+            if (!radio.hasAttribute(attr))
+                throw new Error(`No ${attr} assigned to this element.`);
+        }
+    }
 }
 
 /**
@@ -38,7 +45,7 @@ export function assignEvHandlersToRadios(arrayOfTargets) {
  * Assigns event listeners to a radio item.
  * @param {string} radioID The ID string used to find the radio item.
  */
-export function assignListenersToRadio(radioID) {
+function assignListenersToRadio(radioID) {
     const radio = document.getElementById(radioID);
     // radio.addEventListener('mousedown', () => Animate.makeRadioActive(radioID));
     radio.addEventListener('mousedown', () => Animate.makeActive(radio));
