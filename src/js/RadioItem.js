@@ -17,10 +17,15 @@ export class RadioItem {
         this.img = imgURL;
         this.src = src;
         this.type = type;
+
         this.render();
-        console.log(this);
+        // console.log(this);
+
+
+        // The RadioItem object is now loaded to the DOM as an Element by the render() method.
+        // We can now access it directly from the DOM and assign an Event Listener to it.
         document.getElementById(this.id).addEventListener('mousedown', () => {
-            this.play();
+            this.interact();
         });
     }
 
@@ -42,7 +47,7 @@ export class RadioItem {
     }
 
     /** Finds the <audio> element in the DOM, changes its source, calls its play() or pause() methods and handles the radio item's animations.*/
-    play() {
+    interact() {
         const player = document.getElementsByTagName('audio')[0];
         console.log(`Loading ${this.name}...`); //Replace with a function that reads this.name and displays info to the user.
         

@@ -58,11 +58,14 @@ export class Animate {
     
     /** Applies the play-button-active and play-button-wrapper-active styles. */
     static makeButtonActive() {
-        const playButton = document.getElementById('play-button');
-        const buttonWrapper = document.getElementById('play-button-wrapper');
+        // const playButton = document.getElementById('play-button');
+        // const buttonWrapper = document.getElementById('play-button-wrapper');
 
-        playButton.classList.add('play-button-active');
-        buttonWrapper.classList.add('play-button-wrapper-active');
+        // playButton.classList.add('play-button-active');
+        // buttonWrapper.classList.add('play-button-wrapper-active');
+        
+        document.getElementById('play-button').classList.add('play-button-active');
+        document.getElementById('play-button-wrapper').classList.add('play-button-wrapper-active');
     }
 
     /** Removes the play-button-active and play-button-wrapper-active styles. */

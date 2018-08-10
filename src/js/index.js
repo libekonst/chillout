@@ -23,7 +23,6 @@ requestJSON();
 
 
 
-
 // player.addEventListener('play', () => console.log(`Trying to play... Paused Flag : ${player.paused}`));
 // player.addEventListener('pause', () => console.log(`Paused... Flag: ${player.paused}`));
 
