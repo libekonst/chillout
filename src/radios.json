@@ -4,13 +4,13 @@
             "id": "offradio",
             "name": "Off Radio",
             "source": "http://46.28.53.118:7062/stream?1529011397134",
-            "img": "../assets/radio-images/offradio.png"
+            "img": "http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png"
         },
         {
             "id": "enlefko",
             "name": "En Lefko 87.7",
             "source": "http://stream.radiojar.com/enlefko877",
-            "img": "../assets/radio-images/enlefko.png"
+            "img": "https://yt3.ggpht.com/a-/ACSszfFdWJg69QynFK0oJ0lxAjj9Rfg9wLO-aXM4nA=s900-mo-c-c0xffffffff-rj-k-no"
         },
         {
             "id": "best",
@@ -22,7 +22,7 @@
             "id": "imagine",
             "name": "Imagine 89.7",
             "source": "http://37.59.32.115:6224/stream",
-            "img": "../assets/radio-images/imagine897.png"
+            "img": "https://www.imagine897.gr/images/folder/logos/mobile-logos/logomobile.png"
         },
         {
             "id": "pepper",
