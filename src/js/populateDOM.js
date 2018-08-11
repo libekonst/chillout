@@ -7,7 +7,7 @@ import { RadioItem } from "./RadioItem";
  * calls a function that handles the json data from the response.
  */
 export function requestJSON() {
-    const requestURL = 'http://127.0.0.1:5500/src/radios.json';
+    const requestURL = 'https://kostaslib.github.io/chillout/src/radios.json';
     const request = new XMLHttpRequest();
     request.open('GET', requestURL);
     request.responseType = 'json';
