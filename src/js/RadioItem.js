@@ -18,18 +18,16 @@ export class RadioItem {
         this.src = src;
         this.type = type;
 
+        // Loads the RadioItem object to the DOM.
         this.render();
-        // console.log(this);
 
-
-        // The RadioItem object is now loaded to the DOM as an Element by the render() method.
-        // We can now access it directly from the DOM and assign an Event Listener to it.
+        // Finds the radio item on the DOM and assigns Event Listeners to it.
         document.getElementById(this.id).addEventListener('mousedown', () => {
             this.interact();
         });
     }
 
-    /** Loads a RadioItem object into the DOM and converts its properties into Element attributes. */
+    /** Loads a RadioItem object onto the DOM and converts its properties into Element attributes. */
     render() {
         const img = document.createElement('div');
         img.setAttribute('class', 'radio-image');
@@ -42,6 +40,7 @@ export class RadioItem {
         radioItem.setAttribute('data-content', 'pause');
         radioItem.appendChild(img);
 
+        // Append the radioItem to the parent unordered list element.
         const parent = document.getElementById(`${this.type}-radios`);
         parent.appendChild(radioItem);
     }
@@ -55,7 +54,7 @@ export class RadioItem {
         if (player.paused)
             this.startAudio(player);
         else 
-            this.stopAudio(player);
+            this.pauseAudio(player);
 
         console.log(`Player paused? ${player.paused}`);
     }
@@ -91,7 +90,7 @@ export class RadioItem {
      * Pauses the audio and changes the radio item's styles to idle.
      * @param {HTMLAudioElement} audio 
      */
-    stopAudio(audio) {
+    pauseAudio(audio) {
         Animate.makeRadioIdle(this);
         audio.pause();
     }

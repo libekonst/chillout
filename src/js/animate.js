@@ -30,7 +30,7 @@ export class Animate {
     }
 
     /**
-     * Removes the radio-item-active styles and deactivates the play button.
+     * Removes the radio-item-active styles and makes the play button idle.
      * @param {Element} element 
      */
     static makeRadioIdle(element){
@@ -41,7 +41,7 @@ export class Animate {
     }
     
     /**
-     * Removes the '-active' styles from other items of the same type, making them display idle.
+     * Makes other items of the same type display idle by removing their '-active' styles.
      * @param {Element} element
      */
     static killOtherActive(element) {
