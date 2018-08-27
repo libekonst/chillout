@@ -1,15 +1,16 @@
 .section-row {
-    display:flex;
+    display: flex;
     flex-direction: column;
     margin-top: 2rem;
     flex: content;
 }
 
-.radio-item-list{
+.radio-item-list {
     display: grid;
     /* grid-template-columns: repeat(auto-fit, 300px); */
-    grid-template-columns: repeat(auto-fill, minmax(250px,max-content));
-    justify-content: center; /* Works right only if one of the two rules above are present. */
+    grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
+    justify-content: center;
+    /* Works right only if one of the two rules above are present. */
     grid-auto-rows: 250px;
     grid-auto-flow: row;
     grid-gap: 1rem;
@@ -18,63 +19,53 @@
 .radio-image {
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #272833; 
-
+    background-color: #272833;
     width: 100%;
     border-radius: 4px;
 }
 
-
 .radio-item {
-    background-color: #2C2E3D; 
+    background-color: #2C2E3D;
     background-color: #272833;
     border-radius: 4px;
     opacity: 0.9;
-    transition:  0.1s ease-in;
+    transition: 0.1s ease-in;
     display: flex;
     /* justify-content: center; */
     position: relative;
     text-align: center;
     padding: 1px;
     transition: 0.2s ease-out;
-
-    &:after{
+    &:after {
         content: "play_arrow";
         font-family: "Material Icons";
         font-style: normal;
         font-size: 70px;
         font-weight: 900;
-      
         /* content: "\f04b";
         font-family: 'FontAwesome';
         font-style: normal;
         font-size: 50px;
         font-weight: 900; */
         color: rgba(39, 158, 169, 0);
-    
         transition: 0.05s ease-out;
-    
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-
     &:hover {
         z-index: 1;
         cursor: pointer;
         opacity: 1;
-        background-color: #345b75; 
-        background-color: #289faa; 
+        background-color: #345b75;
+        background-color: #289faa;
         transform: translateY(-20px) scale(1.07) scaley(1.05);
         box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.5);
         transition: 0.15s ease-out;
-
-        &:after{
+        &:after {
             color: rgba(39, 158, 169, 1);
-        
             transition: .1s ease-out;
-            
             /* color: white; */
             /* background-color: rgba(255, 255, 255, 0.05);  */
             /* background-color: #289faa;  */
@@ -84,55 +75,47 @@
     }
 }
 
-.radio-item-active {  
+.radio-item-active {
     z-index: 2;
-    cursor: pointer;  
-    opacity: 1;    
-    
+    cursor: pointer;
+    opacity: 1;
     background: var(--green);
     box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.6);
-
     transform: translateY(-23px) scale(1.09) scaley(1.07);
     transition: all 0.2s ease-out;
-
     &:after {
         // content: "pause";
         content: attr(data-content);
         font-family: "Material Icons";
         font-style: normal;
         font-size: 60px;
-    
         /* content: "\f04c";
         font-family: 'FontAwesome';
         font-style: normal;
         font-size: 60px;
         font-weight: 900; */
-    
         position: absolute;
         width: 250px;
         align-self: center;
         line-height: 250px;
     }
-
     &:hover {
         background: var(--greenE);
         box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
-    
         transform: translateY(-23px) scale(1.09) scaley(1.07);
         transition: all 0.1s ease-out;
-
         &:after {
             color: var(--green);
             background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;   
+            border-radius: 4px;
         }
     }
 }
 
-
 #fav1 {
     background-image: url('http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
 }
+
 // #fav2 {
 //     background-image: url('http://cdn.e-radio.gr/logos/gr/big/bestradio.png');
 // }
@@ -142,10 +125,10 @@
 #fav4 {
     background-image: url('https://www.imagine897.gr/images/folder/logos/mobile-logos/logomobile.png');
 }
+
 // #fav5 {
 //     background-image: url('http://cdn.e-radio.gr/logos/gr/big/pepper966.png');
 // }
-
 // .radio-item:hover {
 //     z-index: 1;
 //     cursor: pointer;
@@ -156,80 +139,64 @@
 //     box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.5);
 //     transition: 0.15s ease-out;
 // }
-
 // .radio-item-active:hover{
 //     background: var(--greenE);
 //     box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
-
 //     transform: translateY(-23px) scale(1.09) scaley(1.07);
 //     transition: all 0.1s ease-out;
 // }
-
-
 /* ------Play Icon Font------ */
+
 // .radio-item::after{
 //     content: "play_arrow";
 //     font-family: "Material Icons";
 //     font-style: normal;
 //     font-size: 70px;
 //     font-weight: 900;
-  
 //     /* content: "\f04b";
 //     font-family: 'FontAwesome';
 //     font-style: normal;
 //     font-size: 50px;
 //     font-weight: 900; */
 //     color: rgba(39, 158, 169, 0);
-
 //     transition: 0.05s ease-out;
-
 //     position: absolute;
 //     top: 50%;
 //     left: 50%;
 //     transform: translate(-50%, -50%);
 // }
-
 // .radio-item:hover::after{
 //     color: rgba(39, 158, 169, 1);
-
 //     transition: .1s ease-out;
-    
 //     /* color: white; */
 //     /* background-color: rgba(255, 255, 255, 0.05);  */
 //     /* background-color: #289faa;  */
 //     /* color: #289faa; */
 //     /* border-radius: 50%; */
 // }
-
 // .radio-item-active::after{
 //     content: "\e034";
 //     font-family: "Material Icons";
 //     font-style: normal;
 //     font-size: 60px;
-
 //     /* content: "\f04c";
 //     font-family: 'FontAwesome';
 //     font-style: normal;
 //     font-size: 60px;
 //     font-weight: 900; */
-
 //     position: absolute;
 //     width: 250px;
 //     align-self: center;
 //     line-height: 250px;
 // }
-
 // .radio-item-active:hover::after{
 //     color: var(--green);
 //     background-color: rgba(0, 0, 0, 0.05);
 //     border-radius: 4px;   
 // }
-
 /*
 No border around image for convenience. One padding style works for future child elements. Might also use some gradient 
 */
-
-
 
 /* MOBILE: Make a radio item hover when the user scrolls far enough to get the radio item at the top of the screen. If hovered, the play button activates that item. */
 

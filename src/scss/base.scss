@@ -6,7 +6,8 @@
     font-size: 100%;
     font-family: 'Tajawal', sans-serif;
     color: rgb(255, 255, 255);
-    -webkit-tap-highlight-color: transparent; /*Chrome on Android, Brave.*/
+    -webkit-tap-highlight-color: transparent;
+    /*Chrome on Android, Brave.*/
     -webkit-touch-callout: none;
     /* -webkit-user-select: none;
     -moz-user-select: none;
@@ -14,11 +15,13 @@
     user-select: none; 
     Those break desktop too. */
 }
-*::selection{
+
+*::selection {
     color: var(--green)
 }
-*::-moz-selection{
-    color:var(--green);
+
+*::-moz-selection {
+    color: var(--green);
     /* background-color: var(--orange); */
 }
 
@@ -39,6 +42,7 @@ body {
     line-height: 1;
     background-image: linear-gradient(to bottom, #191a22, #191a21, #191a21, #191a20, #191a1f);
 }
+
 ul {
     list-style: none;
 }
@@ -48,9 +52,11 @@ main,
 footer {
     margin: 1rem;
 }
+
 footer {
     text-align: center;
 }
+
 h1 {
     font-size: 36px;
     font-weight: 400;
@@ -61,29 +67,30 @@ h1 {
 a {
     text-decoration-color: var(--green);
 }
-a:hover{
+
+a:hover {
     color: var(--green);
-
 }
-
 
 h2 {
     font-size: 24px;
     font-weight: 200;
-    /* margin-top: 2rem; */ /*No need if using grid*/
+    /* margin-top: 2rem; */
+    /*No need if using grid*/
 }
+
 h4 {
     font-size: 16px;
     font-weight: 100;
 }
+
 /* .fa.fa-github{
     font-size:28px;
     margin-right: 3px;
 } */
 
-
-.github{
-    &:before{
+.github {
+    &:before {
         content: "\f09b";
         font-family: 'FontAwesome';
         font-style: normal;
@@ -91,10 +98,8 @@ h4 {
         margin-right: 3px;
         text-decoration-color: blue;
     }
-
     &:hover {
         color: var(--green);
-
         &:before {
             color: var(--green);
         }
@@ -102,6 +107,6 @@ h4 {
 }
 
 #logo {
-    display:inline-block;
+    display: inline-block;
     width: 40%;
 }
