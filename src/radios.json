@@ -15,7 +15,7 @@
         {
             "id": "best",
             "name": "Best Radio 92.6",
-            "source": "http://best.live24.gr:80/best1222",
+            "source": "http://best.live24.gr/best1222",
             "img": "http://cdn.e-radio.gr/logos/gr/big/bestradio.png"
         },
         {
@@ -27,7 +27,7 @@
         {
             "id": "pepper",
             "name": "Pepper 96.6",
-            "source": "http://pepper966.live24.gr:80/pepperorigin",
+            "source": "http://pepper966.live24.gr/pepperorigin",
             "img": "http://cdn.e-radio.gr/logos/gr/big/pepper966.png"
         },
         {
@@ -35,6 +35,12 @@
             "name": "Fly 104",
             "source": "http://37.59.32.115:6168/stream",
             "img": "http://cdn.e-radio.gr/logos/gr/big/fly104.png"
+        },
+        {
+            "id": "free",
+            "name": "Free Radio 98.1",
+            "source": "http://213.239.206.179:8090/stream",
+            "img": "https://cdn-radiotime-logos.tunein.com/s80043d.png"
         },
         {
             "id": "dice",
@@ -45,13 +51,13 @@
         {
             "id": "vanillasmooth",
             "name": "Vanilla Radio Smooth",
-            "source": "//stream.radiojar.com/w0b4xf0q52mtv.mp3?1533575822",
+            "source": "http://ample-02.radiojar.com/w0b4xf0q52mtv?rj-ttl=5&rj-token=AAABZXvzn9F7OjTfj7qVsbdym7eCh5xftBkZEFSDg4PEu5_9W-hcfw",
             "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgICc6p7WCAyiAQNkZXY/image/?resize=210x210"
         },
         {
             "id": "vanilladeep",
             "name": "Vanilla Radio Deep",
-            "source": "//stream.radiojar.com/egqwgc0q52mtv.mp3?1533575770",
+            "source": "http://ample-09.radiojar.com/egqwgc0q52mtv?1533575770=&rj-token=AAABZXv5eTXUXvOb1orC-T19NaujqbZ8rERm5LXsXN-dkrDg8OMegg&rj-ttl=5",
             "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgIDchPSQCgyiAQNkZXY/image/?resize=210x210"
         },
         {
@@ -73,16 +79,16 @@
             "img": "http://resources.live24.gr/resources/images/stations/43d052f9-62c3-4f26-8d41-ba96a60566bb.png"
         },
         {
-            "id": "athensvoice",
-            "name": "Athens Voice Radio 102.5",
-            "source": "http://nitro.live24.gr/nitro4555",
-            "img": "http://resources.live24.gr/resources/images/stations/611cb7f6-dd39-4e32-8204-0c6df17a6105.png"
-        },
-        {
             "id": "galaxy",
             "name": "Galaxy 92",
             "source": "http://galaxy.live24.gr/galaxy9292",
             "img": "http://live24.gr/resrc/styles/custom-popups/galaxy/images/galaxy.jpg"
+        },
+        {
+            "id": "athensvoice",
+            "name": "Athens Voice Radio 102.5",
+            "source": "http://nitro.live24.gr/nitro4555",
+            "img": "http://resources.live24.gr/resources/images/stations/611cb7f6-dd39-4e32-8204-0c6df17a6105.png"
         },
         {
             "id": "red",
@@ -141,7 +147,7 @@
         {
             "id": "vanillagreek",
             "name": "Vanilla Radio Greek",
-            "source": "//stream.radiojar.com/exdncp89fnwtv.mp3?1533575713",
+            "source": "http://ample-06.radiojar.com/exdncp89fnwtv?1533575713=&rj-token=AAABZXv6lo2xHtn8M5m1rLJDRdVG0z6g8-mDLqIVB1qCjDGiM-s52w&rj-ttl=5",
             "img": "https://www.radiojar.com/content/stations/ag1zfnJhZGlvamFyY29tci0LEgpBdXRoQ2xpZW50GMSRDwwLEg5TdGF0aW9uUHJvZmlsZRiAgID-7ISICgyiAQNkZXY/image/?resize=210x210"
         },
         {
