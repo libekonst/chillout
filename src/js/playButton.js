@@ -1,41 +1,27 @@
-import { Animate } from "./animate";
-
 //@ts-check
+import PlayButtonAnim from "./PlayButtonAnim";
 
-export function assignListenersToPlayButton() {
-    const playButton = document.getElementById('play-button');
 
-    playButton.addEventListener('mousedown', function () {
-        if (playButton.classList.contains('play-button-active')) {
-            let activeRadio = document.querySelector('.radio-item.radio-item-active');
-            activeRadio.classList.remove('radio-item-active');
-            Animate.makeButtonIdle();
-        }
-    });
-}
+const buttonAnim = new PlayButtonAnim();
 
 export function controlPlayPause() {
-    const playButton = document.getElementById('play-button');
-    const playButtonWrapper = document.getElementById('play-button-wrapper');
     const audio = document.getElementsByTagName('audio')[0];
 
-    playButton.addEventListener('mousedown', () => {
-        if (audio.src === "") {
-            alert('Select a radio first!');
-            return;
-        }
+    document.getElementById('play-button').addEventListener('mousedown', () => {
+        if (audio.src === '') return alert('Select a radio first!');
 
         if (audio.paused) {
             audio.play();
-            playButton.classList.add('play-button-active');
-            playButtonWrapper.classList.add('play-button-wrapper-active');
+            buttonAnim.makeActive();
 
-            let lastRadio = radioSources.find(element => element.source === audio.src).name;
-            document.getElementById(lastRadio).classList.add('radio-item-active');
+            // const lastRadio = radioSources.find(element => element.source === audio.src).name;
+            // document.getElementById(lastRadio).classList.add('radio-item-active');
         } else {
             audio.pause();
-            playButton.classList.remove('play-button-active');
-            playButtonWrapper.classList.remove('play-button-wrapper-active');
+            buttonAnim.makeIdle();
+
+            const activeRadio = document.querySelector('.radio-item.radio-item-active');
+            activeRadio.classList.remove('radio-item-active');
         }
     });
 }
