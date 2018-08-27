@@ -1,5 +1,4 @@
 //@ts-check
-import {Animate} from './animate';
 
 /**
  * Retrieves an HTMLCollection of Elements by their className and returns an array of each Element's requested attribute.
@@ -27,26 +26,4 @@ export function getAttributeByClassName(className, attr) {
                 throw new Error(`No ${attr} assigned to this element.`);
         }
     }
-}
-
-/**
- * Takes an array of radio IDs and calls a callback fn on each radio respectively.
- * @param {Array<string>} arrayOfTargets An array of radio IDs.
- */
-export function assignEvHandlersToRadios(arrayOfTargets) {
-    let isValidTarget = arrayOfTargets => Array.isArray(arrayOfTargets) ?
-        arrayOfTargets.every(target => typeof target === 'string') : false;
-
-    if (!isValidTarget) throw new Error('Parameter must be an array of radioID strings');
-    arrayOfTargets.forEach(assignListenersToRadio);
-}
-
-/**
- * Assigns event listeners to a radio item.
- * @param {string} radioID The ID string used to find the radio item.
- */
-function assignListenersToRadio(radioID) {
-    const radio = document.getElementById(radioID);
-    // radio.addEventListener('mousedown', () => Animate.makeRadioActive(radioID));
-    radio.addEventListener('mousedown', () => Animate.makeActive(radio));
 }
