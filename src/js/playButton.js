@@ -1,27 +1,33 @@
 //@ts-check
 import PlayButtonAnim from "./PlayButtonAnim";
-
+import AudioController from "./AudioController";
+import RadioAnim from "./RadioAnim";
 
 const buttonAnim = new PlayButtonAnim();
+const audio = new AudioController();
+const radioAnim = new RadioAnim();
 
-export function controlPlayPause() {
-    const audio = document.getElementsByTagName('audio')[0];
+export default function controlPlayPause() {
 
     document.getElementById('play-button').addEventListener('mousedown', () => {
-        if (audio.src === '') return alert('Select a radio first!');
+        radioAnim.id = audio.lastRadio; // Provided later on because the id changes dynamically.
 
-        if (audio.paused) {
-            audio.play();
-            buttonAnim.makeActive();
-
-            // const lastRadio = radioSources.find(element => element.source === audio.src).name;
-            // document.getElementById(lastRadio).classList.add('radio-item-active');
-        } else {
-            audio.pause();
-            buttonAnim.makeIdle();
-
-            const activeRadio = document.querySelector('.radio-item.radio-item-active');
-            activeRadio.classList.remove('radio-item-active');
-        }
+        if (audio.source === '')
+            return alert('Select a radio first!');
+        if (audio.paused) 
+            turnOn();
+        else turnOff();
     });
+}
+
+function turnOn() {
+    audio.play();
+    buttonAnim.makeActive();
+    radioAnim.makeActive();
+}
+
+function turnOff() {
+    audio.pause();
+    buttonAnim.makeIdle();
+    radioAnim.makeIdle();
 }

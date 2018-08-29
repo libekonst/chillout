@@ -1,28 +1,33 @@
-//@ts-check
-
 import RadioAnim from "./RadioAnim";
+import AudioController from "./AudioController";
+import PlayButtonAnim from "./PlayButtonAnim";
 
-
+/** @typedef {Object} RadioProps An object with data about a specific radio. 
+ * @property {string} id Unique radio ID.
+ * @property {string} name Radio name that will be displayed.
+ * @property {string} source Stream URL.
+ * @property {string} img Image source URL.
+ */
 
 export default class RadioItem {
-
     /** 
      * Creates a radioItem composing of several objects, loads it to the DOM and assigns event listeners to it.
-     * @param {Object} radioProps An object containing radio specific properties.
-     * @param {RadioAnim} radioAnim Provides methods that handle the radioItem animations.
+     * @param {RadioProps} radioProps An object containing radio specific properties.
+     * @param {RadioAnim} radioAnim An object providing methods that handle the radioItem animations.
+     * @param {AudioController} audioController An object providing commands that allow interaction with the <audio>.
+     * @param {PlayButtonAnim} playButtonAnim An object providing functions that affect the play button's animations.
      * @param {String} type Used to render the radio item under a certain parent <ul> element.
      */
-    constructor(radioProps, radioAnim, type) {
+    constructor(radioProps, radioAnim, audioController, playButtonAnim, type) {
         // Radio properties taken from the json response.
         this.id = radioProps.id;
         this.name = radioProps.name;
         this.source = radioProps.source;
         this.img = radioProps.img;
 
-        // Stores a reference to the radioAnim object and passes this.id to it.
         this.anim = radioAnim;
-        this.anim.id = this.id;
-
+        this.audio = audioController;
+        this.playButton = playButtonAnim;
         this.type = type;
 
         // Loads the radioItem to the DOM.
@@ -34,11 +39,11 @@ export default class RadioItem {
         });
     }
 
-    isValidRadioProps(){
+    isValidRadioProps() {
         // checks if the radioProps object has the required properties.
     }
 
-    /** Loads the RadioItem object onto the DOM and converts its properties into Element attributes. */
+    /** Loads the radioItem to the DOM and converts its properties into Element attributes. */
     render() {
         // Creates a <div> which holds the radio image.
         const img = document.createElement('div');
@@ -58,56 +63,50 @@ export default class RadioItem {
         parent.appendChild(radioItem);
     }
 
-    /** Finds the <audio> element in the DOM, changes its source, calls its play() or pause() methods and handles the radio item's animations.*/
+    /** Updates the audio source, plays/pauses the audio and changes animations respectively.*/
     interact() {
-        const audio = document.getElementsByTagName('audio')[0];
+        this.updateAudioSource();
 
-        console.log(`Loading ${this.name}...`); //Replace with a function that reads this.name and displays info to the user.
-
-        this.setAudioSource(audio);
-
-        if (audio.paused)
-            this.startAudio(audio);
+        if (this.audio.paused)
+            this.startAudio();
         else
-            this.pauseAudio(audio);
-        console.log(`Player paused? ${audio.paused}`);
+            this.pauseAudio();
+
+        console.log(`Player paused? ${this.audio.paused}`);
     }
 
-    /**
-     * Updates the audio source if it is different and changes other radios to idle.
-     * @param {HTMLAudioElement} audio The target Audio Element responsible for playing the sound content.
-     */
-    setAudioSource(audio) {
-        if (audio.src !== this.source) {
-            audio.src = this.source;
+    /** Updates the audio source if it is different and changes other radios to idle. */
+    updateAudioSource() {
+        if (this.audio.source !== this.source) {
+            console.log(`Loading ${this.name}...`);
+            this.audio.source = this.source;
             this.anim.killOtherActive();
         }
     }
 
-    /**
-     * Starts the audio and changes the radioItem's styles to active.
-     * @param {HTMLAudioElement} audio The target Audio Element responsible for playing the sound content.
-     */
-    startAudio(audio) {
-        // Animate.makeRadioActive(this.data);
+    /** Starts the audio and changes the radioItem's styles to active. */
+    startAudio() {
         this.anim.makeActive();
-        audio.play()
-            .then(() => console.log(`Playing ${this.name}...`))
-            //Replace with a function that reads this.name and displays info to the user.
+        this.playButton.makeActive();
+
+        this.audio.play()
+            .then(() => {
+                this.audio.lastRadio = this.id;
+                console.log(`Playing ${this.name}...`);
+                this.playButton.makeActive();
+            })
             .catch(error => {
-                console.log(`Failed to load radio... ${error}.`); //Replace with a function that reads e and displays info to the user.
+                console.log(`Failed to load radio... ${error}.`);
                 console.log(this);
                 this.anim.makeIdle();
+                this.playButton.makeIdle();
             });
     }
 
-    /**
-     * Pauses the audio and changes the radioItem's styles to idle.
-     * @param {HTMLAudioElement} audio The target Audio Element responsible for playing the sound content.
-     */
-    pauseAudio(audio) {
+    /** Pauses the audio and changes the radioItem's styles to idle. */
+    pauseAudio() {
         this.anim.makeIdle();
-        audio.pause();
-
+        this.audio.pause();
+        this.playButton.makeIdle();
     }
 }
