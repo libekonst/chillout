@@ -13,4 +13,8 @@ export default class PlayButtonAnim extends AnimationsInterface {
         document.getElementById('play-button').classList.remove('play-button-active');
         document.getElementById('play-button-wrapper').classList.remove('play-button-wrapper-active');
     }
+
+    loading(){
+        // Display a loading circle.
+    }
 }

@@ -1,20 +1,27 @@
 //@ts-check
 import AnimationsInterface from "./AnimationsInterface";
 
-/** Creates an object with methods that handle a radioItem's animations. Created object's ID must be set equal to target radioItem's ID.*/
 export default class RadioAnim extends AnimationsInterface {
+    /** 
+     * Creates an object with methods that handle a radioItem's animations.
+     * @param {String} radioID Target radioItem ID. Provide initially in the constructor
+     * or later by setting radioAnim.id = radioItem.id
+     */
+    constructor(radioID = '') {
+        super();
+        this._id = radioID;
+    }
+
     makeActive() {
         this.hasID();
         document.getElementById(this.id)
             .classList.add('radio-item-active');
-        //playButton.makeActive();
     }
 
     makeIdle() {
         this.hasID();
         document.getElementById(this.id)
             .classList.remove('radio-item-active');
-        // playButtonAnim.makeIdle();
     }
 
     killOtherActive() {
@@ -26,13 +33,13 @@ export default class RadioAnim extends AnimationsInterface {
     }
 
     hasID() {
-        if (!this.hasOwnProperty('_id'))
+        if (this.id === '')
             throw new Error('Set radioAnim.id equal to target radioItem.id first.');
     }
     
-    /**@param {String} id The ID of the radioItem which calls the animation methods. */
+    /**@param {String} id Set equal to the ID of target radioItem. */
     set id(id) {
-        this._id = id; // '_id' is not elegant :(
+        this._id = id; // Ugly :(
     }
 
     get id() {

@@ -1,7 +1,7 @@
 //@ts-check
 import { getAttributeByClassName } from "./helper";
 import { requestJSON } from "./populateDOM";
-import { controlPlayPause } from "./playButton";
+import controlPlayPause from "./playButton";
 
 
 // WORKING WITH JSON
@@ -16,6 +16,3 @@ setTimeout(() => {
 
 // Play button function. Temporary.
 controlPlayPause();
-
-// Add a controller Element in the DOM. When a radioItem is activated, it will pass its ID as a unique controller attribute.
-// The playButton will read this attribute and re-activate the radioItem as needed.

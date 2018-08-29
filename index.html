@@ -32,38 +32,16 @@
         <h1>A sophisticated radio player</h1>
         <div id="playerWrapper">
             <div id="play-button-wrapper" class="play-button-wrapper">
-                <div id="play-button" class="play-button" data-state="idle"></div>
+                <div id="play-button" class="play-button"></div>
             </div>
         </div>
 
     </header>
 
     <main>
-        <!-- RADIO SECTIONS - Radio items loaded dynamically -->
         <div id="radio-sections-container">
             <section id="favorite-radios-section" class="section-row">
                 <h2>Favorite Radios</h2>
-                <!-- <ul id="favorite-radios-list" class="radio-item-list">                    
-                    <li id="offradio" class="radio-item" data-name="Off-Radio">
-                        <div class="radio-image" ></div>
-                    </li>
-
-                    <li id="best" class="radio-item" data-name="Best 92.6">
-                        <div class="radio-image"></div>
-                    </li>
-
-                    <li id="enlefko" class="radio-item" data-name="En Lefko 87.7">
-                        <div class="radio-image"></div>
-                    </li>
-
-                    <li id="imagine" class="radio-item" data-name="Imagine 89.7">
-                        <div class="radio-image"></div>
-                    </li>
-
-                    <li id="pepper" class="radio-item" data-name="Pepper 96.6">
-                        <div class="radio-image"></div>
-                    </li>
-                </ul> -->
             </section>
 
             <section id="music-radios-section" class="section-row">
@@ -76,9 +54,8 @@
                 <ul id="news-radios" class="radio-item-list"></ul>
             </section>
         </div>
-
-        <audio id="audio"></audio>
-
+        <audio id="audio" data-last-radio=""></audio>
+        
         <!-- OTHER -->
         <aside>Aside floating button.</aside>
     </main>
