@@ -1,7 +1,7 @@
 //@ts-check
 import AnimationsInterface from "./AnimationsInterface";
 
-export default class RadioAnim extends AnimationsInterface {
+class RadioAnim extends AnimationsInterface {
     /** 
      * Creates an object with methods that handle a radioItem's animations.
      * @param {String} radioID Target radioItem ID. Provide initially in the constructor
@@ -46,3 +46,5 @@ export default class RadioAnim extends AnimationsInterface {
         return this._id;
     }
 }
+
+export default RadioAnim;

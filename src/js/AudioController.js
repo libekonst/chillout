@@ -1,6 +1,6 @@
 //@ts-check
 
-export default class AudioController {
+class AudioController {
     /** A Controller that allows objects to interact with the <audio> element. */
     constructor() {
         this.audio = document.getElementsByTagName('audio')[0];
@@ -33,3 +33,5 @@ export default class AudioController {
         return this.audio.paused;
     }
 }
+
+export default AudioController;

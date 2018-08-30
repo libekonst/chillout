@@ -2,7 +2,7 @@
 import AnimationsInterface from "./AnimationsInterface";
 
 /** Creates an object with methods that handle the play button's animations.*/
-export default class PlayButtonAnim extends AnimationsInterface {
+class PlayButtonAnim extends AnimationsInterface {
 
     makeActive() {
         document.getElementById('play-button').classList.add('play-button-active');
@@ -18,3 +18,5 @@ export default class PlayButtonAnim extends AnimationsInterface {
         // Display a loading circle.
     }
 }
+
+export default PlayButtonAnim;

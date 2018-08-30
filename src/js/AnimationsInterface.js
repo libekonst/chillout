@@ -1,7 +1,7 @@
 //@ts-check
 
 /** Animation classes should inherit from this class and override its methods. Simulates an Interface. */
-export default class AnimationsInterface {
+class AnimationsInterface {
     makeActive() {
         throw new Error('Method not implemented!');
     }
@@ -14,3 +14,5 @@ export default class AnimationsInterface {
         throw new Error('Method not implemented!');
     }
 }
+
+export default AnimationsInterface;
