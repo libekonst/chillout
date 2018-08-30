@@ -2,14 +2,8 @@ import RadioAnim from "./RadioAnim";
 import AudioController from "./AudioController";
 import PlayButtonAnim from "./PlayButtonAnim";
 
-/** @typedef {Object} RadioProps An object with data about a specific radio. 
- * @property {string} id Unique radio ID.
- * @property {string} name Radio name that will be displayed.
- * @property {string} source Stream URL.
- * @property {string} img Image source URL.
- */
 
-export default class RadioItem {
+class RadioItem {
     /** 
      * Creates a radioItem composing of several objects, loads it to the DOM and assigns event listeners to it.
      * @param {RadioProps} radioProps An object containing radio specific properties.
@@ -19,28 +13,27 @@ export default class RadioItem {
      * @param {String} type Used to render the radio item under a certain parent <ul> element.
      */
     constructor(radioProps, radioAnim, audioController, playButtonAnim, type) {
-        // Radio properties taken from the json response.
-        this.id = radioProps.id;
-        this.name = radioProps.name;
-        this.source = radioProps.source;
-        this.img = radioProps.img;
+        if (this.isValid(radioProps)) {
+            this.id = radioProps.id;
+            this.name = radioProps.name;
+            this.source = radioProps.source;
+            this.img = radioProps.img;
+        } else throw new Error('A radioProps object must have .id, .name, .source and .img properties!');
 
         this.anim = radioAnim;
         this.audio = audioController;
         this.playButton = playButtonAnim;
         this.type = type;
-
-        // Loads the radioItem to the DOM.
         this.render();
-
-        // Finds the radioItem on the DOM and assigns Event Listeners to it.
-        document.getElementById(this.id).addEventListener('mousedown', () => {
-            this.interact();
-        });
+        this.addEventListeners();
     }
-
-    isValidRadioProps() {
-        // checks if the radioProps object has the required properties.
+    
+    /** Checks if the object containing the radio info has the right properties. */
+    isValid(props){
+        return props.hasOwnProperty('id') &&
+        props.hasOwnProperty('name') &&
+        props.hasOwnProperty('img') &&
+        props.hasOwnProperty('source');
     }
 
     /** Loads the radioItem to the DOM and converts its properties into Element attributes. */
@@ -63,8 +56,15 @@ export default class RadioItem {
         parent.appendChild(radioItem);
     }
 
+    /** Finds the radioItem on the DOM and assigns Event Listeners to it. */
+    addEventListeners() {
+        document.getElementById(this.id).addEventListener('mousedown', () => {
+            this.handleClick();
+        });
+    }
+
     /** Updates the audio source, plays/pauses the audio and changes animations respectively.*/
-    interact() {
+    handleClick() {
         this.updateAudioSource();
 
         if (this.audio.paused)
@@ -110,3 +110,13 @@ export default class RadioItem {
         this.playButton.makeIdle();
     }
 }
+
+export default RadioItem;
+
+
+/** @typedef {Object} RadioProps An object with data about a specific radio. 
+ * @property {string} id Unique radio ID.
+ * @property {string} name Radio name that will be displayed.
+ * @property {string} source Stream URL.
+ * @property {string} img Image source URL.
+ */
