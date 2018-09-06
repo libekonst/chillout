@@ -25,14 +25,14 @@
 }
 
 .radio-item {
+    display: flex;
     background-color: #2C2E3D;
     background-color: #272833;
     border-radius: 4px;
     opacity: 0.9;
     transition: 0.1s ease-in;
-    display: flex;
     /* justify-content: center; */
-    position: relative;
+    // position: relative;
     text-align: center;
     padding: 1px;
     transition: 0.2s ease-out;
@@ -54,7 +54,38 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    &:hover {
+}
+
+.radio-item-active {
+    z-index: 2;
+    cursor: pointer;
+    opacity: 1;
+    background: var(--green);
+    box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.6);
+    transform: translateY(-23px) scale(1.09) scaley(1.07);
+    transition: all 0.2s ease-out;
+    &:after {
+        content: "pause";
+        // content: attr(data-content);
+        font-family: "Material Icons";
+        font-style: normal;
+        font-size: 60px;
+        // content: "\f04c";
+        // font-family: 'FontAwesome';
+        // font-style: normal;
+        // font-size: 60px;
+        // font-weight: 900;
+        position: absolute;
+        width: 250px;
+        align-self: center;
+        line-height: 250px;
+    }
+    
+}
+
+// Desktops
+@media (min-width: 1200px){
+    .radio-item:hover {
         z-index: 1;
         cursor: pointer;
         opacity: 1;
@@ -73,33 +104,8 @@
             /* border-radius: 50%; */
         }
     }
-}
 
-.radio-item-active {
-    z-index: 2;
-    cursor: pointer;
-    opacity: 1;
-    background: var(--green);
-    box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.6);
-    transform: translateY(-23px) scale(1.09) scaley(1.07);
-    transition: all 0.2s ease-out;
-    &:after {
-        // content: "pause";
-        content: attr(data-content);
-        font-family: "Material Icons";
-        font-style: normal;
-        font-size: 60px;
-        /* content: "\f04c";
-        font-family: 'FontAwesome';
-        font-style: normal;
-        font-size: 60px;
-        font-weight: 900; */
-        position: absolute;
-        width: 250px;
-        align-self: center;
-        line-height: 250px;
-    }
-    &:hover {
+    .radio-item-active:hover {
         background: var(--greenE);
         box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
         transform: translateY(-23px) scale(1.09) scaley(1.07);
@@ -112,23 +118,39 @@
     }
 }
 
-#fav1 {
-    background-image: url('http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png');
+// Tablets
+@media (max-width: 991.98px) {
+// @media (max-width: 930px) {
+    .radio-item-list{
+        grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+        grid-auto-rows: 200px;
+    }
 }
 
-// #fav2 {
-//     background-image: url('http://cdn.e-radio.gr/logos/gr/big/bestradio.png');
-// }
-// #fav3 {
-//     background-image: url('../radio-images/enlefko.png');
-// }
-#fav4 {
-    background-image: url('https://www.imagine897.gr/images/folder/logos/mobile-logos/logomobile.png');
+// Small devices
+// @media (max-width: 465px) {
+@media (max-width: 641px) {
+    .radio-item-list{
+        grid-template-columns: repeat(auto-fill, minmax(150px, max-content));
+        grid-auto-rows: 150px;
+    }
 }
 
-// #fav5 {
-//     background-image: url('http://cdn.e-radio.gr/logos/gr/big/pepper966.png');
-// }
+// Extra small devices
+@media (max-width: 364.98px) {
+    .radio-item-list{
+    grid-template-columns: repeat(auto-fill, minmax(130px, max-content));
+    grid-auto-rows: 130px;
+    }
+}
+
+@media (max-width: 324px) {
+    .radio-item-list{
+    grid-template-columns: repeat(auto-fill, minmax(100px, max-content));
+    grid-auto-rows: 100px;
+    }
+}
+
 // .radio-item:hover {
 //     z-index: 1;
 //     cursor: pointer;
