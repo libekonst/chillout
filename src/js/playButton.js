@@ -7,16 +7,17 @@ const buttonAnim = new PlayButtonAnim();
 const audio = new AudioController();
 const radioAnim = new RadioAnim();
 
-export default function controlPlayPause() {
-
+function controlPlayPause() {
     document.getElementById('play-button').addEventListener('mousedown', () => {
-        radioAnim.id = audio.lastRadio; // Provided later on because the id changes dynamically.
+        // ID provided on function call because it changes dynamically.
+        radioAnim.id = audio.lastRadio;
 
         if (audio.source === '')
             return alert('Select a radio first!');
-        if (audio.paused) 
+        if (audio.paused)
             turnOn();
-        else turnOff();
+        else
+            turnOff();
     });
 }
 
@@ -31,3 +32,5 @@ function turnOff() {
     buttonAnim.makeIdle();
     radioAnim.makeIdle();
 }
+
+export default controlPlayPause;

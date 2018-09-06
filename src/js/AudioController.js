@@ -3,7 +3,9 @@
 class AudioController {
     /** A Controller that allows objects to interact with the <audio> element. */
     constructor() {
-        this.audio = document.getElementsByTagName('audio')[0];
+        this.audio = document.querySelector('audio');
+        if (this.audio === null)
+            throw 'Add an audio element to the DOM first.';
     }
 
     play() {

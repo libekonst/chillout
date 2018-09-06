@@ -8,19 +8,14 @@ import PlayButtonAnim from "./PlayButtonAnim";
  * When the response object is returned, calls a function that handles the json data.
  */
 export function requestJSON() {
-    const requestURL = 'https://kostaslib.github.io/chillout/src/radios.json'; //"http://127.0.0.1:5500/src/radios.json";
+    // const requestURL = "http://127.0.0.1:5500/src/radios.json";
+    const requestURL = 'https://kostaslib.github.io/chillout/src/radios.json';
     const request = new XMLHttpRequest();
     request.open('GET', requestURL);
     request.responseType = 'json';
     request.send();
 
     request.onload = () => renderRadios(request);
-
-    // return new Promise((res, err) => {
-    //     request.onload = () => {
-    //     renderRadios(request);  
-    // });
-    // };
 }
 
 /**
@@ -30,7 +25,7 @@ export function requestJSON() {
  */
 function renderRadios(request) {
     const radioData = request.response;
-
+    
     for (let radio of radioData.music) {
         new RadioItem(radio, new RadioAnim(radio.id), new AudioController(), new PlayButtonAnim(), 'music');
         console.log(`Loaded ${radio.name}`);

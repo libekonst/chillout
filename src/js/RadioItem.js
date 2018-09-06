@@ -7,33 +7,37 @@ class RadioItem {
     /** 
      * Creates a radioItem composing of several objects, loads it to the DOM and assigns event listeners to it.
      * @param {RadioProps} radioProps An object containing radio specific properties.
-     * @param {RadioAnim} radioAnim An object providing methods that handle the radioItem animations.
-     * @param {AudioController} audioController An object providing commands that allow interaction with the <audio>.
-     * @param {PlayButtonAnim} playButtonAnim An object providing functions that affect the play button's animations.
+     * @param {RadioAnim} radioAnim Contains methods that handle the radioItem animations.
+     * @param {AudioController} audioController Contains methods that allow interaction with the <audio>.
+     * @param {PlayButtonAnim} playButtonAnim Contains methods that affect the play button's animations.
      * @param {String} type Used to render the radio item under a certain parent <ul> element.
      */
     constructor(radioProps, radioAnim, audioController, playButtonAnim, type) {
+        this.setProps(radioProps);
+        this.anim = radioAnim;
+        this.audio = audioController;
+        this.playButton = playButtonAnim;
+        this.type = type;
+        this.render()
+            .addEventListeners();
+    }
+
+    setProps(radioProps) {
         if (this.isValid(radioProps)) {
             this.id = radioProps.id;
             this.name = radioProps.name;
             this.source = radioProps.source;
             this.img = radioProps.img;
-        } else throw new Error('A radioProps object must have .id, .name, .source and .img properties!');
-
-        this.anim = radioAnim;
-        this.audio = audioController;
-        this.playButton = playButtonAnim;
-        this.type = type;
-        this.render();
-        this.addEventListeners();
+        } else
+            throw new Error('A radioProps object must have .id, .name, .source and .img properties!');
     }
-    
+
     /** Checks if the object containing the radio info has the right properties. */
-    isValid(props){
+    isValid(props) {
         return props.hasOwnProperty('id') &&
-        props.hasOwnProperty('name') &&
-        props.hasOwnProperty('img') &&
-        props.hasOwnProperty('source');
+            props.hasOwnProperty('name') &&
+            props.hasOwnProperty('img') &&
+            props.hasOwnProperty('source');
     }
 
     /** Loads the radioItem to the DOM and converts its properties into Element attributes. */
@@ -52,8 +56,10 @@ class RadioItem {
         radioItem.appendChild(img);
 
         // Appends the radioItem to the parent <ul>.
-        const parent = document.getElementById(`${this.type}-radios`);
-        parent.appendChild(radioItem);
+        document.getElementById(`${this.type}-radios`).appendChild(radioItem);
+
+        // NOTE: Returns 'this' so that another method can be chained.
+        return this;
     }
 
     /** Finds the radioItem on the DOM and assigns Event Listeners to it. */
@@ -63,7 +69,7 @@ class RadioItem {
         });
     }
 
-    /** Updates the audio source, plays/pauses the audio and changes animations respectively.*/
+    /** Updates the audio source, toggles play/pause and playbtn animations */
     handleClick() {
         this.updateAudioSource();
 
@@ -75,7 +81,7 @@ class RadioItem {
         console.log(`Player paused? ${this.audio.paused}`);
     }
 
-    /** Updates the audio source if it is different and changes other radios to idle. */
+    /** Updates the audio source if different. If so, also makes other radios idle. */
     updateAudioSource() {
         if (this.audio.source !== this.source) {
             console.log(`Loading ${this.name}...`);
