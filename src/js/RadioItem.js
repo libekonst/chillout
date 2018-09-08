@@ -82,6 +82,8 @@ class RadioItem {
     }
 
     /** Updates the audio source if different. If so, also makes other radios idle. */
+    // BUG: If a radio can't be loaded, responds only once to the user and then does nothing onclick, because it checks
+    // if the audio source has changed.
     updateAudioSource() {
         if (this.audio.source !== this.source) {
             console.log(`Loading ${this.name}...`);
@@ -91,6 +93,10 @@ class RadioItem {
     }
 
     /** Starts the audio and changes the radioItem's styles to active. */
+    // BUG: If a radio can't be loaded, the play-button will activate last-radio's animation but not the sound.
+    // The reason for this is that the audio source has changed, but the data-last-radio property updates only when
+    // the audio successfully starts playing.
+    // E.g. <audio id="audio" data-last-radio="vanillasmooth" src="corruptedDiceRadioSource"></audio>
     startAudio() {
         this.anim.makeActive();
         this.playButton.makeActive();
