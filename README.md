@@ -21,16 +21,18 @@ The project is utilizing [JSDoc](http://usejsdoc.org/)'s funny notations along w
 
 Visual Studio Code ships with Typescript, so to use its type checker either include ```//@ts-check``` at the first line of a file or check all files by setting the ```javascript.implicitProjectConfig.checkJs``` option to true. If you are using another editor, you need to [install Typescript](https://www.npmjs.com/package/typescript) first.
 
-Find out more about [typechecking with JSDoc](https://github.com/Microsoft/TypeScript-wiki/blob/master/JSDoc-support-in-JavaScript.md). 
+Find out more about [typechecking with JSDoc](https://github.com/Microsoft/TypeScript-wiki/blob/master/JSDoc-support-in-JavaScript.md).
+
+Use a linter, like [ESLint](https://eslint.org/) along with type checking for a joyful javascript experience!
 
 ### Prerequisites
-This project is written in pure JavaScript and does not rely on any JS framework, but several node modules are required for its development, like [webpack](https://webpack.js.org/) and [Sass](https://sass-lang.com/). To install the devDependencies described in [package.json](https://github.com/KostasLib/chillout/blob/master/package.json): 
+This project is written in pure JavaScript(ES6+) and does not rely on any JS framework, but several node modules are required for its development, like [webpack](https://webpack.js.org/) and [Sass](https://sass-lang.com/). To install the devDependencies described in [package.json](https://github.com/KostasLib/chillout/blob/master/package.json): 
 
 * Install [Node.js](https://nodejs.org/en/) on your machine
 * Navigate to the root folder
 * Run ```npm i``` in the command line
 
-### Imitating A Back-end System
+### Imitating a simple Back-end System
 No back-end or database have been developed for the project yet so to avoid hard-coding the radio sources into the source code, they are instead stored in a [JSON file](https://github.com/KostasLib/chillout/blob/master/src/radios.json). A function sends a GET request asking for this file and once the response is returned, the JSON's information is then used to populate the DOM with radio items.
 
 When a user opens the app, he requests this file from ```https://kostaslib.github.io/chillout/src/radios.json```.
