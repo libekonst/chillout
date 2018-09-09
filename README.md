@@ -11,10 +11,10 @@ collection of radios and an audio player in a single lightweight page, promising
 Simply click on a radio and enjoy the music! [Tune in to your groove.](https://kostaslib.github.io/chillout/)
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
 ### Installing
-Clone the repo by running ```git clone https://github.com/KostasLib/chillout.git``` in the command line. See the prerequisites for devDependencies.
+Clone the repo by running ```git clone https://github.com/KostasLib/chillout.git``` in the command line. See the [prerequisites](#prerequisites) for devDependencies.
 
 ### Typechecking
 The project is utilizing [JSDoc](http://usejsdoc.org/)'s funny notations along with TypeScript's type checker for safer coding. Typescript natively supports JSDoc to provide type errors in compile time and intellisense features about your code.
@@ -36,7 +36,7 @@ No back-end or database have been developed for the project yet so to avoid hard
 When a user opens the app, he requests this file from ```https://kostaslib.github.io/chillout/src/radios.json```.
 
 #### Editing The Radio Sources
-To edit the radios.json file and have different radios in the DOM, you have to let the app know where to find the updated radios.json file. The file is also served by the local development server, so to request it from there:
+To load different radios in the DOM, you have to edit the radios.json file and let the app know where to find the updated version. During development, request the file from the local dev server:
 
 * Navigate to the [populateDOM.js](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:mySocket/src/radios.json';```.
 * Make sure to change ```localhost:mySocket``` to your local development server's address and socket.
@@ -47,7 +47,7 @@ Before you start editing the code, type ```npm run dev``` in the command line. W
 ## Deployment
 If you [edited the radio sources](#editing-the-radio-sources), change the ```requestURL``` variable's value to the address where the radios.json will be hosted.
 
-Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the ```build/``` folder, which the browser will process and display faster.
+Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the ```build/``` folder, which the browser can process faster.
 
 --------------------------------------
 # Old and obsolete :(
