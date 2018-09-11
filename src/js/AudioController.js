@@ -1,21 +1,22 @@
-//@ts-check
-
 class AudioController {
-    /** A Controller that allows objects to interact with the <audio> element. */
+    /** A controller that allows objects to interact with the Audio element. */
     constructor() {
         this.audio = document.querySelector('audio');
         if (this.audio === null)
-            throw 'Add an audio element to the DOM first.';
+            throw new Error('No Audio element found on the DOM.');
     }
 
+    /** Loads and starts playback of a media resource.*/
     play() {
         return this.audio.play();
     }
 
+    /** Pauses the current playback and sets paused to TRUE. */
     pause() {
         return this.audio.pause();
     }
 
+    /** Sets the Audio element's source to the specified address or URL. */
     set source(sourceURL) {
         this.audio.src = sourceURL;
     }
@@ -31,6 +32,7 @@ class AudioController {
         return this.audio.dataset.lastRadio;
     }
 
+    /** Gets a flag that specifies whether playback is paused. */
     get paused(){
         return this.audio.paused;
     }

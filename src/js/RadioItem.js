@@ -14,9 +14,9 @@ class RadioItem {
      */
     constructor(radioProps, radioAnim, audioController, playButtonAnim, type) {
         this.setProps(radioProps);
-        this.anim = radioAnim;
+        this.radioAnim = radioAnim;
         this.audio = audioController;
-        this.playButton = playButtonAnim;
+        this.buttonAnim = playButtonAnim;
         this.type = type;
         this.render()
             .addEventListeners();
@@ -82,38 +82,40 @@ class RadioItem {
     }
 
     /** Updates the audio source if different. If so, also makes other radios idle. */
+    // BUG: If a radio can't be loaded, responds only once to the user and then does nothing onclick, because it checks
+    // if the audio source has changed.
     updateAudioSource() {
         if (this.audio.source !== this.source) {
             console.log(`Loading ${this.name}...`);
             this.audio.source = this.source;
-            this.anim.killOtherActive();
+            this.radioAnim.killOtherActive();
         }
     }
 
     /** Starts the audio and changes the radioItem's styles to active. */
     startAudio() {
-        this.anim.makeActive();
-        this.playButton.makeActive();
+        this.radioAnim.makeActive();
+        this.buttonAnim.makeActive();
+        this.audio.lastRadio = this.id;
 
         this.audio.play()
             .then(() => {
-                this.audio.lastRadio = this.id;
                 console.log(`Playing ${this.name}...`);
-                this.playButton.makeActive();
+                this.buttonAnim.makeActive();
             })
             .catch(error => {
                 console.log(`Failed to load radio... ${error}.`);
                 console.log(this);
-                this.anim.makeIdle();
-                this.playButton.makeIdle();
+                this.radioAnim.makeIdle();
+                this.buttonAnim.makeIdle();
             });
     }
 
     /** Pauses the audio and changes the radioItem's styles to idle. */
     pauseAudio() {
-        this.anim.makeIdle();
+        this.radioAnim.makeIdle();
         this.audio.pause();
-        this.playButton.makeIdle();
+        this.buttonAnim.makeIdle();
     }
 }
 

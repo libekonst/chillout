@@ -22,9 +22,14 @@ function controlPlayPause() {
 }
 
 function turnOn() {
-    audio.play();
     buttonAnim.makeActive();
     radioAnim.makeActive();
+    audio.play()
+        .catch(error => {
+            turnOff();
+            console.log(error);
+            alert(`Can't load ${audio.lastRadio}...`)
+        });
 }
 
 function turnOff() {
