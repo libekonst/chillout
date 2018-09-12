@@ -1,6 +1,6 @@
-import RadioAnim from "./RadioAnim";
-import AudioController from "./AudioController";
-import PlayButtonAnim from "./PlayButtonAnim";
+import RadioAnim from "./controllers/RadioAnim";
+import AudioController from "./controllers/AudioController";
+import PlayButtonAnim from "./controllers/PlayButtonAnim";
 import { displayToast } from "./toast";
 
 
