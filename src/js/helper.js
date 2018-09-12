@@ -8,14 +8,3 @@ export function getAttributeByClassName(className, attr) {
     return [...document.getElementsByClassName(className)]
         .map(el => el.getAttribute(attr).toString());
 }
-
-/* function validateRequest(collection) {
-    if (collection.length < 1) {
-        throw new Error(`No elements of class '${className}' found.`);
-    }
-
-    for (let radio of collection) {
-        if (!radio.hasAttribute(attr))
-            throw new Error(`No ${attr} assigned to this element.`);
-    }
-} */

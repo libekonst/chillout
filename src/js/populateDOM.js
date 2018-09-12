@@ -1,7 +1,7 @@
 import RadioItem from "./RadioItem";
-import RadioAnim from "./RadioAnim";
-import AudioController from "./AudioController";
-import PlayButtonAnim from "./PlayButtonAnim";
+import RadioAnim from "./controllers/RadioAnim";
+import AudioController from "./controllers/AudioController";
+import PlayButtonAnim from "./controllers/PlayButtonAnim";
 
 /**
  * Sends an HTTP Request to get the radios.json file.
@@ -34,10 +34,4 @@ function renderRadios(request) {
         new RadioItem(radio, new RadioAnim(radio.id), new AudioController(), new PlayButtonAnim(), 'news');
         console.log(`Loaded ${radio.name}`);
     }
-}
-
-function renderRadioSection(request) {
-    // Takes the response and creates a <section></section> for each array (i.e. radio type) in JSON.
-    // Then populate the section with an <h2>${type} Radios</h2>. First letter capitalized.
-    // Also add an Unorder List and populate it with radio items using renderRadios().
 }

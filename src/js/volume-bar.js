@@ -1,4 +1,4 @@
-import AudioController from "./AudioController";
+import AudioController from "./controllers/AudioController";
 
 const audio = new AudioController();
 

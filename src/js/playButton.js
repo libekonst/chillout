@@ -1,14 +1,14 @@
 //@ts-check
-import PlayButtonAnim from "./PlayButtonAnim";
-import AudioController from "./AudioController";
-import RadioAnim from "./RadioAnim";
+import PlayButtonAnim from "./controllers/PlayButtonAnim";
+import AudioController from "./controllers/AudioController";
+import RadioAnim from "./controllers/RadioAnim";
 import { displayToast } from "./toast";
 
 const buttonAnim = new PlayButtonAnim();
 const audio = new AudioController();
 const radioAnim = new RadioAnim();
 
-function controlPlayPause() {
+function addPlayButtonControls() {
     document.getElementById('play-button').addEventListener('mousedown', () => {
         // ID provided on function call because it changes dynamically.
         radioAnim.id = audio.lastRadio;
@@ -39,4 +39,4 @@ function turnOff() {
     radioAnim.makeIdle();
 }
 
-export default controlPlayPause;
+export default addPlayButtonControls;
