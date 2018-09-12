@@ -1,0 +1,24 @@
+#player-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    bottom: 0px;
+    left: auto;
+    right: auto;
+    height: 70px; 
+    margin: 0;
+    background-color: $dark;
+    z-index: 10;
+    border-radius: 10px 10px 0 0;
+    position: fixed;
+    width: 100%;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -28,14 +28,7 @@
 <body>
     <header>
         <img id="logo" src="./assets/logo-green.png" alt="">
-        <!-- <img class="logo" src="/assets/logo-blue.png" width="940" height="550" alt=""> -->
-        <h1>A sophisticated radio player</h1>
-        <div id="playerWrapper">
-            <div id="play-button-wrapper" class="play-button-wrapper">
-                <div id="play-button" class="play-button"></div>
-            </div>
-        </div>
-
+        <!-- Add a navbar -->
     </header>
 
     <main>
@@ -50,18 +43,39 @@
                 <ul id="news-radios" class="radio-item-list"></ul>
             </section>
         </div>
+
+        <p id="github-par">Find the source code on
+            <span class="github-wrapper">
+                <i class="fa fa-github"></i>
+                <a href="https://github.com/KostasLib/chillout" target="_blank">
+                    Github!
+                </a>
+            </span>
+        </p>
+
+        <!-- <aside>Add a floating button for favorites.</aside> -->
         <audio id="audio" data-last-radio=""></audio>
 
-        <!-- OTHER -->
-        <aside>Aside floating button.</aside>
     </main>
 
-    <footer>
-        <p>Find the source code on
-            <a href="https://github.com/KostasLib/chillout" target="_blank">
-                <span class="github">Github!</span>
-            </a>
-        </p>
+    <footer id="footer">
+        <div id="toast"></div>
+
+        <div id="player-wrapper">
+            <div id="button-container">
+                <div id="play-button-wrapper" class="play-button-wrapper">
+                    <div id="play-button" class="play-button"></div>
+                </div>
+            </div>
+            <ul id="volume-bar-container">
+                <li>
+                    <i id="volume-icon" class="material-icons">volume_up</i>
+                </li>
+                <li>
+                    <input type="range" id="volume-bar" value="20" min="0" max="100" step="0.1" volume=>
+                </li>
+            </ul>
+        </div>
     </footer>
 
     <script src="./build/main.js"></script>
