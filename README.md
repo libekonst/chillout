@@ -10,9 +10,9 @@ collection of radios and an audio player in a single lightweight page, promising
 
 Simply click on a radio and enjoy the music! [Tune in to your groove.](https://kostaslib.github.io/chillout/)
 
-You can also add this app to your home screen on any device.
-* On mobile, open in Chrome, click the wrench icon in the right corner and select **Add to Home Screen**.
-* On desktop, open in Chrome, click the wrench icon in the right corner, select **More Tools** and **Create Shortcut**.
+You can also add this app to your home screen on any device:
+* On mobile, open in Chrome, click the **three dots** in the right corner and select **Add to Home Screen**.
+* On desktop, open in Chrome, click the **three dots** in the right corner, select **More Tools** and **Create Shortcut**.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
