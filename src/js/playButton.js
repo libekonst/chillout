@@ -2,6 +2,7 @@
 import PlayButtonAnim from "./PlayButtonAnim";
 import AudioController from "./AudioController";
 import RadioAnim from "./RadioAnim";
+import { displayToast } from "./toast";
 
 const buttonAnim = new PlayButtonAnim();
 const audio = new AudioController();
@@ -13,7 +14,7 @@ function controlPlayPause() {
         radioAnim.id = audio.lastRadio;
 
         if (audio.source === '')
-            return alert('Select a radio first!');
+            return displayToast('Select a radio first!');
         if (audio.paused)
             turnOn();
         else
@@ -28,7 +29,7 @@ function turnOn() {
         .catch(error => {
             turnOff();
             console.log(error);
-            alert(`Can't load ${audio.lastRadio}...`)
+            displayToast(`Can't load ${audio.lastRadio}...`);
         });
 }
 

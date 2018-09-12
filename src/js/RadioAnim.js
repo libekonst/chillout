@@ -42,7 +42,6 @@ class RadioAnim extends AnimationsInterface {
     set id(id) {
         this._id = id; // Ugly :(
     }
-
     get id() {
         return this._id;
     }
