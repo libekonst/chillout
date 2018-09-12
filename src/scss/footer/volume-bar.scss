@@ -1,0 +1,88 @@
+@mixin reset-slider {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0 none;
+    outline: none;
+    background: transparent;
+    color: transparent;
+    overflow: visible;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+@mixin reset-thumb {
+    border-radius: 0px;
+    border: 0 none;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+@mixin customize-slider {
+    background: $gray;
+    border-radius: 3px;
+}
+
+@mixin customize-thumb {
+    width: 10px;
+    height: 10px;
+    background: $green;
+    border-radius: 50%;
+}
+
+#volume-bar-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-left: 1rem;
+    opacity: 0.8;
+    height: 5px;
+
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    #volume-bar {
+        width: 150px;
+    }
+    #volume-icon {
+        user-select: none;
+    }
+}
+
+
+// Reset
+#volume-bar {
+    @include reset-slider();
+    @include customize-slider();
+
+    &::-moz-range-track {
+        @include reset-slider();
+        @include customize-slider();
+    }
+
+    &::-moz-range-thumb {
+        @include reset-thumb();
+        @include customize-thumb();
+    }
+
+    &::-webkit-slider-thumb {
+        @include reset-thumb();
+        @include customize-thumb();
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus:-webkit-slider-runnable-tracke {
+        background: transparent;
+        border: transparent;
+    }
+}
