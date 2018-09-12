@@ -13,10 +13,13 @@
     border: 1px solid var(--green);
 }
 
-.play-button-wrapper:hover {
-    border: 1px solid rgba(53, 190, 136, 0.8);
-    background-color: rgba(53, 190, 136, 0.8);
-    transition: 0.2s ease-out;
+// Desktops
+@media (min-width: 1200px) {
+    .play-button-wrapper:hover {
+        border: 1px solid rgba(53, 190, 136, 0.8);
+        background-color: rgba(53, 190, 136, 0.8);
+        transition: 0.2s ease-out;
+    }
 }
 
 /* ------Play Icon------ */
