@@ -34,6 +34,11 @@
     text-align: center;
     padding: 1px;
     transition: 0.2s ease-out;
+
+    // Positioned relative so that pseudoelements' absolute position is 
+    // calculated based on the parent's .radio-item position instead of the viewport.
+    position: relative;
+
     &:after {
         content: "play_arrow";
         font-family: "Material Icons";
@@ -49,6 +54,7 @@
 
         color: rgba(39, 158, 169, 0);
         transition: 0.05s ease-out;
+
         position: absolute;
         top: 50%;
         left: 50%;
@@ -64,6 +70,7 @@
     box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.6);
     transform: translateY(-23px) scale(1.09) scaley(1.07);
     transition: all 0.2s ease-out;
+
     &:after {
         content: "pause";
         font-family: "Material Icons";
@@ -77,13 +84,11 @@
         // font-family: 'FontAwesome';
         // font-style: normal;
         // font-size: 50px;
-
     }
-    
 }
 
 // Desktops
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
     .radio-item:hover {
         z-index: 1;
         cursor: pointer;
@@ -93,16 +98,19 @@
         transform: translateY(-20px) scale(1.07) scaley(1.05);
         box-shadow: 0px 5px 10px 0px rgba(8, 8, 8, 0.5);
         transition: 0.15s ease-out;
+
         &:after {
             color: rgba(39, 158, 169, 1);
             transition: .1s ease-out;
         }
     }
+
     .radio-item-active:hover {
         background: var(--greenE);
         box-shadow: 0px 2px 15px -5px rgba(31, 99, 98, 0.5);
         transform: translateY(-23px) scale(1.09) scaley(1.07);
         transition: all 0.1s ease-out;
+
         &:after {
             color: var(--green);
             transition: .1s ease-out;
@@ -112,7 +120,7 @@
 
 // Tablets
 @media (max-width: 991.98px) {
-    .radio-item-list{
+    .radio-item-list {
         grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
         grid-auto-rows: 200px;
     }
@@ -120,7 +128,7 @@
 
 // Small devices
 @media (max-width: 641px) {
-    .radio-item-list{
+    .radio-item-list {
         grid-template-columns: repeat(auto-fill, minmax(150px, max-content));
         grid-auto-rows: 150px;
     }
@@ -128,16 +136,16 @@
 
 // Really small devices
 @media (max-width: 364.98px) {
-    .radio-item-list{
-    grid-template-columns: repeat(auto-fill, minmax(130px, max-content));
-    grid-auto-rows: 130px;
+    .radio-item-list {
+        grid-template-columns: repeat(auto-fill, minmax(130px, max-content));
+        grid-auto-rows: 130px;
     }
 }
 
 // Extra small devices
 @media (max-width: 324px) {
-    .radio-item-list{
-    grid-template-columns: repeat(auto-fill, minmax(100px, max-content));
-    grid-auto-rows: 100px;
+    .radio-item-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, max-content));
+        grid-auto-rows: 100px;
     }
 }
