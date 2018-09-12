@@ -32,6 +32,20 @@ class AudioController {
         return this.audio.dataset.lastRadio;
     }
 
+    get volume(){
+        return this.audio.volume;
+    }
+    set volume(val){
+        this.audio.volume = val;
+    }
+
+    get muted(){
+        return this.audio.muted;
+    }
+    set muted(bool){
+        this.audio.muted = bool;
+    }
+
     /** Gets a flag that specifies whether playback is paused. */
     get paused(){
         return this.audio.paused;
