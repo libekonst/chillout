@@ -217,30 +217,6 @@
             "name": "Skai 100.3",
             "source": "http://liveradio.skai.gr/skaihd/skai/playlist.m3u8",
             "img": "http://cdn.e-radio.gr/logos/gr/big/skai.png"
-        },
-        {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
-        },
-        {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
-        },
-        {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
-        },
-        {
-            "id": "myID",
-            "name": "myDataName",
-            "source": "url",
-            "img": "url"
         }
     ]
 }
