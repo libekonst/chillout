@@ -44,8 +44,8 @@ When a user opens the app, he requests this file from ```https://kostaslib.githu
 #### Editing The Radio Sources
 To load different radios in the DOM, you have to edit the radios.json file and let the app know where to find the updated version. During development, request the file from the local dev server:
 
-* Navigate to the [populateDOM.js](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:mySocket/src/radios.json';```.
-* Make sure to change ```localhost:mySocket``` to your local development server's address and socket.
+* Navigate to the [populateDOM.js](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:port/src/radios.json';```.
+* Make sure to change ```localhost:port``` to your local development server's address and port.
 
 ### Usage
 Before you start editing the code, type ```npm run dev``` in the command line. Webpack and Sass will start watching your files for changes and bundle them into single ```main.js``` and ```style.css``` files in the ```build/``` directory. The produced files are fed into ```index.html``` when they are saved. Use a development server tool that serves this html file.
