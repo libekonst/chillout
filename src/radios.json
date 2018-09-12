@@ -180,7 +180,7 @@
             "id": "parapolitika",
             "name": "Parapolitika 90.1",
             "source": "http://netradio.live24.gr/athinaradio",
-            "img": "../assets/radio-images/parapolitika.svg"
+            "img": "http://cdn.e-radio.gr/logos/gr/big/parapolitikafm.png"
         },
         {
             "id": "sport24",
@@ -217,6 +217,12 @@
             "name": "Skai 100.3",
             "source": "http://liveradio.skai.gr/skaihd/skai/playlist.m3u8",
             "img": "http://cdn.e-radio.gr/logos/gr/big/skai.png"
+        },
+        {
+            "id": "test",
+            "name": "Testing Radio",
+            "source": "BROKEN",
+            "img": "https://www.creativefabrica.com/wp-content/uploads/2018/02/Testing-programming-icon-by-back1design1-580x580.jpg"
         }
     ]
 }
