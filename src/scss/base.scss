@@ -7,23 +7,13 @@
     font-family: 'Tajawal', sans-serif;
     color: rgb(255, 255, 255);
     -webkit-tap-highlight-color: transparent;
-    /*Chrome on Android, Brave.*/
     -webkit-touch-callout: none;
-    /* -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; 
-    Those break desktop too. */
 }
 
-*::selection {
-    color: var(--green)
-}
-
-*::-moz-selection {
-    color: var(--green);
-    /* background-color: var(--orange); */
-}
+// Color palette
+$dark: #202127;
+$green: #35BE88; 
+$gray: #242731;
 
 :root {
     /* Color palette */
@@ -31,16 +21,27 @@
     --red: #FE2F14;
     --orangy: #E96727;
     --orange: #FC6713;
+
     --green: #35BE88;
     --greenB: #31c88c;
     --greenC: rgb(44, 192, 150);
     --greenD: rgb(16, 240, 154);
     --greenE: rgb(63, 209, 151);
+    --greenF: #2ecc71;
+}
+
+*::selection {
+    color: $green;
+}
+
+*::-moz-selection {
+    color: $green;
 }
 
 body {
     line-height: 1;
     background-image: linear-gradient(to bottom, #191a22, #191a21, #191a21, #191a20, #191a1f);
+    margin-bottom: 100px;
 }
 
 ul {
@@ -53,15 +54,9 @@ footer {
     margin: 1rem;
 }
 
-footer {
+#github-par,
+h2 {
     text-align: center;
-}
-
-h1 {
-    font-size: 36px;
-    font-weight: 400;
-    margin-top: 5px;
-    margin-bottom: 10px;
 }
 
 a {
@@ -75,35 +70,16 @@ a:hover {
 h2 {
     font-size: 24px;
     font-weight: 200;
-    /* margin-top: 2rem; */
-    /*No need if using grid*/
+    margin-bottom: 1rem;
 }
 
-h4 {
-    font-size: 16px;
-    font-weight: 100;
+
+.fa.fa-github{
+    font-size: 1.5rem;
 }
 
-/* .fa.fa-github{
-    font-size:28px;
-    margin-right: 3px;
-} */
-
-.github {
-    &:before {
-        content: "\f09b";
-        font-family: 'FontAwesome';
-        font-style: normal;
-        font-size: 1.5em;
-        margin-right: 3px;
-        text-decoration-color: blue;
-    }
-    &:hover {
-        color: var(--green);
-        &:before {
-            color: var(--green);
-        }
-    }
+.github-wrapper:hover {
+    color: var(--green);
 }
 
 #logo {

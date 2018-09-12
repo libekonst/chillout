@@ -1,6 +1,7 @@
 import RadioAnim from "./RadioAnim";
 import AudioController from "./AudioController";
 import PlayButtonAnim from "./PlayButtonAnim";
+import { displayToast } from "./toast";
 
 
 class RadioItem {
@@ -29,7 +30,7 @@ class RadioItem {
             this.source = radioProps.source;
             this.img = radioProps.img;
         } else
-            throw new Error('A radioProps object must have .id, .name, .source and .img properties!');
+            throw new Error('A radioProps object must have .id, .name, .source and .img properties.');
     }
 
     /** Checks if the object containing the radio info has the right properties. */
@@ -52,13 +53,12 @@ class RadioItem {
         radioItem.setAttribute('class', 'radio-item');
         radioItem.setAttribute('id', this.id);
         radioItem.setAttribute('data-name', this.name);
-        radioItem.setAttribute('data-content', 'pause');
         radioItem.appendChild(img);
 
         // Appends the radioItem to the parent <ul>.
         document.getElementById(`${this.type}-radios`).appendChild(radioItem);
 
-        // NOTE: Returns 'this' so that another method can be chained.
+        // Returns 'this' so that another method can be chained.
         return this;
     }
 
@@ -105,9 +105,9 @@ class RadioItem {
             })
             .catch(error => {
                 console.log(`Failed to load radio... ${error}.`);
-                console.log(this);
                 this.radioAnim.makeIdle();
                 this.buttonAnim.makeIdle();
+                displayToast(`Failed to load ${this.name}`);
             });
     }
 

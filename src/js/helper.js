@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * Finds Elements by their className and returns an array of each Element's requested attribute.
  * @param {string} className The class name by which Elements will be collected.
@@ -11,8 +9,7 @@ export function getAttributeByClassName(className, attr) {
         .map(el => el.getAttribute(attr).toString());
 }
 
-
-function validateRequest(collection) {
+/* function validateRequest(collection) {
     if (collection.length < 1) {
         throw new Error(`No elements of class '${className}' found.`);
     }
@@ -21,4 +18,4 @@ function validateRequest(collection) {
         if (!radio.hasAttribute(attr))
             throw new Error(`No ${attr} assigned to this element.`);
     }
-}
+} */

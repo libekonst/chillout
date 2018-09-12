@@ -39,11 +39,5 @@ function renderRadios(request) {
 function renderRadioSection(request) {
     // Takes the response and creates a <section></section> for each array (i.e. radio type) in JSON.
     // Then populate the section with an <h2>${type} Radios</h2>. First letter capitalized.
-    // Also add an Unorder List and populate it with radio items using RenderRadios().
-
-    const radioTypes = request.response;
-
-    for (let type in radioTypes) {
-        // ...
-    }
+    // Also add an Unorder List and populate it with radio items using renderRadios().
 }
