@@ -6,17 +6,14 @@ class AudioController {
             throw new Error('No Audio element found on the DOM.');
     }
 
-    /** Loads and starts playback of a media resource.*/
     play() {
         return this.audio.play();
     }
 
-    /** Pauses the current playback and sets paused to TRUE. */
     pause() {
         return this.audio.pause();
     }
 
-    /** Sets the Audio element's source to the specified address or URL. */
     set source(sourceURL) {
         this.audio.src = sourceURL;
     }
@@ -46,7 +43,6 @@ class AudioController {
         this.audio.muted = bool;
     }
 
-    /** Gets a flag that specifies whether playback is paused. */
     get paused(){
         return this.audio.paused;
     }
