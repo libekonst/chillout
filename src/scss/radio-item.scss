@@ -12,6 +12,8 @@
     grid-auto-rows: 250px;
     grid-auto-flow: row;
     grid-gap: 1rem;
+
+    // overflow-x: hidden;
 }
 
 .radio-image {
@@ -68,15 +70,14 @@
         font-style: normal;
         font-size: 60px;
 
+        // Position inherited from .radio-item
+        transition: 0.05s ease-out;
+
         // content: "\f04c";
         // font-family: 'FontAwesome';
         // font-style: normal;
         // font-size: 50px;
 
-        position: absolute;
-        width: 250px;
-        align-self: center;
-        line-height: 250px;
     }
     
 }
@@ -104,8 +105,7 @@
         transition: all 0.1s ease-out;
         &:after {
             color: var(--green);
-            background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
+            transition: .1s ease-out;
         }
     }
 }
