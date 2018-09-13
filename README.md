@@ -54,3 +54,14 @@ Before you start editing the code, type ```npm run dev``` in the command line. W
 If you [edited the radio sources](#editing-the-radio-sources), change the ```requestURL``` variable's value to the address where the radios.json will be hosted.
 
 Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the ```build/``` folder, which the browser can process faster.
+
+## TODOs
+* Create a landing page.
+* Add favorites.
+* Add a floating button that displays the favorites.
+* Add option for light theme.
+* Add different views for the radio items (list view, etc).
+* Prompt the user to Add to Home Screen on mobile.
+
+## Acknowledgements
+The logo for this app was created with assets from [The Noun Project](https://thenounproject.com/).
