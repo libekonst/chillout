@@ -82,8 +82,6 @@ class RadioItem {
     }
 
     /** Updates the audio source if different. If so, also makes other radios idle. */
-    // BUG: If a radio can't be loaded, responds only once to the user and then does nothing onclick, because it checks
-    // if the audio source has changed.
     updateAudioSource() {
         if (this.audio.source !== this.source) {
             console.log(`Loading ${this.name}...`);
