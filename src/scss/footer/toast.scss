@@ -14,13 +14,21 @@
     z-index: 1;
 }
 
-#toast.show{
-    visibility: visible;
-    animation: fadein 0.5s , fadeout 0.5s 2.5s;
-    -moz-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+// Takes the animations defined in @keyframes and applies them
+// for various vendors. You only need to modify the timers once.
+@mixin animation($anim1, $anim2){
+    animation: $anim1, $anim2;
+    -moz-animation: $anim1, $anim2;
+    -webkit-animation: $anim1, $anim2;
 }
 
+#toast.toast-visible{
+    visibility: visible;
+    @include animation(fadein 0.5s, fadeout 0.5s 2.5s)
+}
+
+
+// Takes a @keyframe animation rule and applies it for various vendors.
 @mixin keyframes($anim-name){
     @keyframes #{$anim-name} {@content;}
     @-moz-keyframes #{$anim-name} {@content;}
