@@ -2,6 +2,7 @@ import RadioItem from "./RadioItem";
 import RadioAnim from "./controllers/RadioAnim";
 import AudioController from "./controllers/AudioController";
 import PlayButtonAnim from "./controllers/PlayButtonAnim";
+import RadioSection from "./RadioSection";
 
 /**
  * Sends an HTTP Request to get the radios.json file.
@@ -20,18 +21,26 @@ export function requestJSON() {
 
 /**
  * Parses the response object and creates RadioItem objects using its data.
- * RadioItems load themselves to the DOM automatically when created.
+ * RadioItems load themselves to the DOM automatically when instantiated.
  * @param {XMLHttpRequest} request A XMLHttpRequest object which has a response property.
  */
 function renderRadios(request) {
     const radioData = request.response;
     
-    for (let radio of radioData.music) {
-        new RadioItem(radio, new RadioAnim(radio.id), new AudioController(), new PlayButtonAnim(), 'music');
-        console.log(`Loaded ${radio.name}`);
+    /** category -> The JSON object's key name.
+      * radioData[category] -> The value of said key, here being an array. */
+    for (let category in radioData) {
+        createRadioSection(category);
+        radioData[category].forEach(radio => createRadioItem(radio, category));
     }
-    for (let radio of radioData.news) {
-        new RadioItem(radio, new RadioAnim(radio.id), new AudioController(), new PlayButtonAnim(), 'news');
-        console.log(`Loaded ${radio.name}`);
-    }
+}
+
+/** Accepts a property from the JSON object that represents a radio type
+  * and creates a <section> element for that radio type. */
+function createRadioSection(category){
+    new RadioSection(category);
+}
+
+function createRadioItem(radioInfo, category){
+    return new RadioItem(radioInfo, new RadioAnim(radioInfo.id), new AudioController(), new PlayButtonAnim(), category); 
 }
