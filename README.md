@@ -57,11 +57,11 @@ Finally type ```npm run build``` in the command line to produce files ready for 
 
 ## TODOs
 * Create a landing page.
-* Add favorites.
-* Add a floating button that displays the favorites.
-* Add option for light theme.
+* Add favorites + floating button that displays them.
+* Add option for light theme || rotating themes based on time of day (purple white - day, orange - evening, current-night)
 * Add different views for the radio items (list view, etc).
 * Prompt the user to Add to Home Screen on mobile.
+* Add option to stream playlists from Spotify.
 
 ## Acknowledgements
 The logo for this app was created with assets from [The Noun Project](https://thenounproject.com/).
