@@ -56,7 +56,8 @@ If you [edited the radio sources](#editing-the-radio-sources), change the ```req
 Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the ```build/``` folder, which the browser can process faster.
 
 ## TODOs
-* Create a landing page.
+* Add a landing page.
+* Add a navbar with links to the radio section.
 * Add favorites + floating button that displays them.
 * Add option for light theme || rotating themes based on time of day (purple white - day, orange - evening, current-night)
 * Add different views for the radio items (list view, etc).
