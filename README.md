@@ -36,10 +36,10 @@ This project is written in pure JavaScript(ES6+) and does not rely on any JS fra
 * Navigate to the root folder
 * Run ```npm i``` in the command line
 
-### Imitating a simple Back-end System
+### Simulating a simple Database
 No back-end or database have been developed for the project yet so to avoid hard-coding the radio sources into the source code, they are instead stored in a [JSON file](https://github.com/KostasLib/chillout/blob/master/src/radios.json). A function sends a GET request asking for this file and once the response is returned, the JSON's information is then used to populate the DOM with radio items.
 
-When a user opens the app, he requests this file from ```https://kostaslib.github.io/chillout/src/radios.json```.
+When a user opens the app, they request this file from ```https://kostaslib.github.io/chillout/src/radios.json```.
 
 #### Editing The Radio Sources
 To load different radios in the DOM, you have to edit the radios.json file and let the app know where to find the updated version. During development, request the file from the local dev server:
