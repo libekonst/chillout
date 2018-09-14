@@ -30,14 +30,14 @@ Find out more about [typechecking with JSDoc](https://github.com/Microsoft/TypeS
 Use a linter, like [ESLint](https://eslint.org/) along with type checking for a joyful javascript experience!
 
 ### Prerequisites
-This project is written in pure JavaScript(ES6+) and does not rely on any JS framework, but several node modules are required for its development, like [webpack](https://webpack.js.org/) and [Sass](https://sass-lang.com/). To install the devDependencies described in [package.json](https://github.com/KostasLib/chillout/blob/master/package.json): 
+This project is written in pure JavaScript(ES6+) and does not rely on any JS framework, but several node modules are required for its development, like [Webpack](https://webpack.js.org/) and [Sass](https://sass-lang.com/). To install the devDependencies described in [package.json](https://github.com/KostasLib/chillout/blob/master/package.json): 
 
 * Install [Node.js](https://nodejs.org/en/) on your machine
 * Navigate to the root folder
 * Run ```npm i``` in the command line
 
 ### Simulating a simple Database
-No back-end or database have been developed for the project yet so to avoid hard-coding the radio sources into the source code, they are instead stored in a [JSON file](https://github.com/KostasLib/chillout/blob/master/src/radios.json). A function sends a GET request asking for this file and once the response is returned, the JSON's information is then used to populate the DOM with radio items.
+No back-end or database have been developed for the project yet so to avoid hard-coding the radio sources into the source code, they are instead stored in a [```JSON file```](https://github.com/KostasLib/chillout/blob/master/src/radios.json). A function sends a GET request asking for this file and once the response is returned, the JSON's information is then used to populate the DOM with radio items.
 
 When a user opens the app, they request this file from ```https://kostaslib.github.io/chillout/src/radios.json```.
 
@@ -47,17 +47,19 @@ To load different radios in the DOM, you have to edit the radios.json file and l
 * Navigate to the [populateDOM.js](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:port/src/radios.json';```.
 * Make sure to change ```localhost:port``` to your local development server's address and port.
 
+The app will generate as many radios and radio sections as it finds in [```radios.json```](https://github.com/KostasLib/chillout/blob/master/src/radios.json), so you can add multiple entries and radio categories. The JSON contains an object, each key is a radio category and each key's value is an array of objects with data about a radio. Make certain that you enter your data in the same fashion.
+
 ### Usage
-Before you start editing the code, type ```npm run dev``` in the command line. Webpack and Sass will start watching your files for changes and bundle them into single ```main.js``` and ```style.css``` files in the ```build/``` directory. The produced files are fed into ```index.html``` when they are saved. Use a development server tool that serves this html file.
+Before you start editing the code, type ```npm run dev``` in the command line. Webpack and Sass will start watching your files for changes and bundle them into single ```main.js``` and ```style.css``` files in the [```build/```](https://github.com/KostasLib/chillout/tree/master/build) directory. The produced files are fed into ```index.html``` when they are saved. Use a development server tool that serves this html file.
 
 ## Deployment
 If you [edited the radio sources](#editing-the-radio-sources), change the ```requestURL``` variable's value to the address where the radios.json will be hosted.
 
-Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the ```build/``` folder, which the browser can process faster.
+Finally type ```npm run build``` in the command line to produce files ready for deployment. Webpack and Sass will bundle all .js and .scss files into single non-human readable ```main.js``` and ```style.css``` files in the [```build/```](https://github.com/KostasLib/chillout/tree/master/build) folder, which the browser can process faster.
 
 ## TODOs
 * Add a landing page.
-* Add a navbar with links to the radio section.
+* Add a navbar with links to each radio section.
 * Add favorites + floating button that displays them.
 * Add option for light theme || rotating themes based on time of day (purple white - day, orange - evening, current-night)
 * Add different views for the radio items (list view, etc).
