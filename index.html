@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>The Chillout App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="./build/style.css" />
 
     <!-- Icon Fonts -->
@@ -32,17 +32,7 @@
     </header>
 
     <main>
-        <div id="radio-sections-container">
-            <section id="music-radios-section" class="section-row">
-                <h2>Music Radios</h2>
-                <ul id="music-radios" class="radio-item-list"></ul>
-            </section>
-
-            <section id="news-radios-section" class="section-row">
-                <h2>News Radios</h2>
-                <ul id="news-radios" class="radio-item-list"></ul>
-            </section>
-        </div>
+        <div id="radio-sections-container"></div>
 
         <p id="github-par">Find the source code on
             <span id="github-wrapper">
@@ -54,7 +44,7 @@
         </p>
 
         <!-- <aside>Add a floating button for favorites.</aside> -->
-        <audio id="audio" data-last-radio=""></audio>
+        <audio id="audio"></audio>
 
     </main>
 
