@@ -25,10 +25,7 @@ class RadioItem {
 
     setProps(radioProps) {
         if (this.isValid(radioProps)) {
-            this.id = radioProps.id;
-            this.name = radioProps.name;
-            this.source = radioProps.source;
-            this.img = radioProps.img;
+            Object.assign(this, radioProps);
         } else
             throw new Error('A radioProps object must have .id, .name, .source and .img properties.');
     }
@@ -67,6 +64,8 @@ class RadioItem {
         document.getElementById(this.id).addEventListener('mousedown', () => {
             this.handleClick();
         });
+        // Using 'mousedown' instead of 'click' to fake performance.
+        // The user expects feedback when the mousebutton is released and the audio loads in the meantime.
     }
 
     /** Updates the audio source, toggles play/pause and playbtn animations */
@@ -84,7 +83,6 @@ class RadioItem {
     /** Updates the audio source if different. If so, also makes other radios idle. */
     updateAudioSource() {
         if (this.audio.source !== this.source) {
-            console.log(`Loading ${this.name}...`);
             this.audio.source = this.source;
             this.radioAnim.killOtherActive();
         }
@@ -94,15 +92,12 @@ class RadioItem {
     startAudio() {
         this.radioAnim.makeActive();
         this.buttonAnim.makeActive();
-        this.audio.lastRadio = this.id;
+        this.audio.lastRadio = this;
 
         this.audio.play()
-            .then(() => {
-                console.log(`Playing ${this.name}...`);
-                this.buttonAnim.makeActive();
-            })
+            .then(this.buttonAnim.makeActive)
             .catch(error => {
-                console.log(`Failed to load radio... ${error}.`);
+                console.log(error);
                 this.radioAnim.makeIdle();
                 this.buttonAnim.makeIdle();
                 displayToast(`Failed to load ${this.name}`);
