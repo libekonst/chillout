@@ -37,7 +37,7 @@ class RadioAnim extends AnimationsInterface {
 
     /** Checks if the radioAnim's id property has been set. */
     hasID() {
-        if (this.id === '')
+        if (this.id === '' || undefined)
             throw new Error('Set radioAnim.id equal to target radioItem.id first.');
     }
 

@@ -1,3 +1,5 @@
+let lastRadio = {};
+
 class AudioController {
     /** A controller that allows objects to interact with the Audio element. */
     constructor() {
@@ -22,11 +24,11 @@ class AudioController {
     }
 
     /** Stores the ID of the latest selected radio so that it can be accessed by other objects. */
-    set lastRadio(radioID) {
-        this.audio.dataset.lastRadio = radioID;
+    set lastRadio(radio) {
+        Object.assign(lastRadio, radio);
     }
     get lastRadio() {
-        return this.audio.dataset.lastRadio;
+        return lastRadio;
     }
 
     get volume(){

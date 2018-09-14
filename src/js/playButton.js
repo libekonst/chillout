@@ -11,7 +11,7 @@ const radioAnim = new RadioAnim();
 function addPlayButtonControls() {
     document.getElementById('play-button').addEventListener('mousedown', () => {
         // ID provided on function call because it changes dynamically.
-        radioAnim.id = audio.lastRadio;
+        radioAnim.id = audio.lastRadio.id;
 
         if (audio.source === '')
             return displayToast('Select a radio first!');
@@ -29,7 +29,7 @@ function turnOn() {
         .catch(error => {
             turnOff();
             console.log(error);
-            displayToast(`Can't load ${audio.lastRadio}...`);
+            displayToast(`Can't load ${audio.lastRadio.name}...`);
         });
 }
 
