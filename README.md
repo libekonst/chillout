@@ -44,7 +44,7 @@ When a user opens the app, they request this file from ```https://kostaslib.gith
 #### Editing The Radio Sources
 To load different radios in the DOM, you have to edit the radios.json file and let the app know where to find the updated version. During development, request the file from the local dev server:
 
-* Navigate to the [populateDOM.js](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:port/src/radios.json';```.
+* Navigate to the [```populateDOM.js```](https://github.com/KostasLib/chillout/blob/master/src/js/populateDOM.js) file, find the ```requestJSON()``` function and replace the ```requestURL``` variable's value with ```'http://localhost:port/src/radios.json';```.
 * Make sure to change ```localhost:port``` to your local development server's address and port.
 
 The app will generate as many radios and radio sections as it finds in [```radios.json```](https://github.com/KostasLib/chillout/blob/master/src/radios.json), so you can add multiple entries and radio categories. The JSON contains an object, each key is a radio category and each key's value is an array of objects with data about a radio. Make certain that you enter your data in the same fashion.
