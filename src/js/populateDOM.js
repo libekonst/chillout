@@ -26,6 +26,7 @@ export function requestJSON() {
  */
 function renderRadios(request) {
     const radioData = request.response;
+    setFirstRadio(radioData);
     
     /** category -> The JSON object's key name.
       * radioData[category] -> The value of said key, here being an array. */
@@ -35,10 +36,18 @@ function renderRadios(request) {
     }
 }
 
+function setFirstRadio(radioData){
+    const audio = new AudioController();
+    const firstKey = Object.keys(radioData)[0];
+    const source = radioData[firstKey][0];
+    audio.lastRadio = source;
+    audio.source = audio.lastRadio.source;
+}
+
 /** Accepts a property from the JSON object that represents a radio type
   * and creates a <section> element for that radio type. */
 function createRadioSection(category){
-    new RadioSection(category);
+    return new RadioSection(category);
 }
 
 function createRadioItem(radioInfo, category){
