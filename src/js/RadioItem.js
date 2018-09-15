@@ -107,8 +107,8 @@ class RadioItem {
     /** Pauses the audio and changes the radioItem's styles to idle. */
     pauseAudio() {
         this.radioAnim.makeIdle();
-        this.audio.pause();
         this.buttonAnim.makeIdle();
+        this.audio.pause();
     }
 }
 

@@ -28,8 +28,8 @@ function renderRadios(request) {
     const radioData = request.response;
     setFirstRadio(radioData);
     
-    /** category -> The JSON object's key name.
-      * radioData[category] -> The value of said key, here being an array. */
+    // category: The JSON object's key name, as a String.
+    // radioData[category]: The value of said key, here being an array.
     for (let category in radioData) {
         createRadioSection(category);
         radioData[category].forEach(radio => createRadioItem(radio, category));
@@ -38,9 +38,9 @@ function renderRadios(request) {
 
 function setFirstRadio(radioData){
     const audio = new AudioController();
-    const firstKey = Object.keys(radioData)[0];
-    const source = radioData[firstKey][0];
-    audio.lastRadio = source;
+    const firstKey = Object.keys(radioData)[0]; // Returns a String.
+    const firstRadio = radioData[firstKey][0]; // The 1st element of the Array.
+    audio.lastRadio = firstRadio;
     audio.source = audio.lastRadio.source;
 }
 
@@ -50,6 +50,8 @@ function createRadioSection(category){
     return new RadioSection(category);
 }
 
+/**Accepts an object with data about the radio and the category where it should
+ * be loaded. Injecting dependencies in the constructor. */
 function createRadioItem(radioInfo, category){
     return new RadioItem(radioInfo, new RadioAnim(radioInfo.id), new AudioController(), new PlayButtonAnim(), category); 
 }

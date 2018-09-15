@@ -4,9 +4,9 @@ class RadioSection {
     }
 
     render(category) {
-        // Creates a <h2> heading.
+        // Creates a <h2> heading and capitalizes the first letter.
         const h2 = document.createElement('h2');
-        const type = category[0].toString().toUpperCase() + category.slice(1);
+        const type = category[0].toUpperCase() + category.slice(1);
         h2.innerHTML = `${type} Radios`;
 
         // Creates a <ul> that holds the radios.
