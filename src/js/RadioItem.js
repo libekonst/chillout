@@ -24,9 +24,9 @@ class RadioItem {
     }
 
     setProps(radioProps) {
-        if (this.isValid(radioProps)) {
+        if (this.isValid(radioProps))
             Object.assign(this, radioProps);
-        } else
+        else
             throw new Error('A radioProps object must have .id, .name, .source and .img properties.');
     }
 

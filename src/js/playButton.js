@@ -13,11 +13,10 @@ function addPlayButtonControls() {
         // ID provided on function call because it changes dynamically.
         radioAnim.id = audio.lastRadio.id;
 
-        if (audio.source === '')
-            return displayToast('Select a radio first!');
-        if (audio.paused)
+        if (audio.paused) {
+            audio.source = audio.lastRadio.source;
             turnOn();
-        else
+        } else
             turnOff();
     });
 }

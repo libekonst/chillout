@@ -41,7 +41,6 @@ function setFirstRadio(radioData){
     const firstKey = Object.keys(radioData)[0]; // Returns a String.
     const firstRadio = radioData[firstKey][0]; // The 1st element of the Array.
     audio.lastRadio = firstRadio;
-    audio.source = audio.lastRadio.source;
 }
 
 /** Accepts a property from the JSON object that represents a radio type
