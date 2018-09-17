@@ -1,6 +1,8 @@
 # The Chillout App
 *A modern web radio platform.*
 
+<img src="assets/logo-no-bg.png" alt="The chillout logo" height="350">
+
 Although nowadays we mostly enjoy our favorite radios online, we miss the ease of using the FM tuner to swap to that other
 station and satisfy our music taste intricacies; web radios are scattered and pages that try to gather them into one place
 are rather primitive and non-interactive.
