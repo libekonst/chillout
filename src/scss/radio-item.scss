@@ -178,7 +178,7 @@
   }
 }
 // Really small devices
-@media (max-width: 401px) {
+@media (max-width: 356px) {
   .radio-item-list {
     grid-template-columns: repeat(auto-fill, minmax(120px, max-content));
     grid-auto-rows: 120px;
