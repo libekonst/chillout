@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import data from './data';
 import './App.scss';
 
 class App extends Component {
@@ -20,6 +21,15 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <ul>
+          {data.map(item => (
+            <li>
+              {Object.entries(item).map(i => (
+                <p>{`${i[0]} : ${i[1]}`}</p>
+              ))}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
