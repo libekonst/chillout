@@ -17,10 +17,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "plugins": [{ "name": "typescript-tslint-plugin" , "configFile": "./tslint.json"}],
-
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "configFile": "./tslint.json"
+      }
+    ],
+    "allowJs": true
   },
   "include": [
-    "src", "custom_typings/import-static.d.ts"
+    "src",
+    "custom_typings/import-static.d.ts"
   ]
 }

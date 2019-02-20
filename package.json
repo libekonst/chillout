@@ -30,7 +30,8 @@
     "stylelint-config-standard": "^18.2.0",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-config-airbnb": ""
   },
   "scripts": {
     "start": "react-scripts start",
