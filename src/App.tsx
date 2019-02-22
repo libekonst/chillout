@@ -21,7 +21,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <ul>
+        {/* <ul>
           {data.map(item => (
             <li>
               {Object.entries(item).map(i => (
@@ -29,7 +29,7 @@ class App extends Component {
               ))}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     );
   }
