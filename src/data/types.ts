@@ -1,4 +1,4 @@
-export namespace IRadio {
+export namespace IRadioTypes {
   export interface Dto {
     id?: string | number;
     name: string;
@@ -16,5 +16,5 @@ export namespace IRadio {
 }
 
 export interface IOldJson {
-  [label: string]: IRadio.Dto[];
+  [label: string]: IRadioTypes.Dto[];
 }
