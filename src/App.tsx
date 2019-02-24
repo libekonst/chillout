@@ -6,7 +6,8 @@ import { RadioCardA } from './components/RadioCardA';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <>
+         <RadioCardA />
          <RadioCardA />
         {/* <ul>
           {data.map(item => (
@@ -17,7 +18,7 @@ class App extends Component {
             </li>
           ))}
         </ul> */}
-      </div>
+      </>
     );
   }
 }
