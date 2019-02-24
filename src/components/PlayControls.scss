@@ -1,0 +1,13 @@
+.controls {
+  // @include transition(display);
+
+  z-index: 2;
+  padding: 3px;
+  display: block;
+  position: absolute;
+  font-size: 60px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+}

@@ -1,5 +1,5 @@
 @mixin transition($property) {
-  transition: $property 0.4s;
+  transition: $property 0.2s;
 }
 
 .cardA {
@@ -52,18 +52,5 @@
 
       // filter: blur(2px) brightness(80%);
     }
-  }
-
-  &__icon {
-    @include transition(display);
-
-    z-index: 2;
-    display: block;
-    position: absolute;
-    font-size: 60px;
-    color: white;
-    border: 2px solid white;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.6);
   }
 }
