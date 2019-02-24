@@ -1,0 +1,69 @@
+@mixin transition($property) {
+  transition: $property 0.4s;
+}
+
+.cardA {
+  position: relative;
+  height: 10rem;
+  width: 10rem;
+  margin: 10px;
+  // border: 1px solid black;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px 0 rgba(89, 89, 89, 0.8);
+
+  &__backdrop {
+    @include transition(background-color);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+
+    &--invisible {
+      @include transition(background-color);
+
+      background-color: transparent;
+    }
+  }
+
+  &__image {
+    background-size: cover;
+    width: auto;
+    height: 10rem;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__image-container {
+    // transition: filter 0.3s;
+    background-color: #fff;
+    @include transition(filter);
+
+    &--blur {
+      @include transition(filter);
+
+      // filter: blur(2px) brightness(80%);
+    }
+  }
+
+  &__icon {
+    @include transition(display);
+
+    z-index: 2;
+    display: block;
+    position: absolute;
+    font-size: 60px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
