@@ -15,7 +15,8 @@
   border-radius: 10px;
   // box-shadow: 0 15px 40px 0 rgba(89, 89, 89, 0.8);
   // box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
-  box-shadow: 0 7px 35px rgba(89, 89, 89, 0.3);
+  // box-shadow: 0 15px 120px -14px rgba(89, 89, 89, 1);
+  box-shadow: 0 13px 60px -5px rgba(161, 243, 28, 0.4);
 
   &__backdrop {
     @include transition(background-color);
@@ -49,8 +50,9 @@
     // height: 10rem;
     // display: block;
     width: 100%;
-    background-color: #fff;
-    background-color: #52494f11;
+    // background-color: #fff;
+    // background-color: #52494f11;
+    background-color: #98e61b6e;
     background-repeat: no-repeat;
     background-position: center;
   }
