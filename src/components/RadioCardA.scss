@@ -1,5 +1,5 @@
 @mixin transition($property) {
-  transition: $property 0.2s;
+  transition: $property 0.2s ease-in-out;
 }
 
 .cardA {
@@ -13,26 +13,32 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  // box-shadow: 0 15px 40px 0 rgba(89, 89, 89, 0.8);
-  // box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
-  // box-shadow: 0 15px 120px -14px rgba(89, 89, 89, 1);
+  box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
   box-shadow: 0 13px 60px -5px rgba(161, 243, 28, 0.4);
 
   &__backdrop {
-    @include transition(background-color);
+    @include transition(opacity);
 
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgb(19, 18, 18);
     z-index: 1;
 
-    &--invisible {
-      @include transition(background-color);
+    &--show {
+      @include transition(opacity);
 
-      background-color: transparent;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0.4;
+    }
+
+    &--hide {
+      @include transition(opacity);
+
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0;
     }
   }
 

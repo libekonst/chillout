@@ -12,8 +12,8 @@ export class RadioCardA extends React.Component {
   onClick = () => this.setState({ active: !this.state.active });
 
   render() {
-    let backdrop = 'cardA__backdrop';
-    if (!this.state.hovered) backdrop += '--invisible';
+    let backdrop = 'cardA__backdrop--hide';
+    if (this.state.hovered) backdrop = 'cardA__backdrop--show';
 
     let image = 'cardA__image-container';
     if (this.state.hovered) image += '--blur';
@@ -26,21 +26,24 @@ export class RadioCardA extends React.Component {
           flexDirection: 'column',
           border: '1px black',
         }}
-        >
+      >
         <div
           className="cardA"
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
           onClick={this.onClick}
-          >
-            <img
-          
-              className="cardA__image"
-              src="http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png"
-            />
+        >
+          <img
+            className="cardA__image"
+            src="http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png"
+          />
           {this.state.hovered && !this.state.active && <PlayIcon />}
           {this.state.active && <PauseIcon />}
-          <div className={backdrop} />
+          <div
+            className={ 'cardA__backdrop ' + 
+              this.state.hovered ? 'cardA__backdrop--show' : 'cardA__backdrop--hide'
+            }
+          />
         </div>
         <h3 className="cardA__title">Music 89.2</h3>
       </li>
