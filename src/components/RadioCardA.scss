@@ -13,8 +13,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 0 15px 40px 0 rgba(89, 89, 89, 0.8);
-  box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
+  // box-shadow: 0 15px 40px 0 rgba(89, 89, 89, 0.8);
+  // box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
+  box-shadow: 0 7px 35px rgba(89, 89, 89, 0.3);
 
   &__backdrop {
     @include transition(background-color);
@@ -49,6 +50,7 @@
     // display: block;
     width: 100%;
     background-color: #fff;
+    background-color: #52494f11;
     background-repeat: no-repeat;
     background-position: center;
   }
