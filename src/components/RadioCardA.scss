@@ -26,7 +26,12 @@
     bottom: 0;
     background-color: rgb(19, 18, 18);
     z-index: 1;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
 
+    // &:hover {
+    //   opacity: 0.4;
+    // }
     &--show {
       @include transition(opacity);
 

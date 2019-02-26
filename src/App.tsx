@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import data from './data';
 import './App.scss';
-import { RadioCardA } from './components/RadioCardA';
+import { CardContainer } from './components/RadioCardA';
 
 class App extends Component {
   render() {
     return (
       <>
-         <RadioCardA />
-         <RadioCardA />
+         <CardContainer />
+         <CardContainer />
         {/* <ul>
           {data.map(item => (
             <li>

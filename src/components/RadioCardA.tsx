@@ -2,21 +2,26 @@ import React from 'react';
 import './RadioCardA.scss';
 import { PlayIcon, PauseIcon } from './PlayControls';
 
-export class RadioCardA extends React.Component {
+interface ICProps {}
+interface IState {
+  
+  hovered:boolean;
+  active: boolean;
+}
+export class CardContainer extends React.Component<ICProps, IState> {
   state = {
     hovered: false,
     active: false,
+    
   };
   onMouseEnter = () => this.setState({ hovered: true });
   onMouseLeave = () => this.setState({ hovered: false });
   onClick = () => this.setState({ active: !this.state.active });
+  img =
+    'http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png';
 
+  
   render() {
-    let backdrop = 'cardA__backdrop--hide';
-    if (this.state.hovered) backdrop = 'cardA__backdrop--show';
-
-    let image = 'cardA__image-container';
-    if (this.state.hovered) image += '--blur';
     return (
       <li
         style={{
@@ -27,26 +32,53 @@ export class RadioCardA extends React.Component {
           border: '1px black',
         }}
       >
-        <div
-          className="cardA"
+        <Card
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
           onClick={this.onClick}
-        >
-          <img
-            className="cardA__image"
-            src="http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png"
-          />
-          {this.state.hovered && !this.state.active && <PlayIcon />}
-          {this.state.active && <PauseIcon />}
-          <div
-            className={ 'cardA__backdrop ' + 
-              this.state.hovered ? 'cardA__backdrop--show' : 'cardA__backdrop--hide'
-            }
-          />
-        </div>
-        <h3 className="cardA__title">Music 89.2</h3>
+          showPlay={this.state.hovered && !this.state.active}
+          showPause={this.state.active}
+          hovered={this.state.hovered}
+          imageSource={this.img}
+        />
       </li>
     );
   }
 }
+interface IProps {
+  onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  showPlay?: boolean;
+  showPause?: boolean;
+  backdrop?: boolean;
+  hovered?: boolean;
+  imageSource: string;
+}
+const Card = ({
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  showPause,
+  showPlay,
+  hovered,
+  imageSource,
+}: IProps) => (
+  <>
+    <div
+      className="cardA"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+    >
+      <img className="cardA__image" src={imageSource} />
+      {showPlay && <PlayIcon />}
+      {showPause && <PauseIcon />}
+      <div
+        className={`cardA__backdrop 
+    ${hovered ? 'cardA__backdrop--show' : 'cardA__backdrop--hide'}`}
+      />
+    </div>
+    <h3 className="cardA__title">Music 89.2</h3>
+  </>
+);
