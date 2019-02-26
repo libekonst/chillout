@@ -5,10 +5,6 @@ import styled, { css } from 'styled-components';
 
 // export const PlayIcon = () => <MdPlayArrow className="controls" />;
 // export const PauseIcon = () => <MdPause className="controls" />;
-const iconStyles = css`
-  font-size: 50px;
-  color: white;
-`;
 
 const Border = styled.div`
   z-index: 2;
@@ -22,6 +18,11 @@ const Border = styled.div`
   border: 2px solid white;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const iconStyles = css`
+  font-size: 50px;
+  color: white;
 `;
 
 const StyledPlayArrow = styled(MdPlayArrow)`
