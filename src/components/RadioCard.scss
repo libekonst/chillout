@@ -2,7 +2,7 @@
   transition: $property 0.2s ease-in-out;
 }
 
-.cardA {
+.radio-card {
   position: relative;
   height: 10rem;
   width: 10rem;
@@ -32,6 +32,7 @@
     // &:hover {
     //   opacity: 0.4;
     // }
+    // No hover to allow other items to draw on top.
     &--show {
       @include transition(opacity);
 

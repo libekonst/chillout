@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import data from './data';
 import './App.scss';
-import { CardContainer } from './components/RadioCardA';
+import { CardContainer } from './components/RadioCard';
 
 class App extends Component {
   render() {

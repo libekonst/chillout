@@ -1,5 +1,5 @@
 import React from 'react';
-import './RadioCardA.scss';
+import './RadioCard.scss';
 import { PlayIcon, PauseIcon } from './PlayControls';
 
 interface ICProps {}
@@ -66,19 +66,19 @@ const Card = ({
 }: IProps) => (
   <>
     <div
-      className="cardA"
+      className="radio-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
     >
-      <img className="cardA__image" src={imageSource} />
+      <img className="radio-card__image" src={imageSource} />
       {showPlay && <PlayIcon />}
       {showPause && <PauseIcon />}
       <div
-        className={`cardA__backdrop 
-    ${hovered ? 'cardA__backdrop--show' : 'cardA__backdrop--hide'}`}
+        className={`radio-card__backdrop 
+    ${hovered ? 'radio-card__backdrop--show' : 'radio-card__backdrop--hide'}`}
       />
     </div>
-    <h3 className="cardA__title">Music 89.2</h3>
+    <h3 className="radio-card__title">Music 89.2</h3>
   </>
 );
