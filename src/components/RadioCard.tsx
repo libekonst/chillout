@@ -1,18 +1,16 @@
 import React from 'react';
 import './RadioCard.scss';
-import { PlayIcon, PauseIcon } from './PlayControls';
+import { PlayIcon, PauseIcon, VolumeIcon } from './PlayControls';
 
 interface ICProps {}
 interface IState {
-  
-  hovered:boolean;
+  hovered: boolean;
   active: boolean;
 }
 export class CardContainer extends React.Component<ICProps, IState> {
   state = {
     hovered: false,
     active: false,
-    
   };
   onMouseEnter = () => this.setState({ hovered: true });
   onMouseLeave = () => this.setState({ hovered: false });
@@ -20,7 +18,6 @@ export class CardContainer extends React.Component<ICProps, IState> {
   img =
     'http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png';
 
-  
   render() {
     return (
       <li
@@ -37,7 +34,8 @@ export class CardContainer extends React.Component<ICProps, IState> {
           onMouseLeave={this.onMouseLeave}
           onClick={this.onClick}
           showPlay={this.state.hovered && !this.state.active}
-          showPause={this.state.active}
+          showPause={this.state.hovered && this.state.active}
+          showVolume={!this.state.hovered && this.state.active}
           hovered={this.state.hovered}
           imageSource={this.img}
         />
@@ -50,6 +48,7 @@ interface IProps {
   onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
   showPlay?: boolean;
+  showVolume?: boolean;
   showPause?: boolean;
   backdrop?: boolean;
   hovered?: boolean;
@@ -63,6 +62,7 @@ const Card = ({
   showPlay,
   hovered,
   imageSource,
+  showVolume,
 }: IProps) => (
   <>
     <div
@@ -72,8 +72,9 @@ const Card = ({
       onClick={onClick}
     >
       <img className="radio-card__image" src={imageSource} />
-      {showPlay && <PlayIcon />}
+      {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
+      {showVolume && <VolumeIcon />}
       <div
         className={`radio-card__backdrop 
     ${hovered ? 'radio-card__backdrop--show' : 'radio-card__backdrop--hide'}`}
