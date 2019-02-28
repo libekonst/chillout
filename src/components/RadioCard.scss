@@ -24,7 +24,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(19, 18, 18);
+    // background-color: rgb(19, 18, 18);
+    background-color: rgb(223, 223, 223);
     z-index: 1;
     transition: opacity 0.2s ease-in-out;
     opacity: 0;
@@ -68,4 +69,7 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+}
+.blur {
+  filter: blur(0.7px);
 }

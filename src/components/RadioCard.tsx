@@ -71,7 +71,7 @@ const Card = ({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
     >
-      <img className="radio-card__image" src={imageSource} />
+      <img className={`radio-card__image ${hovered && 'blur'}`} src={imageSource} />
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}

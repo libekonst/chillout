@@ -1,8 +1,6 @@
-import { MdPlayArrow, MdPause, MdVolumeUp } from 'react-icons/md';
+import { MdPlayArrow, MdPause } from 'react-icons/md';
 import { IoIosVolumeHigh } from 'react-icons/io';
-
 import React, { ComponentType } from 'react';
-// import './PlayControls.scss';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 // export const PlayIcon = () => <MdPlayArrow className="controls" />;
@@ -18,7 +16,7 @@ const Border = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: black;
   ${(props: IBorderProps) =>
     props.border &&
     css`
