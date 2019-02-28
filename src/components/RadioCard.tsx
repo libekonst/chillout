@@ -1,6 +1,11 @@
 import React from 'react';
 import './RadioCard.scss';
 import { PlayIcon, PauseIcon, VolumeIcon } from './PlayControls';
+import styled, { css } from 'styled-components';
+import { RadioTitle } from './styled/RadioTitle';
+import { RadioImage } from './styled/RadioImage';
+import { RadioCard } from './styled/RadioCard';
+import { Overlay } from './styled/OverLay';
 
 interface ICProps {}
 interface IState {
@@ -65,21 +70,13 @@ const Card = ({
   showVolume,
 }: IProps) => (
   <>
-    <div
-      className="radio-card"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
-    >
-      <img className={`radio-card__image ${hovered && 'blur'}`} src={imageSource} />
+    <RadioCard onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
+      <RadioImage blur={hovered} src={imageSource} />
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
-      <div
-        className={`radio-card__backdrop 
-    ${hovered ? 'radio-card__backdrop--show' : 'radio-card__backdrop--hide'}`}
-      />
-    </div>
-    <h3 className="radio-card__title">Music 89.2</h3>
+      <Overlay show={!!hovered} />
+    </RadioCard>
+    <RadioTitle>Music 89.2</RadioTitle>
   </>
 );

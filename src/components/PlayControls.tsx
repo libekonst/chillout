@@ -35,7 +35,11 @@ const withStyle = (style: FlattenSimpleInterpolation) => (Component: ComponentTy
     ${style}
   `;
 
-const StyledPlayArrow = withStyle(iconStyles)(MdPlayArrow);
+// const StyledPlayArrow = withStyle(iconStyles)(MdPlayArrow);
+const StyledPlayArrow = styled(MdPlayArrow)`
+  ${iconStyles}
+`;
+
 const StyledPause = withStyle(iconStyles)(MdPause);
 const StyledVolume = withStyle(iconStyles)(IoIosVolumeHigh);
 
