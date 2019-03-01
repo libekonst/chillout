@@ -5,11 +5,11 @@ import { MdExpandMore, MdExpandLess } from 'react-icons/md';
 interface WrapperProps {
   show: boolean;
 }
-interface ExpandProps extends WrapperProps {
+interface ExpandProps  {
   type: 'more' | 'less';
 }
 
-export const ExpandIcon = ({ type, show }: ExpandProps) => {
+export const ExpandIcon = ({ type, show }: ExpandProps & WrapperProps) => {
   const getIcon = () => {
     switch (type) {
       case 'less':
