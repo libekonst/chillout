@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
-interface IOverlayProps {
+interface OverlayProps {
   show: boolean;
+  type: 'light' | 'dark';
 }
 export const Overlay = styled.div`
   position: absolute;
@@ -9,14 +10,15 @@ export const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(30, 30, 30);
   z-index: 1;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
-  ${(props: IOverlayProps) =>
-    props.show &&
+  ${({ show }: OverlayProps) =>
+    show &&
     css`
       transition: opacity 0.2s ease-in-out;
-      opacity: 0.5;
+      opacity: 0.3;
     `}
+  background-color: ${({ type }: OverlayProps) =>
+    type === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(180, 180, 180)'}
 `;
