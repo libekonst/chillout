@@ -33,7 +33,7 @@ const Border = styled.div`
           border-color: rgb(255, 255, 255);
         `
       :  css`
-          background-color: rgba(30, 30, 30, 0.6);
+          background-color: rgba(45, 45, 45, 0.6);
           border-color: rgb(255, 255, 255);
         `} /* background-color: rgba(255, 255, 255, 0.4); */
 `;
@@ -56,8 +56,8 @@ const StyledPause = withStyle(iconStyles)(MdPause);
 const StyledVolume = withStyle(iconStyles)(IoIosVolumeHigh);
 
 export const PlayIcon = ({ border = true }: BorderProps) => (
-  <Border border={border} type="light">
-    <StyledPlayArrow type="light" />
+  <Border border={border} type="dark">
+    <StyledPlayArrow type="dark" />
   </Border>
 );
 export const PauseIcon = ({ border = true }: BorderProps) => (
@@ -67,6 +67,6 @@ export const PauseIcon = ({ border = true }: BorderProps) => (
 );
 export const VolumeIcon = ({ border = false }: BorderProps) => (
   <Border border={border} type="light">
-    <StyledVolume />
+    <StyledVolume/>
   </Border>
 );
