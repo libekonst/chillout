@@ -69,12 +69,17 @@ const Card = ({
   showVolume,
 }: IProps) => (
   <>
-    <RadioCard onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
-      <RadioImage blur={hovered} src={imageSource} />
+    <RadioCard
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      shadowColor="rgba(161, 243, 28, 0.4)"
+    >
+      <RadioImage blur={hovered} src={imageSource} bgColor={'rgba(152, 230, 27, 0.4)'} />
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
-      <Overlay show={!!hovered} type="light"/>
+      <Overlay show={!!hovered} type="light" />
     </RadioCard>
     <RadioTitle>Music 89.2</RadioTitle>
   </>
