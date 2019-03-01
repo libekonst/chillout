@@ -1,87 +1,35 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { ExpandIcon } from '../styled/ExpandIcon';
-import { Row } from './Row';
+import { CarouselHeader } from '../CarouselHeader';
 
-interface Props {
-  expanded?: boolean;
-  onClickExpand?: () => any;
-}
 interface State {
   headerHovered: boolean;
   expanded: boolean;
 }
 
-export class Carousel extends Component<Props, State> {
+export class Carousel extends Component<any, State> {
   state = {
     headerHovered: false,
     expanded: true,
   };
   handleHeaderEnter = () => this.setState({ headerHovered: true });
   handleHeaderLeave = () => this.setState({ headerHovered: false });
-  handleHeaderClick = () => this.setState(prev => ({ expanded: !prev.expanded }));
+  handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
 
   render() {
     const { headerHovered, expanded } = this.state;
     return (
       <section>
-        <Row justify="space-around">
-          <HeaderLeft
-            onMouseEnter={this.handleHeaderEnter}
-            onMouseLeave={this.handleHeaderLeave}
-            onClick={this.handleHeaderClick}
-          >
-            <ExpandIcon type={expanded ? 'less' : 'more'} show={headerHovered} />
-            <h4>Your Favorites</h4>
-          </HeaderLeft>
-          <HeaderRight>
-            <Button>
-              <IoIosArrowBack />
-            </Button>
-            <Button>
-              <IoIosArrowForward />
-            </Button>
-          </HeaderRight>
-        </Row>
+        <CarouselHeader
+          title="Your Favorites"
+          expanded={expanded}
+          showExpandIcon={headerHovered}
+          onExpand={this.handleExpand}
+          onHeaderEnter={this.handleHeaderEnter}
+          onHeaderLeave={this.handleHeaderLeave}
+        />
         {/* <CarouselContent /> */}
       </section>
     );
   }
 }
-
-const HeaderLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  ${({ onClick }) =>
-    !!onClick &&
-    css`
-      cursor: pointer;
-    `}
-`;
-
-const HeaderRight = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-`;
-
-// const HeaderRight = styled.div``;
-const Button = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: lightgray;
-
-  &:hover {
-    color: darkgray;
-  }
-
-  &:active {
-    color: #052fb8;
-  }
-`;
