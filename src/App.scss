@@ -3,6 +3,19 @@
 html {
   box-sizing: border-box;
 }
+button {
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  width: auto;
+  overflow: visible;
+  outline: none;
+  line-height: normal;
+  cursor: pointer;
+}
 
 body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
@@ -16,4 +29,6 @@ body {
 *::after,
 *::before {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
