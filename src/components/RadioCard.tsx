@@ -1,5 +1,4 @@
 import React from 'react';
-import './RadioCard.scss';
 import { PlayIcon, PauseIcon, VolumeIcon } from './PlayControls';
 import styled, { css } from 'styled-components';
 import { RadioTitle } from './styled/RadioTitle';

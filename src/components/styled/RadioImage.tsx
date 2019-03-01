@@ -13,12 +13,12 @@ export const RadioImage = styled.img`
   background-color: #98e61b6e;
   background-repeat: no-repeat;
   background-position: center;
-  transition: filter transform 1 ease-in-out;
+  transition: filter 0.1s, transform 0.05s ease-out;
   ${(props: ImageProps) =>
     props.blur &&
     css`
       filter: blur(7px);
       transform: scale(1.05);
-      transition: filter transform 1 ease-in-out;
+      transition: all 0.05s ease-out;
     `}
 `;
