@@ -25,12 +25,12 @@ const Border = styled.div`
     `}
   border-radius: 50%;
   background-color: ${({ type }: BorderProps) =>
-    type === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)'};
+    type === 'light' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
   ${({ type }: BorderProps) =>
     type === 'light'
       ? css`
-          background-color: rgba(255, 255, 255, 0.8);
-          border-color: rgb(30, 30, 30);
+          background-color: rgba(255, 255, 255, 0.6);
+          border-color: rgb(255, 255, 255);
         `
       :  css`
           background-color: rgba(30, 30, 30, 0.6);
@@ -50,14 +50,14 @@ const withStyle = (style: FlattenSimpleInterpolation) => (Component: ComponentTy
 // const StyledPlayArrow = withStyle(iconStyles)(MdPlayArrow);
 const StyledPlayArrow = styled(MdPlayArrow)`
   ${iconStyles}
-  color: ${props => (props.type === 'light' ? 'rgb(30, 30, 30)' : 'white')};
+  color: ${props => (props.type === 'light' ? 'white' : 'white')};
 `;
 const StyledPause = withStyle(iconStyles)(MdPause);
 const StyledVolume = withStyle(iconStyles)(IoIosVolumeHigh);
 
 export const PlayIcon = ({ border = true }: BorderProps) => (
-  <Border border={border} type="dark">
-    <StyledPlayArrow type="dark" />
+  <Border border={border} type="light">
+    <StyledPlayArrow type="light" />
   </Border>
 );
 export const PauseIcon = ({ border = true }: BorderProps) => (

@@ -75,7 +75,7 @@ const Card = ({
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
-      <Overlay show={!!hovered} type="dark"/>
+      <Overlay show={!!hovered} type="light"/>
     </RadioCard>
     <RadioTitle>Music 89.2</RadioTitle>
   </>
