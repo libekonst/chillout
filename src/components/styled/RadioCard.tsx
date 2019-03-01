@@ -11,7 +11,7 @@ export const RadioCard = styled.div`
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 22px 70px -15px rgba(89, 89, 89, 0.8);
   box-shadow: 0 13px 60px -5px rgba(161, 243, 28, 0.4);
 `;
