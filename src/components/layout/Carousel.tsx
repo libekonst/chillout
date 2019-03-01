@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { ExpandIcon } from '../styled/ExpandIcon';
+import { Row } from './Row';
 
 interface Props {
   expanded?: boolean;
@@ -25,7 +26,7 @@ export class Carousel extends Component<Props, State> {
     const { headerHovered, expanded } = this.state;
     return (
       <section>
-        <CarouselHeader>
+        <Row justify="space-around">
           <HeaderLeft
             onMouseEnter={this.handleHeaderEnter}
             onMouseLeave={this.handleHeaderLeave}
@@ -42,19 +43,12 @@ export class Carousel extends Component<Props, State> {
               <IoIosArrowForward />
             </Button>
           </HeaderRight>
-        </CarouselHeader>
+        </Row>
         {/* <CarouselContent /> */}
       </section>
     );
   }
 }
-
-const CarouselHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
 
 const HeaderLeft = styled.div`
   display: flex;
