@@ -1,20 +1,20 @@
-export namespace IRadio {
-  export interface Dto {
+// export namespace IRadio {
+  export interface IRadioDto {
     id?: string | number;
     name: string;
     source: string;
     image: string;
   }
 
-  export interface WithLabel extends Dto {
+  export interface IRadioWithLabel extends IRadioDto {
     label: string;
   }
 
-  export interface WithNewID extends WithLabel {
+  export interface IRadioWithNewID extends IRadioWithLabel {
     id: number;
   }
-}
+// }
 
 export interface IOldJson {
-  [label: string]: IRadio.Dto[];
+  [label: string]: IRadioDto[];
 }
