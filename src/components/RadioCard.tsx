@@ -5,8 +5,11 @@ import { RadioTitle } from './styled/RadioTitle';
 import { RadioImage } from './styled/RadioImage';
 import { RadioCard } from './styled/RadioCard';
 import { Overlay } from './styled/OverLay';
+import { IRadio } from '../data';
 
-interface ICProps {}
+interface ICProps {
+  radio: IRadio;
+}
 interface IState {
   hovered: boolean;
   active: boolean;
@@ -23,6 +26,7 @@ export class CardContainer extends React.Component<ICProps, IState> {
     'http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png';
 
   render() {
+    const { radio } = this.props;
     return (
       <li
         style={{
@@ -41,7 +45,7 @@ export class CardContainer extends React.Component<ICProps, IState> {
           showPause={this.state.hovered && this.state.active}
           showVolume={!this.state.hovered && this.state.active}
           hovered={this.state.hovered}
-          imageSource={this.img}
+          imageSource={radio.image}
         />
       </li>
     );
@@ -73,9 +77,9 @@ const Card = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
-      shadowColor="rgba(161, 243, 28, 0.4)"
+      // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-      <RadioImage blur={hovered} src={imageSource} bgColor={'rgba(152, 230, 27, 0.4)'} />
+      <RadioImage blur={hovered} src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  *//>
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}

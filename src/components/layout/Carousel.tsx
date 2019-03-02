@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { CarouselHeader } from '../CarouselHeader';
+import { IRadio } from '../../data';
+import { CardContainer } from '../RadioCard';
 
 interface State {
   headerHovered: boolean;
   expanded: boolean;
 }
+interface IProps {
+  data: IRadio[];
+}
 
-export class Carousel extends Component<any, State> {
+export class Carousel extends Component<IProps, State> {
   state = {
     headerHovered: false,
     expanded: true,
@@ -27,8 +32,13 @@ export class Carousel extends Component<any, State> {
           onExpand={this.handleExpand}
           onHeaderEnter={this.handleHeaderEnter}
           onHeaderLeave={this.handleHeaderLeave}
+          onNext={() => null}
         />
-        {/* <CarouselContent /> */}
+        <ul style={{ overflowX: 'scroll', overflowY: 'hidden', display: 'flex', backgroundColor: 'none' }}>
+          {this.props.data.map(r => (
+            <CardContainer radio={r} key={r.id} />
+          ))}
+        </ul>
       </section>
     );
   }

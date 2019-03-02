@@ -10,9 +10,9 @@ class App extends Component {
   render() {
     return (
       <>
-        <CardContainer />
-        <CardContainer />
-        <Carousel />
+        {/* <CardContainer /> */}
+        {/* <CardContainer /> */}
+        <Carousel data={data} />
         {/* <ul>
           {data.map(item => (
             <li>

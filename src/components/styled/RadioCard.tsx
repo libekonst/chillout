@@ -13,7 +13,7 @@ export const RadioCard = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  ${({ shadowColor = 'rgba(89, 89, 89, 0.4)' }: CardProps) =>
+  ${({ shadowColor = 'rgba(89, 89, 89, 0.1)' }: CardProps) =>
     css`
       box-shadow: 0 13px 60px -5px ${shadowColor};
     `}

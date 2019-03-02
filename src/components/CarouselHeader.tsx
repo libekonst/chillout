@@ -37,10 +37,10 @@ export const CarouselHeader = (props: Props) => {
         <h4>{title}</h4>
       </HeaderLeft>
       <HeaderRight>
-        <Button>
+        <Button onClick={onBack}>
           <IoIosArrowBack />
         </Button>
-        <Button>
+        <Button onClick={onNext}>
           <IoIosArrowForward />
         </Button>
       </HeaderRight>
@@ -75,12 +75,17 @@ const Button = styled.button`
   justify-content: center;
   color: lightgray;
   font-size: 1.5rem;
+  cursor: auto;
+  ${props =>
+    props.onClick &&
+    css`
+      cursor: pointer;
+      &:hover {
+        color: darkgray;
+      }
 
-  &:hover {
-    color: darkgray;
-  }
-
-  &:active {
-    color: #052fb8;
-  }
+      &:active {
+        color: #052fb8;
+      }
+    `}
 `;
