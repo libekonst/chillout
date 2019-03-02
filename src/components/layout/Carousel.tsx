@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { CarouselHeader } from '../CarouselHeader';
 import { IRadio } from '../../data';
 import { CardContainer } from '../RadioCard';
+import { CarouselBody } from '../CarouselBody';
 
 interface State {
   headerHovered: boolean;
@@ -34,11 +35,7 @@ export class Carousel extends Component<IProps, State> {
           onHeaderLeave={this.handleHeaderLeave}
           onNext={() => null}
         />
-        <ul style={{ overflowX: 'scroll', overflowY: 'hidden', display: 'flex', backgroundColor: 'none' }}>
-          {this.props.data.map(r => (
-            <CardContainer radio={r} key={r.id} />
-          ))}
-        </ul>
+        <CarouselBody data={this.props.data} />
       </section>
     );
   }

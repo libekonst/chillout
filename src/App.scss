@@ -16,7 +16,9 @@ button {
   line-height: normal;
   cursor: pointer;
 }
-
+ol, ul {
+  list-style: none;
+}
 body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
   -webkit-font-smoothing: antialiased;

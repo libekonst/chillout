@@ -28,15 +28,7 @@ export class CardContainer extends React.Component<ICProps, IState> {
   render() {
     const { radio } = this.props;
     return (
-      <li
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          border: '1px black',
-        }}
-      >
+      <Center>
         <Card
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
@@ -47,10 +39,17 @@ export class CardContainer extends React.Component<ICProps, IState> {
           hovered={this.state.hovered}
           imageSource={radio.image}
         />
-      </li>
+      </Center>
     );
   }
 }
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -79,7 +78,10 @@ const Card = ({
       onClick={onClick}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-      <RadioImage blur={hovered} src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  *//>
+      <RadioImage
+        blur={hovered}
+        src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
+      />
       {showPlay && <PlayIcon border={true} />}
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
