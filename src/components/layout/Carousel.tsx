@@ -21,6 +21,7 @@ export class Carousel extends Component<IProps, State> {
   handleHeaderEnter = () => this.setState({ headerHovered: true });
   handleHeaderLeave = () => this.setState({ headerHovered: false });
   handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
+  handleNext = () => console.log('hi')  
 
   render() {
     const { headerHovered, expanded } = this.state;
@@ -33,7 +34,7 @@ export class Carousel extends Component<IProps, State> {
           onExpand={this.handleExpand}
           onHeaderEnter={this.handleHeaderEnter}
           onHeaderLeave={this.handleHeaderLeave}
-          onNext={() => null}
+          onNext={this.handleNext}
         />
         <CarouselBody data={this.props.data} display={expanded} />
       </section>

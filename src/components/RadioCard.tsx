@@ -9,6 +9,7 @@ import { IRadio } from '../data';
 
 interface ICProps {
   radio: IRadio;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 interface IState {
   hovered: boolean;
@@ -32,7 +33,7 @@ export class CardContainer extends React.Component<ICProps, IState> {
         <Card
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
-          onClick={this.onClick}
+          onClick={this.props.onClick || this.onClick}
           showPlay={this.state.hovered && !this.state.active}
           showPause={this.state.hovered && this.state.active}
           showVolume={!this.state.hovered && this.state.active}

@@ -7,11 +7,11 @@ interface Props {
   expanded: boolean;
   showExpandIcon: boolean;
   title: string;
-  onExpand?: () => any;
-  onHeaderEnter?: () => any;
-  onHeaderLeave?: () => any;
-  onNext?: () => any;
-  onBack?: () => any;
+  onExpand?: () => void;
+  onHeaderEnter?: () => void;
+  onHeaderLeave?: () => void;
+  onNext?: () => void ;
+  onBack?: () => void;
 }
 export const CarouselHeader = (props: Props) => {
   const {
@@ -36,6 +36,7 @@ export const CarouselHeader = (props: Props) => {
         )}
         <h4>{title}</h4>
       </HeaderLeft>
+
       <HeaderRight>
         <Button onClick={onBack}>
           <IoIosArrowBack />
@@ -67,7 +68,6 @@ const HeaderRight = styled.div`
   align-items: baseline;
 `;
 
-// const HeaderRight = styled.div``;
 const Button = styled.button`
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ const Button = styled.button`
   font-size: 1.5rem;
   cursor: auto;
   ${props =>
-    props.onClick &&
+    !!props.onClick &&
     css`
       cursor: pointer;
       &:hover {

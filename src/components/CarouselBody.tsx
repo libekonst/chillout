@@ -36,8 +36,8 @@ export class CarouselBody extends React.Component<IProps, IState> {
         {...props}
       >
         {data.map(r => (
-          <li>
-            <CardContainer radio={r} key={r.id} />
+          <li key={r.id}>
+            <CardContainer radio={r} onClick={() => console.log(r)} />
           </li>
         ))}
       </HorizontalList>
@@ -54,6 +54,7 @@ const HorizontalList = styled.ul`
   overflow-y: hidden;
   display: ${({ display }: IListProps) => (display ? 'flex' : 'none')};
   background-color: none;
+
   &::-webkit-scrollbar {
     height: 9px;
   }
