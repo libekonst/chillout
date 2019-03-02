@@ -5,6 +5,7 @@ import { IRadio } from '../data';
 
 interface IProps {
   data: IRadio[];
+  display: boolean;
 }
 // export const CarouselBody: React.FunctionComponent<IProps> = ({ data }) => (
 //   <HorizontalList>
@@ -26,12 +27,13 @@ export class CarouselBody extends React.Component<IProps, IState> {
   handleHover = () => this.setState(prev => ({ hovered: !prev.hovered }));
 
   render() {
-    const { data } = this.props;
+    const { data, ...props } = this.props;
     return (
       <HorizontalList
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
         scroll={this.state.hovered}
+        {...props}
       >
         {data.map(r => (
           <li>
@@ -45,13 +47,13 @@ export class CarouselBody extends React.Component<IProps, IState> {
 
 interface IListProps {
   scroll: boolean;
+  display: boolean;
 }
 const HorizontalList = styled.ul`
   overflow-x: ${({ scroll }: IListProps) => (scroll ? 'scroll' : 'hidden')};
   overflow-y: hidden;
-  display: flex;
+  display: ${({ display }: IListProps) => (display ? 'flex' : 'none')};
   background-color: none;
-
   &::-webkit-scrollbar {
     height: 9px;
   }

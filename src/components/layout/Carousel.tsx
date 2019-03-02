@@ -35,7 +35,7 @@ export class Carousel extends Component<IProps, State> {
           onHeaderLeave={this.handleHeaderLeave}
           onNext={() => null}
         />
-        <CarouselBody data={this.props.data} />
+        <CarouselBody data={this.props.data} display={expanded} />
       </section>
     );
   }
