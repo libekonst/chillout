@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardContainer } from './RadioCard';
-import { IRadio } from '../data';
+import { CardContainer } from '../RadioCard';
+import { IRadio } from '../../data';
 
 interface IProps {
   data: IRadio[];

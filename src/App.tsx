@@ -4,7 +4,7 @@ import data from './data';
 import './App.scss';
 import './_normalize.scss';
 import { CardContainer } from './components/RadioCard';
-import { Carousel } from './components/layout/Carousel';
+import { Carousel } from './components/carousel';
 
 class App extends Component {
   render() {

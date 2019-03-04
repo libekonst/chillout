@@ -16,7 +16,7 @@ interface IState {
   active: boolean;
 }
 export class CardContainer extends React.Component<ICProps, IState> {
-  state = {
+  readonly state: IState = {
     hovered: false,
     active: false,
   };
@@ -27,7 +27,9 @@ export class CardContainer extends React.Component<ICProps, IState> {
     'http://www.music892.gr/wp-content/uploads/2017/09/cropped-MASTER_MUSIC_LOGO-2.png';
 
   render() {
-    const { radio } = this.props;
+    const {
+      radio: { image, name },
+    } = this.props;
     return (
       <Center>
         <Card
@@ -38,7 +40,8 @@ export class CardContainer extends React.Component<ICProps, IState> {
           showPause={this.state.hovered && this.state.active}
           showVolume={!this.state.hovered && this.state.active}
           hovered={this.state.hovered}
-          imageSource={radio.image}
+          imageSource={image}
+          title={name}
         />
       </Center>
     );
@@ -61,6 +64,7 @@ interface IProps {
   backdrop?: boolean;
   hovered?: boolean;
   imageSource: string;
+  title: string;
 }
 const Card = ({
   onClick,
@@ -71,6 +75,7 @@ const Card = ({
   hovered,
   imageSource,
   showVolume,
+  title,
 }: IProps) => (
   <>
     <RadioCard
@@ -88,6 +93,6 @@ const Card = ({
       {showVolume && <VolumeIcon />}
       <Overlay show={!!hovered} type="light" />
     </RadioCard>
-    <RadioTitle>Music 89.2</RadioTitle>
+    <RadioTitle>{title}</RadioTitle>
   </>
 );

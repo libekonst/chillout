@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { ExpandIcon } from './styled/ExpandIcon';
-import { Row } from './layout/Row';
+import { ExpandIcon } from '../styled/ExpandIcon';
+import { Row } from '../layout/Row';
 interface Props {
   expanded: boolean;
   showExpandIcon: boolean;
@@ -86,6 +86,7 @@ const Button = styled.button`
 
       &:active {
         color: #052fb8;
+        transform: scale(1.1);
       }
     `}
 `;
