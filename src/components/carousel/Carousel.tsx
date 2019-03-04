@@ -11,6 +11,8 @@ interface State {
 }
 interface IProps {
   data: IRadio[];
+  title?: string;
+  step?: number;
 }
 
 export default class Carousel extends Component<IProps, State> {
@@ -18,15 +20,18 @@ export default class Carousel extends Component<IProps, State> {
     headerHovered: false,
     expanded: true,
   };
+  static defaultProps: Partial<IProps> = { title: 'Your Favorites', step: 5 };
+
   handleHeaderEnter = () => this.setState({ headerHovered: true });
   handleHeaderLeave = () => this.setState({ headerHovered: false });
   handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
   handleNext = () => console.log('hi');
 
+  // componentDidUpdate(prevProps){}
   render() {
     const { headerHovered, expanded } = this.state;
     return (
-      <CarouselContent
+      <View
         title="Your Favorites"
         expanded={expanded}
         showExpandIcon={headerHovered}
@@ -41,11 +46,14 @@ export default class Carousel extends Component<IProps, State> {
   }
 }
 
-const CarouselContent: FC<
+const View: FC<
   PropsOf<typeof CarouselHeader> & PropsOf<typeof CarouselBody>
-> = ({ data, display, ...props }) => (
-  <section>
-    <CarouselHeader {...props} />
-    <CarouselBody data={data} display={display} />
-  </section>
-);
+> = props => {
+  const { data, display, ...rest } = props;
+  return (
+    <section>
+      <CarouselHeader {...rest} />
+      <CarouselBody data={data} display={display} />
+    </section>
+  );
+};
