@@ -1,7 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import styled, { StyledComponent } from 'styled-components';
 import { CardContainer } from '../RadioCard';
 import { IRadio } from '../../data';
+import { HorizontalList } from './HorizontalList';
 
 interface IProps {
   data: IRadio[];
@@ -20,10 +21,8 @@ interface IProps {
 interface IState {
   hovered: boolean;
 }
-export class CarouselBody extends React.Component<IProps, IState> {
-  state = {
-    hovered: false,
-  };
+export class CarouselBody extends Component<IProps, IState> {
+  readonly state: IState = { hovered: false };
   handleHover = () => this.setState(prev => ({ hovered: !prev.hovered }));
 
   render() {
@@ -45,40 +44,3 @@ export class CarouselBody extends React.Component<IProps, IState> {
   }
 }
 
-interface IListProps {
-  scroll: boolean;
-  display: boolean;
-}
-const HorizontalList = styled.ul`
-  overflow-x: ${({ scroll }: IListProps) => (scroll ? 'scroll' : 'hidden')};
-  overflow-y: hidden;
-  display: ${({ display }: IListProps) => (display ? 'flex' : 'none')};
-  background-color: none;
-
-  &::-webkit-scrollbar {
-    height: 9px;
-  }
-
-  &::-webkit-scrollbar-track {
-    border-radius: 1rem;
-    background: rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      border: 1px solid #ccc;
-    }
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(30, 30, 30, 0.2);
-
-    &:hover {
-      background: rgba(30, 30, 30, 0.3);
-      height: 20px;
-    }
-
-    &:active {
-      background: rgba(30, 30, 30, 0.4);
-    }
-  }
-`;
