@@ -2,16 +2,13 @@ import styled from 'styled-components';
 
 interface IScrollProps {
   scroll: boolean;
-}
-interface IDisplayProps {
   display: boolean;
 }
-type Intersection = IScrollProps & IDisplayProps;
 
-export const HorizontalList = styled('ul')`
+export const HorizontalList = styled.ul`
   overflow-y: hidden;
-  overflow-x: ${props => (props.scroll ? 'scroll' : 'hidden')};
-  display: ${(props: Intersection) => (props.display ? 'flex' : 'none')};
+  overflow-x: ${(props: IScrollProps) => (props.scroll ? 'scroll' : 'hidden')};
+  display: ${props => (props.display ? 'flex' : 'none')};
   background-color: none;
 
   &::-webkit-scrollbar {
