@@ -81,12 +81,15 @@ const Button = styled.button`
     !!props.onClick &&
     css`
       cursor: pointer;
+      transition: transform 0.04s ease-out;
+      
       &:hover {
         color: darkgray;
       }
 
       &:active {
         color: #052fb8;
+        transition: transform 0.08s ease-out;
         transform: scale(1.1);
       }
     `}
