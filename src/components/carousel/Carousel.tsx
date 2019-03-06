@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { IRadio } from '../../data';
 import { View } from './View';
 
-interface State {
+interface IState {
   headerHovered: boolean;
   expanded: boolean;
+  displayedRadios: IRadio[] | null;
 }
 interface IProps {
   data: IRadio[];
@@ -12,36 +13,49 @@ interface IProps {
   step?: number;
 }
 
-export default class Carousel extends Component<IProps, State> {
-  readonly state: State = {
+export default class Carousel extends Component<IProps, IState> {
+  readonly state: IState = {
     headerHovered: false,
     expanded: true,
+    displayedRadios: null,
   };
 
-  readonly defaultProps = { title: 'Your Favorites', step: 5 };
+  static readonly defaultProps: Partial<IProps> = { title: 'Your Favorites', step: 5 };
 
   handleHeaderEnter = () => this.setState({ headerHovered: true });
   handleHeaderLeave = () => this.setState({ headerHovered: false });
   handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
-  handleNext = () => console.log('hi');
+  handleNext = () => {
+    const { displayedRadios } = this.state;
+    const { data, step } = this.props;
+    const currentPosition = data.findIndex(
+      r => r.id === displayedRadios![displayedRadios!.length - 1].id,
+    );
+    this.setState({
+      displayedRadios: data.slice(currentPosition, currentPosition + step! + 1),
+    });
+  };
+
+  componentWillMount() {
+    const { data, step } = this.props;
+    this.state.displayedRadios = data.slice(0, step! + 1);
+  }
 
   render() {
-    const { headerHovered, expanded } = this.state;
-    const { title: defTitle, step: defStep } = this.defaultProps;
-    const { title = defTitle, data } = this.props;
+    const { headerHovered, expanded, displayedRadios } = this.state;
+    const { title, data } = this.props;
     return (
       <View
-        title={title}
+        title={title!}
         expanded={expanded}
         showExpandIcon={headerHovered}
         onExpand={this.handleExpand}
         onHeaderEnter={this.handleHeaderEnter}
         onHeaderLeave={this.handleHeaderLeave}
         onNext={this.handleNext}
-        data={data}
+        content={displayedRadios!}
         display={expanded}
       />
     );
   }
 }
-
