@@ -7,7 +7,7 @@ interface IScrollProps {
 
 export const HorizontalList = styled.ul`
   overflow-y: hidden;
-  overflow-x: ${(props: IScrollProps) => (props.scroll ? 'scroll' : 'hidden')};
+  overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')};
   display: ${props => (props.display ? 'flex' : 'none')};
   background-color: none;
 
