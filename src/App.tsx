@@ -10,18 +10,7 @@ class App extends Component {
   render() {
     return (
       <>
-        {/* <CardContainer /> */}
-        {/* <CardContainer /> */}
-        <Carousel data={data} />
-        {/* <ul>
-          {data.map(item => (
-            <li>
-              {Object.entries(item).map(i => (
-                <p>{`${i[0]} : ${i[1]}`}</p>
-              ))}
-            </li>
-          ))}
-        </ul> */}
+        <Carousel data={data} step={7} />
       </>
     );
   }
