@@ -26,19 +26,22 @@ export default class Carousel extends Component<IProps, IState> {
   handleHeaderLeave = () => this.setState({ headerHovered: false });
   handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
   handleNext = () => {
-    const { displayedRadios } = this.state;
-    const { data, step } = this.props;
-    // const lastId = displayedRadios![displayedRadios!.length - 1].id;
-    const currentPosition = data.findIndex(
-      r => r.id === this.lastRadioId(displayedRadios!),
-    );
-    this.setState({
-      displayedRadios: data.slice(currentPosition, currentPosition + step! + 1),
-    });
+    if (this.renderedLastRadio()) return;
+    return () => {
+      const { displayedRadios } = this.state;
+      const { data, step } = this.props;
+      const lastId = this.lastRadioId(displayedRadios!);
+      const currentPosition = data.findIndex(r => r.id === lastId);
+
+      this.setState({
+        displayedRadios: data.slice(currentPosition + 1, currentPosition + step! + 1),
+      });
+    };
   };
   lastRadioId = (r: IRadio[]) => r[r.length - 1].id;
-  hasMoreRadios = () =>
-    this.lastRadioId(this.state.displayedRadios!) !== this.lastRadioId(this.props.data!);
+  renderedLastRadio = () =>
+    this.lastRadioId(this.state.displayedRadios!) === this.lastRadioId(this.props.data!);
+
   componentWillMount() {
     const { data, step } = this.props;
     this.state.displayedRadios = data.slice(0, step! + 1);
@@ -55,7 +58,7 @@ export default class Carousel extends Component<IProps, IState> {
         onExpand={this.handleExpand}
         onHeaderEnter={this.handleHeaderEnter}
         onHeaderLeave={this.handleHeaderLeave}
-        onNext={this.hasMoreRadios() ? this.handleNext : undefined}
+        onNext={this.handleNext()}
         content={displayedRadios!}
         display={expanded}
       />
