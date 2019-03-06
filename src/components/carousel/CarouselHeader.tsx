@@ -10,7 +10,7 @@ interface Props {
   onExpand?: () => void;
   onHeaderEnter?: () => void;
   onHeaderLeave?: () => void;
-  onNext?: () => void ;
+  onNext?: () => void;
   onBack?: () => void;
 }
 export const CarouselHeader = (props: Props) => {
