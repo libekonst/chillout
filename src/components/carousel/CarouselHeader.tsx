@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { ExpandIcon } from '../styled/ExpandIcon';
 import { Row } from '../layout/Row';
-interface Props {
+interface IProps {
   expanded: boolean;
   showExpandIcon: boolean;
   title: string;
@@ -13,7 +13,8 @@ interface Props {
   onNext?: () => void;
   onBack?: () => void;
 }
-export const CarouselHeader = (props: Props) => {
+
+export const CarouselHeader: FunctionComponent<IProps> = props => {
   const {
     expanded,
     onExpand,
@@ -25,7 +26,7 @@ export const CarouselHeader = (props: Props) => {
     title,
   } = props;
   return (
-    <Row justify="space-around">
+    <Row justify="space-between">
       <HeaderLeft
         onMouseEnter={onHeaderEnter}
         onMouseLeave={onHeaderLeave}
