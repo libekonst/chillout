@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import { CardContainer } from '../RadioCard';
 import { IRadio } from '../../data';
 import { HorizontalList } from './HorizontalList';
 
 interface IProps {
-  content: IRadio[];
+  content: any[];
   display: boolean;
 }
 
@@ -25,11 +25,7 @@ export class CarouselBody extends Component<IProps, IState> {
         scroll={this.state.hovered}
         {...props}
       >
-        {content.map(r => (
-          <li key={r.id}>
-            <CardContainer radio={r} onClick={() => console.log(r)} />
-          </li>
-        ))}
+        {content}
       </HorizontalList>
     );
   }

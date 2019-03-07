@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { IRadio } from '../../data';
 import { View } from './View';
+import { chop } from '../../utils/chop';
 
 interface IState {
   headerHovered: boolean;
   expanded: boolean;
   chopped: IRadio[][];
   renderIndex: number;
+  cached: { [renderIndex: number]: boolean };
 }
 interface IProps {
   data: IRadio[];
@@ -20,6 +22,7 @@ export default class Carousel extends Component<IProps, IState> {
     expanded: true,
     chopped: [],
     renderIndex: 0,
+    cached: {}, // TODO: Use actual caching. https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
   };
 
   static readonly defaultProps: Partial<IProps> = { title: 'Your Favorites', step: 5 };
@@ -34,7 +37,18 @@ export default class Carousel extends Component<IProps, IState> {
     const { chopped, renderIndex } = this.state;
     if (chopped.length - 1 === renderIndex) return; // Check if the last array of items is already rendered.
 
-    return () => this.setState(prev => ({ renderIndex: prev.renderIndex + 1 }));
+    return () => {
+      this.setState(
+        prev => ({ renderIndex: prev.renderIndex + 1 }),
+        () => {
+          this.preload().then(() =>
+            this.setState({
+              cached: { ...this.state.cached, [this.state.renderIndex]: true },
+            }),
+          );
+        },
+      );
+    };
   };
 
   handleBack = (): (() => void) | undefined => {
@@ -43,29 +57,26 @@ export default class Carousel extends Component<IProps, IState> {
     return () => this.setState(prev => ({ renderIndex: prev.renderIndex - 1 }));
   };
 
-  // TODO: UPDATE
-  chunk = (arr: any[], size: number) => {
-    const chunked = [];
-    let sliced = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (sliced.length < size) {
-        sliced.push(arr[i]);
-        if (i === arr.length - 1) {
-          chunked.push(sliced);
-        }
-      } else {
-        chunked.push(sliced);
-        sliced = [];
-        sliced.push(arr[i]);
-      }
-    }
-    return chunked;
-  };
-
   componentWillMount() {
     const { data, step } = this.props;
-    this.setState({ chopped: this.chunk(data, step!) });
+    const chopped = chop(data, step!);
+    const cached = chopped.reduce((prev, _, i) => ({ ...prev, [i]: false }), {});
+
+    this.setState({ chopped, cached });
   }
+  async componentDidMount() {
+    // setTimeout(() => this.setState({ isLoading: false }), 2000);
+    const res = await this.preload();
+    this.setState(prev => ({ cached: { ...prev.cached, [0]: true } }));
+  }
+
+  preload = async () => {
+    const { chopped, cached, renderIndex } = this.state;
+    return await Promise.all(
+      chopped[renderIndex].map(el => fetch(el.image, { mode: 'no-cors' })),
+    );
+  };
+
   render() {
     const { headerHovered, expanded, chopped, renderIndex } = this.state;
     const { title } = this.props;
@@ -81,6 +92,7 @@ export default class Carousel extends Component<IProps, IState> {
         onBack={this.handleBack()}
         content={chopped[renderIndex]}
         display={expanded}
+        isLoading={!this.state.cached[renderIndex]}
       />
     );
   }
