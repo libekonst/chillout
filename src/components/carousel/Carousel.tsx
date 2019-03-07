@@ -38,16 +38,7 @@ export default class Carousel extends Component<IProps, IState> {
     if (chopped.length - 1 === renderIndex) return; // Check if the last array of items is already rendered.
 
     return () => {
-      this.setState(
-        prev => ({ renderIndex: prev.renderIndex + 1 }),
-        () => {
-          this.preload().then(() =>
-            this.setState({
-              cached: { ...this.state.cached, [this.state.renderIndex]: true },
-            }),
-          );
-        },
-      );
+      this.setState(prev => ({ renderIndex: prev.renderIndex + 1 }), this.fetchImages);
     };
   };
 
@@ -70,10 +61,24 @@ export default class Carousel extends Component<IProps, IState> {
     this.setState(prev => ({ cached: { ...prev.cached, [0]: true } }));
   }
 
+  fetchImages = async () => {
+    const { cached, renderIndex } = this.state;
+    if (!cached[renderIndex]) {
+      let res = await this.preload();
+      if (res[0] !== undefined) {
+        this.setState({
+          cached: { ...cached, [renderIndex]: true },
+        });
+      }
+    }
+  };
   preload = async () => {
     const { chopped, cached, renderIndex } = this.state;
     return await Promise.all(
-      chopped[renderIndex].map(el => fetch(el.image, { mode: 'no-cors' })),
+      chopped[renderIndex].map(async el => {
+        const res = await fetch(el.image, { mode: 'no-cors' });
+        if (res.ok) return Promise.resolve(res);
+      }),
     );
   };
 
