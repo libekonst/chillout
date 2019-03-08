@@ -9,6 +9,7 @@ interface IState {
   chopped: IRadio[][];
   renderIndex: number;
   cached: { [renderIndex: number]: boolean };
+  fetchedImage: any;
 }
 interface IProps {
   data: IRadio[];
@@ -22,6 +23,7 @@ export default class Carousel extends Component<IProps, IState> {
     expanded: true,
     chopped: [],
     renderIndex: 0,
+    fetchedImage: false,
     cached: {}, // TODO: Use actual caching. https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
   };
 
@@ -38,7 +40,7 @@ export default class Carousel extends Component<IProps, IState> {
     if (chopped.length - 1 === renderIndex) return; // Check if the last array of items is already rendered.
 
     return () => {
-      this.setState(prev => ({ renderIndex: prev.renderIndex + 1 }), this.fetchImages);
+      this.setState(prev => ({ renderIndex: prev.renderIndex + 1 }));
     };
   };
 
@@ -55,32 +57,6 @@ export default class Carousel extends Component<IProps, IState> {
 
     this.setState({ chopped, cached });
   }
-  async componentDidMount() {
-    // setTimeout(() => this.setState({ isLoading: false }), 2000);
-    const res = await this.preload();
-    this.setState(prev => ({ cached: { ...prev.cached, [0]: true } }));
-  }
-
-  fetchImages = async () => {
-    const { cached, renderIndex } = this.state;
-    if (!cached[renderIndex]) {
-      let res = await this.preload();
-      if (res[0] !== undefined) {
-        this.setState({
-          cached: { ...cached, [renderIndex]: true },
-        });
-      }
-    }
-  };
-  preload = async () => {
-    const { chopped, cached, renderIndex } = this.state;
-    return await Promise.all(
-      chopped[renderIndex].map(async el => {
-        const res = await fetch(el.image, { mode: 'no-cors' });
-        if (res.ok) return Promise.resolve(res);
-      }),
-    );
-  };
 
   render() {
     const { headerHovered, expanded, chopped, renderIndex } = this.state;

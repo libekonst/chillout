@@ -29,7 +29,7 @@ export const View: FunctionComponent<Props> = props => {
     <section>
       <CarouselHeader {...rest} />
       {/* <CarouselBody content={content} display={display} /> */}
-      <CarouselBody content={!isLoading ? renderRadios() : ['loading']} show={show} />
+      <CarouselBody content={isLoading ? renderRadios() : ['loading']} show={show} />
     </section>
   );
 };
