@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { HorizontalList } from '../styled/HorizontalList';
+import { HorizontalList } from '../layout/HorizontalList';
 
 interface IProps {
   content: ReactNode[];

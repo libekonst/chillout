@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { CardMedia } from './CardMedia';
-import { Image } from './Image';
+import { Image } from '../styled/Image';
 import { PlayIcon, PauseIcon, VolumeIcon } from '../PlayControls';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';

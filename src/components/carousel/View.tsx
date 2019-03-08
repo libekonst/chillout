@@ -4,7 +4,7 @@ import { CarouselHeader } from './CarouselHeader';
 import { CarouselBody } from './CarouselBody';
 import { Card } from '../card/';
 import { IRadio } from '../../data';
-import {ListItem} from '../styled/HorizontalList';
+import { ListItem } from '../layout/HorizontalList';
 
 interface IViewProps {
   isLoading: boolean;
