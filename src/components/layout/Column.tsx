@@ -3,4 +3,6 @@ import React, { FC, ComponentProps } from 'react';
 
 type Props = Partial<ComponentProps<typeof FlexBasis>>;
 
-export const Row: FC<Props> = props => <FlexBasis flexDirection="row" {...props} />;
+export const Column: FC<Props> = props => (
+  <FlexBasis flexDirection="column" {...props} />
+);
