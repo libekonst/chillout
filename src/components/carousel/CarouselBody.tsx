@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { HorizontalList } from './HorizontalList';
+import { HorizontalList } from '../styled/HorizontalList';
 
 interface IProps {
   content: ReactNode[];
@@ -14,17 +14,18 @@ export class CarouselBody extends Component<IProps, IState> {
   handleHover = () => this.setState(prev => ({ hovered: !prev.hovered }));
 
   render() {
-    const { content, ...props } = this.props;
+    const { content, show, ...props } = this.props;
     return (
-      <HorizontalList
-        onMouseEnter={this.handleHover}
-        onMouseLeave={this.handleHover}
-        scroll={this.state.hovered}
-        {...props}
-      >
-        {content}
-      </HorizontalList>
+      show && (
+        <HorizontalList
+          onMouseEnter={this.handleHover}
+          onMouseLeave={this.handleHover}
+          scroll={this.state.hovered}
+          {...props}
+        >
+          {content}
+        </HorizontalList>
+      )
     );
   }
 }
-

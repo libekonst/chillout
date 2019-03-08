@@ -4,6 +4,7 @@ import { CarouselHeader } from './CarouselHeader';
 import { CarouselBody } from './CarouselBody';
 import { Card } from '../card/';
 import { IRadio } from '../../data';
+import {ListItem} from '../styled/HorizontalList';
 
 interface IViewProps {
   isLoading: boolean;
@@ -19,9 +20,9 @@ export const View: FunctionComponent<Props> = props => {
 
   const renderRadios = (): JSX.Element[] => {
     return radios!.map(r => (
-      <li key={r.id}>
-        <Card radio={r} title={<p>{r.name}</p>} onClick={() => console.log(r)} />
-      </li>
+      <ListItem key={r.id}>
+        <Card radio={r} title={<p style={{display: 'block', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: '10rem'}}>{r.name}</p>} onClick={() => console.log(r)} />
+      </ListItem>
     ));
   };
 
