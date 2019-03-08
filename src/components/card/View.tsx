@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { RadioCard } from "./RadioCard";
+import { CardContent } from "./CardContent";
 import { RadioImage } from "./RadioImage";
 import { PlayIcon, PauseIcon, VolumeIcon } from "../PlayControls";
 import { Overlay } from "../styled/OverLay";
@@ -28,8 +28,8 @@ export const View = ({
   showVolume,
   title,
 }: IProps) => (
-  <>
-    <RadioCard
+  <div>
+    <CardContent
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -43,9 +43,9 @@ export const View = ({
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
       <Overlay show={!!hovered} type="light" />
-    </RadioCard>
+    </CardContent>
     <RadioTitle>
       {title}
     </RadioTitle>
-  </>
+  </div>
 );

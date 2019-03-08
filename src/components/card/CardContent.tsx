@@ -3,10 +3,10 @@ import styled, { css } from 'styled-components';
 interface CardProps {
   shadowColor?: string;
 }
-export const RadioCard = styled.div`
+export const CardContent = styled.div`
   position: relative;
   height: 10rem;
-  width: 10rem;
+  max-width: 10rem;
   margin: 10px;
   display: flex;
   overflow: hidden;
