@@ -46,7 +46,7 @@ export const View = ({
       <Overlay show={!!hovered} type="light" />
     </CardMedia>
     {title && (
-      <CardContent alignItems="flex-end">
+      <CardContent alignItems="flex-start">
         <Title>{title}</Title>
       </CardContent>
     )}
