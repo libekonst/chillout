@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 interface IScrollProps {
   scroll: boolean;
-  display: boolean;
+  show: boolean;
 }
 
 export const HorizontalList = styled.ul`
   overflow-y: hidden;
   overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')};
-  display: ${props => (props.display ? 'flex' : 'none')};
+  display: ${props => (props.show ? 'flex' : 'none')};
   background-color: none;
 
   &::-webkit-scrollbar {

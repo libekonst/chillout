@@ -2,8 +2,7 @@ import React from 'react';
 import { FunctionComponent, ComponentProps } from 'react';
 import { CarouselHeader } from './CarouselHeader';
 import { CarouselBody } from './CarouselBody';
-import { CardContainer } from '../RadioCard';
-import { IRadio } from '../../data';
+import { Card } from '../card/';
 
 interface IViewProps {
   isLoading: boolean;
@@ -13,12 +12,12 @@ type Props = ComponentProps<typeof CarouselHeader> &
   IViewProps;
 
 export const View: FunctionComponent<Props> = props => {
-  const { content, display, isLoading, ...rest } = props;
+  const { content, show, isLoading, ...rest } = props;
 
   const renderRadios = () => {
     return content.map(r => (
       <li key={r.id}>
-        <CardContainer radio={r} onClick={() => console.log(r)} />
+        <Card radio={r} onClick={() => console.log(r)} />
       </li>
     ));
   };
@@ -29,7 +28,7 @@ export const View: FunctionComponent<Props> = props => {
       {/* <CarouselBody content={content} display={display} /> */}
       <CarouselBody
         content={isLoading ? ['loading'] : renderRadios()}
-        display={display}
+        show={show}
       />
     </section>
   );

@@ -1,12 +1,9 @@
-import React, { Component, ReactNode } from 'react';
-import styled, { StyledComponent } from 'styled-components';
-import { CardContainer } from '../RadioCard';
-import { IRadio } from '../../data';
+import React, { Component } from 'react';
 import { HorizontalList } from './HorizontalList';
 
 interface IProps {
   content: any[];
-  display: boolean;
+  show: boolean;
 }
 
 interface IState {

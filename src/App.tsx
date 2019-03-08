@@ -3,7 +3,7 @@ import data from './data';
 
 import './App.scss';
 import './_normalize.scss';
-import { CardContainer } from './components/RadioCard';
+import { Card } from './components/card/Card';
 import { Carousel } from './components/carousel';
 
 class App extends Component {

@@ -96,7 +96,7 @@ export default class Carousel extends Component<IProps, IState> {
         onNext={this.handleNext()}
         onBack={this.handleBack()}
         content={chopped[renderIndex]}
-        display={expanded}
+        show={expanded}
         isLoading={!this.state.cached[renderIndex]}
       />
     );
