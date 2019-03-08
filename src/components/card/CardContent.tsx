@@ -5,15 +5,16 @@ import { ComponentProps } from 'react';
 interface IProps {
   textAlign?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent';
 }
+type MergedProps = IProps & ComponentProps<typeof Column>;
 
-type Props = ComponentProps<typeof Column> & IProps;
-export const CardContent = styled(Column)<Props>`
+export const CardContent = styled(Column)`
   margin-top: 0.8rem;
-  text-align: ${props => matchAlignment(props)};
+  text-align: ${matchAlignment};
 `;
 
-const matchAlignment = ({ alignItems, textAlign }: Props) => {
+function matchAlignment({ alignItems, textAlign }: MergedProps): IProps['textAlign'] {
   if (textAlign) return textAlign;
+
   switch (alignItems) {
     case 'flex-end':
       return 'end';
@@ -22,4 +23,4 @@ const matchAlignment = ({ alignItems, textAlign }: Props) => {
     default:
       return 'start';
   }
-};
+}
