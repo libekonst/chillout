@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { CardMedia } from './CardMedia';
-import { RadioImage } from './RadioImage';
+import { Image } from './Image';
 import { PlayIcon, PauseIcon, VolumeIcon } from '../PlayControls';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';
@@ -36,7 +36,7 @@ export const View = ({
       onClick={onClick}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-      <RadioImage
+      <Image
         blur={hovered}
         src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
       />
