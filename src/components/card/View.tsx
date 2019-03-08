@@ -28,7 +28,7 @@ export const View = ({
   showVolume,
   title,
 }: IProps) => (
-  <div>
+  <div style={{textAlign: 'center'}}>
     <CardContent
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
