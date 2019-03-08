@@ -1,20 +1,25 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { Column } from '../layout/Column';
+import { ComponentProps } from 'react';
 
-interface CardProps {
-  shadowColor?: string;
+interface IProps {
+  textAlign?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent';
 }
-export const CardContent = styled.div`
-  position: relative;
-  height: 10rem;
-  max-width: 10rem;
-  margin: 10px;
-  display: flex;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  ${({ shadowColor = 'rgba(89, 89, 89, 0.1)' }: CardProps) =>
-    css`
-      box-shadow: 0 13px 60px -5px ${shadowColor};
-    `}
+
+type Props = ComponentProps<typeof Column> & IProps;
+export const CardContent = styled(Column)<Props>`
+  margin-top: 0.8rem;
+  text-align: ${props => matchAlignment(props)};
 `;
+
+const matchAlignment = ({ alignItems, textAlign }: Props) => {
+  if (textAlign) return textAlign;
+  switch (alignItems) {
+    case 'flex-end':
+      return 'end';
+    case 'center':
+      return 'center';
+    default:
+      return 'start';
+  }
+};

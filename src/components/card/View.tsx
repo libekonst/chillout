@@ -1,9 +1,10 @@
-import React, { ReactNode } from "react";
-import { CardContent } from "./CardContent";
-import { RadioImage } from "./RadioImage";
-import { PlayIcon, PauseIcon, VolumeIcon } from "../PlayControls";
-import { Overlay } from "../styled/OverLay";
-import { RadioTitle } from "./RadioTitle";
+import React, { ReactNode } from 'react';
+import { CardMedia } from './CardMedia';
+import { RadioImage } from './RadioImage';
+import { PlayIcon, PauseIcon, VolumeIcon } from '../PlayControls';
+import { Overlay } from '../styled/OverLay';
+import { CardContent } from './CardContent';
+import { Title } from './Title';
 
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -15,7 +16,7 @@ interface IProps {
   backdrop?: boolean;
   hovered?: boolean;
   imageSource: string;
-  title: ReactNode;
+  title?: ReactNode;
 }
 export const View = ({
   onClick,
@@ -28,8 +29,8 @@ export const View = ({
   showVolume,
   title,
 }: IProps) => (
-  <div style={{textAlign: 'center'}}>
-    <CardContent
+  <div>
+    <CardMedia
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -43,9 +44,11 @@ export const View = ({
       {showPause && <PauseIcon />}
       {showVolume && <VolumeIcon />}
       <Overlay show={!!hovered} type="light" />
-    </CardContent>
-    <RadioTitle>
-      {title}
-    </RadioTitle>
+    </CardMedia>
+    {title && (
+      <CardContent alignItems="flex-end">
+        <Title>{title}</Title>
+      </CardContent>
+    )}
   </div>
 );

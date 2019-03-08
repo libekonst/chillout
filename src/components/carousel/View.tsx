@@ -21,7 +21,7 @@ export const View: FunctionComponent<Props> = props => {
   const renderRadios = (): JSX.Element[] => {
     return radios!.map(r => (
       <ListItem key={r.id}>
-        <Card radio={r} title={<p style={{display: 'block', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: '10rem'}}>{r.name}</p>} onClick={() => console.log(r)} />
+        <Card radio={r} title={r.name} onClick={() => console.log(r)} />
       </ListItem>
     ));
   };
