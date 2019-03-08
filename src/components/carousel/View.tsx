@@ -3,21 +3,24 @@ import { FunctionComponent, ComponentProps } from 'react';
 import { CarouselHeader } from './CarouselHeader';
 import { CarouselBody } from './CarouselBody';
 import { Card } from '../card/';
+import { IRadio } from '../../data';
 
 interface IViewProps {
   isLoading: boolean;
+  show: boolean;
+  radios?: IRadio[];
 }
 type Props = ComponentProps<typeof CarouselHeader> &
-  ComponentProps<typeof CarouselBody> &
+  // Partial<ComponentProps<typeof CarouselBody>> &
   IViewProps;
 
 export const View: FunctionComponent<Props> = props => {
-  const { content, show, isLoading, ...rest } = props;
+  const { radios, show, isLoading, ...rest } = props;
 
-  const renderRadios = () => {
-    return content.map(r => (
+  const renderRadios = (): JSX.Element[] => {
+    return radios!.map(r => (
       <li key={r.id}>
-        <Card radio={r} onClick={() => console.log(r)} />
+        <Card radio={r} title={<p>{r.name}</p>} onClick={() => console.log(r)} />
       </li>
     ));
   };
@@ -26,10 +29,7 @@ export const View: FunctionComponent<Props> = props => {
     <section>
       <CarouselHeader {...rest} />
       {/* <CarouselBody content={content} display={display} /> */}
-      <CarouselBody
-        content={isLoading ? ['loading'] : renderRadios()}
-        show={show}
-      />
+      <CarouselBody content={!isLoading ? renderRadios() : ['loading']} show={show} />
     </section>
   );
 };

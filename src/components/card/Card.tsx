@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IRadio } from '../../data';
 import { View } from './View';
 
-interface ICProps {
+interface IProps {
   radio: IRadio;
+  title: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 interface IState {
   hovered: boolean;
   active: boolean;
 }
-export default class Card extends React.Component<ICProps, IState> {
+export default class Card extends React.Component<IProps, IState> {
   readonly state: IState = {
     hovered: false,
     active: false,
@@ -22,6 +23,7 @@ export default class Card extends React.Component<ICProps, IState> {
   render() {
     const {
       radio: { image, name },
+      title
     } = this.props;
     return (
       <View
@@ -33,7 +35,7 @@ export default class Card extends React.Component<ICProps, IState> {
         showVolume={!this.state.hovered && this.state.active}
         hovered={this.state.hovered}
         imageSource={image}
-        title={<p>{name}</p>}
+        title={title}
       />
     );
   }

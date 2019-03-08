@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { HorizontalList } from './HorizontalList';
 
 interface IProps {
-  content: any[];
+  content: ReactNode[];
   show: boolean;
 }
 
