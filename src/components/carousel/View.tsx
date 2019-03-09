@@ -1,36 +1,35 @@
-import React from 'react';
-import { FunctionComponent, ComponentProps } from 'react';
+import React, { FunctionComponent, ComponentProps } from 'react';
 import { CarouselHeader } from './CarouselHeader';
-import { CarouselBody } from './CarouselBody';
 import { Card } from '../card/';
 import { IRadio } from '../../data';
-import { ListItem } from '../layout/HorizontalList';
+import { ListItem, HorizontalList } from '../layout/HorizontalList';
 
 interface IViewProps {
   isLoading: boolean;
   show: boolean;
   radios?: IRadio[];
 }
-type Props = ComponentProps<typeof CarouselHeader> &
-  // Partial<ComponentProps<typeof CarouselBody>> &
-  IViewProps;
+type Props = ComponentProps<typeof CarouselHeader> & IViewProps;
 
 export const View: FunctionComponent<Props> = props => {
   const { radios, show, isLoading, ...rest } = props;
 
-  const renderRadios = (): JSX.Element[] => {
-    return radios!.map(r => (
-      <ListItem key={r.id}>
-        <Card radio={r} title={r.name} onClick={() => console.log(r)} />
-      </ListItem>
-    ));
-  };
-
   return (
     <section>
       <CarouselHeader {...rest} />
-      {/* <CarouselBody content={content} display={display} /> */}
-      <CarouselBody content={isLoading ? renderRadios() : ['loading']} show={show} />
+      {show && (
+        <HorizontalList>
+          {isLoading ? renderRadios(radios!) : ['loading']}
+        </HorizontalList>
+      )}
     </section>
   );
+};
+
+const renderRadios = (radios: IRadio[]) => {
+  return radios.map(r => (
+    <ListItem key={r.id}>
+      <Card radio={r} title={r.name} onClick={() => console.log(r)} />
+    </ListItem>
+  ));
 };

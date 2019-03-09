@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
 interface IScrollProps {
-  scroll: boolean;
+  scroll?: boolean;
 }
 
 export const HorizontalList = styled.ul`
-  overflow-y: hidden;
-  overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')};
+  overflow: hidden;
+  /* overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')}; */
   display: flex;
   background-color: none;
+
+  &:hover {
+    overflow-x: auto;
+  }
 
   &::-webkit-scrollbar {
     height: 9px;
