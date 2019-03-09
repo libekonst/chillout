@@ -14,7 +14,7 @@ interface IProps {
 
 export const FlexBasis = styled.div`
   display: flex;
-  flex-direction: ${({ flexDirection: direction }: IProps) => direction};
+  flex-direction: ${({ flexDirection }: IProps) => flexDirection};
   justify-content: ${({ justify = 'center' }) => justify};
   align-items: ${({ alignItems = 'center' }) => alignItems};
 `;

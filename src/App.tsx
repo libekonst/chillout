@@ -8,9 +8,9 @@ import { Carousel } from './components/carousel';
 class App extends Component {
   render() {
     return (
-      <>
+      <main>
         <Carousel data={data} step={7} />
-      </>
+      </main>
     );
   }
 }
