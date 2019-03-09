@@ -55,8 +55,8 @@ const HeaderLeft = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  ${({ onClick }) =>
-    !!onClick &&
+  ${props =>
+    !!props.onClick &&
     css`
       cursor: pointer;
     `}
@@ -81,7 +81,7 @@ const Button = styled.button`
     !!props.onClick &&
     css`
       cursor: pointer;
-      
+
       &:hover {
         color: darkgray;
       }
