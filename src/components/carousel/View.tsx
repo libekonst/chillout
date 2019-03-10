@@ -11,6 +11,7 @@ interface IViewProps {
 }
 type Props = ComponentProps<typeof CarouselHeader> & IViewProps;
 
+// ? Intersection observer or refs on carousel & card to detect how many elements fit
 export const View: FunctionComponent<Props> = props => {
   const { radios, show, isLoading, ...rest } = props;
 
@@ -26,10 +27,9 @@ export const View: FunctionComponent<Props> = props => {
   );
 };
 
-const renderRadios = (radios: IRadio[]) => {
-  return radios.map(r => (
+const renderRadios = (radios: IRadio[]): JSX.Element[] =>
+  radios.map(r => (
     <ListItem key={r.id}>
       <Card radio={r} title={r.name} onClick={() => console.log(r)} />
     </ListItem>
   ));
-};

@@ -81,10 +81,7 @@ const Button = styled.button`
     !!props.onClick &&
     css`
       cursor: pointer;
-
-      &:hover {
-        color: darkgray;
-      }
+      color: darkgray;
 
       &:active {
         color: #052fb8;
