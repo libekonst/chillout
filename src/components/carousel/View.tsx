@@ -11,7 +11,7 @@ interface IViewProps {
 }
 type Props = ComponentProps<typeof CarouselHeader> & IViewProps;
 
-// ? Intersection observer or refs on carousel & card to detect how many elements fit
+// ? Intersection observer or refs and offset on carousel & card to detect how many elements fit
 export const View: FunctionComponent<Props> = props => {
   const { radios, show, isLoading, ...rest } = props;
 
