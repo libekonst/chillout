@@ -23,8 +23,9 @@ export class GridBodyRow extends Component<Props, IState> {
         {...this.props}
       >
         <GridItem gridArea="playcontrol" justifySelf="center">
-          {/* <PlayIcon  /> */}
-          {<PlayIcon size="small" />}
+          <div style={{ visibility: this.state.hovered ? 'visible' : 'hidden' }}>
+            <PlayIcon size="small" />
+          </div>
         </GridItem>
         <GridItem gridArea="favorite">
           {/* <PlayIcon /> */}

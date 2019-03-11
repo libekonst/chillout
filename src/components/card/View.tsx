@@ -18,6 +18,8 @@ interface IProps {
   imageSource: string;
   title?: ReactNode;
 }
+
+// TODO: Pause Icon should only be visible when the radio is active AND the Icon Button is hovered.
 export const View: FC<IProps> = ({
   onClick,
   onMouseEnter,

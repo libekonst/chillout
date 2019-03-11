@@ -9,7 +9,7 @@ interface IProps {
   border?: boolean;
   type?: 'light' | 'dark';
   cursor?: 'default' | 'pointer';
-  size?: 'small' | 'medium' | 'big';
+  size?: 'tiny' | 'small' | 'normal' | 'big' | 'enormous';
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
 }
 const IconButton = styled.button`
@@ -41,12 +41,16 @@ const IconButton = styled.button`
 
 const calcSize = (size: IProps['size']) => {
   switch (size) {
+    case 'tiny':
+      return '20px';
     case 'small':
-      return '40px';
-    case 'medium':
+      return '30px';
+    case 'normal':
       return '50px';
     case 'big':
       return '60px';
+    case 'enormous':
+      return '80px';
     default:
       return '50px';
   }
