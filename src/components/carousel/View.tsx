@@ -30,6 +30,6 @@ export const View: FunctionComponent<Props> = props => {
 const renderRadios = (radios: IRadio[]): JSX.Element[] =>
   radios.map(r => (
     <ListItem key={r.id}>
-      <Card radio={r} title={r.name} onClick={() => console.log(r)} />
+      <Card radio={r} title={r.name} /* onClick={() => console.log(r)} */ />
     </ListItem>
   ));

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, FC } from 'react';
 import { CardMedia } from './CardMedia';
 import { Image } from '../styled/Image';
 import { PlayIcon, PauseIcon, VolumeIcon } from '../PlayControls';
@@ -18,7 +18,7 @@ interface IProps {
   imageSource: string;
   title?: ReactNode;
 }
-export const View = ({
+export const View: FC<IProps> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -28,9 +28,11 @@ export const View = ({
   imageSource,
   showVolume,
   title,
-}: IProps) => (
+  ...rest
+}) => (
   <div>
     <CardMedia
+      {...rest}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -40,9 +42,9 @@ export const View = ({
         blur={hovered}
         src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
       />
-      {showPlay && <PlayIcon border={true} />}
-      {showPause && <PauseIcon />}
-      {showVolume && <VolumeIcon />}
+      {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
+      {showPause && <PauseIcon border={true} position="absolute" type="light" />}
+      {showVolume && <VolumeIcon position="absolute" type="dark" />}
       <Overlay show={!!hovered} type="light" />
     </CardMedia>
     {title && (

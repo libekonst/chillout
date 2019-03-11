@@ -10,33 +10,35 @@ interface IProps {
   type?: 'light' | 'dark';
   cursor?: 'default' | 'pointer';
   size?: 'small' | 'medium' | 'big';
+  position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
 }
-const Border = styled.button`
+const IconButton = styled.button`
+  /* Layout */
   z-index: 2;
-
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* color: black; */
+  position: ${({ position = 'static' }: IProps) => position};
+
+  /* Styles */
   font-size: ${props => calcSize(props.size)};
-  color: white;
+
+  /* size: 100%; */
+  /* height: ${props => 100 % -calcSize(props.size)}; */
+  /* width: ${props => 100 % -calcSize(props.size)}; */
   cursor: ${({ cursor = 'default' }) => cursor};
   border: ${(props: IProps) => props.border && '2px solid'};
   border-radius: 50%;
-  /* background-color: ${props =>
-    props.type === 'light' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}; */
-  /* ${({ type }: IProps) =>
-    type === 'light'
-      ? css`
-          background-color: rgba(255, 255, 255, 0.6);
-          border-color: rgb(255, 255, 255);
-        `
-      : css`
-          background-color: rgba(45, 45, 45, 0.6);
-          border-color: rgb(255, 255, 255);
-        `} background-color: rgba(255, 255, 255, 0.4); */
+
+  /* ! Theming  */
+  color: white;
+
+  /* color: black; */
+  border-color: rgb(255, 255, 255);
+  background-color: ${props =>
+    props.type === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.6)'};
 `;
+
 const calcSize = (size: IProps['size']) => {
   switch (size) {
     case 'small':
@@ -49,18 +51,19 @@ const calcSize = (size: IProps['size']) => {
       return '50px';
   }
 };
-export const PlayIcon: FC<IProps> = ({ border = true }) => (
-  <Border border={true} type="dark">
+
+export const PlayIcon: FC<IProps> = props => (
+  <IconButton {...props}>
     <MdPlayArrow />
-  </Border>
+  </IconButton>
 );
-export const PauseIcon: FC<IProps> = ({ border = true }) => (
-  <Border border={border} type="light" size="big">
+export const PauseIcon: FC<IProps> = props => (
+  <IconButton {...props}>
     <MdPause />
-  </Border>
+  </IconButton>
 );
-export const VolumeIcon: FC<IProps> = ({ border = true }) => (
-  <Border border={border} type="light">
+export const VolumeIcon: FC<IProps> = props => (
+  <IconButton {...props}>
     <IoIosVolumeHigh />
-  </Border>
+  </IconButton>
 );
