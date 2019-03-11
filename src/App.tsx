@@ -12,10 +12,18 @@ class App extends Component {
     return (
       <main>
         <Carousel data={data} step={7} />
-        <GridHeader/>
-        <GridBodyRow />
-        <GridBodyRow />
-        <GridBodyRow />
+        <GridHeader />
+        <ul>
+          <li>
+            <GridBodyRow />
+          </li>
+          <li>
+            <GridBodyRow />
+          </li>
+          <li>
+            <GridBodyRow />
+          </li>
+        </ul>
       </main>
     );
   }
