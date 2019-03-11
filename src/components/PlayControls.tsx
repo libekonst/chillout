@@ -8,8 +8,9 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 interface BorderProps {
   border?: boolean;
   type?: 'light' | 'dark';
+  cursor?: 'default' | 'pointer';
 }
-const Border = styled.div`
+const Border = styled.button`
   z-index: 2;
 
   /* display: block; */
@@ -17,56 +18,38 @@ const Border = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
-  ${(props: BorderProps) =>
-    props.border &&
-    css`
-      border: 2px solid white;
-    `}
+  /* color: black; */
+  font-size: 50px;
+  color: white;
+  cursor: ${({ cursor = 'default' }) => cursor};
+  border: ${(props: BorderProps) => props.border && '2px solid'};
   border-radius: 50%;
-  background-color: ${({ type }: BorderProps) =>
-    type === 'light' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
-  ${({ type }: BorderProps) =>
+  /* background-color: ${props =>
+    props.type === 'light' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}; */
+  /* ${({ type }: BorderProps) =>
     type === 'light'
       ? css`
           background-color: rgba(255, 255, 255, 0.6);
           border-color: rgb(255, 255, 255);
         `
-      :  css`
+      : css`
           background-color: rgba(45, 45, 45, 0.6);
           border-color: rgb(255, 255, 255);
-        `} /* background-color: rgba(255, 255, 255, 0.4); */
+        `} background-color: rgba(255, 255, 255, 0.4); */
 `;
-
-const iconStyles = css`
-  font-size: 50px;
-  color: white;
-`;
-const withStyle = (style: FlattenSimpleInterpolation) => (Component: ComponentType) =>
-  styled(Component)`
-    ${style}
-  `;
-
-// const StyledPlayArrow = withStyle(iconStyles)(MdPlayArrow);
-const StyledPlayArrow = styled(MdPlayArrow)`
-  ${iconStyles}
-  color: ${props => (props.type === 'light' ? 'white' : 'white')};
-`;
-const StyledPause = withStyle(iconStyles)(MdPause);
-const StyledVolume = withStyle(iconStyles)(IoIosVolumeHigh);
 
 export const PlayIcon = ({ border = true }: BorderProps) => (
-  <Border border={border} type="dark">
-    <StyledPlayArrow type="dark" />
+  <Border border={true} type="dark">
+    <MdPlayArrow />
   </Border>
 );
 export const PauseIcon = ({ border = true }: BorderProps) => (
   <Border border={border} type="light">
-    <StyledPause />
+    <MdPause />
   </Border>
 );
 export const VolumeIcon = ({ border = false }: BorderProps) => (
   <Border border={border} type="light">
-    <StyledVolume/>
+    <IoIosVolumeHigh />
   </Border>
 );
