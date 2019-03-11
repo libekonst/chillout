@@ -1,4 +1,4 @@
-import { GridBase } from './GridBase';
+import { GridBase, GridItem } from './GridBase';
 import React, { FC, ComponentProps, Component } from 'react';
 import { PlayIcon } from '../PlayControls';
 
@@ -16,30 +16,30 @@ export class GridBodyRow extends Component<Props, IState> {
     return (
       <GridBase
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
-        {...this.props}
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
         highlightHover={this.state.hovered}
         gutter={true}
+        {...this.props}
       >
-        <div style={{ gridArea: 'playcontrol' }}>
+        <GridItem gridArea="playcontrol" justifySelf="center">
           {/* <PlayIcon  /> */}
-          {this.state.hovered && 'icon'}
-        </div>
-        <div style={{ gridArea: 'favorite' }}>
+          {<PlayIcon size="small" />}
+        </GridItem>
+        <GridItem gridArea="favorite">
           {/* <PlayIcon /> */}
           {'icon'}
-        </div>
-        <div style={{ gridArea: 'image' }}>
+        </GridItem>
+        <GridItem gridArea="image">
           {/* <PlayIcon /> */}
           {'icon'}
-        </div>
-        <div style={{ gridArea: 'title' }}>{'offradio'}</div>
-        <div style={{ gridArea: 'genre' }}>{'music'}</div>
-        <div style={{ gridArea: 'options' }}>
+        </GridItem>
+        <GridItem gridArea="title">{'offradio'}</GridItem>
+        <GridItem gridArea="genre">{'music'}</GridItem>
+        <GridItem gridArea="options">
           {/* <PlayIcon /> */}
           {'icon'}
-        </div>
+        </GridItem>
       </GridBase>
     );
   }
