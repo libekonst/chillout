@@ -1,16 +1,15 @@
-import { MdPlayArrow, MdPause } from 'react-icons/md';
+import { MdPlayArrow, MdPause, MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { IoIosVolumeHigh } from 'react-icons/io';
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-// export const PlayIcon = () => <MdPlayArrow className="controls" />;
-// export const PauseIcon = () => <MdPause className="controls" />;
 interface IProps {
   border?: boolean;
   type?: 'light' | 'dark';
   cursor?: 'default' | 'pointer';
   size?: 'tiny' | 'small' | 'normal' | 'big' | 'enormous';
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
+  color?: 'dark' | 'white';
 }
 const IconButton = styled.button`
   /* Layout */
@@ -22,16 +21,12 @@ const IconButton = styled.button`
 
   /* Styles */
   font-size: ${props => calcSize(props.size)};
-
-  /* size: 100%; */
-  /* height: ${props => 100 % -calcSize(props.size)}; */
-  /* width: ${props => 100 % -calcSize(props.size)}; */
   cursor: ${({ cursor = 'default' }) => cursor};
   border: ${(props: IProps) => props.border && '2px solid'};
   border-radius: 50%;
 
   /* ! Theming  */
-  color: white;
+  color: ${props => (props.color === 'white' ? 'white' : 'rgb(30, 30, 30)')};
 
   /* color: black; */
   border-color: rgb(255, 255, 255);
@@ -69,5 +64,10 @@ export const PauseIcon: FC<IProps> = props => (
 export const VolumeIcon: FC<IProps> = props => (
   <IconButton {...props}>
     <IoIosVolumeHigh />
+  </IconButton>
+);
+export const FavoriteBorderIcon: FC<IProps> = props => (
+  <IconButton {...props}>
+    <MdFavoriteBorder />
   </IconButton>
 );

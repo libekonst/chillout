@@ -1,7 +1,7 @@
 import React, { ReactNode, FC } from 'react';
 import { CardMedia } from './CardMedia';
 import { Image } from '../styled/Image';
-import { PlayIcon, PauseIcon, VolumeIcon } from '../PlayControls';
+import { PlayIcon, PauseIcon, VolumeIcon } from '../IconButtons';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';
 import { Title } from './Title';
