@@ -14,13 +14,13 @@
     "prettier": true,
     "quotemark": [true, "single"],
     "member-access": [false],
-    "ordered-imports": [false],
+    "ordered-imports": [true],
     "max-line-length": [true, 150],
     "member-ordering": [false],
-    "interface-name": [false],
+    "interface-name": [true],
     "arrow-parens": false,
     "object-literal-sort-keys": false,
     "curly": false,
-    "no-unused-expression": false
+    "no-unused-expression": true
   }
 }
