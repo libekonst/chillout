@@ -10,12 +10,14 @@ interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  onImageLoad: () => any;
   showPlay?: boolean;
   showVolume?: boolean;
   showPause?: boolean;
   backdrop?: boolean;
   hovered?: boolean;
   imageSource: string;
+  loaded?: boolean;
   title?: ReactNode;
 }
 
@@ -30,6 +32,8 @@ export const View: FC<IProps> = ({
   imageSource,
   showVolume,
   title,
+  loaded,
+  onImageLoad,
   ...rest
 }) => (
   <div>
@@ -40,10 +44,15 @@ export const View: FC<IProps> = ({
       onClick={onClick}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-      <Image
-        blur={hovered}
-        src={imageSource} /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
-      />
+        <Image
+          blur={hovered}
+          src={imageSource}
+          onLoad={onImageLoad}
+          loaded={loaded}
+
+          /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
+        />
+
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}
       {showVolume && <VolumeIcon position="absolute" type="dark" />}

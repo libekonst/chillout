@@ -5,26 +5,28 @@ import { View } from './View';
 interface IProps {
   radio: IRadio;
   title: ReactNode;
+  image: string;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 interface IState {
   hovered: boolean;
+  loaded: boolean;
   active: boolean;
 }
 export default class Card extends React.Component<IProps, IState> {
   readonly state: IState = {
     hovered: false,
+    loaded: false,
     active: false,
   };
   onMouseEnter = () => this.setState({ hovered: true });
   onMouseLeave = () => this.setState({ hovered: false });
   onClick = () => this.setState({ active: !this.state.active });
 
+  onImageLoad = () => this.setState({ loaded: true });
   render() {
-    const {
-      radio: { image, name },
-      title
-    } = this.props;
+    const { title } = this.props;
+
     return (
       <View
         onMouseEnter={this.onMouseEnter}
@@ -34,8 +36,10 @@ export default class Card extends React.Component<IProps, IState> {
         showPause={this.state.hovered && this.state.active}
         showVolume={!this.state.hovered && this.state.active}
         hovered={this.state.hovered}
-        imageSource={image}
+        imageSource={this.props.image}
         title={title}
+        loaded={this.state.loaded}
+        onImageLoad={this.onImageLoad}
       />
     );
   }
