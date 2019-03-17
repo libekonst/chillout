@@ -12,6 +12,7 @@ export const Image = styled.img`
   background-repeat: no-repeat;
   background-position: center;
   transition: all 0.05s ease-out, opacity 0.5s ease-in-out;
+  will-change: transform;
   opacity: ${props => (typeof props.loaded === 'undefined' ? 1 : 0)};
   ${props =>
     props.loaded &&
