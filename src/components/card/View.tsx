@@ -5,6 +5,8 @@ import { PlayIcon, PauseIcon, VolumeIcon } from '../IconButtons';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';
 import { Title } from './Title';
+import { MdMusicNote } from 'react-icons/md';
+import { Placeholder } from '../styled/Placeholder';
 
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -44,15 +46,18 @@ export const View: FC<IProps> = ({
       onClick={onClick}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-        <Image
-          blur={hovered}
-          src={imageSource}
-          onLoad={onImageLoad}
-          loaded={loaded}
+      {/* TODO: Add PH only on first load (lift state up). Might still keep the image fading effect using local state. Looks cool. */}
+      <Placeholder transitionOut={loaded} gradient={true}>
+        <MdMusicNote fontSize="3rem" style={{ size: '5rem', margin: 'auto' }} />
+      </Placeholder>
+      <Image
+        blur={hovered}
+        src={imageSource}
+        onLoad={onImageLoad}
+        loaded={loaded}
 
-          /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
-        />
-
+        /* bgColor={'rgba(152, 230, 27, 0.4)'}  */
+      />
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}
       {showVolume && <VolumeIcon position="absolute" type="dark" />}
