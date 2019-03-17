@@ -21,9 +21,8 @@ export const Image = styled.img`
   ${props =>
     props.blur &&
     css`
-    transform: 3d;
       filter: blur(7px);
-      transform: translateZ(0) scale(1.05);
+      transform: scale(1.07);
       transition: all 0.1s ease-out;
     `}
 `;
