@@ -1,11 +1,10 @@
 import React, { ReactNode } from 'react';
-import { IRadio } from '../../data';
 import { View } from './View';
 
 interface IProps {
-  radio: IRadio;
   title: ReactNode;
   image: string;
+  cardRef?: React.RefObject<HTMLDivElement>;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 interface IState {
@@ -40,7 +39,10 @@ export default class Card extends React.Component<IProps, IState> {
         title={title}
         loaded={this.state.loaded}
         onImageLoad={this.onImageLoad}
-      />
+        cardRef={this.props.cardRef}
+      >
+        {this.props.children}
+      </View>
     );
   }
 }

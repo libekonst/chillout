@@ -9,6 +9,8 @@ export const HorizontalList = styled.ul`
   /* overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')}; */
   display: flex;
   background-color: none;
+  justify-content: space-evenly;
+  padding-right: 0.7rem;
 
   &:hover {
     overflow-x: auto;
@@ -43,5 +45,5 @@ export const HorizontalList = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  margin: 0.7rem;
+  margin-left: 0.7rem;
 `;

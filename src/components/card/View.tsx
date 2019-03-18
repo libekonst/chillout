@@ -21,6 +21,7 @@ interface IProps {
   imageSource: string;
   loaded?: boolean;
   title?: ReactNode;
+  cardRef?: React.RefObject<HTMLDivElement>;
 }
 
 // TODO: Pause Icon should only be visible when the radio is active AND the Icon Button is hovered.
@@ -36,9 +37,10 @@ export const View: FC<IProps> = ({
   title,
   loaded,
   onImageLoad,
+  cardRef,
   ...rest
 }) => (
-  <div>
+  <div ref={cardRef} style={{ width: '10rem' }}>
     <CardMedia
       {...rest}
       onMouseEnter={onMouseEnter}
