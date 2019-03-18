@@ -80,7 +80,7 @@ export default class Carousel extends Component<IProps, IState> {
       cardWidth =
         parseInt(
           window.getComputedStyle(this.cardRef.current).getPropertyValue('margin-left'),
-        ) + this.cardRef.current.offsetWidth;
+        ) + this.cardRef.current.offsetWidth; // Also add margin-right if not NaN.
     // const cardWidth = this.cardRef.current!.offsetWidth;
     const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
 
