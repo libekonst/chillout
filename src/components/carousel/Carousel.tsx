@@ -36,13 +36,12 @@ export default class Carousel extends Component<IProps, IState> {
   handleHeaderLeave = () => this.setState({ headerHovered: false });
   handleExpand = () => this.setState(prev => ({ expanded: !prev.expanded }));
 
-  handleNext = (): (() => void) | undefined => {
+  handleNext = (): undefined | (() => void) => {
     // Return early so the button becomes unclickable.
     // Throws error if not returned, because the array is eventually emptied.
-    const { chopped, renderIndex } = this.state;
-    if (chopped.length - 1 === renderIndex) return; // Check if the last array of items is already rendered.
+    if (this.state.chopped.length - 1 === this.state.renderIndex) return; // Check if the last array of items is already rendered.
 
-    return () => {
+    return (): void => {
       this.setState(prev => ({ renderIndex: prev.renderIndex + 1 }));
     };
   };
@@ -50,7 +49,7 @@ export default class Carousel extends Component<IProps, IState> {
   handleBack = (): (() => void) | undefined => {
     if (this.state.renderIndex === 0) return;
 
-    return () => this.setState(prev => ({ renderIndex: prev.renderIndex - 1 }));
+    return (): void => this.setState(prev => ({ renderIndex: prev.renderIndex - 1 }));
   };
 
   calculateFittingItems = (carouselWidth: number, cardWidth: number): number => {
@@ -61,7 +60,7 @@ export default class Carousel extends Component<IProps, IState> {
   };
 
   componentDidMount() {
-    // Non-null assertion because ref updates before componentDidUpdate.
+    // Non-null assertion because ref updates before componentDidMount.
     const carouselWidth = this.carouselRef.current!.offsetWidth;
     const cardWidth = this.cardRef.current!.offsetWidth;
     const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
@@ -84,7 +83,12 @@ export default class Carousel extends Component<IProps, IState> {
         ) + this.cardRef.current.offsetWidth;
     // const cardWidth = this.cardRef.current!.offsetWidth;
     const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
-    if (this.state.chopped[this.state.renderIndex].length !== fittingItems) {
+
+    const currentArr = this.state.chopped[this.state.renderIndex];
+    if (
+      currentArr.length !== fittingItems &&
+      this.state.chopped.length - 1 !== this.state.renderIndex // There are no more items to show, don't try to recalculcate.
+    ) {
       const chopped = chop(this.props.data, fittingItems);
 
       this.setState({ chopped });

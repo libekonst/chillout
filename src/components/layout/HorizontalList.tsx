@@ -9,7 +9,7 @@ export const HorizontalList = styled.ul`
   /* overflow-x: ${(props: IScrollProps) => (props.scroll ? 'auto' : 'hidden')}; */
   display: flex;
   background-color: none;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding-right: 0.7rem;
 
   &:hover {
