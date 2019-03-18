@@ -13,9 +13,6 @@ class App extends Component {
       <main>
         <Carousel data={data} step={7} />
         <GridHeader />
-        <div style={{backgroundColor: 'red', padding: '10px', height: '50px', width: '50px'}}>
-          <div style={{backgroundColor: 'green',  height: '20px', width: '20px'}}></div>
-        </div>
         <ul>
           <li>
             <GridBodyRow />
