@@ -1,18 +1,10 @@
 // TODO: Refactor.
 export const chop = <T>(arr: T[], size: number): T[][] => {
-  const chunk = [];
-  let slice = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (slice.length < size) {
-      slice.push(arr[i]);
-      if (i === arr.length - 1) {
-        chunk.push(slice);
-      }
-    } else {
-      chunk.push(slice);
-      slice = [];
-      slice.push(arr[i]);
-    }
+  if (arr.length < size) return [[...arr]];
+
+  const chopHolder: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chopHolder.push(arr.slice(i, i + size)); // .slice extracts up to but not including the end statement.
   }
-  return chunk;
+  return chopHolder;
 };
