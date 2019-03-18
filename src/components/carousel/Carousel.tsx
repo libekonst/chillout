@@ -67,8 +67,6 @@ export default class Carousel extends Component<IProps, IState> {
 
     window.onresize = () => {
       // TODO: Lift up.
-      // Non-null assertion because ref updates before componentDidUpdate.
-      const carouselWidth = this.carouselRef.current!.offsetWidth;
       let cardWidth;
       if (this.cardRef.current)
         cardWidth =
