@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { IRadio } from '../../data';
 import { View } from './View';
 import { chop } from '../../utils/chop';
-import { Card } from '../card';
 
 interface IState {
   headerHovered: boolean;
@@ -66,38 +65,40 @@ export default class Carousel extends Component<IProps, IState> {
     const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
     const chopped = chop(this.props.data, fittingItems);
 
+    window.onresize = () => {
+      // TODO: Lift up.
+      // Non-null assertion because ref updates before componentDidUpdate.
+      const carouselWidth = this.carouselRef.current!.offsetWidth;
+      let cardWidth;
+      if (this.cardRef.current)
+        cardWidth =
+          parseInt(
+            window
+              .getComputedStyle(this.cardRef.current)
+              .getPropertyValue('margin-left'),
+          ) + this.cardRef.current.offsetWidth; // Also add margin-right if not NaN.
+      // const cardWidth = this.cardRef.current!.offsetWidth;
+      const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
+
+      const currentArr = this.state.chopped[this.state.renderIndex];
+      if (
+        currentArr.length !== fittingItems &&
+        this.state.chopped.length - 1 !== this.state.renderIndex // There are no more items to show, don't try to recalculcate.
+      ) {
+        const chopped = chop(this.props.data, fittingItems);
+
+        // TODO: Instead of chop, use Array.prototype.slice() and change the slice size dynamically
+        // in order to always load new items at the end.
+        this.setState({ chopped });
+      }
+      console.log(`carouselWidth: ${carouselWidth}, ${typeof carouselWidth}`);
+      console.log(`cardWidth: ${cardWidth}`);
+      console.log(fittingItems);
+    };
     // const cached = chopped.reduce((prev, _, i) => ({ ...prev, [i]: false }), {});
 
     this.setState({ chopped });
     // this.setState({ chopped, cached });
-  }
-
-  componentDidUpdate() {
-    // Non-null assertion because ref updates before componentDidUpdate.
-    const carouselWidth = this.carouselRef.current!.offsetWidth;
-    let cardWidth;
-    if (this.cardRef.current)
-      cardWidth =
-        parseInt(
-          window.getComputedStyle(this.cardRef.current).getPropertyValue('margin-left'),
-        ) + this.cardRef.current.offsetWidth; // Also add margin-right if not NaN.
-    // const cardWidth = this.cardRef.current!.offsetWidth;
-    const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
-
-    const currentArr = this.state.chopped[this.state.renderIndex];
-    if (
-      currentArr.length !== fittingItems &&
-      this.state.chopped.length - 1 !== this.state.renderIndex // There are no more items to show, don't try to recalculcate.
-    ) {
-      const chopped = chop(this.props.data, fittingItems);
-
-      // TODO: Instead of chop, use Array.prototype.slice() and change the slice size dynamically
-      // in order to always load new items at the end.
-      this.setState({ chopped }); 
-    }
-    console.log(`carouselWidth: ${carouselWidth}, ${typeof carouselWidth}`);
-    console.log(`cardWidth: ${cardWidth}`);
-    console.log(fittingItems);
   }
 
   render() {
