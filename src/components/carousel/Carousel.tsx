@@ -91,7 +91,9 @@ export default class Carousel extends Component<IProps, IState> {
     ) {
       const chopped = chop(this.props.data, fittingItems);
 
-      this.setState({ chopped });
+      // TODO: Instead of chop, use Array.prototype.slice() and change the slice size dynamically
+      // in order to always load new items at the end.
+      this.setState({ chopped }); 
     }
     console.log(`carouselWidth: ${carouselWidth}, ${typeof carouselWidth}`);
     console.log(`cardWidth: ${cardWidth}`);

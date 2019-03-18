@@ -46,4 +46,8 @@ export const HorizontalList = styled.ul`
 
 export const ListItem = styled.li`
   margin-left: 0.7rem;
+
+  &:last-child {
+    margin-right: 0.7rem;
+  }
 `;
