@@ -3,6 +3,7 @@ import { IRadio } from '../../data';
 import { View } from './View';
 import { chop } from '../../utils/chop';
 import { parse } from '../../utils/parse';
+import { debounce } from '../../utils/debounce';
 
 interface IState {
   headerHovered: boolean;
@@ -77,7 +78,7 @@ export default class Carousel extends Component<IProps, IState> {
     const marginLeft = window.getComputedStyle(cardEl).getPropertyValue('margin-left');
     const marginLeftParsed = parse(marginLeft);
 
-    return marginLeftParsed + cardEl.offsetWidth;
+    return marginLeftParsed + cardEl.offsetWidth + 1; // Prevent rendering the exact number of items needed to overflow the container.
   };
 
   addItemsUntilFull = (): void => {
@@ -112,6 +113,8 @@ export default class Carousel extends Component<IProps, IState> {
       });
     }
   };
+  handleWindowResize = debounce(this.addItemsUntilFull); // Store a reference to use both when adding and clearing the event listener.
+
   componentDidMount() {
     // Non-null assertion because ref updates before componentDidMount.
     const carouselWidth = this.carouselRef.current!.offsetWidth;
@@ -119,13 +122,13 @@ export default class Carousel extends Component<IProps, IState> {
     const fittingItems = this.calculateFittingItems(carouselWidth, cardWidth);
     const chopped = chop(this.props.data, fittingItems);
 
-    window.addEventListener('resize', this.addItemsUntilFull);
+    window.addEventListener('resize', this.handleWindowResize);
     // const cached = chopped.reduce((prev, _, i) => ({ ...prev, [i]: false }), {});
     this.setState({ chopped, isFirstRender: false }, this.addItemsUntilFull);
     // this.setState({ chopped, cached });
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.addItemsUntilFull);
+    window.removeEventListener('resize', this.handleWindowResize);
   }
   render() {
     const { headerHovered, expanded, chopped, renderIndex } = this.state;
