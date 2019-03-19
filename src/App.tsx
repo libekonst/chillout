@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import data from './data';
+import data, { IRadio } from './data';
 
 import './App.scss';
 import './_normalize.scss';
@@ -8,10 +8,19 @@ import { GridBodyRow } from './components/grid/GridBodyRow';
 import { GridHeader } from './components/grid/GridHeader';
 
 class App extends Component {
+  state = {
+    data: data,
+    renderCarousel: true,
+  };
+  // @ts-ignore
+  showCarousel = () => this.setState(prev => ({ renderCarousel: !prev.renderCarousel }));
   render() {
     return (
       <main>
-        <Carousel data={data} step={7} />
+        <button style={{width: '100px', height: '50px', backgroundColor: 'blue', color: 'pink'}} onClick={this.showCarousel}>
+          {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
+        </button>
+        {this.state.renderCarousel && <Carousel data={data} step={7} />}
         <GridHeader />
         <ul>
           <li>
