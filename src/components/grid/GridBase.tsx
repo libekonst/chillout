@@ -21,9 +21,27 @@ interface IGridBaseProps {
 export const GridBase = styled.div`
   width: 100%;
   height: auto;
-  background-color: ${(props: IGridBaseProps) =>
-    props.highlightHover && 'rgba(70, 70, 70, 0.2)'};
-  border-bottom: ${props => props.gutter && '1px solid rgba(70, 70, 70, 0.1)'};
+  position: relative;
+  /* background-color: ${props => props.highlightHover && 'rgba(70, 70, 70, 0.2)'}; */
+  /* Grid layout */
+  display: grid;
+  grid-template-columns: 3rem 3rem 3rem auto 8rem 6rem;
+  grid-column-gap: 0.5rem;
+  grid-template-areas: "${(props: IGridBaseProps) => props.areas.join(' ')}";
+  align-items: ${({ alignItems = 'center' }) => alignItems};
+  justify-items: ${({ justifyItems = 'start' }) => justifyItems};
+
+  /* Highlight on hover */
+  ${props =>
+    props.highlightHover &&
+    css`
+    transition: background-color 0.2s linear;
+      &:hover {
+        background-color: rgba(200, 200, 200, 0.2);
+      }
+    `}
+
+  /* Spacing */
   ${props =>
     props.spacing &&
     css`
@@ -31,13 +49,20 @@ export const GridBase = styled.div`
       padding-bottom: 0.5rem;
     `}
 
-  /* Grid layout */
-  display: grid;
-  grid-template-columns: 3rem 3rem 3rem auto 8rem 6rem;
-  grid-column-gap: 0.5rem;
-  grid-template-areas: "${props => props.areas.join(' ')}";
-  align-items: ${({ alignItems = 'center' }) => alignItems};
-  justify-items: ${({ justifyItems = 'start' }) => justifyItems};
+  /* Gutter */
+  ${props =>
+    props.gutter &&
+    css`
+      &::before {
+        content: '';
+        position: absolute;
+        left: 2rem;
+        right: 2rem;
+        bottom: 0;
+        height: 1px;
+        background-color: rgba(70, 70, 70, 0.1);
+      }
+    `}
 `;
 
 interface IGridItemProps {

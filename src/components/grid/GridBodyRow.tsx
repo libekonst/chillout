@@ -20,7 +20,7 @@ export class GridBodyRow extends Component<Props, IState> {
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
-        highlightHover={this.state.hovered}
+        highlightHover={true}
         spacing={true}
         gutter={true}
         {...this.props}
