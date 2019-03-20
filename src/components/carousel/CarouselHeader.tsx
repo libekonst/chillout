@@ -1,91 +1,33 @@
-import React, { FunctionComponent } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FC } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { ExpandIcon } from '../styled/ExpandIcon';
+import { ExpandIcon, HeaderLeft } from './HeaderLeft';
 import { Row } from '../layout/Row';
+import { HeaderButton } from './HeaderButton';
 interface IProps {
   expanded: boolean;
-  showExpandIcon: boolean;
   title: string;
   onExpand?: () => void;
-  onHeaderEnter?: () => void;
-  onHeaderLeave?: () => void;
   onNext?: () => void;
   onBack?: () => void;
 }
 
-export const CarouselHeader: FunctionComponent<IProps> = props => {
-  const {
-    expanded,
-    onExpand,
-    onNext,
-    onBack,
-    onHeaderEnter,
-    onHeaderLeave,
-    showExpandIcon,
-    title,
-  } = props;
+export const CarouselHeader: FC<IProps> = props => {
+  const { expanded, onExpand, onNext, onBack, title } = props;
   return (
     <Row justify="space-between">
-      <HeaderLeft
-        onMouseEnter={onHeaderEnter}
-        onMouseLeave={onHeaderLeave}
-        onClick={onExpand}
-      >
-        {onExpand && (
-          <ExpandIcon type={expanded ? 'less' : 'more'} show={showExpandIcon} />
-        )}
+      <HeaderLeft onClick={onExpand}>
+        {onExpand && <ExpandIcon expanded={expanded} />}
         <h4>{title}</h4>
       </HeaderLeft>
 
-      <HeaderRight>
-        <Button onClick={onBack}>
+      <Row>
+        <HeaderButton onClick={onBack}>
           <IoIosArrowBack />
-        </Button>
-        <Button onClick={onNext}>
+        </HeaderButton>
+        <HeaderButton onClick={onNext}>
           <IoIosArrowForward />
-        </Button>
-      </HeaderRight>
+        </HeaderButton>
+      </Row>
     </Row>
   );
 };
-
-const HeaderLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  ${props =>
-    !!props.onClick &&
-    css`
-      cursor: pointer;
-    `}
-`;
-
-const HeaderRight = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-`;
-
-const Button = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: lightgray;
-  font-size: 1.5rem;
-  cursor: auto;
-  ${props =>
-    !!props.onClick &&
-    css`
-      cursor: pointer;
-      color: darkgray;
-
-      &:active {
-        color: #052fb8;
-        transform: scale(1.1);
-      }
-    `}
-`;
