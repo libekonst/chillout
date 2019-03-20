@@ -1,6 +1,6 @@
-import { FlexBasis } from './FlexBasis';
+import { FlexBase } from './FlexBase';
 import React, { FC, ComponentProps } from 'react';
 
-type Props = Partial<ComponentProps<typeof FlexBasis>>;
+type Props = Partial<ComponentProps<typeof FlexBase>>;
 
-export const Row: FC<Props> = props => <FlexBasis flexDirection="row" {...props} />;
+export const Row: FC<Props> = props => <FlexBase flexDirection="row" {...props} />;

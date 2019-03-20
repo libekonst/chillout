@@ -1,8 +1,8 @@
-import { FlexBasis } from './FlexBasis';
+import { FlexBase } from './FlexBase';
 import React, { FC, ComponentProps } from 'react';
 
-type Props = Partial<ComponentProps<typeof FlexBasis>>;
+type Props = Partial<ComponentProps<typeof FlexBase>>;
 
 export const Column: FC<Props> = props => (
-  <FlexBasis flexDirection="column" {...props} />
+  <FlexBase flexDirection="column" {...props} />
 );

@@ -12,7 +12,7 @@ interface IProps {
     | 'space-evenly';
 }
 
-export const FlexBasis = styled.div`
+export const FlexBase = styled.div`
   display: flex;
   flex-direction: ${({ flexDirection }: IProps) => flexDirection};
   justify-content: ${({ justify = 'center' }) => justify};
