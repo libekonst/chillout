@@ -3,6 +3,7 @@ import React, { FC, ComponentProps, Component } from 'react';
 import { PlayIcon, FavoriteBorderIcon } from '../IconButtons';
 import { Media } from './Media';
 import { Image } from '../styled/Image';
+import { Placeholder } from '../styled/Placeholder';
 interface IProps {
   name: string;
   image: string;
@@ -11,12 +12,15 @@ interface IProps {
 type Props = Partial<ComponentProps<typeof GridBase>> & IProps;
 interface IState {
   hovered: boolean;
+  loaded: boolean;
 }
 // export const GridBodyRow: FC<Props> = props => (
 export class GridBodyRow extends Component<Props, IState> {
   readonly state: IState = {
     hovered: false,
+    loaded: false,
   };
+  onImageLoad = () => this.setState({ loaded: true });
   handleHover = () => this.setState(prev => ({ hovered: !prev.hovered }));
   render() {
     return (
@@ -39,7 +43,13 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <Image src={this.props.image} />
+            <Placeholder shouldFadeOut={this.state.loaded} gradient={true}>
+              <Image
+                src={this.props.image}
+                onLoad={this.onImageLoad}
+                loaded={this.state.loaded}
+              />
+            </Placeholder>
           </Media>
         </GridItem>
         <GridItem gridArea="title">{this.props.name}</GridItem>
