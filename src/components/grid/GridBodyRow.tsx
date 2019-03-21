@@ -29,7 +29,7 @@ export class GridBodyRow extends Component<Props, IState> {
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
         highlightOnHover={true}
-        spacing={true}
+        large={true}
         gutter={true}
         {...this.props}
       >

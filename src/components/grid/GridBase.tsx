@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { truncateText } from '../../styles';
 type BoxAlignment =
   | 'auto'
   | 'normal'
@@ -11,7 +12,7 @@ type BoxAlignment =
 interface IGridBaseProps {
   gutter?: boolean;
   highlightOnHover?: boolean;
-  spacing?: boolean;
+  large?: boolean;
   justifyItems?: BoxAlignment; // x-axis
   alignItems?: BoxAlignment; // y-axis
   areas: [string, string, string, string, string, string];
@@ -43,7 +44,7 @@ export const GridBase = styled.div`
 
   /* Spacing */
   ${props =>
-    props.spacing &&
+    props.large &&
     css`
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
@@ -71,7 +72,11 @@ interface IGridItemProps {
   justifySelf?: BoxAlignment;
 }
 export const GridItem = styled.div`
+  /* Grid placement */
   grid-area: ${(props: IGridItemProps) => props.gridArea};
   align-self: ${({ alignSelf = 'auto' }) => alignSelf};
   justify-self: ${({ justifySelf = 'auto' }) => justifySelf};
+
+  /* Text ellipsis */
+  ${truncateText}
 `;
