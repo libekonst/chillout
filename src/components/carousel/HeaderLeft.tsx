@@ -20,7 +20,6 @@ export const ExpandIcon: FC<ExpandProps> = props => (
 
 const IconWrapper = styled(Column)`
   font-size: 1.2rem;
-  visibility: visible;
 
   /* transition: transform 0.2s ease-out; */
   ${(props: ExpandProps) =>
