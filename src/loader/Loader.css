@@ -1,0 +1,70 @@
+.loaderWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  z-index: 1000;
+  transition: visibility 0.3s, opacity 0.3s linear; /* Opacity for the fade-out effect. Visibility to allow interaction underneath the element. */
+  visibility: visible;
+  display: flex;
+  background-color: #fafafa
+}
+
+.loaderWrapper--hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Spinner */
+.loader {
+  border: 0.05rem solid transparent;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  border-top: 0.05rem solid #052fb8;
+  /* border-bottom: 0.05rem solid #052fb8; */
+  width: 5rem;
+  height: 5rem;
+  /* animation: spin 0.5s cubic-bezier(0.5, 0.6, 0.5, 1) infinite;  */
+  animation: spin 1s ease-out infinite;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  border: 0.05rem solid transparent;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  /* border-left: 0.05rem solid #052fb8;
+  border-right: 0.05rem solid #052fb8; */
+  border-top: 0.05rem solid rgb(255, 32, 117);
+  width: 4.5rem;
+  height: 4.5rem;
+  animation: spin2 1.5s linear infinite;
+
+}
+@keyframes spin2{
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(400deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

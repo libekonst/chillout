@@ -1,5 +1,3 @@
-@import '_normalize';
-
 html {
   box-sizing: border-box;
 }
@@ -24,9 +22,9 @@ body {
   color: rgb(26, 26, 26);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // background-color: #fafafa;
+  /* background-color: #fafafa; */
   background-color: #f9f9f9;
-  // background-color: #eef0f4;
+  /* background-color: #eef0f4; */
   font-family: 'Montserrat', sans-serif;
 }
 
