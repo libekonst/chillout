@@ -10,11 +10,18 @@ import { GridHeader } from './components/grid/GridHeader';
 class App extends Component {
   state = {
     renderCarousel: true,
-    // @ts-ignore
     loaded: false,
   };
+
+  renderComponentTree = () => this.setState({ loaded: true });
+
   componentDidMount() {
-    window.addEventListener('load', () => this.setState({ loaded: true }));
+    // Mount the app component and wait for the styles to load. To avoid FOUC. This happens quickly.
+    // Then render the component tree. Images already have their own placeholder and fade in animation.
+    window.addEventListener('load', this.renderComponentTree);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('load', this.renderComponentTree);
   }
   renderGrid = () => {
     return (
