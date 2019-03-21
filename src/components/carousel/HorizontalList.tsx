@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 interface IScrollProps {
   scroll?: boolean;
@@ -11,6 +11,7 @@ export const HorizontalList = styled.ul`
   background-color: none;
   justify-content: flex-start;
   padding-right: 0.7rem;
+  visibility: ${props => (props.show ? 'visible' : 'hidden')};
 
   &:hover {
     /* overflow-x: auto; */
