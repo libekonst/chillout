@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Row } from '../layout/Row';
 
 export const HeaderButton = styled.button`
   display: flex;
@@ -20,3 +21,7 @@ export const HeaderButton = styled.button`
       }
     `}
 `;
+
+export const HeaderRight = styled(Row)`
+  overflow: hidden;
+`

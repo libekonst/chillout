@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { ExpandIcon, HeaderLeft } from './HeaderLeft';
+import { HeaderRight, HeaderButton } from './HeaderRight';
 import { Row } from '../layout/Row';
-import { HeaderButton } from './HeaderButton';
+
 interface IProps {
   expanded: boolean;
   title: string;
@@ -20,14 +21,14 @@ export const CarouselHeader: FC<IProps> = props => {
         <h4>{title}</h4>
       </HeaderLeft>
 
-      <Row>
+      <HeaderRight>
         <HeaderButton onClick={onBack}>
           <IoIosArrowBack />
         </HeaderButton>
         <HeaderButton onClick={onNext}>
           <IoIosArrowForward />
         </HeaderButton>
-      </Row>
+      </HeaderRight>
     </Row>
   );
 };

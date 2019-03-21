@@ -18,9 +18,8 @@ export const ExpandIcon: FC<ExpandProps> = props => (
 );
 
 const IconWrapper = styled(Column)`
-  visibility: hidden;
   font-size: 1.2rem;
-
+  
   /* transition: transform 0.2s ease-out; */
   ${(props: ExpandProps) =>
     css`
@@ -28,6 +27,8 @@ const IconWrapper = styled(Column)`
       animation: ${props.expanded ? rotateUp : rotateDown} 0.3s ease-out;
       transform: ${!props.expanded && 'rotate(180deg)'};
     `}
+
+  visibility: hidden;
 
   ${HeaderLeft}:hover & {
     visibility: visible;
