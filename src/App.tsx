@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import data from './data';
 
-import './loading.scss';
-import './App.scss';
-import './_normalize.scss';
+import './App.css';
+import './normalize.css';
 import { Carousel } from './components/carousel';
 import { GridBodyRow } from './components/grid/GridBodyRow';
 import { GridHeader } from './components/grid/GridHeader';
+import { Loader } from './loader/Loader';
 
 class App extends Component {
   state = {
@@ -26,18 +26,21 @@ class App extends Component {
     window.removeEventListener('load', this.renderComponentTree);
   }
   renderGrid = () => (
-    <ul
-      style={{
-        paddingLeft: '20px',
-        paddingRight: '20px',
-      }}
-    >
-      {data.map(item => (
-        <li key={item.id}>
-          <GridBodyRow name={item.name} image={item.image} label={item.label} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <GridHeader />
+      <ul
+        style={{
+          paddingLeft: '20px',
+          paddingRight: '20px',
+        }}
+      >
+        {data.map(item => (
+          <li key={item.id}>
+            <GridBodyRow name={item.name} image={item.image} label={item.label} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 
   // @ts-ignore
@@ -45,32 +48,30 @@ class App extends Component {
   render() {
     return (
       <>
-        <div
-          className={`loaderWrapper ${this.state.contentReady && 'loaderWrapper--hide'}`}
+        <Loader hide={this.state.contentReady} />
+        {this.state.contentReady && (
+        <main
+         style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}
         >
-          <div className="loader loader--outer" />
-        </div>
-        <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}> {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
-        {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
-          {/* {this.state.contentReady && (   */}
-            <>
-              <button
-                style={{
-                  width: '100px',
-                  height: '50px',
-                  backgroundColor: 'blue',
-                  color: 'pink',
-                }}
-                onClick={this.showCarousel}
-              >
-                {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
-              </button>
-              {this.state.renderCarousel && <Carousel data={data} step={7} />}
-              <GridHeader />
-              {this.renderGrid()}
-            </>
-          {/* )} */}
+          {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
+          {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
+          <>
+            <button
+              style={{
+                width: '100px',
+                height: '50px',
+                backgroundColor: 'blue',
+                color: 'pink',
+              }}
+              onClick={this.showCarousel}
+            >
+              {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
+            </button>
+            {this.state.renderCarousel && <Carousel data={data} step={7} />}
+            {this.renderGrid()}
+          </>
         </main>
+        )}
       </>
     );
   }
