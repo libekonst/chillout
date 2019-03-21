@@ -3,8 +3,12 @@ import React, { FC, ComponentProps, Component } from 'react';
 import { PlayIcon, FavoriteBorderIcon } from '../IconButtons';
 import { Media } from './Media';
 import { Image } from '../styled/Image';
-
-type Props = Partial<ComponentProps<typeof GridBase>>;
+interface IProps {
+  name: string;
+  image: string;
+  label: string;
+}
+type Props = Partial<ComponentProps<typeof GridBase>> & IProps;
 interface IState {
   hovered: boolean;
 }
@@ -20,7 +24,7 @@ export class GridBodyRow extends Component<Props, IState> {
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
-        highlightHover={true}
+        highlightOnHover={true}
         spacing={true}
         gutter={true}
         {...this.props}
@@ -35,11 +39,11 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <Image src="http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png" />
+            <Image src={this.props.image} />
           </Media>
         </GridItem>
-        <GridItem gridArea="title">{'offradio'}</GridItem>
-        <GridItem gridArea="genre">{'music'}</GridItem>
+        <GridItem gridArea="title">{this.props.name}</GridItem>
+        <GridItem gridArea="genre">{this.props.label}</GridItem>
         <GridItem gridArea="options">
           {/* <PlayIcon /> */}
           {'icon'}

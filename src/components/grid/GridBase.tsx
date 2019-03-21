@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-
 type BoxAlignment =
   | 'auto'
   | 'normal'
@@ -11,7 +10,7 @@ type BoxAlignment =
 
 interface IGridBaseProps {
   gutter?: boolean;
-  highlightHover?: boolean;
+  highlightOnHover?: boolean;
   spacing?: boolean;
   justifyItems?: BoxAlignment; // x-axis
   alignItems?: BoxAlignment; // y-axis
@@ -22,7 +21,7 @@ export const GridBase = styled.div`
   width: 100%;
   height: auto;
   position: relative;
-  /* background-color: ${props => props.highlightHover && 'rgba(70, 70, 70, 0.2)'}; */
+
   /* Grid layout */
   display: grid;
   grid-template-columns: 3rem 3rem 3rem auto 8rem 6rem;
@@ -31,13 +30,14 @@ export const GridBase = styled.div`
   align-items: ${({ alignItems = 'center' }) => alignItems};
   justify-items: ${({ justifyItems = 'start' }) => justifyItems};
 
-  /* Highlight on hover */
+  /* Highlight On Hover */
   ${props =>
-    props.highlightHover &&
+    props.highlightOnHover &&
     css`
-    transition: background-color 0.2s linear;
+      border-radius: 10px;
+      transition: background-color 0.1s linear;
       &:hover {
-        background-color: rgba(200, 200, 200, 0.2);
+        background-color: rgba(210, 210, 210, 0.2);
       }
     `}
 
@@ -60,7 +60,7 @@ export const GridBase = styled.div`
         right: 2rem;
         bottom: 0;
         height: 1px;
-        background-color: rgba(70, 70, 70, 0.1);
+        background-color: rgba(70, 70, 70, 0.05);
       }
     `}
 `;
