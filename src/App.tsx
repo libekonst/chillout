@@ -51,7 +51,8 @@ class App extends Component {
           <div className="loader loader--outer" />
         </div>
         <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}> {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
-          {/* {this.state.contentReady && ( */} {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
+        {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
+          {/* {this.state.contentReady && (   */}
             <>
               <button
                 style={{

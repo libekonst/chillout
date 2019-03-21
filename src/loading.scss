@@ -6,18 +6,19 @@
   bottom: 0;
   opacity: 1;
   z-index: 1000;
-  transition: opacity 0.3s linear;
+  transition: visibility 0.3s, opacity 0.3s linear; // Opacity for the fade-out effect. Visibility to allow interaction underneath the element. 
+  visibility: visible;
   display: flex;
   background-color: #fafafa
 }
 
 .loaderWrapper--hide {
   opacity: 0;
+  visibility: hidden;
 }
 
 // Spinner
 .loader {
-  // position: absolute;
   border: 0.05rem solid #e4e4e4;
   border-radius: 50%;
   display: block;
