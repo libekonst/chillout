@@ -6,20 +6,22 @@ import { Column } from '../layout/Column';
 
 interface ExpandProps {
   expanded: boolean;
+  showOnlyOnHover?: boolean;
 }
 export const HeaderLeft = styled(Row)`
   cursor: ${props => props.onClick && 'pointer'};
 `;
 
 export const ExpandIcon: FC<ExpandProps> = props => (
-  <IconWrapper expanded={props.expanded}>
+  <IconWrapper expanded={props.expanded} showOnlyOnHover={false}>
     <MdExpandLess />
   </IconWrapper>
 );
 
 const IconWrapper = styled(Column)`
   font-size: 1.2rem;
-  
+  visibility: visible;
+
   /* transition: transform 0.2s ease-out; */
   ${(props: ExpandProps) =>
     css`
@@ -28,11 +30,15 @@ const IconWrapper = styled(Column)`
       transform: ${!props.expanded && 'rotate(180deg)'};
     `}
 
-  visibility: hidden;
-
-  ${HeaderLeft}:hover & {
-    visibility: visible;
-  }
+  /* Show icon only when header is hovered.  */
+  ${props =>
+    props.showOnlyOnHover &&
+    css`
+      visibility: hidden;
+      ${HeaderLeft}:hover & {
+        visibility: visible;
+      }
+    `}
 `;
 
 const rotateDown = keyframes`
