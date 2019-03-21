@@ -12,27 +12,32 @@ class App extends Component {
     data: data,
     renderCarousel: true,
   };
+  renderGrid = () => {
+    return data.map(item => (
+      <li key={item.id}>
+        <GridBodyRow name={item.name} image={item.image} label={item.label} />
+      </li>
+    ));
+  };
   // @ts-ignore
   showCarousel = () => this.setState(prev => ({ renderCarousel: !prev.renderCarousel }));
   render() {
     return (
-      <main>
-        <button style={{width: '100px', height: '50px', backgroundColor: 'blue', color: 'pink'}} onClick={this.showCarousel}>
+      <main style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+        <button
+          style={{
+            width: '100px',
+            height: '50px',
+            backgroundColor: 'blue',
+            color: 'pink',
+          }}
+          onClick={this.showCarousel}
+        >
           {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
         </button>
         {this.state.renderCarousel && <Carousel data={data} step={7} />}
         <GridHeader />
-        <ul>
-          <li>
-            <GridBodyRow />
-          </li>
-          <li>
-            <GridBodyRow />
-          </li>
-          <li>
-            <GridBodyRow />
-          </li>
-        </ul>
+        <ul>{this.renderGrid()}</ul>
       </main>
     );
   }

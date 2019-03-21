@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 export const Title = styled.p`
-  /* Break word
-  overflow-wrap: break-word;
+  text-transform: capitalize;
+
+  /* Wrap to more lines */
+
+  /* overflow-wrap: break-word;
   white-space: normal; */
 
   /* Ellipsis */
