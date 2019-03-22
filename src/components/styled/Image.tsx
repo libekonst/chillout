@@ -8,7 +8,7 @@ interface ImageProps {
 export const Image = styled.img`
   background-size: cover;
   width: 100%;
-  background-color: ${({ bgColor = 'transparent' }: ImageProps) => bgColor};
+  background-color: ${({ bgColor = 'white' }: ImageProps) => bgColor};
   background-repeat: no-repeat;
   background-position: center;
   transition: all 0.05s ease-out, opacity 0.5s ease-in-out;
