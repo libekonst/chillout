@@ -1,8 +1,7 @@
 import { css } from "styled-components";
 
-/** Need fixed width for ellipsis to work. Width should be constrained by parent. */
-export const truncateText = () => css`
-  width: 100%;
+/** Truncating will only be activated if the element's width is specified. Constraint its width */
+export const truncateText = css`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

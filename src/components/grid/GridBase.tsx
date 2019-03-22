@@ -21,7 +21,7 @@ interface IGridBaseProps {
 export const GridBase = styled.div`
   width: 100%;
   height: auto;
-  position: relative;
+  position: relative;  /* For pseudo-element absolute positioning. */
 
   /* Grid layout */
   display: grid;
@@ -71,11 +71,13 @@ interface IGridItemProps {
   alignSelf?: BoxAlignment;
   justifySelf?: BoxAlignment;
 }
+
+/** Set justifySelf OR parent grid's justifyItems prop to 'stretch', if text should be truncated. */
 export const GridItem = styled.div`
   /* Grid placement */
   grid-area: ${(props: IGridItemProps) => props.gridArea};
   align-self: ${({ alignSelf = 'auto' }) => alignSelf};
-  justify-self: ${({ justifySelf = 'auto' }) => justifySelf};
+  justify-self: ${({ justifySelf = 'stretch' }) => justifySelf}; /* <- Define its size with 'stretch' instead of 'width: 100%' to truncate text on Chrome. Firefox is fine with width. */
 
   /* Text ellipsis */
   ${truncateText}

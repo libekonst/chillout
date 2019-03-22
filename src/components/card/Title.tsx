@@ -4,6 +4,7 @@ import { truncateText } from '../../styles';
 export const Title = styled.p`
   text-transform: capitalize;
 
-  /* Ellipsis */
+  /* Truncate text */
+  width: 100%;
   ${truncateText}
 `;
