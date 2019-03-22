@@ -49,13 +49,7 @@ export const View: FC<IProps> = ({
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
       <Placeholder shouldFadeOut={loaded} gradient={true}>
-        <Image
-          blur={hovered}
-          src={imageSource}
-          onLoad={onImageLoad}
-          loaded={loaded}
-          // bgColor={'rgba(152, 230, 27, 0.4)'}
-        />
+        <Image blur={hovered} src={imageSource} onLoad={onImageLoad} loaded={loaded} />
       </Placeholder>
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}

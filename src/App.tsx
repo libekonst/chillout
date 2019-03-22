@@ -26,21 +26,21 @@ class App extends Component {
     window.removeEventListener('load', this.renderComponentTree);
   }
   renderGrid = () => (
-    <>
+    <div
+      style={{
+        paddingLeft: '20px',
+        paddingRight: '20px',
+      }}
+    >
       <GridHeader />
-      <ul
-        style={{
-          paddingLeft: '20px',
-          paddingRight: '20px',
-        }}
-      >
+      <ul>
         {data.map(item => (
           <li key={item.id}>
             <GridBodyRow name={item.name} image={item.image} label={item.label} />
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 
   // @ts-ignore
@@ -48,29 +48,27 @@ class App extends Component {
   render() {
     return (
       <>
-        <Loader hide={this.state.contentReady} />
+        {!this.state.contentReady && <Loader hide={this.state.contentReady} />}
         {this.state.contentReady && (
-        <main
-         style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}
-        >
-          {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
-          {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
-          <>
-            <button
-              style={{
-                width: '100px',
-                height: '50px',
-                backgroundColor: 'blue',
-                color: 'pink',
-              }}
-              onClick={this.showCarousel}
-            >
-              {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
-            </button>
-            {this.state.renderCarousel && <Carousel data={data} step={7} />}
-            {this.renderGrid()}
-          </>
-        </main>
+          <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}>
+            {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
+            {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
+            <>
+              <button
+                style={{
+                  width: '100px',
+                  height: '50px',
+                  backgroundColor: 'blue',
+                  color: 'pink',
+                }}
+                onClick={this.showCarousel}
+              >
+                {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
+              </button>
+              {this.state.renderCarousel && <Carousel data={data} step={7} />}
+              {this.renderGrid()}
+            </>
+          </main>
         )}
       </>
     );
