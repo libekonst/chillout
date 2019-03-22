@@ -77,7 +77,10 @@ export const GridItem = styled.div`
   /* Grid placement */
   grid-area: ${(props: IGridItemProps) => props.gridArea};
   align-self: ${({ alignSelf = 'auto' }) => alignSelf};
-  justify-self: ${({ justifySelf = 'stretch' }) => justifySelf}; /* <- Define its size with 'stretch' instead of 'width: 100%' to truncate text on Chrome. Firefox is fine with width. */
+  justify-self: ${({ justifySelf = 'stretch' }) => justifySelf};
+
+  /* ^^^^ Define the element's width using 'justify-self: stretch' instead of 'width: 100%' to truncate text on Chrome.
+  Firefox is OK with both width and justify-self. */
 
   /* Text ellipsis */
   ${truncateText}
