@@ -4,6 +4,15 @@ interface IScrollProps {
   scroll?: boolean;
   show?: boolean;
 }
+const slideIn = keyframes`
+  from {
+    transform: translate3d(-3px, -2px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+`;
 
 export const HorizontalList = styled.ul`
   overflow: visible;
@@ -12,10 +21,8 @@ export const HorizontalList = styled.ul`
   justify-content: flex-start;
   padding-right: 0.7rem;
   visibility: ${props => (props.show ? 'visible' : 'hidden')};
+  animation: ${slideIn} ease-out 0.2s;
 
-  &:hover {
-    /* overflow-x: auto; */
-  }
 `;
 
 export const ListItem = styled.li`
