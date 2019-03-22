@@ -17,9 +17,7 @@ class App extends Component {
   renderComponentTree = () => this.setState({ contentReady: true });
 
   componentDidMount() {
-    // Mount the app component and wait for the styles to load and fonts to download, to avoid FOUC.
-    // This happens quickly, because the DOM tree is empty and no other resources are requested to load yet.
-    // Then render the component tree. Images are wrapped with a placeholder and have a fade in animation, so they load smoothly.
+    /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
   }
   componentWillUnmount() {
@@ -42,34 +40,52 @@ class App extends Component {
       </ul>
     </div>
   );
+  renderContent = () => (
+    <>
+      <button
+        style={{
+          width: '100px',
+          height: '50px',
+          backgroundColor: 'blue',
+          color: 'pink',
+        }}
+        onClick={this.showCarousel}
+      >
+        {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
+      </button>
+      {this.state.renderCarousel && <Carousel data={data} step={7} />}
+      {this.renderGrid()}
+    </>
+  );
+  /**
+   * Loads only the necessary resources needed to avoid FOUC, such as fonts and styles as well as everything else included in the html.
+   * This happens quickly because the browser is not asked to render anything to the DOM yet. The user will still see external resources,
+   * such as images, being loaded so they are already wrapped by a placeholder.
+   */
+  renderBodyQuicklyWithInitialResources = () =>
+    this.state.contentReady && ( // <- Render the tree after initial resources are loaded.
+      <main>
+        {this.renderContent()}
+      </main>
+    );
 
+  /** 
+   * Loads everything beforehand, including external resources and images. The content will be invisible during this time and
+   * the user will continue seeing the spinner until everything is loaded. This can take a lot of time.
+   */
+  renderBodyWhenEverythingIsReady = () => (
+    <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}> {/* <- Render the tree but reveal it when everything is ready. */}
+      {this.renderContent()}
+    </main>
+  );
   // @ts-ignore
   showCarousel = () => this.setState(prev => ({ renderCarousel: !prev.renderCarousel }));
   render() {
     return (
       <>
         {!this.state.contentReady && <Loader hide={this.state.contentReady} />}
-        {this.state.contentReady && (
-          <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}>
-            {/* <- Start loading resources, but stay hidden. Takes longer because it loads everything first. */}
-            {/* <- Don't start loading resources. Load only necessary styles then render the tree. */}
-            <>
-              <button
-                style={{
-                  width: '100px',
-                  height: '50px',
-                  backgroundColor: 'blue',
-                  color: 'pink',
-                }}
-                onClick={this.showCarousel}
-              >
-                {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
-              </button>
-              {this.state.renderCarousel && <Carousel data={data} step={7} />}
-              {this.renderGrid()}
-            </>
-          </main>
-        )}
+        {this.renderBodyQuicklyWithInitialResources()}
+        {/* {this.renderBodyWhenEverythingIsReady()} */}
       </>
     );
   }
