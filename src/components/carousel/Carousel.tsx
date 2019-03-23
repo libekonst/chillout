@@ -7,10 +7,10 @@ import { debounce } from '../../utils/debounce';
 
 interface IState {
   expanded: boolean;
-  chopped: IRadio[][];
+
   renderIndex: number;
   renderWidth: number;
-  cached: { [renderIndex: number]: boolean };
+
   fetchedImage: any;
   isFirstRender: boolean;
 }
@@ -23,19 +23,19 @@ interface IProps {
 export default class Carousel extends Component<IProps, IState> {
   readonly state: IState = {
     expanded: true,
-    chopped: [],
+
     // TODO: Add isEmpty: boolean -> 'This collection is empty'
     renderIndex: 0,
     renderWidth: 1,
     fetchedImage: false,
     isFirstRender: true, // Calculate the card's width before rendering the items.
-    cached: {}, // TODO: Use actual caching. https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
   };
 
   static readonly defaultProps: Partial<IProps> = { title: 'Your Favorites', step: 5 };
   private carouselRef = React.createRef<HTMLDivElement>();
   private cardRef = React.createRef<HTMLLIElement>();
 
+  // <- Event Handlers ->
   // ? !
   /**
    * Increases the renderIndex, causing rerendering to page through the data.
@@ -64,6 +64,8 @@ export default class Carousel extends Component<IProps, IState> {
     });
   };
 
+  // <- Getters for computed properties ->
+
   // ? !
   /** Returns whether there are more items available in the data props. */
   get reachedEndOfData(): boolean {
@@ -76,41 +78,11 @@ export default class Carousel extends Component<IProps, IState> {
     return this.state.renderIndex === 0;
   }
 
-  // <-! NYI ->
-
-  handleExpand = (): void =>
-    this.setState(prev => ({ expanded: !prev.expanded }), this.addItemsUntilFull); // Recalculate if window size changed before expanding.
-
-  calculateRenderWidth = (carouselWidth: number, cardWidth: number): number => {
-    if (cardWidth === 0 || isNaN(carouselWidth) || isNaN(cardWidth)) return 1;
-
-    return Math.floor(carouselWidth / cardWidth);
-  };
-
-  /** If the ref is available, gets the carousel's current width. Else returns 1. */
-  get carouselWidth(): number {
-    const carouselEl = this.carouselRef.current;
-    if (!carouselEl) return 1; // 0?
-
-    return carouselEl.offsetWidth;
-  }
-
-  /** If the ref is available, gets the card's width (including margin). Else returns 0. */
-  get cardWidth(): number {
-    const cardEl = this.cardRef.current;
-    if (!cardEl) return 0; // ! Caution: 1/0 => Infinity
-
-    const marginLeft = window.getComputedStyle(cardEl).getPropertyValue('margin-left');
-    const marginLeftParsed = parse(marginLeft);
-
-    return marginLeftParsed + cardEl.offsetWidth + 1; // Prevent rendering exactly as many items needed to overflow the container.
-  }
-
   // ? !
   /**
-   * Starts from the current renderIndex and picks as many items fit in the screen.
-   * If the renderWidth is greater than the available items in the array,
-   * it will simply extract items through to the end of the collection.
+   * Starts from the current renderIndex and extracts from props.data as many items as it can fit in the screen.
+   * If the renderWidth is greater than the available items in the array, it will simply extract items
+   * through to the end of the collection.
    */
   get renderItems(): IRadio[] {
     return this.props.data.slice(
@@ -118,6 +90,37 @@ export default class Carousel extends Component<IProps, IState> {
       this.state.renderIndex + this.state.renderWidth,
     );
   }
+
+  // ? !
+  /**
+   * If the ref is available, returns the card's width (including margin).
+   * Returns 0 if the ref is not available or the element is hidden.
+   * Caution: `[number] / 0 === Infinity`
+   */
+  get cardWidth(): number {
+    const cardEl = this.cardRef.current;
+    if (!(cardEl && cardEl.offsetWidth)) return 0; // De Morgan. <- not A or not B
+
+    const marginString = window.getComputedStyle(cardEl).getPropertyValue('margin-left');
+    const margin = parse(marginString);
+
+    // +1 to prevent rendering exactly as many items as needed to overflow the container.
+    return margin + cardEl.offsetWidth + 1;
+  }
+
+  // ? !
+  /** If the ref is available, returns the carousel's current width. Else returns 1. */
+  get carouselWidth(): number {
+    const carouselEl = this.carouselRef.current;
+    if (!carouselEl) return 1; // 0?
+
+    return carouselEl.offsetWidth;
+  }
+  // <-! NYI ->
+
+  handleExpand = (): void =>
+    this.setState(prev => ({ expanded: !prev.expanded }), this.addItemsUntilFull); // Recalculate if window size changed before expanding.
+
   // setRenderWidth = (): void => {
   //   this.setState({ renderWidth: fittingItems }, () => {
   //     console.log(`carouselWidth: ${carouselWidth}, ${typeof carouselWidth}`);
@@ -126,6 +129,13 @@ export default class Carousel extends Component<IProps, IState> {
   //     console.log('I just set state!');
   //   });
   // }
+
+  calculateRenderWidth = (carouselWidth: number, cardWidth: number): number => {
+    // if (cardWidth === 0 || isNaN(carouselWidth) || isNaN(cardWidth)) return 1;
+    if (!isFinite(cardWidth) || !isFinite(carouselWidth)) return 1;
+
+    return Math.floor(carouselWidth / cardWidth);
+  };
   addItemsUntilFull = (): void => {
     // TODO: Lift up?
     const cardWidth: number = this.cardWidth;
@@ -148,8 +158,7 @@ export default class Carousel extends Component<IProps, IState> {
       const chopped = chop(this.props.data, fittingItems);
       console.log('Im goint to set state!');
 
-      // TODO: Instead of chopping, use Array.prototype.slice() and direct it show current first + fitting items.
-      // in order to always load any new items at the end.
+      
       this.setState({ renderWidth: fittingItems }, () => {
         console.log(`carouselWidth: ${carouselWidth}, ${typeof carouselWidth}`);
         console.log(`cardWidth: ${cardWidth}`);
@@ -164,23 +173,18 @@ export default class Carousel extends Component<IProps, IState> {
 
   componentDidMount() {
     // Non-null assertion because ref updates before componentDidMount.
-    const carouselWidth = this.carouselRef.current!.offsetWidth;
-    const cardWidth = this.cardRef.current!.offsetWidth;
-    const fittingItems = this.calculateRenderWidth(carouselWidth, cardWidth);
-    const chopped = chop(this.props.data, fittingItems);
 
     window.addEventListener('resize', this.handleWindowResize);
-    // const cached = chopped.reduce((prev, _, i) => ({ ...prev, [i]: false }), {});
+
     // Render a placeholder to measure its size, then setState again to populate with the exact number of fitting items.
     // This intermediate state won't be visible to the user.
-    this.setState({ chopped, isFirstRender: false }, this.addItemsUntilFull);
-    // this.setState({ chopped, cached });
+    this.setState({ isFirstRender: false }, this.addItemsUntilFull);
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize);
   }
   render() {
-    const { expanded, chopped, renderIndex } = this.state;
+    const { expanded, renderIndex } = this.state;
     const { title } = this.props;
     return (
       <View
