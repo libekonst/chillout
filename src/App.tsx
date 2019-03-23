@@ -15,10 +15,16 @@ class App extends Component {
   };
 
   renderComponentTree = () => this.setState({ contentReady: true });
-
+  madeWithLove = () => {
+    const textStyles = 'color: rgb(255, 32, 117); font-weight: bold; font-size: 2rem;';
+    const reactColor = 'color: #61DAFB;';
+    console.log('%cMade with ❤️ and %cReact%c!', textStyles, textStyles + reactColor, textStyles);
+    console.log('%chttps://github.com/kostaslib', 'color: #052fb8;');
+  };
   componentDidMount() {
     /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
+    this.madeWithLove();
   }
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
@@ -63,18 +69,21 @@ class App extends Component {
    * such as images, being loaded so they are already wrapped by a placeholder.
    */
   renderBodyQuicklyWithInitialResources = () =>
-    this.state.contentReady && ( // <- Render the tree after initial resources are loaded.
+    this.state.contentReady && (
       <main>
-        {this.renderContent()}
+        {this.renderContent() // <- Render the tree after initial resources are loaded.
+        }
       </main>
     );
 
-  /** 
+  /**
    * Loads everything beforehand, including external resources and images. The content will be invisible during this time and
    * the user will continue seeing the spinner until everything is loaded. This can take a lot of time.
    */
   renderBodyWhenEverythingIsReady = () => (
-    <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}> {/* <- Render the tree but reveal it when everything is ready. */}
+    <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}>
+      {' '}
+      {/* <- Render the tree but reveal it when everything is ready. */}
       {this.renderContent()}
     </main>
   );
