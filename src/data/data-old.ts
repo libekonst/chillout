@@ -16,6 +16,13 @@ export const radios: IOldJson = {
         'https://yt3.ggpht.com/a-/ACSszfFdWJg69QynFK0oJ0lxAjj9Rfg9wLO-aXM4nA=s900-mo-c-c0xffffffff-rj-k-no',
     },
     {
+      id: 'paranoise',
+      name: 'Paranoise Radio',
+      source: 'http://51.15.99.106:8000/;',
+      image:
+        'https://scontent.fath7-1.fna.fbcdn.net/v/t1.0-9/11224766_141997406142826_3636280846101904959_n.jpg?_nc_cat=107&_nc_ht=scontent.fath7-1.fna&oh=37e61372b80be5f652d188a48936592b&oe=5D472519',
+    },
+    {
       id: 'best',
       name: 'Best Radio 92.6',
       source: 'http://best.live24.gr/best1222',
