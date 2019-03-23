@@ -1,21 +1,24 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Row } from '../layout/Row';
+import { truncateText } from '../../styles';
 
-const TextWrapper = styled(Row)`
+const TextWrapper = styled.div`
+  display: flex;
   width: 100%;
   height: 6rem;
 `;
 
 const Text = styled.p`
+  margin: auto;
   color: #bcbcbc;
-  font-size: 2rem;
   font-weight: bold;
+  ${truncateText}
 `;
-const emtpyCollection = `This collection is empty :'(`;
+
+const emptyCollection = `This collection is empty :'(`;
 
 export const EmptyCollectionPlaceholder: FC = props => (
   <TextWrapper>
-    <Text>{emtpyCollection}</Text>
+    <Text>{emptyCollection}</Text>
   </TextWrapper>
 );
