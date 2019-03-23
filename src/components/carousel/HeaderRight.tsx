@@ -10,7 +10,7 @@ export const HeaderButton = styled.button`
 
   /* Styles */
   color: lightgray;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   cursor: auto;
 
   /* Styles if clickable */
@@ -19,7 +19,7 @@ export const HeaderButton = styled.button`
     css`
       cursor: pointer;
       color: darkgray;
-      transition: color 0.05s linear;
+      transition: color 0.1s linear;
 
       &:hover {
         color: #6d6c6c;
@@ -28,7 +28,7 @@ export const HeaderButton = styled.button`
       &:active {
         transition: none;
         color: #052fb8;
-        transform: scale(1.2);
+        transform: scale(1.1);
       }
     `}
 `;
