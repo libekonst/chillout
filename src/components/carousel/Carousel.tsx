@@ -36,9 +36,6 @@ export default class Carousel extends Component<IProps, IState> {
   private carouselRef = React.createRef<HTMLDivElement>();
   private cardRef = React.createRef<HTMLLIElement>();
 
-  handleExpand = (): void =>
-    this.setState(prev => ({ expanded: !prev.expanded }), this.addItemsUntilFull); // Recalculate if window size changed before expanding.
-
   // ? !
   /**
    * Increases the renderIndex, causing rerendering to page through the data.
@@ -52,15 +49,6 @@ export default class Carousel extends Component<IProps, IState> {
   };
 
   // ? !
-  /** Returns whether there are more items available in the data props. */
-  get reachedEndOfData(): boolean {
-    const { renderIndex, renderWidth } = this.state;
-    const { data } = this.props;
-
-    return renderIndex + renderWidth >= data.length;
-  }
-
-  // ? !
   /**
    * Reduces the renderIndex, attempting to show as few already rendered items as possible.
    * If the renderIndex is already at the zero position, the handler won't respond, to prevent the carousel body from unmounting.
@@ -69,13 +57,18 @@ export default class Carousel extends Component<IProps, IState> {
     if (this.reachedStartOfData) return;
 
     this.setState(prev => {
-      const newRenderIndex = prev.renderIndex - prev.renderWidth;
-      if (newRenderIndex < 0) {
-        return { renderIndex: prev.renderIndex - prev.renderWidth };
-      }
-      return { renderIndex: newRenderIndex };
+      const renderIndex = prev.renderIndex - prev.renderWidth;
+      if (renderIndex < 0) return { renderIndex: 0 };
+
+      return { renderIndex };
     });
   };
+
+  // ? !
+  /** Returns whether there are more items available in the data props. */
+  get reachedEndOfData(): boolean {
+    return this.state.renderIndex + this.state.renderWidth >= this.props.data.length;
+  }
 
   // ? !
   /** Returns whether the renderIndex is already at the 0 position. */
@@ -83,8 +76,11 @@ export default class Carousel extends Component<IProps, IState> {
     return this.state.renderIndex === 0;
   }
 
+  // <-! NYI ->
 
-  // <-! NYI -> 
+  handleExpand = (): void =>
+    this.setState(prev => ({ expanded: !prev.expanded }), this.addItemsUntilFull); // Recalculate if window size changed before expanding.
+
   calculateRenderWidth = (carouselWidth: number, cardWidth: number): number => {
     if (cardWidth === 0 || isNaN(carouselWidth) || isNaN(cardWidth)) return 1;
 
@@ -164,7 +160,7 @@ export default class Carousel extends Component<IProps, IState> {
   };
 
   /** Stores a reference to the handler returned by debounce. Use that reference to add and clear the event listener. */
-  handleWindowResize = debounce(this.addItemsUntilFull);
+  private readonly handleWindowResize = debounce(this.addItemsUntilFull);
 
   componentDidMount() {
     // Non-null assertion because ref updates before componentDidMount.
@@ -191,8 +187,10 @@ export default class Carousel extends Component<IProps, IState> {
         title={title!}
         expanded={expanded}
         onExpand={this.handleExpand}
-        onNext={expanded && !this.reachedEndOfData ? this.handleNext : undefined}
-        onBack={expanded && !this.reachedStartOfData ? this.handleBack : undefined}
+        // onNext={expanded && !this.reachedEndOfData ? this.handleNext : undefined}
+        // onBack={expanded && !this.reachedStartOfData ? this.handleBack : undefined}
+        onNext={this.handleNext}
+        onBack={this.handleBack}
         // radios={chopped[renderIndex]}
         radios={this.renderItems}
         show={expanded}
