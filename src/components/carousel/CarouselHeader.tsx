@@ -3,6 +3,7 @@ import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { ExpandIcon, HeaderLeft } from './HeaderLeft';
 import { HeaderRight, HeaderButton } from './HeaderRight';
 import { Row } from '../layout/Row';
+import styled from 'styled-components';
 
 interface IProps {
   expanded: boolean;
@@ -18,7 +19,7 @@ export const CarouselHeader: FC<IProps> = props => {
     <Row justify="space-between">
       <HeaderLeft onClick={onExpand}>
         {onExpand && <ExpandIcon expanded={expanded} />}
-        <h4>{title}</h4>
+        <HeaderLeftTitle>{title}</HeaderLeftTitle>
       </HeaderLeft>
 
       <HeaderRight>
@@ -32,3 +33,9 @@ export const CarouselHeader: FC<IProps> = props => {
     </Row>
   );
 };
+
+const HeaderLeftTitle = styled.h4`
+  &::selection {
+    background-color: transparent;
+  }
+`;
