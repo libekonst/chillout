@@ -20,7 +20,6 @@ export const HorizontalList = styled.ul`
   display: ${({ show = true }: IScrollProps) => (show ? 'flex' : 'none')};
   background-color: none;
   justify-content: flex-start;
-  padding-right: 0.7rem;
   visibility: ${props => (props.show ? 'visible' : 'hidden')};
   animation: ${slideIn} ease-out 0.2s;
 `;

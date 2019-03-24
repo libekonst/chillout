@@ -1,24 +1,53 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { truncateText } from '../../styles';
+import { MdFavorite } from 'react-icons/md';
 
 const TextWrapper = styled.div`
-  display: flex;
+  flex: 1;
   width: 100%;
-  height: 6rem;
+  height: 10rem;
+  background-color: #f4f4f4;
+  margin: 0 0.5rem;
+  border-radius: 15px;
+
+  /* Flex layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
 `;
 
 const Text = styled.p`
-  margin: auto;
-  color: #bcbcbc;
-  font-weight: bold;
-  ${truncateText}
+  color: #afafaf;
+  text-align: center;
+  display: flex;
+  align-items: center;
 `;
 
-const emptyCollection = `This collection is empty :'(`;
+const Favorite = styled(MdFavorite)`
+  margin: 0 0.3rem;
+  font-size: 1.5rem;
+`;
 
-export const EmptyCollectionPlaceholder: FC = props => (
-  <TextWrapper>
-    <Text>{emptyCollection}</Text>
-  </TextWrapper>
-);
+interface IProps {
+  message?: 'empty' | 'addFavorite';
+}
+export const EmptyCollectionPlaceholder: FC<IProps> = props => {
+  const pickText = () => {
+    switch (props.message) {
+      case 'addFavorite':
+        return (
+          <Text>
+            <span>Click the</span>
+            <Favorite />
+            <span>icon next to a radio to add it to your favorites!</span>
+          </Text>
+        );
+      default:
+        return <Text>{"This collection is empty :'("}</Text>;
+    }
+  };
+
+  return <TextWrapper>{props.children || pickText()}</TextWrapper>;
+};

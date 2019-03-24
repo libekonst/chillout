@@ -33,7 +33,7 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
         </ListItem>
       ))
     ) : (
-      <EmptyCollectionPlaceholder />
+      <EmptyCollectionPlaceholder message="addFavorite" />
     );
 
   return (
