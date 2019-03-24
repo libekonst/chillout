@@ -5,7 +5,6 @@ import { PlayIcon, PauseIcon, VolumeIcon } from '../IconButtons';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';
 import { Title } from './Title';
-import { MdMusicNote } from 'react-icons/md';
 import { Placeholder } from '../styled/Placeholder';
 
 interface IProps {
@@ -18,7 +17,7 @@ interface IProps {
   showPause?: boolean;
   backdrop?: boolean;
   hovered?: boolean;
-  imageSource: string;
+  imageSource?: string;
   loaded?: boolean;
   title?: ReactNode;
   cardRef?: React.RefObject<HTMLDivElement>;
@@ -49,8 +48,9 @@ export const View: FC<IProps> = ({
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
       <Placeholder shouldFadeOut={loaded} gradient={true}>
-        <Image blur={hovered} src={imageSource} onLoad={onImageLoad} loaded={loaded} />
+        <Image blur={hovered} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
       </Placeholder>
+
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}
       {showVolume && <VolumeIcon position="absolute" type="dark" />}
