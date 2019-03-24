@@ -6,7 +6,6 @@ import { ListItem, HorizontalList } from './HorizontalList';
 import { EmptyCollectionPlaceholder } from './EmptyCollectionPlaceholder';
 
 interface IViewProps {
-  isFirstRender?: boolean;
   show: boolean;
   cardRef?: React.RefObject<any>;
   radios?: IRadio[];
@@ -18,13 +17,8 @@ type Props = ComponentProps<typeof CarouselHeader> & IViewProps;
  * This intermediate state won't be visible to the user.
  */
 export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
-  const { radios, show, isFirstRender, cardRef, ...rest } = props;
+  const { radios, show, cardRef, ...rest } = props;
 
-  const renderMeasureCard = () => (
-    <ListItem ref={cardRef}>
-      <Card title={'r.name'} image={'r.image'} />
-    </ListItem>
-  );
   const renderCardList = (radios: IRadio[]) =>
     !!radios.length ? (
       radios.map((r, i) => (
@@ -42,7 +36,7 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
       <HorizontalList show={show} ref={ref}>
         {show &&
           !!radios &&
-          (isFirstRender ? renderMeasureCard() : renderCardList(radios))}
+          (renderCardList(radios))}
       </HorizontalList>
     </section>
   );
