@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 const slideIn = keyframes`
   from {
@@ -10,13 +10,51 @@ const slideIn = keyframes`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    visibility: visible;
+    width: 8%;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+    width: 5%;
+  }
+`;
+
+interface IProps {
+  highlightMore: boolean;
+}
 export const HorizontalList = styled.ul`
-  overflow: visible;
+  /* overflow: visible; */
   width: 100%;
+  position: relative;
   display: flex;
   background-color: none;
   justify-content: flex-start;
   animation: ${slideIn} ease-out 0.2s;
+
+  /* Can click next */
+  ${(props: IProps) =>
+    props.highlightMore &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(149, 149, 149, 0) 0%,
+          rgba(149, 149, 149, 0.5) 100%
+        );
+        /* z-index: -1; */
+        animation: ${fadeOut} 0.75s ease-in-out;
+      }
+    `}
 `;
 
 export const ListItem = styled.li`

@@ -5,7 +5,7 @@ import { MdFavorite } from 'react-icons/md';
 const TextWrapper = styled.div`
   flex: 1;
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   background-color: #f4f4f4;
   margin: 0 0.5rem;
   border-radius: 15px;

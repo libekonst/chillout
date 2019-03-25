@@ -20,14 +20,13 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
     !radios.length ? (
       <EmptyCollectionPlaceholder message="addFavorite" />
     ) : (
-      
       radios.map((r, i) => (
         <ListItem key={r.id} ref={i === 0 ? cardRef : null}>
           <Card title={r.name} image={r.image} />
         </ListItem>
       ))
     );
-  
+
   return (
     <section>
       <CarouselHeader
@@ -38,7 +37,11 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
         onNext={props.expanded && props.canClickNext ? props.onNext : undefined}
         onBack={props.expanded && props.canClickBack ? props.onBack : undefined}
       />
-      {show && <HorizontalList ref={ref}>{renderContent()}</HorizontalList>}
+      {show && (
+        <HorizontalList ref={ref} highlightMore={props.canClickNext}>
+          {renderContent()}
+        </HorizontalList>
+      )}
     </section>
   );
 });
