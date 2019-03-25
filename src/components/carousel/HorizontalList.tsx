@@ -1,9 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-interface IScrollProps {
-  scroll?: boolean;
-  show?: boolean;
-}
 const slideIn = keyframes`
   from {
     transform: translate3d(-3px, -2px, 0);
@@ -17,10 +13,9 @@ const slideIn = keyframes`
 export const HorizontalList = styled.ul`
   overflow: visible;
   width: 100%;
-  display: ${({ show = true }: IScrollProps) => (show ? 'flex' : 'none')};
+  display: flex;
   background-color: none;
   justify-content: flex-start;
-  visibility: ${props => (props.show ? 'visible' : 'hidden')};
   animation: ${slideIn} ease-out 0.2s;
 `;
 

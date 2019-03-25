@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { ExpandIcon, HeaderLeft } from './HeaderLeft';
-import { HeaderRight, HeaderButton } from './HeaderRight';
-import { Row } from '../layout/Row';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
+import { Row } from '../layout/Row';
+import { ExpandIcon, HeaderLeft } from './HeaderLeft';
+import { HeaderButton, HeaderRight } from './HeaderRight';
 
 interface IProps {
   expanded: boolean;

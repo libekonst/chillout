@@ -151,12 +151,11 @@ export default class Carousel extends Component<IProps, IState> {
         title={this.props.title!}
         expanded={this.state.expanded}
         onExpand={this.handleExpand}
-        // onNext={expanded && !this.reachedEndOfData ? this.handleNext : undefined}
-        // onBack={expanded && !this.reachedStartOfData ? this.handleBack : undefined}
+        canClickNext={!this.reachedEndOfData}
+        canClickBack={!this.reachedStartOfData}
         onNext={this.handleNext}
         onBack={this.handleBack}
         radios={this.renderItems}
-        // radios={[]}
         show={this.state.expanded}
         ref={this.carouselRef}
         cardRef={this.cardRef}
