@@ -20,13 +20,10 @@ class App extends Component<{}, IState> {
     renderCarousel: true,
   };
   addFavorite = (id: number) => (e: MouseEvent) => {
-    // e.preventDefault();
-    // e.stopPropagation();
-    
     this.setState(prevState => {
       if (prevState.favorites.includes(id))
         return { favorites: prevState.favorites.filter(itemID => itemID !== id) };
-      return { favorites: [...prevState.favorites, id] };
+      return { favorites: [id, ...prevState.favorites] };
     });
   };
 
@@ -40,10 +37,18 @@ class App extends Component<{}, IState> {
     window.removeEventListener('load', this.renderComponentTree);
   }
 
+  /**
+   * Returns an array of radios, based on the IDs stored in `this.state.favorites`.
+   * If a radio with that ID no longer exists, it will be ignored.
+   */
   get favorites(): IRadio[] {
     console.log(this.state.favorites);
 
-    return data.filter(r => this.state.favorites.includes(r.id)); // TODO: sort
+    // Array.prototype.find() will return `undefined` if it can't find the element.
+    // Non null assertion in col 72: filter(Boolean) will clear all falsy values, including undefined.
+    return this.state.favorites
+      .map(id => data.find(it => it.id === id)!)
+      .filter(Boolean);
   }
   renderGrid = () => (
     <div>
