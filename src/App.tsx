@@ -12,7 +12,7 @@ interface IState {
   contentReady: boolean;
   selectedRadioId?: number;
   isPlaying: boolean;
-  favorites: number[];
+  favorites: IRadio[];
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
@@ -30,11 +30,11 @@ class App extends Component<{}, IState> {
     });
   };
 
-  addFavorite = (id: number) => (e: MouseEvent) => {
+  addFavorite = (radio: IRadio) => (e: MouseEvent) => {
     this.setState(prevState => {
-      if (prevState.favorites.includes(id))
-        return { favorites: prevState.favorites.filter(itemID => itemID !== id) };
-      return { favorites: [id, ...prevState.favorites] };
+      if (prevState.favorites.includes(radio))
+        return { favorites: prevState.favorites.filter(item => item !== radio) };
+      return { favorites: [radio, ...prevState.favorites] };
     });
   };
 
@@ -47,27 +47,15 @@ class App extends Component<{}, IState> {
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
   }
-  /**
-   * Returns an array of radios, based on the IDs stored in `this.state.favorites`.
-   * If a radio with that ID no longer exists, it will be ignored.
-   */
-  get favorites(): IRadio[] {
-    console.log(this.state.favorites);
-
-    // Array.prototype.find() will return `undefined` if it can't find the element.
-    // Non null assertion in col 72: filter(Boolean) will clear all falsy values, including undefined.
-    return this.state.favorites
-      .map(id => data.find(it => it.id === id)!)
-      .filter(Boolean);
-  }
 
   render() {
     return (
       <>
+      {/* Don't wait for everything to load. */}
         {!this.state.contentReady && <Loader />}
         {this.state.contentReady && (
           <main>
-            <Carousel data={this.favorites} />
+            <Carousel data={this.state.favorites} />
             <div>
               <GridHeader />
               <ul>
@@ -77,10 +65,12 @@ class App extends Component<{}, IState> {
                       name={item.name}
                       image={item.image}
                       label={item.label}
-                      onAddFavorite={this.addFavorite(item.id)}
+                      onAddFavorite={this.addFavorite(item)}
                       onPlay={this.playRadio(item.id)}
-                      isFavorite={this.state.favorites.includes(item.id)}
-                      isPlaying={this.state.selectedRadioId === item.id && this.state.isPlaying}
+                      isFavorite={this.state.favorites.includes(item)}
+                      isPlaying={
+                        this.state.selectedRadioId === item.id && this.state.isPlaying
+                      }
                       isSelected={this.state.selectedRadioId === item.id}
                     />
                   </li>
