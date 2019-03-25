@@ -75,7 +75,7 @@ export default class Carousel extends Component<IProps, IState> {
    * through the end of the collection.
    * If `renderWidth` is zero, an empty array is returned.
    */
-  get renderItems(): IRadio[] {
+  get renderWindow(): IRadio[] {
     return this.props.data.slice(
       this.state.renderIndex,
       this.state.renderIndex + this.state.renderWidth,
@@ -134,10 +134,13 @@ export default class Carousel extends Component<IProps, IState> {
   componentDidUpdate(prevProps: IProps, prevState: IState) {
     // If props.data was initially empty, calculate the renderWidth after rendering the first item.
     if (prevProps.data.length === 0 && prevState.renderWidth === 1)
-      this.updateRenderWidth();
+      return this.updateRenderWidth();
   }
-
-
+  componentWillUpdate(nextProps: IProps) {
+    // If the received collection has fewer items than the previous one, move the renderWindow to the start.
+    if (nextProps.data.length < this.props.data.length)
+      return (this.state.renderIndex = 0);
+  }
   /** Stores a reference to the handler returned by debounce. Use that reference to add and clear the event listener for window resize. */
   private readonly handleWindowResize = debounce(this.updateRenderWidth);
 
@@ -160,7 +163,7 @@ export default class Carousel extends Component<IProps, IState> {
         canClickBack={!this.reachedStartOfData}
         onNext={this.handleNext}
         onBack={this.handleBack}
-        radios={this.renderItems}
+        radios={this.renderWindow}
         show={this.state.expanded}
         ref={this.carouselRef}
         cardRef={this.cardRef}
