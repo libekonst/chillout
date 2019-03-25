@@ -57,7 +57,7 @@ const Favorite = styled(MdFavorite)`
 const FavoriteBorder = styled(MdFavoriteBorder)`
   color: #afafaf;
 `;
-export const PlayIcon: FC<IProps> = props => (
+export const PlayIcon: FC<IProps & { onClick?: () => void }> = props => (
   <IconButton {...props}>
     <MdPlayArrow />
   </IconButton>

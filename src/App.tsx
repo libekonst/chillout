@@ -10,15 +10,26 @@ import './normalize.css';
 
 interface IState {
   contentReady: boolean;
-  renderCarousel: boolean;
+  selectedRadioId?: number;
+  isPlaying: boolean;
   favorites: number[];
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
     contentReady: false,
     favorites: [],
-    renderCarousel: true,
+    selectedRadioId: undefined,
+    isPlaying: false,
   };
+
+  playRadio = (id: number) => () => {
+    this.setState(prevState => {
+      if (prevState.selectedRadioId === id && prevState.isPlaying)
+        return { isPlaying: false };
+      return { selectedRadioId: id, isPlaying: true };
+    });
+  };
+
   addFavorite = (id: number) => (e: MouseEvent) => {
     this.setState(prevState => {
       if (prevState.favorites.includes(id))
@@ -36,7 +47,6 @@ class App extends Component<{}, IState> {
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
   }
-
   /**
    * Returns an array of radios, based on the IDs stored in `this.state.favorites`.
    * If a radio with that ID no longer exists, it will be ignored.
@@ -67,8 +77,11 @@ class App extends Component<{}, IState> {
                       name={item.name}
                       image={item.image}
                       label={item.label}
-                      onClick={this.addFavorite(item.id)}
+                      onAddFavorite={this.addFavorite(item.id)}
+                      onPlay={this.playRadio(item.id)}
                       isFavorite={this.state.favorites.includes(item.id)}
+                      isPlaying={this.state.selectedRadioId === item.id && this.state.isPlaying}
+                      isSelected={this.state.selectedRadioId === item.id}
                     />
                   </li>
                 ))}

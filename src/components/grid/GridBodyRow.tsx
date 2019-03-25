@@ -1,12 +1,15 @@
 import React, { Component, ComponentProps, MouseEvent } from 'react';
-import { FavoriteBorderIcon, PlayIcon } from '../IconButtons';
+import { FavoriteBorderIcon, PlayIcon, PauseIcon, VolumeIcon } from '../IconButtons';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 interface IProps {
-  onClick: (e: MouseEvent) => any;
+  onAddFavorite: (e: MouseEvent) => void;
+  onPlay: () => void;
   isFavorite: boolean;
+  isPlaying: boolean;
+  isSelected: boolean;
   name: string;
   image: string;
   label: string;
@@ -23,25 +26,44 @@ export class GridBodyRow extends Component<Props, IState> {
     loaded: false,
   };
   onImageLoad = () => this.setState({ loaded: true });
-  handleHover = () => this.setState(prev => ({ hovered: !prev.hovered }));
+  onMouseEnter = () => this.setState({ hovered: true });
+  onMouseLeave = () => this.setState({ hovered: false });
+
   render() {
     return (
       <GridBase
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
-        onMouseEnter={this.handleHover}
-        onMouseLeave={this.handleHover}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
         highlightOnHover={true}
         large={true}
         gutter={true}
         // {...this.props}
       >
-        <GridItem gridArea="playcontrol" justifySelf="end">
+        <GridItem gridArea="playcontrol" justifySelf="end" onClick={this.props.onPlay}>
           {/* <div style={{ visibility: this.state.hovered ? 'visible' : 'hidden' }}> */}
-          {this.state.hovered && <PlayIcon size="small" type="light" color="dark" />}
+          {this.state.hovered ? (
+            this.props.isPlaying ? (
+              <PauseIcon />
+            ) : (
+              <PlayIcon size="small" type="light" color="dark" />
+            )
+          ) : (
+            this.props.isPlaying && <VolumeIcon />
+          )}
           {/* </div> */}
         </GridItem>
-        <GridItem gridArea="favorite" justifySelf="center" onClick={this.props.onClick}>
-          <FavoriteBorderIcon size="tiny" type="light" color="dark" isFavorite={this.props.isFavorite} />
+        <GridItem
+          gridArea="favorite"
+          justifySelf="center"
+          onClick={this.props.onAddFavorite}
+        >
+          <FavoriteBorderIcon
+            size="tiny"
+            type="light"
+            color="dark"
+            isFavorite={this.props.isFavorite}
+          />
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
