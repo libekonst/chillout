@@ -3,7 +3,7 @@ import './Loader.css';
 import './spinner.css';
 
 interface IProps {
-  hide: boolean;
+  hide?: boolean;
 }
 export const Loader: FC<IProps> = props => (
   <div className={`loader-wrapper ${props.hide && 'loader-wrapper--hide'}`}>
