@@ -13,6 +13,7 @@ button {
   outline: none;
   line-height: normal;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 ol, ul {
   list-style: none;
