@@ -30,6 +30,7 @@ interface IProps {
 export const HorizontalList = styled.ul`
   /* overflow: visible; */
   width: 100%;
+  min-height: 12rem;
   position: relative;
   display: flex;
   background-color: none;
