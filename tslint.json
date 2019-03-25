@@ -1,26 +1,18 @@
 {
   "rulesDirectory": ["tslint-plugin-prettier"],
-  "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-airbnb",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-react"],
   "defaultSeverity": "warning",
   "linterOptions": {
     "exclude": ["node_modules/**/*.ts"]
   },
   "rules": {
     "prettier": true,
-    "quotemark": [true, "single"],
     "member-access": [false],
-    "ordered-imports": [true],
     "max-line-length": [true, 150],
     "member-ordering": [false],
-    "interface-name": [true],
+    "interface-name": true,
     "arrow-parens": false,
-    "object-literal-sort-keys": false,
-    "curly": false,
-    "no-unused-expression": true
+    "object-literal-sort-keys": true,
+    "curly": false
   }
 }
