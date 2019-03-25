@@ -50,65 +50,32 @@ class App extends Component<{}, IState> {
       .map(id => data.find(it => it.id === id)!)
       .filter(Boolean);
   }
-  renderGrid = () => (
-    <div>
-      <GridHeader />
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>
-            <GridBodyRow
-              name={item.name}
-              image={item.image}
-              label={item.label}
-              onClick={this.addFavorite(item.id)}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-  renderContent = () => (
-    <>
-      <Carousel data={this.favorites} />
-      {this.renderGrid()}
-    </>
-  );
-  /**
-   * Loads only the necessary resources needed to avoid FOUC, such as fonts and styles as well as everything else included in the html.
-   * This happens quickly because the browser is not asked to render anything to the DOM yet. The user will still see external resources,
-   * such as images, being loaded so they are already wrapped by a placeholder.
-   */
-  renderBodyQuicklyWithInitialResources = () =>
-    this.state.contentReady && (
-      <main>
-        {/* Render the tree after initial resources are loaded. */}
-        {this.renderContent()}
-      </main>
-    );
-
-  /**
-   * Loads everything beforehand, including external resources and images. The content will be invisible during this time and
-   * the user will continue seeing the spinner until everything is loaded. This can take a lot of time.
-   */
-  renderBodyWhenEverythingIsReady = () => (
-    <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}>
-      {/* Render the tree but only reveal it when everything is ready. */}
-      {this.renderContent()}
-    </main>
-  );
 
   render() {
     return (
       <>
-        {!this.state.contentReady && <Loader hide={this.state.contentReady} />}
+        {!this.state.contentReady && <Loader />}
         {this.state.contentReady && (
           <main>
             <Carousel data={this.favorites} />
-            {this.renderGrid()}
+            <div>
+              <GridHeader />
+              <ul>
+                {data.map(item => (
+                  <li key={item.id}>
+                    <GridBodyRow
+                      name={item.name}
+                      image={item.image}
+                      label={item.label}
+                      onClick={this.addFavorite(item.id)}
+                      isFavorite={this.state.favorites.includes(item.id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </main>
         )}
-        {/* {this.renderBodyQuicklyWithInitialResources()} */}
-        {/* {this.renderBodyWhenEverythingIsReady()} */}
       </>
     );
   }

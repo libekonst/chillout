@@ -51,6 +51,12 @@ const calcSize = (size: IProps['size']) => {
   }
 };
 
+const Favorite = styled(MdFavorite)`
+  color: rgb(255, 32, 117);
+`;
+const FavoriteBorder = styled(MdFavoriteBorder)`
+  color: #afafaf;
+`;
 export const PlayIcon: FC<IProps> = props => (
   <IconButton {...props}>
     <MdPlayArrow />
@@ -66,8 +72,8 @@ export const VolumeIcon: FC<IProps> = props => (
     <IoIosVolumeHigh />
   </IconButton>
 );
-export const FavoriteBorderIcon: FC<IProps> = props => (
+export const FavoriteBorderIcon: FC<IProps & { isFavorite: boolean }> = props => (
   <IconButton {...props}>
-    <MdFavoriteBorder />
+    {props.isFavorite ? <Favorite /> : <FavoriteBorder />}
   </IconButton>
 );

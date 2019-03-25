@@ -6,6 +6,7 @@ import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 interface IProps {
   onClick: (e: MouseEvent) => any;
+  isFavorite: boolean;
   name: string;
   image: string;
   label: string;
@@ -40,7 +41,7 @@ export class GridBodyRow extends Component<Props, IState> {
           {/* </div> */}
         </GridItem>
         <GridItem gridArea="favorite" justifySelf="center" onClick={this.props.onClick}>
-          <FavoriteBorderIcon size="tiny" type="light" color="dark" />
+          <FavoriteBorderIcon size="tiny" type="light" color="dark" isFavorite={this.props.isFavorite} />
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
