@@ -13,6 +13,7 @@
     "interface-name": true,
     "arrow-parens": false,
     "object-literal-sort-keys": true,
-    "curly": false
+    "curly": false,
+    "jsx-no-multine-js": false,
   }
 }
