@@ -20,13 +20,14 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
     !radios.length ? (
       <EmptyCollectionPlaceholder message="addFavorite" />
     ) : (
+      
       radios.map((r, i) => (
         <ListItem key={r.id} ref={i === 0 ? cardRef : null}>
           <Card title={r.name} image={r.image} />
         </ListItem>
       ))
     );
-
+  
   return (
     <section>
       <CarouselHeader

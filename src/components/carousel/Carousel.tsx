@@ -1,9 +1,8 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import { IRadio } from '../../data';
-import { View } from './View';
-import { chop } from '../../utils/chop';
-import { parse } from '../../utils/parse';
 import { debounce } from '../../utils/debounce';
+import { parse } from '../../utils/parse';
+import { View } from './View';
 
 interface IState {
   expanded: boolean;
@@ -13,7 +12,6 @@ interface IState {
 interface IProps {
   data: IRadio[];
   title?: string;
-  step?: number;
 }
 
 export default class Carousel extends Component<IProps, IState> {
@@ -23,7 +21,7 @@ export default class Carousel extends Component<IProps, IState> {
     renderWidth: 1,
   };
 
-  static readonly defaultProps: Partial<IProps> = { title: 'Your Favorites', step: 5 };
+  static readonly defaultProps: Partial<IProps> = { title: 'Your Favorites' };
   private carouselRef = React.createRef<HTMLUListElement>();
   private cardRef = React.createRef<HTMLLIElement>();
 
@@ -132,6 +130,13 @@ export default class Carousel extends Component<IProps, IState> {
   };
 
   // <- Lifecycle Methods ->
+
+  componentDidUpdate(prevProps: IProps, prevState: IState) {
+    // If props.data was initially empty, calculate the renderWidth after rendering the first item.
+    if (prevProps.data.length === 0 && prevState.renderWidth === 1)
+      this.updateRenderWidth();
+  }
+
 
   /** Stores a reference to the handler returned by debounce. Use that reference to add and clear the event listener for window resize. */
   private readonly handleWindowResize = debounce(this.updateRenderWidth);
