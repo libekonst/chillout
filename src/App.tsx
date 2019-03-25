@@ -1,46 +1,62 @@
-import React, { Component } from 'react';
-import data from './data';
+import React, { Component, MouseEvent } from 'react';
+import data, { IRadio } from './data';
 
 import './App.css';
-import './normalize.css';
 import { Carousel } from './components/carousel';
 import { GridBodyRow } from './components/grid/GridBodyRow';
 import { GridHeader } from './components/grid/GridHeader';
 import { Loader } from './loader/Loader';
+import './normalize.css';
 
-class App extends Component {
-  state = {
-    renderCarousel: true,
+interface IState {
+  contentReady: boolean;
+  renderCarousel: boolean;
+  favorites: number[];
+}
+class App extends Component<{}, IState> {
+  readonly state: IState = {
     contentReady: false,
+    favorites: [],
+    renderCarousel: true,
+  };
+  addFavorite = (id: number) => (e: MouseEvent) => {
+    // e.preventDefault();
+    // e.stopPropagation();
+    
+    this.setState(prevState => {
+      if (prevState.favorites.includes(id))
+        return { favorites: prevState.favorites.filter(itemID => itemID !== id) };
+      return { favorites: [...prevState.favorites, id] };
+    });
   };
 
   renderComponentTree = () => this.setState({ contentReady: true });
-  madeWithLove = () => {
-    const textStyles = 'color: rgb(255, 32, 117); font-weight: bold; font-size: 2rem;';
-    const reactColor = 'color: #61DAFB;';
-    console.log('%cMade with ❤️ and %cReact%c!', textStyles, textStyles + reactColor, textStyles);
-    console.log('%chttps://github.com/kostaslib', 'color: #052fb8;');
-  };
   componentDidMount() {
     /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
-    this.madeWithLove();
+    madeWithLove();
   }
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
   }
+
+  get favorites(): IRadio[] {
+    console.log(this.state.favorites);
+
+    return data.filter(r => this.state.favorites.includes(r.id)); // TODO: sort
+  }
   renderGrid = () => (
-    <div
-      style={{
-        paddingLeft: '20px',
-        paddingRight: '20px',
-      }}
-    >
+    <div>
       <GridHeader />
       <ul>
         {data.map(item => (
           <li key={item.id}>
-            <GridBodyRow name={item.name} image={item.image} label={item.label} />
+            <GridBodyRow
+              name={item.name}
+              image={item.image}
+              label={item.label}
+              onClick={this.addFavorite(item.id)}
+            />
           </li>
         ))}
       </ul>
@@ -48,18 +64,7 @@ class App extends Component {
   );
   renderContent = () => (
     <>
-      <button
-        style={{
-          width: '100px',
-          height: '50px',
-          backgroundColor: 'blue',
-          color: 'pink',
-        }}
-        onClick={this.showCarousel}
-      >
-        {this.state.renderCarousel ? 'Hide Carousel' : 'Show Carousel'}
-      </button>
-      {this.state.renderCarousel && <Carousel data={data} step={7} />}
+      <Carousel data={this.favorites} />
       {this.renderGrid()}
     </>
   );
@@ -71,8 +76,8 @@ class App extends Component {
   renderBodyQuicklyWithInitialResources = () =>
     this.state.contentReady && (
       <main>
-        {this.renderContent() // <- Render the tree after initial resources are loaded.
-        }
+        {/* Render the tree after initial resources are loaded. */}
+        {this.renderContent()}
       </main>
     );
 
@@ -82,18 +87,22 @@ class App extends Component {
    */
   renderBodyWhenEverythingIsReady = () => (
     <main style={{ visibility: this.state.contentReady ? 'visible' : 'hidden' }}>
-      {' '}
-      {/* <- Render the tree but reveal it when everything is ready. */}
+      {/* Render the tree but only reveal it when everything is ready. */}
       {this.renderContent()}
     </main>
   );
-  // @ts-ignore
-  showCarousel = () => this.setState(prev => ({ renderCarousel: !prev.renderCarousel }));
+
   render() {
     return (
       <>
         {!this.state.contentReady && <Loader hide={this.state.contentReady} />}
-        {this.renderBodyQuicklyWithInitialResources()}
+        {this.state.contentReady && (
+          <main>
+            <Carousel data={this.favorites} />
+            {this.renderGrid()}
+          </main>
+        )}
+        {/* {this.renderBodyQuicklyWithInitialResources()} */}
         {/* {this.renderBodyWhenEverythingIsReady()} */}
       </>
     );
@@ -101,3 +110,14 @@ class App extends Component {
 }
 
 export default App;
+const madeWithLove = () => {
+  const textStyles = 'color: rgb(255, 32, 117); font-weight: bold; font-size: 2rem;';
+  const reactColor = 'color: #61DAFB;';
+  console.log(
+    '%cMade with ❤️ and %cReact%c!',
+    textStyles,
+    textStyles + reactColor,
+    textStyles,
+  );
+  console.log('%chttps://github.com/kostaslib', 'color: #052fb8;');
+};

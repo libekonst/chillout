@@ -1,10 +1,11 @@
-import { GridBase, GridItem } from './GridBase';
-import React, { FC, ComponentProps, Component } from 'react';
-import { PlayIcon, FavoriteBorderIcon } from '../IconButtons';
-import { Media } from './Media';
+import React, { Component, ComponentProps, MouseEvent } from 'react';
+import { FavoriteBorderIcon, PlayIcon } from '../IconButtons';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
+import { GridBase, GridItem } from './GridBase';
+import { Media } from './Media';
 interface IProps {
+  onClick: (e: MouseEvent) => any;
   name: string;
   image: string;
   label: string;
@@ -31,14 +32,14 @@ export class GridBodyRow extends Component<Props, IState> {
         highlightOnHover={true}
         large={true}
         gutter={true}
-        {...this.props}
+        // {...this.props}
       >
         <GridItem gridArea="playcontrol" justifySelf="end">
           {/* <div style={{ visibility: this.state.hovered ? 'visible' : 'hidden' }}> */}
           {this.state.hovered && <PlayIcon size="small" type="light" color="dark" />}
           {/* </div> */}
         </GridItem>
-        <GridItem gridArea="favorite" justifySelf="center">
+        <GridItem gridArea="favorite" justifySelf="center" onClick={this.props.onClick}>
           <FavoriteBorderIcon size="tiny" type="light" color="dark" />
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
