@@ -5,11 +5,9 @@ import styled, { css } from 'styled-components';
 
 interface IProps {
   border?: boolean;
-  type?: 'light' | 'dark';
   cursor?: 'default' | 'pointer';
   size?: 'tiny' | 'small' | 'normal' | 'big' | 'enormous';
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
-  color?: 'dark' | 'white';
 }
 const IconButton = styled.button`
   /* Layout */
@@ -26,12 +24,15 @@ const IconButton = styled.button`
   border-radius: 50%;
 
   /* ! Theming  */
-  color: ${props => (props.color === 'white' ? 'white' : 'rgb(30, 30, 30)')};
+  color: rgb(30, 30, 30);
+
+  /* color: white; */
 
   /* color: black; */
   border-color: rgb(255, 255, 255);
-  background-color: ${props =>
-    props.type === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.6)'};
+  background-color: rgba(255, 255, 255, 0.3);
+
+  /* background-color: rgba(0, 0, 0, 0.6); */
 `;
 
 const calcSize = (size: IProps['size']) => {

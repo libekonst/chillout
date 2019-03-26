@@ -46,7 +46,7 @@ export class GridBodyRow extends Component<Props, IState> {
             this.props.isPlaying ? (
               <PauseIcon />
             ) : (
-              <PlayIcon size="small" type="light" color="dark" />
+              <PlayIcon size="small" />
             )
           ) : (
             this.props.isPlaying && <VolumeIcon />
@@ -60,8 +60,6 @@ export class GridBodyRow extends Component<Props, IState> {
         >
           <FavoriteBorderIcon
             size="tiny"
-            type="light"
-            color="dark"
             isFavorite={this.props.isFavorite}
           />
         </GridItem>
