@@ -5,18 +5,18 @@ import { parse } from '../../utils/parse';
 import { View } from './View';
 
 interface IState {
-  expanded: boolean;
   renderIndex: number;
   renderWidth: number;
 }
 interface IProps {
   data: IRadio[];
+  handleExpand: (fn?: () => any) => void;
+  expanded: boolean;
   title?: string;
 }
 
 export default class Carousel extends Component<IProps, IState> {
   readonly state: IState = {
-    expanded: true,
     renderIndex: 0,
     renderWidth: 1,
   };
@@ -111,9 +111,7 @@ export default class Carousel extends Component<IProps, IState> {
   };
 
   /** Expandes/collapses the carousel body, then attempts to setState if more/fewer items can be rendered. */
-  handleExpand = (): void => {
-    this.setState(prev => ({ expanded: !prev.expanded }), this.updateRenderWidth);
-  };
+  handleExpand = (): void => this.props.handleExpand(this.updateRenderWidth);
 
   /**
    * Attempts to count the number of items that can fit within the carousel body. Calls `setState` to udpate `this.state.renderWidth`,
@@ -157,14 +155,14 @@ export default class Carousel extends Component<IProps, IState> {
     return (
       <View
         title={this.props.title!}
-        expanded={this.state.expanded}
+        expanded={this.props.expanded}
         onExpand={this.handleExpand}
         canClickNext={!this.reachedEndOfData}
         canClickBack={!this.reachedStartOfData}
         onNext={this.handleNext}
         onBack={this.handleBack}
         radios={this.renderWindow}
-        show={this.state.expanded}
+        show={this.props.expanded}
         ref={this.carouselRef}
         cardRef={this.cardRef}
       />

@@ -10,15 +10,17 @@ import { Loader } from './loader/Loader';
 import './normalize.css';
 
 interface IState {
+  favoritesExpanded: boolean;
   contentReady: boolean;
-  selectedRadioId?: number;
   isPlaying: boolean;
+  selectedRadioId?: number;
   favorites: IRadio[];
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
-    contentReady: false,
+    favoritesExpanded: false,
     favorites: [],
+    contentReady: false,
     selectedRadioId: undefined,
     isPlaying: false,
   };
@@ -29,6 +31,9 @@ class App extends Component<{}, IState> {
         return { isPlaying: false };
       return { selectedRadioId: id, isPlaying: true };
     });
+  };
+  expandFavorites = (callback?: () => any): void => {
+    this.setState(prev => ({ favoritesExpanded: !prev.favoritesExpanded }), callback);
   };
 
   addFavorite = (radio: IRadio) => (e: MouseEvent) => {
@@ -57,7 +62,11 @@ class App extends Component<{}, IState> {
         {this.state.contentReady && (
           <ThemeProvider theme={theme}>
             <main>
-              <Carousel data={this.state.favorites} />
+              <Carousel
+                data={this.state.favorites}
+                handleExpand={this.expandFavorites}
+                expanded={this.state.favoritesExpanded}
+              />
               <div>
                 <GridHeader />
                 <ul>
