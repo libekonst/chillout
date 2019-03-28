@@ -47,14 +47,14 @@ export const View: FC<IProps> = ({
       {...rest}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
+      <Overlay show={!!hovered} type="light" />
       <Placeholder shouldFadeOut={loaded} gradient={true}>
         <Image blur={hovered} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
       </Placeholder>
-
+      {/* 
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}
-      {showVolume && <VolumeIcon position="absolute" type="dark" />}
-      <Overlay show={!!hovered} type="light" />
+      {showVolume && <VolumeIcon position="absolute" type="dark" />} */}
     </CardMedia>
     {title && (
       <CardContent alignItems="flex-start">

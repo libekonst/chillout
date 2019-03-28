@@ -5,10 +5,10 @@ interface ImageProps {
   bgColor?: string;
   loaded?: boolean;
 }
-export const Image = styled.img`
+export const Image = styled.img<ImageProps>`
   background-size: cover;
   width: 100%;
-  background-color: ${({ bgColor = 'white' }: ImageProps) => bgColor};
+  background-color: ${({ bgColor = 'white' }) => bgColor};
   background-repeat: no-repeat;
   background-position: center;
   transition: all 0.05s ease-out, opacity 0.5s ease-in-out;
@@ -19,6 +19,8 @@ export const Image = styled.img`
     css`
       opacity: 1;
     `};
+
+  /* Blur effect. */
   ${props =>
     props.blur &&
     css`

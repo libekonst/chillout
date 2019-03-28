@@ -4,7 +4,7 @@ interface OverlayProps {
   show: boolean;
   type: 'light' | 'dark';
 }
-export const Overlay = styled.div`
+export const Overlay = styled.div<OverlayProps>`
   position: absolute;
   top: 0;
   left: 0;
@@ -13,12 +13,12 @@ export const Overlay = styled.div`
   z-index: 1;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
-  ${({ show }: OverlayProps) =>
-    show &&
+  ${props =>
+    props.show &&
     css`
       transition: opacity 0.2s ease-in-out;
       opacity: 0.3;
     `}
-  background-color: ${({ type }: OverlayProps) =>
-    type === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(180, 180, 180)'}
+  background-color: ${props =>
+    props.type === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(180, 180, 180)'}
 `;
