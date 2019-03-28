@@ -1,6 +1,7 @@
 import React, { Component, MouseEvent } from 'react';
 import data, { IRadio } from './data';
-
+import { theme } from './styles';
+import { ThemeProvider } from 'styled-components';
 import './App.css';
 import { Carousel } from './components/carousel';
 import { GridBodyRow } from './components/grid/GridBodyRow';
@@ -51,33 +52,35 @@ class App extends Component<{}, IState> {
   render() {
     return (
       <>
-      {/* Don't wait for everything to load. */}
+        {/* Don't wait for everything to load. */}
         {!this.state.contentReady && <Loader />}
         {this.state.contentReady && (
-          <main>
-            <Carousel data={this.state.favorites} />
-            <div>
-              <GridHeader />
-              <ul>
-                {data.map(item => (
-                  <li key={item.id}>
-                    <GridBodyRow
-                      name={item.name}
-                      image={item.image}
-                      label={item.label}
-                      onAddFavorite={this.addFavorite(item)}
-                      onPlay={this.playRadio(item.id)}
-                      isFavorite={this.state.favorites.includes(item)}
-                      isPlaying={
-                        this.state.selectedRadioId === item.id && this.state.isPlaying
-                      }
-                      isSelected={this.state.selectedRadioId === item.id}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </main>
+          <ThemeProvider theme={theme}>
+            <main>
+              <Carousel data={this.state.favorites} />
+              <div>
+                <GridHeader />
+                <ul>
+                  {data.map(item => (
+                    <li key={item.id}>
+                      <GridBodyRow
+                        name={item.name}
+                        image={item.image}
+                        label={item.label}
+                        onAddFavorite={this.addFavorite(item)}
+                        onPlay={this.playRadio(item.id)}
+                        isFavorite={this.state.favorites.includes(item)}
+                        isPlaying={
+                          this.state.selectedRadioId === item.id && this.state.isPlaying
+                        }
+                        isSelected={this.state.selectedRadioId === item.id}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </main>
+          </ThemeProvider>
         )}
       </>
     );

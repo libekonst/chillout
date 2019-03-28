@@ -27,7 +27,7 @@ export const HeaderButton = styled.button`
 
       &:active {
         transition: none;
-        color: #052fb8;
+        color: ${props => props.theme.colors.blue};
         transform: scale(1.1);
       }
     `}

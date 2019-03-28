@@ -53,11 +53,17 @@ const calcSize = (size: IProps['size']) => {
 };
 
 const Favorite = styled(MdFavorite)`
-  color: rgb(255, 32, 117);
+  color: ${props => props.theme.colors.purple};
 `;
 const FavoriteBorder = styled(MdFavoriteBorder)`
   color: #afafaf;
+  transition: color 0.15s linear;
+
+  &:hover {
+    color: ${({ theme: { colors } }) => colors.purple};
+  }
 `;
+
 export const PlayIcon: FC<IProps & { onClick?: () => void }> = props => (
   <IconButton {...props}>
     <MdPlayArrow />
