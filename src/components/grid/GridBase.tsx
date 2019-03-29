@@ -69,17 +69,31 @@ export const GridBase = styled.div`
 interface IGridItemProps {
   gridArea: string;
   alignSelf?: BoxAlignment;
+  truncate?: boolean;
+  overflow?: boolean;
   justifySelf?: BoxAlignment;
 }
 
-/** Set justifySelf OR parent grid's justifyItems prop to 'stretch', if text should be truncated. */
-export const GridItem = styled.div`
+/**
+ * Set justifySelf OR parent grid's justifyItems prop to 'stretch', if text should be truncated.
+ * Overflow prevents truncating
+ */
+export const GridItem = styled.div<IGridItemProps>`
   /* Grid placement */
-  grid-area: ${(props: IGridItemProps) => props.gridArea};
+  grid-area: ${props => props.gridArea};
   align-self: ${({ alignSelf = 'auto' }) => alignSelf};
-  justify-self: ${({ justifySelf = 'stretch' }) => justifySelf}; /* <- Define the element's width using 'justify-self: stretch' instead
+  justify-self: ${({ justifySelf = 'stretch' }) => justifySelf};
+
+  /* <- Define the element's width using 'justify-self: stretch' instead
   of 'width: 100%' to truncate text on Chrome. Firefox is OK with both width and justify-self. */
 
   /* Text ellipsis */
-  ${truncateText}
+  ${props => props.truncate && truncateText}
+
+  /* Allow overflow, e.g. for animated elements. Overflowing prevents text truncating. */
+  ${props =>
+    props.overflow &&
+    css`
+      overflow: visible;
+    `}
 `;

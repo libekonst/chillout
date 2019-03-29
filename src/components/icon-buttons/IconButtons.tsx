@@ -1,7 +1,7 @@
 import { MdPlayArrow, MdPause, MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { IoIosVolumeHigh } from 'react-icons/io';
 import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 interface IProps {
   border?: boolean;
@@ -9,13 +9,13 @@ interface IProps {
   size?: 'tiny' | 'small' | 'normal' | 'big' | 'enormous';
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
 }
-const IconButton = styled.button`
+export const IconButton = styled.button<IProps>`
   /* Layout */
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: ${({ position = 'static' }: IProps) => position};
+  position: ${({ position = 'static' }) => position};
 
   /* Styles */
   font-size: ${props => calcSize(props.size)};
@@ -24,13 +24,13 @@ const IconButton = styled.button`
   border-radius: 50%;
 
   /* ! Theming  */
-  color: rgb(30, 30, 30);
+  /* color: rgb(30, 30, 30); */
 
   /* color: white; */
 
   /* color: black; */
-  border-color: rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.3);
+  /* border-color: rgb(255, 255, 255); */
+  /* background-color: rgba(255, 255, 255, 0.3); */
 
   /* background-color: rgba(0, 0, 0, 0.6); */
 `;
@@ -52,18 +52,6 @@ const calcSize = (size: IProps['size']) => {
   }
 };
 
-const Favorite = styled(MdFavorite)`
-  color: ${props => props.theme.colors.purple};
-`;
-const FavoriteBorder = styled(MdFavoriteBorder)`
-  color: #afafaf;
-  transition: color 0.15s linear;
-
-  &:hover {
-    color: ${({ theme: { colors } }) => colors.purple};
-  }
-`;
-
 export const PlayIcon: FC<IProps & { onClick?: () => void }> = props => (
   <IconButton {...props}>
     <MdPlayArrow />
@@ -77,10 +65,5 @@ export const PauseIcon: FC<IProps> = props => (
 export const VolumeIcon: FC<IProps> = props => (
   <IconButton {...props}>
     <IoIosVolumeHigh />
-  </IconButton>
-);
-export const FavoriteBorderIcon: FC<IProps & { isFavorite: boolean }> = props => (
-  <IconButton {...props}>
-    {props.isFavorite ? <Favorite /> : <FavoriteBorder />}
   </IconButton>
 );

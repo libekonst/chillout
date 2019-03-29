@@ -1,9 +1,10 @@
 import React, { Component, ComponentProps, MouseEvent } from 'react';
-import { FavoriteBorderIcon, PlayIcon, PauseIcon, VolumeIcon } from '../IconButtons';
+import { PlayIcon, PauseIcon, VolumeIcon } from '../icon-buttons/IconButtons';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
+import { Favorite } from '../icon-buttons/Favorite';
 interface IProps {
   onAddFavorite: (e: MouseEvent) => void;
   onPlay: () => void;
@@ -35,9 +36,9 @@ export class GridBodyRow extends Component<Props, IState> {
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
-        highlightOnHover={true}
-        large={true}
-        gutter={true}
+        highlightOnHover
+        large
+        gutter
         // {...this.props}
       >
         <GridItem gridArea="playcontrol" justifySelf="end" onClick={this.props.onPlay}>
@@ -54,18 +55,16 @@ export class GridBodyRow extends Component<Props, IState> {
           {/* </div> */}
         </GridItem>
         <GridItem
+          overflow
           gridArea="favorite"
           justifySelf="center"
           onClick={this.props.onAddFavorite}
         >
-          <FavoriteBorderIcon
-            size="tiny"
-            isFavorite={this.props.isFavorite}
-          />
+          <Favorite size="tiny" isFavorite={this.props.isFavorite} />
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <Placeholder shouldFadeOut={this.state.loaded} gradient={true}>
+            <Placeholder shouldFadeOut={this.state.loaded} gradient>
               <Image
                 src={this.props.image}
                 onLoad={this.onImageLoad}
@@ -74,7 +73,9 @@ export class GridBodyRow extends Component<Props, IState> {
             </Placeholder>
           </Media>
         </GridItem>
-        <GridItem gridArea="title">{this.props.name}</GridItem>
+        <GridItem gridArea="title" truncate>
+          {this.props.name}
+        </GridItem>
         <GridItem gridArea="genre">{this.props.label}</GridItem>
         <GridItem gridArea="options">
           {/* <PlayIcon /> */}
