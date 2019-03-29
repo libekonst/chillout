@@ -2,7 +2,7 @@ import { MdPlayArrow, MdPause, MdFavorite, MdFavoriteBorder } from 'react-icons/
 import { IoIosVolumeHigh } from 'react-icons/io';
 import React, { FC, ComponentProps } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { IconButton } from './IconButtons';
+import { IconButton } from './IconButton';
 
 type ButtonProps = ComponentProps<typeof IconButton>;
 

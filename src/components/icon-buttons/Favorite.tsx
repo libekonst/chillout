@@ -1,7 +1,7 @@
 import React, { FC, ComponentProps } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { MdFavorite } from 'react-icons/md';
-import { IconButton } from './IconButtons';
+import { IconButton } from './IconButton';
 
 interface IProps {
   isFavorite: boolean;

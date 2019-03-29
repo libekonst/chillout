@@ -8,6 +8,7 @@ import { GridBodyRow } from './components/grid/GridBodyRow';
 import { GridHeader } from './components/grid/GridHeader';
 import { Loader } from './loader/Loader';
 import './normalize.css';
+import { FAB } from './components/icon-buttons/FAB';
 
 interface IState {
   favoritesExpanded: boolean;
@@ -62,6 +63,7 @@ class App extends Component<{}, IState> {
         {this.state.contentReady && (
           <ThemeProvider theme={theme}>
             <main>
+              <FAB />
               <Carousel
                 data={this.state.favorites}
                 handleExpand={this.expandFavorites}
