@@ -7,20 +7,25 @@ interface IProps {
   isFavorite: boolean;
 }
 const FavoriteBorder = styled(MdFavorite)<IProps>`
-  transition: stroke 0.1s linear, stroke-width 0.1s ease-out;
   fill: none;
   stroke-width: 0.1rem;
   stroke: #afafaf;
+  transition: stroke 0.1s linear;
 
   &:hover {
     stroke: ${props => props.theme.colors.purple};
   }
 
-  ${props =>
-    props.isFavorite &&
+  ${({
+    isFavorite,
+    theme: {
+      colors: { purple },
+    },
+  }) =>
+    isFavorite &&
     css`
-      fill: ${props => props.theme.colors.purple};
-      stroke: ${props => props.theme.colors.purple};
+      fill: ${purple};
+      stroke: ${purple};
       animation: ${grow} 0.2s ease-out;
     `}
 `;
