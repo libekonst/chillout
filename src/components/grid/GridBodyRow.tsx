@@ -1,5 +1,5 @@
 import React, { Component, ComponentProps, MouseEvent } from 'react';
-import { PlayIcon, PauseIcon, VolumeIcon } from '../icon-buttons/IconButtons';
+import { PlayIcon, PauseIcon, VolumeIcon } from '../icon-buttons/PlayPauseSpeaker';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
