@@ -70,7 +70,7 @@ interface IGridItemProps {
   gridArea: string;
   alignSelf?: BoxAlignment;
   truncate?: boolean;
-  overflow?: boolean;
+  shouldOverflow?: boolean;
   justifySelf?: BoxAlignment;
 }
 
@@ -92,7 +92,7 @@ export const GridItem = styled.div<IGridItemProps>`
 
   /* Allow overflow, e.g. for animated elements. Overflowing prevents text truncating. */
   ${props =>
-    props.overflow &&
+    props.shouldOverflow &&
     css`
       overflow: visible;
     `}

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { MdFavorite, MdClose } from 'react-icons/md';
 
 const grow = keyframes`
     0% {
@@ -23,6 +24,12 @@ const FabBase = styled.button`
   right: 1rem;
   z-index: 10;
 
+  /* Content styles */
+  color: white;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+
   /* Styles */
   width: 3rem;
   height: 3rem;
@@ -38,6 +45,10 @@ const FabBase = styled.button`
   }
 `;
 
-export const FAB: FC<any> = props => {
-  return <FabBase />;
+interface IProps {
+  onClick?: () => void;
+  isOpen?: boolean;
+}
+export const FAB: FC<IProps> = ({ isOpen, ...rest }) => {
+  return <FabBase {...rest}>{isOpen ? <MdClose /> : <MdFavorite />}</FabBase>;
 };

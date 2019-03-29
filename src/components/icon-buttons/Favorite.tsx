@@ -1,33 +1,15 @@
 import React, { FC, ComponentProps } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { MdFavorite } from 'react-icons/md';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { IconButton } from './IconButton';
 
-interface IProps {
-  isFavorite: boolean;
-}
-const FavoriteIcon = styled(MdFavorite)<IProps>`
-  fill: none;
-  stroke-width: 0.1rem;
-  stroke: #afafaf;
-  transition: stroke 0.1s linear;
+const FavoriteBorder = styled(MdFavoriteBorder)`
+  color: ${props => props.theme.colors.lightgray};
+  transition: color 0.1s linear;
 
   &:hover {
-    stroke: ${props => props.theme.colors.purple};
+    color: ${props => props.theme.colors.purple};
   }
-
-  ${({
-    isFavorite,
-    theme: {
-      colors: { purple },
-    },
-  }) =>
-    isFavorite &&
-    css`
-      fill: ${purple};
-      stroke: ${purple};
-      animation: ${grow} 0.2s ease-out;
-    `}
 `;
 
 const grow = keyframes`
@@ -44,9 +26,16 @@ const grow = keyframes`
   }
 `;
 
+const FavoriteFill = styled(MdFavorite)`
+  fill: ${props => props.theme.colors.purple};
+  stroke: ${props => props.theme.colors.purple};
+  animation: ${grow} 0.2s ease-out;
+`;
+
+interface IProps {
+  isFavorite?: boolean;
+}
 type Props = ComponentProps<typeof IconButton> & IProps;
-export const Favorite: FC<Props> = props => (
-  <IconButton {...props}>
-    <FavoriteIcon isFavorite={props.isFavorite} />
-  </IconButton>
+export const Favorite: FC<Props> = ({ isFavorite, ...rest }) => (
+  <IconButton {...rest}>{isFavorite ? <FavoriteFill /> : <FavoriteBorder />}</IconButton>
 );

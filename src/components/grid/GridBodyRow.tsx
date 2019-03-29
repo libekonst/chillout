@@ -55,7 +55,7 @@ export class GridBodyRow extends Component<Props, IState> {
           {/* </div> */}
         </GridItem>
         <GridItem
-          overflow
+          shouldOverflow
           gridArea="favorite"
           justifySelf="center"
           onClick={this.props.onAddFavorite}

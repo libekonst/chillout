@@ -11,7 +11,7 @@ import './normalize.css';
 import { FAB } from './components/icon-buttons/FAB';
 
 interface IState {
-  favoritesExpanded: boolean;
+  favoritesOpened: boolean;
   contentReady: boolean;
   isPlaying: boolean;
   selectedRadioId?: number;
@@ -19,7 +19,7 @@ interface IState {
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
-    favoritesExpanded: false,
+    favoritesOpened: false,
     favorites: [],
     contentReady: false,
     selectedRadioId: undefined,
@@ -34,8 +34,10 @@ class App extends Component<{}, IState> {
     });
   };
   expandFavorites = (callback?: () => any): void => {
-    this.setState(prev => ({ favoritesExpanded: !prev.favoritesExpanded }), callback);
+    this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }), callback);
   };
+  openFavorites = (): void =>
+    this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }));
 
   addFavorite = (radio: IRadio) => (e: MouseEvent) => {
     this.setState(prevState => {
@@ -63,11 +65,14 @@ class App extends Component<{}, IState> {
         {this.state.contentReady && (
           <ThemeProvider theme={theme}>
             <main>
-              <FAB />
+              <FAB
+                isOpen={this.state.favoritesOpened}
+                onClick={this.openFavorites}
+              />
               <Carousel
                 data={this.state.favorites}
                 handleExpand={this.expandFavorites}
-                expanded={this.state.favoritesExpanded}
+                expanded={this.state.favoritesOpened}
               />
               <div>
                 <GridHeader />
