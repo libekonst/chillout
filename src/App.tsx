@@ -2,25 +2,30 @@ import React, { Component, MouseEvent } from 'react';
 import data, { IRadio } from './data';
 import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
-import './App.css';
 import { Carousel } from './components/carousel';
 import { GridBodyRow } from './components/grid/GridBodyRow';
 import { GridHeader } from './components/grid/GridHeader';
 import { Loader } from './loader/Loader';
-import './normalize.css';
 import { FAB } from './components/icon-buttons/FAB';
+import { breakpoints, isLarge } from './styles';
+import { debounce } from './utils/debounce';
+import './App.css';
+import './normalize.css';
+import { XOR } from './utils/XOR';
 
 interface IState {
   favoritesOpened: boolean;
   contentReady: boolean;
   isPlaying: boolean;
+  isScreenLarge: boolean;
   selectedRadioId?: number;
   favorites: IRadio[];
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
-    favoritesOpened: false,
+    favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
     favorites: [],
+    isScreenLarge: isLarge(),
     contentReady: false,
     selectedRadioId: undefined,
     isPlaying: false,
@@ -46,15 +51,45 @@ class App extends Component<{}, IState> {
       return { favorites: [radio, ...prevState.favorites] };
     });
   };
+  renderFavorites = () => {
+    if (isLarge())
+      return (
+        <Carousel
+          data={this.state.favorites}
+          handleExpand={this.expandFavorites}
+          expanded={this.state.favoritesOpened}
+        />
+      );
+
+    return (
+      !!this.state.favorites.length && (
+        <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites} />
+      )
+    );
+  };
+
+  /**
+   * Only setState if `isLarge()` is not in agreement with `this.state.isScreenLarge`.
+   * If so, toggle `this.state.isScreenLarge`.
+   */
+  toggleFavoritesComponent: () => void = debounce(() => {
+    if (XOR(isLarge(), this.state.isScreenLarge))
+      this.setState(prev => ({
+        isScreenLarge: !prev.isScreenLarge,
+        favoritesOpened: !prev.isScreenLarge,
+      }));
+  });
 
   renderComponentTree = () => this.setState({ contentReady: true });
   componentDidMount() {
     /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
+    window.addEventListener('resize', this.toggleFavoritesComponent);
     madeWithLove();
   }
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
+    window.removeEventListener('resize', this.toggleFavoritesComponent);
   }
 
   render() {
@@ -65,15 +100,7 @@ class App extends Component<{}, IState> {
         {this.state.contentReady && (
           <ThemeProvider theme={theme}>
             <main>
-              <FAB
-                isOpen={this.state.favoritesOpened}
-                onClick={this.openFavorites}
-              />
-              <Carousel
-                data={this.state.favorites}
-                handleExpand={this.expandFavorites}
-                expanded={this.state.favoritesOpened}
-              />
+              {this.renderFavorites()}
               <div>
                 <GridHeader />
                 <ul>

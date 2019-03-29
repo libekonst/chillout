@@ -20,15 +20,15 @@ const FabBase = styled.button`
   /* Positioning */
   position: fixed;
   display: flex;
+  align-items: center;
+  justify-content: center;
   bottom: 1rem;
   right: 1rem;
   z-index: 10;
 
   /* Content styles */
   color: white;
-  font-size: 1.2rem;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.3rem;
 
   /* Styles */
   width: 3rem;
