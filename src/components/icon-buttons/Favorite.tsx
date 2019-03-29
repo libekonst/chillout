@@ -6,7 +6,7 @@ import { IconButton } from './IconButtons';
 interface IProps {
   isFavorite: boolean;
 }
-const FavoriteBorder = styled(MdFavorite)<IProps>`
+const FavoriteIcon = styled(MdFavorite)<IProps>`
   fill: none;
   stroke-width: 0.1rem;
   stroke: #afafaf;
@@ -47,6 +47,6 @@ const grow = keyframes`
 type Props = ComponentProps<typeof IconButton> & IProps;
 export const Favorite: FC<Props> = props => (
   <IconButton {...props}>
-    <FavoriteBorder isFavorite={props.isFavorite} />
+    <FavoriteIcon isFavorite={props.isFavorite} />
   </IconButton>
 );
