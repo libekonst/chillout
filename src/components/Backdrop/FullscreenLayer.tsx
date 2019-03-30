@@ -1,13 +1,8 @@
-import React, { FC } from 'react';
-import { Card } from '../components/card';
-import styled, { css, keyframes } from 'styled-components';
-import { IRadio } from '../data';
+import styled, { css, keyframes } from "styled-components";
 
-const FullscreenLayer = styled.div<{ open: boolean }>`
-/* Positioning */
+export const FullscreenLayer = styled.div<{ open: boolean }>`
+  /* Positioning */
   position: fixed;
-  /* width: 100vw; */
-  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
@@ -48,17 +43,3 @@ const slideUp = keyframes`
     transform: translateY(0%);
   }
 `;
-
-interface IProps {
-  data: IRadio[];
-  open: boolean;
-}
-export const Backdrop: FC<IProps> = props => (
-  <FullscreenLayer open={props.open}>
-    {props.data.map(r => (
-      <div style={{ padding: '1rem' }}>
-        <Card image={r.image} title={r.name} />
-      </div>
-    ))}
-  </FullscreenLayer>
-);
