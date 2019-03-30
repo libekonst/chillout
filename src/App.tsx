@@ -8,7 +8,7 @@ import { GridHeader } from './components/grid/GridHeader';
 import { Loader } from './loader/Loader';
 import { FAB } from './components/icon-buttons/FAB';
 import { breakpoints, isLarge } from './styles';
-import { FullscreenLayer } from './components/Backdrop';
+import { Backdrop } from './components/Backdrop';
 import { debounce } from './utils/debounce';
 import './App.css';
 import './normalize.css';
@@ -65,7 +65,7 @@ class App extends Component<{}, IState> {
       !!this.state.favorites.length && (
         <>
           <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites} />
-          <FullscreenLayer open={this.state.favoritesOpened} />
+          <Backdrop open={this.state.favoritesOpened} data={data} />
         </>
       )
     );
