@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { MdFavorite, MdClose } from 'react-icons/md';
 
+// Floating action button base
 const grow = keyframes`
     0% {
       transform: scale(0);
@@ -44,11 +45,27 @@ const FabBase = styled.button`
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
   }
 `;
+const rotateOn = keyframes`
+  from {
+    transform: rotate(-45deg);
+  }
 
+  to {
+    transform: rotate(0);
+  }
+`;
+
+// Close icon styles
+const Close = styled(MdClose)`
+  margin: auto;
+  animation: ${rotateOn} 0.1s ease-out forwards;
+`;
+
+// FAB
 interface IProps {
   onClick?: () => void;
   isOpen?: boolean;
 }
 export const FAB: FC<IProps> = ({ isOpen, ...rest }) => {
-  return <FabBase {...rest}>{isOpen ? <MdClose /> : <MdFavorite />}</FabBase>;
+  return <FabBase {...rest}>{isOpen ? <Close /> : <MdFavorite />}</FabBase>;
 };
