@@ -3,13 +3,14 @@ import data, { IRadio } from './data';
 import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
 import { Carousel } from './components/carousel';
-import { GridBodyRow } from './components/grid/GridBodyRow';
-import { GridHeader } from './components/grid/GridHeader';
-import { Loader } from './loader/Loader';
+import { GridBodyRow, GridHeader } from './components/grid';
+import { Loader } from './loader';
 import { FAB } from './components/icon-buttons/FAB';
-import { breakpoints, isLarge } from './styles';
+import { isLarge } from './styles';
 import { Backdrop } from './components/Backdrop';
 import { debounce } from './utils/debounce';
+import { MdFavorite } from 'react-icons/md';
+
 import './App.css';
 import './normalize.css';
 
@@ -64,8 +65,10 @@ class App extends Component<{}, IState> {
     return (
       !!this.state.favorites.length && (
         <>
-          <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites} />
-          <Backdrop open={this.state.favoritesOpened} data={data} />
+          <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites}>
+            <MdFavorite />
+          </FAB>
+          <Backdrop open={this.state.favoritesOpened} data={data.slice(0, 15)} />
         </>
       )
     );
