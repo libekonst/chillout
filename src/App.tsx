@@ -11,7 +11,6 @@ import { breakpoints, isLarge } from './styles';
 import { debounce } from './utils/debounce';
 import './App.css';
 import './normalize.css';
-import { XOR } from './utils/XOR';
 
 interface IState {
   favoritesOpened: boolean;
@@ -69,11 +68,12 @@ class App extends Component<{}, IState> {
   };
 
   /**
+   * Exclusive OR. Evaluates to true if one and only one input is true.
    * Only setState if `isLarge()` is not in agreement with `this.state.isScreenLarge`.
    * If so, toggle `this.state.isScreenLarge`.
    */
   toggleFavoritesComponent: () => void = debounce(() => {
-    if (XOR(isLarge(), this.state.isScreenLarge))
+    if (isLarge() !== this.state.isScreenLarge)
       this.setState(prev => ({
         isScreenLarge: !prev.isScreenLarge,
         favoritesOpened: !prev.isScreenLarge,
