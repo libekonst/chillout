@@ -3,16 +3,26 @@ import styled, { css, keyframes } from 'styled-components';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { IconButton } from './IconButton';
 
+const grow = keyframes`
+  from {
+    transform: scale(0.9);
+  }
+
+  to {
+    transform: scale(1);
+  }
+`;
 const FavoriteBorder = styled(MdFavoriteBorder)`
   color: ${props => props.theme.colors.lightgray};
   transition: color 0.1s linear;
+  animation: ${grow} 0.1s linear forwards;
 
   &:hover {
     color: ${props => props.theme.colors.purple};
   }
 `;
 
-const grow = keyframes`
+const heartbeat = keyframes`
   0% {
     transform: scale(1);
   }
@@ -29,7 +39,11 @@ const grow = keyframes`
 const FavoriteFill = styled(MdFavorite)`
   fill: ${props => props.theme.colors.purple};
   stroke: ${props => props.theme.colors.purple};
-  animation: ${grow} 0.2s ease-out;
+  animation: ${heartbeat} 0.2s ease-out;
+
+  &:active {
+    transform: scale(0.9);
+  }
 `;
 
 interface IProps {

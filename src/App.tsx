@@ -7,7 +7,7 @@ import { GridBodyRow, GridHeader } from './components/grid';
 import { Loader } from './loader';
 import { FAB } from './components/icon-buttons/FAB';
 import { isLarge } from './styles';
-import { Backdrop } from './components/Backdrop';
+import { Backdrop } from './components/backdrop';
 import { debounce } from './utils/debounce';
 import { MdFavorite } from 'react-icons/md';
 
@@ -68,7 +68,7 @@ class App extends Component<{}, IState> {
           <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites}>
             <MdFavorite />
           </FAB>
-          <Backdrop open={this.state.favoritesOpened} data={data.slice(0, 15)} />
+          <Backdrop open={this.state.favoritesOpened} data={this.state.favorites} />
         </>
       )
     );
