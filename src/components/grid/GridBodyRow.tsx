@@ -1,5 +1,5 @@
 import React, { Component, ComponentProps, MouseEvent } from 'react';
-import { PlayIcon, PauseIcon, VolumeIcon } from '../icon-buttons/PlayPauseSpeaker';
+import { ControlsButton } from '../icon-buttons/PlayPauseSpeaker';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
@@ -42,8 +42,19 @@ export class GridBodyRow extends Component<Props, IState> {
         // {...this.props}
       >
         <GridItem gridArea="playcontrol" justifySelf="end" onClick={this.props.onPlay}>
-          {/* <div style={{ visibility: this.state.hovered ? 'visible' : 'hidden' }}> */}
-          {this.state.hovered ? (
+          <div
+            style={{
+              visibility:
+                this.state.hovered || this.props.isPlaying ? 'visible' : 'hidden',
+            }}
+          >
+            {/* {this.state.hovered && ( */}
+            <ControlsButton
+              isPlaying={this.props.isPlaying}
+              isHover={this.state.hovered}
+            />
+            {/* )} */}
+            {/* {this.state.hovered ? (
             this.props.isPlaying ? (
               <PauseIcon />
             ) : (
@@ -51,8 +62,8 @@ export class GridBodyRow extends Component<Props, IState> {
             )
           ) : (
             this.props.isPlaying && <VolumeIcon />
-          )}
-          {/* </div> */}
+          )} */}
+          </div>
         </GridItem>
         <GridItem
           shouldOverflow

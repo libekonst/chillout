@@ -19,6 +19,7 @@ export const IconButton = styled.button<IProps>`
       font-size: ${calcSize(size)};
       cursor: ${cursor};
       border: ${border && '2px solid'};
+      border-radius: 50%;
     `}
 `;
 
