@@ -24,8 +24,10 @@ export const Image = styled.img<ImageProps>`
   ${props =>
     props.blur &&
     css`
-      filter: blur(7px);
-      transform: scale(1.07);
-      transition: all 0.1s ease-out;
+      @media (min-width: ${props => props.theme.breakpoints.lg}px) {
+        filter: blur(7px);
+        transform: scale(1.07);
+        transition: all 0.1s ease-out;
+      }
     `}
 `;
