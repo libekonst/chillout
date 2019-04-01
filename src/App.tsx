@@ -32,11 +32,18 @@ class App extends Component<{}, IState> {
     isPlaying: false,
   };
 
-  playRadio = (id: number) => () => {
+  playRadio = (id: number) => (e: MouseEvent): void => {
     this.setState(prevState => {
       if (prevState.selectedRadioId === id && prevState.isPlaying)
         return { isPlaying: false };
       return { selectedRadioId: id, isPlaying: true };
+    });
+  };
+  addFavorite = (radio: IRadio) => (e: MouseEvent): void => {
+    this.setState(prevState => {
+      if (prevState.favorites.includes(radio))
+        return { favorites: prevState.favorites.filter(item => item !== radio) };
+      return { favorites: [radio, ...prevState.favorites] };
     });
   };
   expandFavorites = (callback?: () => any): void => {
@@ -45,13 +52,6 @@ class App extends Component<{}, IState> {
   openFavorites = (): void =>
     this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }));
 
-  addFavorite = (radio: IRadio) => (e: MouseEvent) => {
-    this.setState(prevState => {
-      if (prevState.favorites.includes(radio))
-        return { favorites: prevState.favorites.filter(item => item !== radio) };
-      return { favorites: [radio, ...prevState.favorites] };
-    });
-  };
   renderFavorites = () => {
     if (isLarge())
       return (
@@ -68,7 +68,11 @@ class App extends Component<{}, IState> {
           <FAB isOpen={this.state.favoritesOpened} onClick={this.openFavorites}>
             <MdFavorite />
           </FAB>
-          <Backdrop open={this.state.favoritesOpened} data={this.state.favorites} />
+          <Backdrop
+            open={this.state.favoritesOpened}
+            data={this.state.favorites}
+            onRadioClick={this.playRadio}
+          />
         </>
       )
     );
@@ -117,8 +121,8 @@ class App extends Component<{}, IState> {
                         name={item.name}
                         image={item.image}
                         label={item.label}
-                        onAddFavorite={this.addFavorite(item)}
-                        onPlay={this.playRadio(item.id)}
+                        handleAddFavorite={this.addFavorite(item)}
+                        handlePlay={this.playRadio(item.id)}
                         isFavorite={this.state.favorites.includes(item)}
                         isPlaying={
                           this.state.selectedRadioId === item.id && this.state.isPlaying

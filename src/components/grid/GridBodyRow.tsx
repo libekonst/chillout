@@ -1,4 +1,4 @@
-import React, { Component, ComponentProps, MouseEvent } from 'react';
+import React, { Component, ComponentProps } from 'react';
 import { ControlsButton } from '../icon-buttons/PlayPauseSpeaker';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
@@ -6,8 +6,8 @@ import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 import { Favorite } from '../icon-buttons/Favorite';
 interface IProps {
-  onAddFavorite: (e: MouseEvent) => void;
-  onPlay: () => void;
+  handleAddFavorite: (e: React.MouseEvent) => void;
+  handlePlay: (e: React.MouseEvent) => void;
   isFavorite: boolean;
   isPlaying: boolean;
   isSelected: boolean;
@@ -41,7 +41,11 @@ export class GridBodyRow extends Component<Props, IState> {
         gutter
         // {...this.props}
       >
-        <GridItem gridArea="playcontrol" justifySelf="end" onClick={this.props.onPlay}>
+        <GridItem
+          gridArea="playcontrol"
+          justifySelf="end"
+          onClick={this.props.handlePlay}
+        >
           <div
             style={{
               visibility:
@@ -69,7 +73,7 @@ export class GridBodyRow extends Component<Props, IState> {
           shouldOverflow
           gridArea="favorite"
           justifySelf="center"
-          onClick={this.props.onAddFavorite}
+          onClick={this.props.handleAddFavorite}
         >
           <Favorite size="tiny" isFavorite={this.props.isFavorite} />
         </GridItem>
