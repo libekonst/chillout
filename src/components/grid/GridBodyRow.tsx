@@ -54,6 +54,7 @@ export class GridBodyRow extends Component<Props, IState> {
           >
             {/* {this.state.hovered && ( */}
             <ControlsButton
+              size="small"
               isPlaying={this.props.isPlaying}
               isHover={this.state.hovered}
             />
@@ -75,7 +76,7 @@ export class GridBodyRow extends Component<Props, IState> {
           justifySelf="center"
           onClick={this.props.handleAddFavorite}
         >
-          <Favorite size="tiny" isFavorite={this.props.isFavorite} />
+          <Favorite isFavorite={this.props.isFavorite} />
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
