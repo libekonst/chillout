@@ -21,6 +21,7 @@ interface IState {
   isScreenLarge: boolean;
   selectedRadioId?: number;
   favorites: IRadio[];
+  src?: string;
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
@@ -30,14 +31,31 @@ class App extends Component<{}, IState> {
     contentReady: false,
     selectedRadioId: undefined,
     isPlaying: false,
+    src: undefined,
   };
+  audioRef: any = React.createRef();
+  src: string | undefined;
+  audio = new Audio(this.state.src);
 
-  playRadio = (id: number) => (e: MouseEvent): void => {
-    this.setState(prevState => {
-      if (prevState.selectedRadioId === id && prevState.isPlaying)
-        return { isPlaying: false };
-      return { selectedRadioId: id, isPlaying: true };
-    });
+  togglePlayRadio = (id: number) => async (e: MouseEvent): Promise<void> => {
+    try {
+      if (
+        this.state.selectedRadioId !== undefined &&
+        this.state.selectedRadioId === id &&
+        this.state.isPlaying
+      ) {
+        await this.audioRef.pause();
+        return this.setState({ isPlaying: false, src: undefined }); // Reset the audio source to avoid streaming cached / outdated data.
+      }
+
+      const src = data.find(radio => radio.id === id)!.source; // Non null assertion. If undefined, the promise will be rejected and handled by trycatch.
+      return this.setState({ selectedRadioId: id, isPlaying: true, src }, () =>
+        this.audioRef.play(),
+      );
+    } catch (e) {
+      console.log(`An error occurred: ${e}`); // TODO: Show error snackbar.
+      return this.setState({ isPlaying: false, src: undefined });
+    }
   };
   addFavorite = (radio: IRadio) => (e: MouseEvent): void => {
     this.setState(prevState => {
@@ -61,7 +79,7 @@ class App extends Component<{}, IState> {
           expanded={this.state.favoritesOpened}
           isPlaying={this.state.isPlaying}
           selectedRadio={this.state.selectedRadioId}
-          onSelectRadio={this.playRadio}
+          onSelectRadio={this.togglePlayRadio}
         />
       );
 
@@ -74,7 +92,7 @@ class App extends Component<{}, IState> {
           <Backdrop
             open={this.state.favoritesOpened}
             data={this.state.favorites}
-            onRadioClick={this.playRadio}
+            onRadioClick={this.togglePlayRadio}
             isPlaying={this.state.isPlaying}
             selectedRadio={this.state.selectedRadioId}
           />
@@ -114,32 +132,36 @@ class App extends Component<{}, IState> {
         {/* Don't wait for everything to load. */}
         {!this.state.contentReady && <Loader />}
         {this.state.contentReady && (
-          <ThemeProvider theme={theme}>
-            <main>
-              {this.renderFavorites()}
-              <div>
-                <GridHeader />
-                <ul>
-                  {data.map(item => (
-                    <li key={item.id}>
-                      <GridBodyRow
-                        name={item.name}
-                        image={item.image}
-                        label={item.label}
-                        handleAddFavorite={this.addFavorite(item)}
-                        handlePlay={this.playRadio(item.id)}
-                        isFavorite={this.state.favorites.includes(item)}
-                        isPlaying={
-                          this.state.selectedRadioId === item.id && this.state.isPlaying
-                        }
-                        isSelected={this.state.selectedRadioId === item.id}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </main>
-          </ThemeProvider>
+          <>
+            <ThemeProvider theme={theme}>
+              <main>
+                {this.renderFavorites()}
+                <div>
+                  <GridHeader />
+                  <ul>
+                    {data.map(item => (
+                      <li key={item.id}>
+                        <GridBodyRow
+                          name={item.name}
+                          image={item.image}
+                          label={item.label}
+                          handleAddFavorite={this.addFavorite(item)}
+                          handlePlay={this.togglePlayRadio(item.id)}
+                          isFavorite={this.state.favorites.includes(item)}
+                          isPlaying={
+                            this.state.selectedRadioId === item.id &&
+                            this.state.isPlaying
+                          }
+                          isSelected={this.state.selectedRadioId === item.id}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </main>
+            </ThemeProvider>
+            <audio ref={input => (this.audioRef = input)} src={this.state.src} />
+          </>
         )}
       </>
     );
