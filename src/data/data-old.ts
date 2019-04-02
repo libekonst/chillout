@@ -5,7 +5,7 @@ export const radios: IOldJson = {
     {
       id: 'offradio',
       name: 'Off Radio',
-      source: 'http://46.28.53.118:7062/stream?1529011397134',
+      source: 'http://46.28.53.118:7062/stream',
       image: 'http://www.offradio.gr/sites/all/themes/offradio_theme/facebook.png',
     },
     {
