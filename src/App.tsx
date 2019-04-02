@@ -11,6 +11,7 @@ import './App.css';
 import './normalize.css';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
+import { LoadingBar } from './components/styled/LoadingBar';
 
 interface IState {
   favoritesOpened: boolean;
@@ -19,6 +20,7 @@ interface IState {
   isScreenLarge: boolean;
   selectedRadioId?: number;
   favorites: IRadio[];
+  isLoading: boolean;
   src?: string;
 }
 class App extends Component<{}, IState> {
@@ -29,42 +31,38 @@ class App extends Component<{}, IState> {
     contentReady: false,
     selectedRadioId: undefined,
     isPlaying: false,
+    isLoading: false,
     src: undefined,
   };
-  audioRef: any = React.createRef();
+  audioRef: any = React.createRef<HTMLAudioElement>();
   src: string | undefined;
   audio = new Audio(this.state.src);
 
+  // TODO: Use togglePlayRadio(this.state.selectedRadioId) on audio player.
   togglePlayRadio = (id: number) => async (): Promise<void> => {
-   
     const { selectedRadioId, isPlaying } = this.state;
     if (selectedRadioId !== undefined && selectedRadioId === id && isPlaying) {
       await this.audioRef.pause();
       return this.setState({ isPlaying: false, src: undefined }, () => {
-        document.title = 'The Chillout App';
+        // document.title = 'The Chillout App';
       });
     }
 
-    const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and the audio won't play.
+    const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and handle by trycatch.
 
     //  Slow but safe. Causes 2 renders.
-    return this.setState({ src: radio.source }, async () => {
-      await this.audioRef.play();
-      this.setState({ selectedRadioId: id, isPlaying: true });
-      document.title = `${radio.name} - The Chillout App`;
+    return this.setState({ src: radio.source, isPlaying: false, isLoading: true }, async () => {
+      try {
+        await this.audioRef.play();
+        this.setState({ selectedRadioId: id, isPlaying: true, isLoading: false });
+        document.title = `${radio.name} - The Chillout App`;
+      } catch (e) {
+        this.setState({ isLoading: false });
+        // TODO: Show failed notification.
+      }
     });
-
-    // Fast but unsafe if the audio fails to load.
-    // TODO: Handle rejected promise.
-    // return this.setState(
-    //   { src: radio.source, selectedRadioId: id, isPlaying: true },
-    //   async () => {
-    //     await this.audioRef.play();
-    //     document.title = `${radio.name} - The Chillout App`;
-    //   },
-    // );
-    
   };
+
   addFavorite = (radio: IRadio) => (): void => {
     this.setState(prevState => {
       if (prevState.favorites.includes(radio))
@@ -113,6 +111,11 @@ class App extends Component<{}, IState> {
           <>
             <ThemeProvider theme={theme}>
               <>
+                {this.state.isLoading && (
+                  <aside>
+                    <LoadingBar />
+                  </aside>
+                )}
                 <main>
                   <Favorites
                     expandFavorites={this.expandFavorites}
