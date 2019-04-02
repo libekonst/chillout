@@ -12,20 +12,22 @@ interface IProps {
   open: boolean;
 }
 export const Backdrop: FC<IProps> = props => (
-  <FullscreenLayer open={props.open}>
-    {props.data.map(r => (
-      <CardWrapper onClick={props.onRadioClick(r.id)}>
-        <Card
-          image={r.image}
-          title={r.name}
-          isActive={props.selectedRadio === r.id && props.isPlaying}
-        />
-      </CardWrapper>
-    ))}
-  </FullscreenLayer>
+  <aside>
+    <FullscreenLayer open={props.open}>
+      {props.data.map(r => (
+        <CardWrapper onClick={props.onRadioClick(r.id)} key={r.id}>
+          <Card
+            image={r.image}
+            title={r.name}
+            isActive={props.selectedRadio === r.id && props.isPlaying}
+          />
+        </CardWrapper>
+      ))}
+    </FullscreenLayer>
+  </aside>
 );
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.li`
   margin: 1rem;
   cursor: pointer;
 `;

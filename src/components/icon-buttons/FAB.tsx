@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ComponentProps } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { MdFavorite, MdClose } from 'react-icons/md';
 
@@ -63,9 +63,9 @@ const Close = styled(MdClose)`
 
 // FAB
 interface IProps {
-  onClick?: () => void;
   isOpen?: boolean;
 }
-export const FAB: FC<IProps> = ({ isOpen, children, ...rest }) => {
+type Props = IProps & ComponentProps<typeof FabBase>;
+export const FAB: FC<Props> = ({ isOpen, children, ...rest }) => {
   return <FabBase {...rest}>{isOpen ? <Close /> : children}</FabBase>;
 };

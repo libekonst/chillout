@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 
-export const FullscreenLayer = styled.div<{ open: boolean }>`
+export const FullscreenLayer = styled.ul<{ open: boolean }>`
   /* Positioning */
   position: fixed;
   top: 0;

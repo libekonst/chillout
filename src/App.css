@@ -15,7 +15,7 @@ button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-ol, ul {
+ol, ul, li {
   list-style: none;
 }
 body {
