@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 import { IRadio } from '../../data';
 import { debounce } from '../../utils/debounce';
 import { parse } from '../../utils/parse';
@@ -11,8 +11,11 @@ interface IState {
 interface IProps {
   data: IRadio[];
   handleExpand: (fn?: () => any) => void;
+  onSelectRadio: (id: number) => (e: MouseEvent)=> void;
   expanded: boolean;
+  selectedRadio?: number;
   title?: string;
+  isPlaying?: boolean;
 }
 
 export default class Carousel extends Component<IProps, IState> {
@@ -156,6 +159,7 @@ export default class Carousel extends Component<IProps, IState> {
       <View
         title={this.props.title!}
         expanded={this.props.expanded}
+        onSelectRadio={this.props.onSelectRadio}
         onExpand={this.handleExpand}
         canClickNext={!this.reachedEndOfData}
         canClickBack={!this.reachedStartOfData}
@@ -165,6 +169,8 @@ export default class Carousel extends Component<IProps, IState> {
         show={this.props.expanded}
         ref={this.carouselRef}
         cardRef={this.cardRef}
+        selectedRadio={this.props.selectedRadio}
+        isPlaying={this.props.isPlaying}
       />
     );
   }

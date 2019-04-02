@@ -1,10 +1,18 @@
 const theme = {
   colors: {
     white: '#fafafa',
-    lightblack: 'rgb(45, 45, 45)',
+    palewhite: '#E3DBDD',
+
+    // lightblack: 'rgb(45, 45, 45)',
+    lightblack: 'rgb(80, 82, 83)',
     lightgray: '#afafaf',
+
+
     blue: '#052fb8',
+    // blue: '#0099FF',
     lightblue: '#3498db',
+
+
     // purple: 'rgb(255, 32, 117)',
     // purple: '#d57eeb',
     // purple: '#f68084',
@@ -30,6 +38,8 @@ const theme = {
       tiny: '1.3rem',
       small: '1.7rem',
       medium: '2rem',
+      big: '3.2rem',
+      xbig: '4rem',
     },
   },
 };

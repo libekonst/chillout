@@ -26,7 +26,7 @@ const IconButton = styled.button<IProps>`
   ${({ isPlaying, isSelected, theme }) =>
     (isPlaying || isSelected) &&
     css`
-      /* color: ${theme.colors.blue}; */
+      color: ${theme.colors.blue};
     `}
 `;
 

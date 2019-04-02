@@ -59,6 +59,9 @@ class App extends Component<{}, IState> {
           data={this.state.favorites}
           handleExpand={this.expandFavorites}
           expanded={this.state.favoritesOpened}
+          isPlaying={this.state.isPlaying}
+          selectedRadio={this.state.selectedRadioId}
+          onSelectRadio={this.playRadio}
         />
       );
 

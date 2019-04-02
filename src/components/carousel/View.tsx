@@ -1,4 +1,4 @@
-import React, { ComponentProps, FC } from 'react';
+import React, { ComponentProps, FC, MouseEvent } from 'react';
 import { IRadio } from '../../data';
 import { Card } from '../card/';
 import { CarouselHeader } from './CarouselHeader';
@@ -8,21 +8,29 @@ import { HorizontalList, ListItem } from './HorizontalList';
 interface IViewProps {
   show: boolean;
   canClickNext: boolean;
+  selectedRadio?: number;
   canClickBack: boolean;
+  onSelectRadio: (id: number) => (e: MouseEvent) => void;
   cardRef: React.RefObject<HTMLLIElement>;
   radios: IRadio[];
+  isPlaying?: boolean;
 }
 type Props = ComponentProps<typeof CarouselHeader> & IViewProps;
 
 export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
-  const { radios, show, cardRef, ...rest } = props;
+  const { radios, show, cardRef, isPlaying, selectedRadio, ...rest } = props;
   const renderContent = () =>
     !radios.length ? (
       <EmptyCollectionPlaceholder message="addFavorite" />
     ) : (
       radios.map((r, i) => (
         <ListItem key={r.id} ref={i === 0 ? cardRef : null}>
-          <Card title={r.name} image={r.image} />
+          <Card
+            title={r.name}
+            image={r.image}
+            onClick={props.onSelectRadio(r.id)}
+            isActive={selectedRadio === r.id && isPlaying}
+          />
         </ListItem>
       ))
     );

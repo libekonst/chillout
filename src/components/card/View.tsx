@@ -1,22 +1,20 @@
 import React, { ReactNode, FC } from 'react';
 import { CardMedia } from './CardMedia';
 import { Image } from '../styled/Image';
-import { PlayIcon, PauseIcon, VolumeIcon } from '../icon-buttons/PlayPauseSpeaker';
 import { Overlay } from '../styled/OverLay';
 import { CardContent } from './CardContent';
 import { Title } from './Title';
 import { Placeholder } from '../styled/Placeholder';
+import { PlayControlsBorder } from '../icon-buttons/PlayControlsBorder';
 
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
-  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent) => void;
   onImageLoad: () => any;
-  showPlay?: boolean;
-  showVolume?: boolean;
-  showPause?: boolean;
   backdrop?: boolean;
-  hovered?: boolean;
+  isHover?: boolean;
+  isActive?: boolean;
   imageSource?: string;
   loaded?: boolean;
   title?: ReactNode;
@@ -28,11 +26,9 @@ export const View: FC<IProps> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
-  showPause,
-  showPlay,
-  hovered,
+  isActive,
+  isHover,
   imageSource,
-  showVolume,
   title,
   loaded,
   onImageLoad,
@@ -47,10 +43,26 @@ export const View: FC<IProps> = ({
       {...rest}
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
-      <Overlay show={!!hovered} type="light" />
+      <Overlay show={!!isHover} type="light" />
       <Placeholder shouldFadeOut={loaded} gradient={true}>
-        <Image blur={hovered} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
+        <Image blur={isHover} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
       </Placeholder>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {(isHover || isActive) && (
+          <PlayControlsBorder isHover={isHover} isPlaying={isActive} />
+        )}
+      </div>
       {/* 
       {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
       {showPause && <PauseIcon border={true} position="absolute" type="light" />}

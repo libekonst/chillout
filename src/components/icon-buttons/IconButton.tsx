@@ -12,14 +12,19 @@ export const IconButton = styled.button<IProps>`
   align-items: center;
   justify-content: center;
   position: ${({ position = 'static' }) => position};
+  color: ${props => props.theme.colors.lightblack};
+  background-color: black;
+  border-radius: 50%;
 
   /* Props related styles */
   ${({ size = 'normal', cursor = 'default', border }) =>
     css`
       font-size: ${calcSize(size)};
       cursor: ${cursor};
-      border: ${border && '2px solid'};
-      border-radius: 50%;
+      /* border: ${border && '2px solid'}; */
+      /* border-style: solid;
+      border-width: 2px; */
+      border-color: ${border ? props => props.theme.colors.lightblack : 'transparent'};
     `}
 `;
 
