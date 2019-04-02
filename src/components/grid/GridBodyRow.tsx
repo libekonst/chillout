@@ -1,5 +1,5 @@
 import React, { Component, ComponentProps } from 'react';
-import { ControlsButton } from '../icon-buttons/PlayPauseSpeaker';
+import { ControlsButton } from '../icon-buttons/PlayControls';
 import { Image } from '../styled/Image';
 import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
@@ -54,7 +54,6 @@ export class GridBodyRow extends Component<Props, IState> {
           >
             {/* {this.state.hovered && ( */}
             <ControlsButton
-              size="small"
               isPlaying={this.props.isPlaying}
               isHover={this.state.hovered}
             />

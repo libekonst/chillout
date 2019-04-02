@@ -1,7 +1,7 @@
 const theme = {
   colors: {
     white: '#fafafa',
-    lightblack: 'rgb(30, 30, 30)',
+    lightblack: 'rgb(45, 45, 45)',
     lightgray: '#afafaf',
     blue: '#052fb8',
     lightblue: '#3498db',
@@ -23,6 +23,14 @@ const theme = {
     md: 960,
     lg: 1280,
     xl: 1920,
+  },
+
+  sizes: {
+    iconButton: {
+      tiny: '1.3rem',
+      small: '1.7rem',
+      medium: '2rem',
+    },
   },
 };
 

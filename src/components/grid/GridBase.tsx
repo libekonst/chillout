@@ -36,7 +36,7 @@ export const GridBase = styled.div`
     props.highlightOnHover &&
     css`
       border-radius: 5px;
-      transition: background-color 0.1s linear;
+      transition: background-color 0.2s linear;
       &:hover {
         background-color: rgba(210, 210, 210, 0.2);
       }

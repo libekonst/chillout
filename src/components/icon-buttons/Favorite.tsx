@@ -27,7 +27,7 @@ const heartbeat = keyframes`
 `;
 
 // Styles
-const FavoriteBorder = styled(MdFavoriteBorder)`
+const FavoriteEmpty = styled(MdFavoriteBorder)`
   color: ${props => props.theme.colors.lightgray};
   animation: ${grow} 0.1s linear forwards;
   transition: color 0.1s linear;
@@ -52,10 +52,10 @@ const ButtonBase = styled.button`
   align-items: center;
   justify-content: center;
   cursor: default;
-  font-size: 1.3rem;
+  font-size: ${props => props.theme.sizes.iconButton.tiny};
 
   @media (max-width: ${props => props.theme.breakpoints.lg - 1}px) {
-    font-size: 2rem;
+    font-size: ${props => props.theme.sizes.iconButton.medium};
   }
 `;
 
@@ -67,7 +67,7 @@ export const Favorite: FC<Props> = props => {
   const { isFavorite, ...rest } = props;
   return (
     <ButtonBase {...rest}>
-      {isFavorite ? <FavoriteFill /> : <FavoriteBorder />}
+      {isFavorite ? <FavoriteFill /> : <FavoriteEmpty />}
     </ButtonBase>
   );
 };
