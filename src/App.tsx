@@ -36,29 +36,34 @@ class App extends Component<{}, IState> {
   audio = new Audio(this.state.src);
 
   togglePlayRadio = (id: number) => async (): Promise<void> => {
-    try {
-      if (
-        this.state.selectedRadioId !== undefined &&
-        this.state.selectedRadioId === id &&
-        this.state.isPlaying
-      ) {
-        await this.audioRef.pause();
-        return this.setState(
-          { isPlaying: false, src: undefined },
-          () => (document.title = 'The Chillout App'),
-        ); // Reset the audio source to avoid streaming cached / outdated data.
-      }
-
-      const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and handled by trycatch.
-      const src = radio.source;
-      return this.setState({ selectedRadioId: id, isPlaying: true, src }, async () => {
-        await this.audioRef.play();
-        document.title = `${radio.name} - The Chillout App`;
+   
+    const { selectedRadioId, isPlaying } = this.state;
+    if (selectedRadioId !== undefined && selectedRadioId === id && isPlaying) {
+      await this.audioRef.pause();
+      return this.setState({ isPlaying: false, src: undefined }, () => {
+        document.title = 'The Chillout App';
       });
-    } catch (e) {
-      console.log(`An error occurred: ${e}`); // TODO: Show error snackbar.
-      return this.setState({ isPlaying: false, src: undefined });
     }
+
+    const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and the audio won't play.
+
+    //  Slow but safe. Causes 2 renders.
+    return this.setState({ src: radio.source }, async () => {
+      await this.audioRef.play();
+      this.setState({ selectedRadioId: id, isPlaying: true });
+      document.title = `${radio.name} - The Chillout App`;
+    });
+
+    // Fast but unsafe if the audio fails to load.
+    // TODO: Handle rejected promise.
+    // return this.setState(
+    //   { src: radio.source, selectedRadioId: id, isPlaying: true },
+    //   async () => {
+    //     await this.audioRef.play();
+    //     document.title = `${radio.name} - The Chillout App`;
+    //   },
+    // );
+    
   };
   addFavorite = (radio: IRadio) => (): void => {
     this.setState(prevState => {
