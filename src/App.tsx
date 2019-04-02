@@ -7,7 +7,7 @@ import { GridBodyRow, GridHeader } from './components/grid';
 import { Loader } from './loader';
 import { FAB } from './components/icon-buttons/FAB';
 import { isLarge } from './styles';
-import { Backdrop } from './components/backdrop-rename-bug';
+import { Backdrop } from './components/backdrop';
 import { debounce } from './utils/debounce';
 import { MdFavorite } from 'react-icons/md';
 
