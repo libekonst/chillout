@@ -1,4 +1,5 @@
 import React, { ReactNode, FC } from 'react';
+import styled from 'styled-components';
 import { CardMedia } from './CardMedia';
 import { Image } from '../styled/Image';
 import { Overlay } from '../styled/OverLay';
@@ -47,26 +48,11 @@ export const View: FC<IProps> = ({
       <Placeholder shouldFadeOut={loaded} gradient={true}>
         <Image blur={isHover} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
       </Placeholder>
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <IconWrapper>
         {(isHover || isActive) && (
           <PlayControlsBorder isHover={isHover} isPlaying={isActive} />
         )}
-      </div>
-      {/* 
-      {showPlay && <PlayIcon border={true} position="absolute" type="light" />}
-      {showPause && <PauseIcon border={true} position="absolute" type="light" />}
-      {showVolume && <VolumeIcon position="absolute" type="dark" />} */}
+      </IconWrapper>
     </CardMedia>
     {title && (
       <CardContent alignItems="flex-start">
@@ -75,3 +61,14 @@ export const View: FC<IProps> = ({
     )}
   </div>
 );
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -75,6 +75,8 @@ class App extends Component<{}, IState> {
             open={this.state.favoritesOpened}
             data={this.state.favorites}
             onRadioClick={this.playRadio}
+            isPlaying={this.state.isPlaying}
+            selectedRadio={this.state.selectedRadioId}
           />
         </>
       )

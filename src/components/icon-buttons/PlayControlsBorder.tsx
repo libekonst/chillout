@@ -28,7 +28,7 @@ const IconButton = styled.button<{ border?: boolean }>`
   align-items: center;
 
   /* Styles */
-  cursor: default;
+  cursor: pointer;
   color: white;
   padding: 0.2rem;
   background-color: rgba(45, 45, 45, 0.6);

@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { View } from './View';
+import { isLarge } from '../../styles';
 
 interface IProps {
   title: ReactNode;
@@ -17,10 +18,10 @@ export default class Card extends React.Component<IProps, IState> {
     hovered: false,
     loaded: false,
   };
-  onMouseEnter = () => this.setState({ hovered: true });
-  onMouseLeave = () => this.setState({ hovered: false });
-
+  onMouseEnter = () => isLarge() && this.setState({ hovered: true });
+  onMouseLeave = () => isLarge() && this.setState({ hovered: false });
   onImageLoad = () => this.setState({ loaded: true });
+
   render() {
     const { title } = this.props;
 
