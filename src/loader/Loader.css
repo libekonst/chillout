@@ -1,9 +1,7 @@
 .loader-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   opacity: 1;
   z-index: 1000;
   transition: visibility 0.3s, opacity 0.3s linear; /* Opacity for the fade-out effect. Visibility to allow interaction underneath the element. */
