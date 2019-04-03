@@ -19,7 +19,12 @@ export const LoadingBar = styled.div<IProps>`
   height: 0.3rem;
   overflow: hidden;
   background-color: rgb(255, 181, 218);
-
+  /* background-color: #ffbe76; */
+  /* background-color: #7ed6df; */
+  /* background-color: #c7ecee; */
+  /* background-color: #686de0; */
+  /* background-color: #f1afff; */
+  
   &::after {
     content: '';
     position: absolute;
@@ -28,6 +33,11 @@ export const LoadingBar = styled.div<IProps>`
     left: 0;
     width: 25%;
     background-color: rgb(255, 32, 117);
+    /* background-color: #f0932b; */
+    /* background-color: #22a6b3; */
+    /* background-color: #95afc0; */
+    /* background-color: #4834d4; */
+    /* background-color: #be2edd; */
     border-radius: 5px;
     will-change: transform;
     ${props =>
