@@ -55,7 +55,7 @@ const ButtonBase = styled.button`
   font-size: ${props => props.theme.sizes.iconButton.tiny};
 
   @media (max-width: ${props => props.theme.breakpoints.lg - 1}px) {
-    font-size: ${props => props.theme.sizes.iconButton.medium};
+    font-size: ${props => props.theme.sizes.iconButton.small};
   }
 `;
 
