@@ -51,16 +51,19 @@ class App extends Component<{}, IState> {
     const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and handle by trycatch.
 
     //  Slow but safe. Causes 2 renders.
-    return this.setState({ src: radio.source, isPlaying: false, isLoading: true }, async () => {
-      try {
-        await this.audioRef.play();
-        this.setState({ selectedRadioId: id, isPlaying: true, isLoading: false });
-        document.title = `${radio.name} - The Chillout App`;
-      } catch (e) {
-        this.setState({ isLoading: false });
-        // TODO: Show failed notification.
-      }
-    });
+    return this.setState(
+      { src: radio.source, isPlaying: false, isLoading: true },
+      async () => {
+        try {
+          await this.audioRef.play();
+          this.setState({ selectedRadioId: id, isPlaying: true, isLoading: false });
+          document.title = `${radio.name} - The Chillout App`;
+        } catch (e) {
+          this.setState({ isLoading: false });
+          // TODO: Show failed notification.
+        }
+      },
+    );
   };
 
   addFavorite = (radio: IRadio) => (): void => {
@@ -107,15 +110,21 @@ class App extends Component<{}, IState> {
       <>
         {/* Don't wait for everything to load. */}
         {!this.state.contentReady && <Loader />}
-        {this.state.contentReady && (
-          <>
+        {/* {this.state.contentReady && ( */}
+          <div style={{opacity: this.state.contentReady? 1 : 0, transition: 'opacity 0.5s'}}>
             <ThemeProvider theme={theme}>
               <>
-                {this.state.isLoading && (
-                  <aside>
-                    <LoadingBar />
-                  </aside>
-                )}
+                <aside
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    opacity: this.state.isLoading ? 1 : 0,
+                  }}
+                >
+                  <LoadingBar animate={this.state.isLoading}/>
+                </aside>
                 <main>
                   <Favorites
                     expandFavorites={this.expandFavorites}
@@ -149,8 +158,8 @@ class App extends Component<{}, IState> {
               </>
             </ThemeProvider>
             <audio ref={input => (this.audioRef = input)} src={this.state.src} />
-          </>
-        )}
+          </div>
+        {/* )} */}
       </>
     );
   }
