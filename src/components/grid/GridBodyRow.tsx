@@ -89,5 +89,5 @@ export class GridBodyRow extends Component<Props, IState> {
 
 const ButtonWrapper = styled.div<{ isVisible: boolean }>`
   opacity: ${props => (props.isVisible ? 1 : 0)};
-  transition: opacity 0.1s linear;
+  transition: opacity 0.05s linear;
 `;
