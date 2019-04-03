@@ -66,7 +66,10 @@ type Props = ComponentProps<typeof ButtonBase> & IProps;
 export const Favorite: FC<Props> = props => {
   const { isFavorite, ...rest } = props;
   return (
-    <ButtonBase {...rest}>
+    <ButtonBase
+      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      {...rest}
+    >
       {isFavorite ? <FavoriteFill /> : <FavoriteEmpty />}
     </ButtonBase>
   );

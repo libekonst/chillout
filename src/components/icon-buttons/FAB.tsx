@@ -1,6 +1,6 @@
 import React, { FC, ComponentProps } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { MdFavorite, MdClose } from 'react-icons/md';
+import styled, { keyframes } from 'styled-components';
+import { MdClose, MdFavorite } from 'react-icons/md';
 
 // Floating action button base
 const grow = keyframes`
@@ -67,5 +67,9 @@ interface IProps {
 }
 type Props = IProps & ComponentProps<typeof FabBase>;
 export const FAB: FC<Props> = ({ isOpen, children, ...rest }) => {
-  return <FabBase {...rest}>{isOpen ? <Close /> : children}</FabBase>;
+  return (
+    <FabBase title={isOpen ? 'Close Favorites' : 'Open Favorites'} {...rest}>
+      {isOpen ? <Close /> : <MdFavorite />}
+    </FabBase>
+  );
 };

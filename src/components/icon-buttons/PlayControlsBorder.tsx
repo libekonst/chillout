@@ -1,11 +1,5 @@
 import React, { FC } from 'react';
-import {
-  IoIosPause,
-  IoIosVolumeHigh,
-  IoIosPlay,
-  IoMdPlay,
-  IoMdPause,
-} from 'react-icons/io';
+import { IoIosVolumeHigh } from 'react-icons/io';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 

@@ -49,9 +49,7 @@ export const Favorites: FC<IProps> = props => {
           isPlaying={isPlaying}
           selectedRadio={selectedRadioId}
         />
-        <FAB isOpen={favoritesOpened} onClick={openFavorites}>
-          <MdFavorite />
-        </FAB>
+        <FAB isOpen={favoritesOpened} onClick={openFavorites} />
       </>
     );
 

@@ -33,10 +33,7 @@ const IconButton = styled.button<IProps>`
 export const ControlsButton: FC<IProps> = props => {
   const { isPlaying, isHover, ...rest } = props;
   return (
-    <IconButton
-      /* border={border && (isHover || !isPlaying)} */ isPlaying={isPlaying}
-      {...rest}
-    >
+    <IconButton isPlaying={isPlaying} title={isPlaying ? 'Pause' : 'Play'} {...rest}>
       <PlayPauseSpeaker isPlaying={isPlaying} isHover={isHover} />
     </IconButton>
   );
