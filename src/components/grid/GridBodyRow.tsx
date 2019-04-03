@@ -5,6 +5,7 @@ import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 import { Favorite } from '../icon-buttons/Favorite';
+import styled from 'styled-components';
 interface IProps {
   handleAddFavorite: (e: React.MouseEvent) => void;
   handlePlay: (e: React.MouseEvent) => void;
@@ -36,6 +37,7 @@ export class GridBodyRow extends Component<Props, IState> {
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
+        isHovered={this.state.hovered}
         highlightOnHover
         large
         gutter
@@ -46,28 +48,12 @@ export class GridBodyRow extends Component<Props, IState> {
           justifySelf="end"
           onClick={this.props.handlePlay}
         >
-          <div
-            style={{
-              visibility:
-                this.state.hovered || this.props.isPlaying ? 'visible' : 'hidden',
-            }}
-          >
-            {/* {this.state.hovered && ( */}
+          <ButtonWrapper isVisible={this.state.hovered || this.props.isPlaying}>
             <ControlsButton
               isPlaying={this.props.isPlaying}
               isHover={this.state.hovered}
             />
-            {/* )} */}
-            {/* {this.state.hovered ? (
-            this.props.isPlaying ? (
-              <PauseIcon />
-            ) : (
-              <PlayIcon size="small" />
-            )
-          ) : (
-            this.props.isPlaying && <VolumeIcon />
-          )} */}
-          </div>
+          </ButtonWrapper>
         </GridItem>
         <GridItem
           shouldOverflow
@@ -100,3 +86,8 @@ export class GridBodyRow extends Component<Props, IState> {
     );
   }
 }
+
+const ButtonWrapper = styled.div<{ isVisible: boolean }>`
+  opacity: ${props => (props.isVisible ? 1 : 0)};
+  transition: opacity 0.1s linear;
+`;

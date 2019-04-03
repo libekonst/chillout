@@ -10,6 +10,7 @@ type BoxAlignment =
   | 'baseline';
 
 interface IGridBaseProps {
+  isHovered?: boolean;
   gutter?: boolean;
   highlightOnHover?: boolean;
   large?: boolean;
@@ -18,7 +19,7 @@ interface IGridBaseProps {
   areas: [string, string, string, string, string, string];
 }
 
-export const GridBase = styled.div`
+export const GridBase = styled.div<IGridBaseProps>`
   width: 100%;
   height: auto;
   position: relative;  /* For pseudo-element absolute positioning. */
@@ -27,18 +28,25 @@ export const GridBase = styled.div`
   display: grid;
   grid-template-columns: 3rem 3rem 3rem auto 8rem 6rem;
   grid-column-gap: 0.5rem;
-  grid-template-areas: "${(props: IGridBaseProps) => props.areas.join(' ')}";
+  grid-template-areas: "${props => props.areas.join(' ')}";
   align-items: ${({ alignItems = 'center' }) => alignItems};
   justify-items: ${({ justifyItems = 'start' }) => justifyItems};
 
   /* Highlight On Hover */
-  ${props =>
-    props.highlightOnHover &&
+  ${({ highlightOnHover, isHovered }) =>
+    highlightOnHover &&
     css`
-      border-radius: 5px;
-      transition: background-color 0.2s linear;
-      &:hover {
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
         background-color: rgba(210, 210, 210, 0.2);
+        z-index: -1;
+        will-change: opacity;
+        opacity: ${isHovered ? 1 : 0};
+        transition: opacity 0.2s linear;
       }
     `}
 
@@ -54,7 +62,7 @@ export const GridBase = styled.div`
   ${props =>
     props.gutter &&
     css`
-      &::before {
+      &::after {
         content: '';
         position: absolute;
         left: 2rem;
