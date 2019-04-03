@@ -3,7 +3,7 @@ import data, { IRadio } from './data';
 import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
 import { GridBodyRow, GridHeader } from './components/grid';
-import { Loader } from './loader';
+import { Spinner } from './components/spinner';
 import { isLarge } from './styles';
 import { debounce } from './utils/debounce';
 
@@ -109,9 +109,9 @@ class App extends Component<{}, IState> {
     return (
       <>
         {/* Don't wait for everything to load. */}
-        {!this.state.contentReady && <Loader />}
+        {!this.state.contentReady && <Spinner />}
         {/* {this.state.contentReady && ( */}
-          <div style={{opacity: this.state.contentReady? 1 : 0, transition: 'opacity 0.5s'}}>
+          <div style={{opacity: this.state.contentReady? 1 : 0, transition: 'opacity 1s'}}>
             <ThemeProvider theme={theme}>
               <>
                 <aside

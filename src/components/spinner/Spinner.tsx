@@ -5,8 +5,9 @@ import './spinner.css';
 interface IProps {
   hide?: boolean;
 }
-export const Spinner: FC<IProps> = props => (
+const Spinner: FC<IProps> = props => (
   <div className={`loader-wrapper ${props.hide && 'loader-wrapper--hide'}`}>
     <div className="spinner" />
   </div>
 );
+export default Spinner;
