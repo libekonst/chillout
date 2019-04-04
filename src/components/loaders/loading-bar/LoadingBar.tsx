@@ -13,12 +13,13 @@ interface IProps {
   animate: boolean;
 }
 
-export const LoadingBar = styled.div<IProps>`
+const LoadingBar = styled.div<IProps>`
   position: relative;
   width: 100%;
   height: 0.3rem;
   overflow: hidden;
-  background-color: rgb(255, 181, 218);
+  background-color: rgb(255, 173, 184);
+  /* background-color: rgb(255, 181, 218); */
   /* background-color: #ffbe76; */
   /* background-color: #7ed6df; */
   /* background-color: #c7ecee; */
@@ -32,7 +33,8 @@ export const LoadingBar = styled.div<IProps>`
     bottom: 0;
     left: 0;
     width: 25%;
-    background-color: rgb(255, 32, 117);
+    background-color: rgb(255, 32, 62);
+    /* background-color: rgb(255, 32, 117); */
     /* background-color: #f0932b; */
     /* background-color: #22a6b3; */
     /* background-color: #95afc0; */
@@ -49,3 +51,4 @@ export const LoadingBar = styled.div<IProps>`
     /* background-image: linear-gradient(90deg, #f093fb 0%, rgb(255, 32, 117) 100%); */
   }
 `;
+export default LoadingBar;

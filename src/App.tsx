@@ -3,15 +3,13 @@ import data, { IRadio } from './data';
 import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
 import { GridBodyRow, GridHeader } from './components/grid';
-import { Spinner } from './components/spinner';
 import { isLarge } from './styles';
 import { debounce } from './utils/debounce';
-
 import './App.css';
 import './normalize.css';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
-import { LoadingBar } from './components/styled/LoadingBar';
+import { LoadingBar, Tuner } from './components/loaders';
 
 interface IState {
   favoritesOpened: boolean;
@@ -109,56 +107,58 @@ class App extends Component<{}, IState> {
     return (
       <>
         {/* Don't wait for everything to load. */}
-        {!this.state.contentReady && <Spinner />}
+        {!this.state.contentReady && <Tuner />}
         {/* {this.state.contentReady && ( */}
-          <div style={{opacity: this.state.contentReady? 1 : 0, transition: 'opacity 1s'}}>
-            <ThemeProvider theme={theme}>
-              <>
-                <aside
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    opacity: this.state.isLoading ? 1 : 0,
-                  }}
-                >
-                  <LoadingBar animate={this.state.isLoading}/>
-                </aside>
-                <main>
-                  <Favorites
-                    expandFavorites={this.expandFavorites}
-                    openFavorites={this.openFavorites}
-                    togglePlayRadio={this.togglePlayRadio}
-                    {...this.state}
-                  />
-                  <div>
-                    <GridHeader />
-                    <ul>
-                      {data.map(item => (
-                        <li key={item.id}>
-                          <GridBodyRow
-                            name={item.name}
-                            image={item.image}
-                            label={item.label}
-                            handleAddFavorite={this.addFavorite(item)}
-                            handlePlay={this.togglePlayRadio(item.id)}
-                            isFavorite={this.state.favorites.includes(item)}
-                            isPlaying={
-                              this.state.selectedRadioId === item.id &&
-                              this.state.isPlaying
-                            }
-                            isSelected={this.state.selectedRadioId === item.id}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </main>
-              </>
-            </ThemeProvider>
-            <audio ref={input => (this.audioRef = input)} src={this.state.src} />
-          </div>
+        <div
+          style={{ opacity: this.state.contentReady ? 1 : 0, transition: 'opacity 1s' }}
+        >
+          <ThemeProvider theme={theme}>
+            <>
+              <aside
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  opacity: this.state.isLoading ? 1 : 0,
+                }}
+              >
+                <LoadingBar animate={this.state.isLoading} />
+              </aside>
+              <main>
+                <Favorites
+                  expandFavorites={this.expandFavorites}
+                  openFavorites={this.openFavorites}
+                  togglePlayRadio={this.togglePlayRadio}
+                  {...this.state}
+                />
+                <div>
+                  <GridHeader />
+                  <ul>
+                    {data.map(item => (
+                      <li key={item.id}>
+                        <GridBodyRow
+                          name={item.name}
+                          image={item.image}
+                          label={item.label}
+                          handleAddFavorite={this.addFavorite(item)}
+                          handlePlay={this.togglePlayRadio(item.id)}
+                          isFavorite={this.state.favorites.includes(item)}
+                          isPlaying={
+                            this.state.selectedRadioId === item.id &&
+                            this.state.isPlaying
+                          }
+                          isSelected={this.state.selectedRadioId === item.id}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </main>
+            </>
+          </ThemeProvider>
+          <audio ref={input => (this.audioRef = input)} src={this.state.src} />
+        </div>
         {/* )} */}
       </>
     );
