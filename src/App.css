@@ -38,3 +38,25 @@ body {
   padding: 0;
   -webkit-tap-highlight-color: transparent;
 }
+
+.palette {
+  color: #2EDB81;
+  color: #5998C5;
+  color: #FF203E;
+}
+.palette2{
+  color: #29ff7f;
+  color: #ff3e29
+}
+.palette3{
+  color: #AF68E9;
+  color: #00A47E;
+  color: #ff3e29
+}
+.palette4{
+  color: #B21E0E;
+  color: #FF5542;
+  color: #FF3E29;
+  color: #00B255;
+  color: #29FF8E;
+}
