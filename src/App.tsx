@@ -41,9 +41,8 @@ class App extends Component<{}, IState> {
     const { selectedRadioId, isPlaying } = this.state;
     if (selectedRadioId !== undefined && selectedRadioId === id && isPlaying) {
       await this.audioRef.pause();
-      return this.setState({ isPlaying: false, src: undefined }, () => {
-        // document.title = 'The Chillout App';
-      });
+      document.title = 'The Chillout App';
+      return this.setState({ isPlaying: false, src: undefined });
     }
 
     const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and handle by trycatch.
