@@ -65,13 +65,13 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <Placeholder shouldFadeOut={this.state.loaded} gradient>
+            {/* <Placeholder shouldFadeOut={this.state.loaded} gradient> */}
               <Image
                 src={this.props.image}
-                onLoad={this.onImageLoad}
-                loaded={this.state.loaded}
+                // onLoad={this.onImageLoad}
+                // loaded={this.state.loaded}
               />
-            </Placeholder>
+            {/* </Placeholder> */}
           </Media>
         </GridItem>
         <GridItem gridArea="title" truncate>
