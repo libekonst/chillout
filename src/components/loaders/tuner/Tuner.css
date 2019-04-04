@@ -1,25 +1,26 @@
 .loader-wrapper {
   position: fixed;
   display: flex;
-  top:0;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /* background-color: #ff9328; */
+  background-color: #fafafa;
 }
 
 .loader {
   margin: auto;
-  /* background-color: white; */
   width: 15rem;
   height: 5rem;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
-.loader::after{
-  content: "";
+
+.loader::after {
+  content: '';
   position: absolute;
   bottom: 0;
   height: 80%;
@@ -27,123 +28,48 @@
   background-color: rgb(255, 32, 62);
   animation: tune 3s ease-in-out infinite;
 }
-.loader::before{
-  content:"Tuning...";
-  position:absolute;
-  bottom: calc(-2.5rem);
-}
-.loader span {
-  background-color: rgb(44, 44, 44);
-  width: 2px;
-  height: 2rem;
-  /* animation: grow-large 0.3s ease-out; */
-}
-.loader span:nth-child(6n+1) {
-  height: 3rem;
-  /* animation: grow-small 0.3s ease-out; */
+
+.loader::before {
+  content: 'Tuning...';
+  position: absolute;
+  bottom: -2.5rem;
 }
 
-.loader span:not(:first-child){
+.loader span {
+  background-color: rgb(75, 75, 75);
+  width: 2px;
+  height: 2rem;
+}
+
+.loader span:nth-child(6n + 1) {
+  height: 3rem;
+}
+
+.loader span:not(:first-child) {
   margin-left: 5px;
 }
 
-
-/* .loader span:nth-child(1){
-  animation-delay: 0.05s;
-} */
-.loader span:nth-child(2){
-  animation-delay: 0.01s;
-}
-.loader span:nth-child(3){
-  animation-delay: 0.015s;
-}
-.loader span:nth-child(4){
-  animation-delay: 0.02s;
-}
-.loader span:nth-child(5){
-  animation-delay: 0.025s;
-}
-.loader span:nth-child(6){
-  animation-delay: 0.03s;
-}
-.loader span:nth-child(7){
-  animation-delay: 0.035s;
-}
-.loader span:nth-child(8){
-  animation-delay: 0.04s;
-}
-.loader span:nth-child(9){
-  animation-delay: 0.045s;
-}
-.loader span:nth-child(10){
-  animation-delay: 0.05s;
-}
-.loader span:nth-child(11){
-  animation-delay: 0.055s;
-}
-.loader span:nth-child(12){
-  animation-delay: 0.06s;
-}
-.loader span:nth-child(13){
-  animation-delay: 0.065s;
-}
-.loader span:nth-child(14){
-  animation-delay: 0.07s;
-}
-.loader span:nth-child(15){
-  animation-delay: 0.075s;
-}
-.loader span:nth-child(16){
-  animation-delay: 0.08s;
-}
-.loader span:nth-child(17){
-  animation-delay: 0.085s;
-}
-.loader span:nth-child(18){
-  animation-delay: 0.09s;
-}
-.loader span:nth-child(19){
-  animation-delay: 0.095s;
-}
-
-@keyframes grow-large{
-  0% {
-    transform: slaceY(1);
-  }
-  50% {
-    transform: scaleY(1.4);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-@keyframes grow-small{
-  0% {
-    transform: slaceY(1);
-  }
-  50% {
-    transform: scaleY(1.2);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
 @keyframes tune {
   0% {
     transform: translateX(0);
   }
+
   20% {
     transform: translateX(50px);
   }
+
   40% {
     transform: translateX(-10px);
   }
-  60%{
-   transform: translateX(20px); 
+
+  60% {
+    transform: translateX(20px);
   }
+
   80% {
     transform: translateX(-40px);
   }
+  
   100% {
     transform: translateX(0);
   }
