@@ -1,5 +1,5 @@
 /** Deploy some closure magic to call a function only after a certain timespan has elapsed without calling it again. */
-export const debounce = (fn: () => any, delay = 250): (() => void) => {
+const debounce = (fn: () => any, delay = 250): (() => void) => {
   let timeoutID: number;
 
   return (): void => {
@@ -7,3 +7,5 @@ export const debounce = (fn: () => any, delay = 250): (() => void) => {
     timeoutID = setTimeout(fn, delay);
   };
 };
+
+export default debounce;
