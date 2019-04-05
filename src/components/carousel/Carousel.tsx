@@ -1,6 +1,6 @@
 import React, { Component, MouseEvent } from 'react';
 import { IRadio } from '../../data';
-import { debounce } from '../../utils/debounce';
+import { debounce } from '../../utils';
 import { parse } from '../../utils/parse';
 import { View } from './View';
 
