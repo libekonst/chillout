@@ -6,6 +6,7 @@ interface IProps {
   isPlaying?: boolean;
   isHover?: boolean;
   isSelected?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const PlayPauseSpeaker: FC<IProps> = ({ isPlaying, isHover }) => {

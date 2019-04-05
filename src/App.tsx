@@ -1,13 +1,13 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { Component, SyntheticEvent } from 'react';
 import data, { IRadio } from './data';
 import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
 import { GridBodyRow, GridHeader } from './components/grid';
 import { isLarge } from './styles';
-import { debounce } from './utils/debounce';
+import { debounce, setDocTitle } from './utils';
 import './App.css';
 import './normalize.css';
-import {Player} from './components/audio-player';
+import { Player } from './components/audio-player';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { LoadingBar, Tuner } from './components/loaders';
@@ -20,7 +20,6 @@ interface IState {
   selectedRadioId?: number;
   favorites: IRadio[];
   isLoading: boolean;
-  src?: string;
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
@@ -31,39 +30,59 @@ class App extends Component<{}, IState> {
     selectedRadioId: undefined,
     isPlaying: false,
     isLoading: false,
-    src: undefined,
   };
-  audioRef: any = React.createRef<HTMLAudioElement>();
-  src: string | undefined;
-  audio = new Audio(this.state.src);
 
-  // TODO: Use togglePlayRadio(this.state.selectedRadioId) on audio player.
-  togglePlayRadio = (id: number) => async (): Promise<void> => {
-    const { selectedRadioId, isPlaying } = this.state;
-    if (selectedRadioId !== undefined && selectedRadioId === id && isPlaying) {
-      await this.audioRef.pause();
-      document.title = 'The Chillout App';
-      return this.setState({ isPlaying: false, src: undefined });
+  // <- AUDIO ->
+  audioRef = React.createRef<HTMLAudioElement>();
+
+  changeAudioVolume = (e: any) => {
+    const audio = this.audioRef.current;
+    if (audio) audio.volume = e.target.value;
+  };
+
+  handleAudioStopped = (e: any): void =>
+    this.setState({ isPlaying: false }, setDocTitle);
+  handleAudioError = (e: any): void =>
+    this.setState({ isLoading: false, isPlaying: false }, setDocTitle);
+  handleAudioStarted = (e: any): void => {
+    const radio = data.find(r => r.source === e.target.src);
+    if (radio)
+      this.setState(
+        { isPlaying: true, isLoading: false, selectedRadioId: radio.id },
+        () => setDocTitle(radio.name),
+      );
+  };
+
+  /**
+   * Manipulates the audio element to play/stop the media.
+   * Separate event handlers respond to the events raised by the audio element.
+   */
+  togglePlayRadio = (id?: number) => async (): Promise<void> => {
+    // If the ref is not available, do nothing.
+    const audio = this.audioRef.current;
+    if (!audio) return;
+
+    // If the provided ID is undefined, then no radio is selected.
+    if (id === undefined) return alert('Select a radio first!');
+
+    // Pause the audio and reset the source to force-stop buffering.
+    // Restricts unnecessary data usage and prevents playing old content downloaded after pausing.
+    if (this.state.selectedRadioId === id && this.state.isPlaying) {
+      audio.pause();
+      audio.src = '';
+      return;
     }
 
-    const radio = data.find(radio => radio.id === id)!; // Non null assertion. If undefined, the promise will be rejected and handle by trycatch.
-
-    //  Slow but safe. Causes 2 renders.
-    return this.setState(
-      { src: radio.source, isPlaying: false, isLoading: true },
-      async () => {
-        try {
-          await this.audioRef.play();
-          this.setState({ selectedRadioId: id, isPlaying: true, isLoading: false });
-          document.title = `${radio.name} - The Chillout App`;
-        } catch (e) {
-          this.setState({ isLoading: false });
-          // TODO: Show failed notification.
-        }
-      },
-    );
+    // Try to play the audio. Non null assertion on find().
+    // If undefined, the promise will be rejected and handled by the onError handler.
+    try {
+      const radio = data.find(radio => radio.id === id)!;
+      audio.src = radio.source;
+      return await audio.play();
+    } catch {} // TODO: show notification
   };
 
+  // <- FAVORITES ->
   addFavorite = (radio: IRadio) => (): void => {
     this.setState(prevState => {
       if (prevState.favorites.includes(radio))
@@ -91,11 +110,11 @@ class App extends Component<{}, IState> {
   });
 
   renderComponentTree = () => this.setState({ contentReady: true });
+
   componentDidMount() {
     /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
     window.addEventListener('resize', this.toggleFavoritesComponent);
-    document.title = 'The Chillout App';
     madeWithLove();
   }
   componentWillUnmount() {
@@ -125,7 +144,7 @@ class App extends Component<{}, IState> {
               >
                 <LoadingBar animate={this.state.isLoading} />
               </aside>
-              <main>
+              <main style={{ paddingBottom: '2rem' }}>
                 <Favorites
                   expandFavorites={this.expandFavorites}
                   openFavorites={this.openFavorites}
@@ -155,10 +174,22 @@ class App extends Component<{}, IState> {
                   </ul>
                 </div>
               </main>
-              <Player />
+              <Player
+                isPlaying={this.state.isPlaying}
+                handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
+                animate={this.state.isLoading}
+                changeAudioVolume={this.changeAudioVolume}
+              />
             </>
           </ThemeProvider>
-          <audio ref={input => (this.audioRef = input)} src={this.state.src} />
+          <audio
+            ref={this.audioRef}
+            onLoadStart={() => this.setState({ isPlaying: false, isLoading: true })}
+            onPlaying={this.handleAudioStarted}
+            onError={this.handleAudioError}
+            onEnded={this.handleAudioStopped}
+            onSuspend={this.handleAudioStopped}
+          />
         </div>
         {/* )} */}
       </>
