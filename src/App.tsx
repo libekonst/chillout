@@ -7,6 +7,7 @@ import { isLarge } from './styles';
 import { debounce } from './utils/debounce';
 import './App.css';
 import './normalize.css';
+import {Player} from './components/audio-player';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { LoadingBar, Tuner } from './components/loaders';
@@ -154,6 +155,7 @@ class App extends Component<{}, IState> {
                   </ul>
                 </div>
               </main>
+              <Player />
             </>
           </ThemeProvider>
           <audio ref={input => (this.audioRef = input)} src={this.state.src} />
