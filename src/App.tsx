@@ -31,7 +31,7 @@ class App extends Component<{}, IState> {
     selectedRadioId: undefined,
     isPlaying: false,
     isLoading: false,
-    volume: 0.6,
+    volume: 1,
   };
 
   // <- AUDIO ->
