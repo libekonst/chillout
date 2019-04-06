@@ -14,7 +14,13 @@ interface IProps {
 }
 const Player: FC<IProps> = props => (
   <Footer>
-    <div style={{ width: '100%', opacity: props.animate ? 1 : 0 }}>
+    <div
+      style={{
+        width: '100%',
+        opacity: props.animate ? 1 : 0,
+        display: props.animate ? 'visible' : 'hidden',
+      }}
+    >
       <LoadingBar animate={props.animate} />
     </div>
     <InputWrapper>
@@ -40,6 +46,12 @@ const InputWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const MovingBar = styled.div`

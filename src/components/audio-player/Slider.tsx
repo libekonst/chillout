@@ -9,6 +9,12 @@ export const Slider = styled.input<{ volume?: number }>`
   height: 2rem;
   cursor: pointer;
 
+  &:active {
+    &::-webkit-slider-thumb {
+      transform: scale(1.5);
+    }
+  }
+
   /* Track */
   &::-webkit-slider-runnable-track {
     /* background: rgb(221, 221, 221); */
@@ -29,16 +35,16 @@ export const Slider = styled.input<{ volume?: number }>`
   &::-webkit-slider-thumb {
     appearance: none;
     background: white;
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 0.8rem;
+    height: 0.8rem;
     border-radius: 50%;
     position: relative;
     transition: transform 0.2s ease-out;
     z-index: 2;
 
-    &:active {
+    /* &:active {
       transform: scale(1.5);
-    }
+    } */
   }
   /*
   &::-moz-range-thumb,
