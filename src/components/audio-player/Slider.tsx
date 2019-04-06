@@ -29,15 +29,15 @@ export const Slider = styled.input<{ volume?: number }>`
   &::-webkit-slider-thumb {
     appearance: none;
     background: white;
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 0.6rem;
+    height: 0.6rem;
     border-radius: 50%;
     position: relative;
-    transition: all 0.2s;
+    transition: transform 0.2s ease-out;
     z-index: 2;
 
     &:active {
-      transform: scale(1.2);
+      transform: scale(1.5);
     }
   }
   /*

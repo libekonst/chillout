@@ -26,6 +26,7 @@ const Player: FC<IProps> = props => (
         step="0.05"
         onChange={props.changeAudioVolume}
         volume={props.volume}
+        value={props.volume}
       />
     </InputWrapper>
     <ControlsButton isHover isPlaying={props.isPlaying} onClick={props.handlePlay} />
