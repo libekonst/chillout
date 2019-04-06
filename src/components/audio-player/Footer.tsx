@@ -9,7 +9,7 @@ export const Footer = styled.footer`
 
   /* Flex */
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
 
@@ -19,5 +19,5 @@ export const Footer = styled.footer`
   /* background-color: rgba(180, 172, 183, 0.9); */
   background-color: rgba(240, 239, 249, 0.9);
   
-  height: 3rem;
+  height: 13rem;
 `;

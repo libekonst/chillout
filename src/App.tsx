@@ -20,6 +20,7 @@ interface IState {
   selectedRadioId?: number;
   favorites: IRadio[];
   isLoading: boolean;
+  volume: number;
 }
 class App extends Component<{}, IState> {
   readonly state: IState = {
@@ -30,6 +31,7 @@ class App extends Component<{}, IState> {
     selectedRadioId: undefined,
     isPlaying: false,
     isLoading: false,
+    volume: 1,
   };
 
   // <- AUDIO ->
@@ -37,7 +39,11 @@ class App extends Component<{}, IState> {
 
   changeAudioVolume = (e: any) => {
     const audio = this.audioRef.current;
-    if (audio) audio.volume = e.target.value;
+    if (audio) {
+      const { value } = e.target;
+      audio.volume = value;
+      this.setState({ volume: value });
+    }
   };
 
   handleAudioStopped = (e: any): void =>
@@ -178,7 +184,7 @@ class App extends Component<{}, IState> {
                 isPlaying={this.state.isPlaying}
                 handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
                 animate={this.state.isLoading}
-                changeAudioVolume={this.changeAudioVolume}
+                changeAudioVolume={this.changeAudioVolume}volume={this.state.volume}
               />
             </>
           </ThemeProvider>
