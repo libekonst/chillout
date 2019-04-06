@@ -2,7 +2,7 @@ import React, { FC, MouseEvent } from 'react';
 import { Footer } from './Footer';
 import { ControlsButton } from '../icon-buttons/PlayControls';
 import { LoadingBar } from '../loaders';
-import { Slider } from './Slider';
+import { Input } from './Input';
 import styled from 'styled-components';
 
 interface IProps {
@@ -25,14 +25,12 @@ const Player: FC<IProps> = props => (
     </div>
     <InputWrapper>
       <MovingBar style={{ transform: `translateX(${props.volume * 100}%)` }} />
-      <Slider
+      <Input
         type="range"
         min="0"
         max="1"
-        step="0.05"
+        step="0.01"
         onChange={props.changeAudioVolume}
-        volume={props.volume}
-        value={props.volume}
       />
     </InputWrapper>
     <ControlsButton isHover isPlaying={props.isPlaying} onClick={props.handlePlay} />
@@ -62,4 +60,5 @@ const MovingBar = styled.div`
   z-index: 1;
   margin: auto;
   pointer-events: none;
+  transition: transform 0.1s ease-out;
 `;

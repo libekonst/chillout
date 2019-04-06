@@ -42,9 +42,14 @@ class App extends Component<{}, IState> {
     if (audio) {
       const { value } = e.target;
       audio.volume = value;
-      this.setState({ volume: value });
+      this.setVolumeState();
     }
   };
+
+  setVolumeState = debounce(() => {
+    const audio = this.audioRef.current;
+    if (audio) this.setState({ volume: audio.volume });
+  }, 100);
 
   handleAudioStopped = (e: any): void =>
     this.setState({ isPlaying: false }, setDocTitle);
@@ -52,11 +57,12 @@ class App extends Component<{}, IState> {
     this.setState({ isLoading: false, isPlaying: false }, setDocTitle);
   handleAudioStarted = (e: any): void => {
     const radio = data.find(r => r.source === e.target.src);
-    if (radio)
+    if (radio) {
       this.setState(
         { isPlaying: true, isLoading: false, selectedRadioId: radio.id },
         () => setDocTitle(radio.name),
       );
+    }
   };
 
   /**
@@ -184,7 +190,8 @@ class App extends Component<{}, IState> {
                 isPlaying={this.state.isPlaying}
                 handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
                 animate={this.state.isLoading}
-                changeAudioVolume={this.changeAudioVolume}volume={this.state.volume}
+                changeAudioVolume={this.changeAudioVolume}
+                volume={this.state.volume}
               />
             </>
           </ThemeProvider>
