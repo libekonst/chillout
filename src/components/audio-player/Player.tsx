@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
 import { Footer } from './Footer';
-import { ControlsButton } from '../icon-buttons/PlayControls';
-import { Input } from './volume-bar/Input';
-import { InputWrapper, TrackBar, LowerFillBar } from './volume-bar/SliderElements';
 import { PlayButton } from './PlayButton';
-import { MuteButton } from './MuteButton';
-import styled from 'styled-components';
-import { ThumbWrapper, Thumb } from './volume-bar/Thumb';
 import { VolumeBar } from './volume-bar';
 
 interface IProps {
@@ -21,7 +15,6 @@ interface IProps {
   volume: number;
 }
 const Player: FC<IProps> = props => {
-  const { muted, volume } = props;
   return (
     <Footer>
       <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { MuteButton } from '../MuteButton';
+import { MuteButton } from './MuteButton';
 import { InputWrapper, TrackBar, LowerFillBar } from './SliderElements';
 import { ThumbWrapper, Thumb } from './Thumb';
 import { Input } from './Input';
