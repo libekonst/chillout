@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  font-size: 16px;
 }
 button {
   font-size: 100%;
@@ -29,7 +30,6 @@ body {
   /* background-color: #eef0f4; */
   font-family: 'Montserrat', sans-serif;
 }
-
 *,
 *::after,
 *::before {
