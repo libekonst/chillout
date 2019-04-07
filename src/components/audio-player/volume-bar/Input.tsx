@@ -5,14 +5,8 @@ const thumbStyles = css`
   appearance: none;
   outline: none;
   border: 0;
-
-  /* Styles */
-  background: white;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  transition: transform 0.2s ease-out;
-  z-index: 2;
+  height: 0;
+  width: 0;
 `;
 
 export const Input = styled.input`
@@ -25,7 +19,7 @@ export const Input = styled.input`
   background: transparent;
   position: relative;
   overflow: visible;
-  width: 200px;
+  width: 100%;
   height: 2rem;
   cursor: pointer;
 

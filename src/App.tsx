@@ -13,25 +13,43 @@ import { madeWithLove } from './made-with-love';
 import { LoadingBar, Tuner } from './components/loaders';
 
 interface IState {
-  favoritesOpened: boolean;
+  // App state
   contentReady: boolean;
-  isPlaying: boolean;
   isScreenLarge: boolean;
+
+  // Radio state
+  favoritesOpened: boolean;
   selectedRadioId?: number;
   favorites: IRadio[];
+
+  // Playback state
+  isPlaying: boolean;
   isLoading: boolean;
+
+  // Audio state
   volume: number;
+  audioMuted: boolean;
 }
+
+const initialVolume = 0.6;
 class App extends Component<{}, IState> {
   readonly state: IState = {
-    favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
-    favorites: [],
+    // App state
     isScreenLarge: isLarge(),
     contentReady: false,
+
+    // Radio State
+    favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
     selectedRadioId: undefined,
+    favorites: [],
+
+    // Playback/Radio state
     isPlaying: false,
     isLoading: false,
-    volume: 1,
+
+    // Audio state
+    audioMuted: false,
+    volume: initialVolume,
   };
 
   // <- AUDIO ->
@@ -39,16 +57,32 @@ class App extends Component<{}, IState> {
 
   changeAudioVolume = (e: any) => {
     const audio = this.audioRef.current;
-    if (audio) {
-      const { value } = e.target;
-      audio.volume = value;
-      this.setVolumeState();
-    }
+    if (!audio) return;
+
+    audio.volume = e.target.value;
+    if (audio.muted) audio.muted = false;
+    this.setVolumeState();
   };
 
+  muteAudio = () => {
+    const audio = this.audioRef.current;
+    if (!audio) return;
+
+    this.setState(prev => {
+      audio.muted = !prev.audioMuted;
+      return { audioMuted: !prev.audioMuted };
+    });
+  };
+
+  /**
+   * Sets `volume` and `audioMuted` states to update the controlled range input element.
+   * This function is called only after the user stops moving the slider for 100ms.
+   */
   setVolumeState = debounce(() => {
     const audio = this.audioRef.current;
-    if (audio) this.setState({ volume: audio.volume });
+    if (!audio) return;
+
+    this.setState({ volume: audio.volume, audioMuted: false });
   }, 100);
 
   handleAudioStopped = (e: any): void =>
@@ -124,6 +158,9 @@ class App extends Component<{}, IState> {
   renderComponentTree = () => this.setState({ contentReady: true });
 
   componentDidMount() {
+    const audio = this.audioRef.current!; //Non null assertion. The ref is available in componentDidMount.
+    audio.volume = initialVolume;
+
     /** The load event is fired when everything has been loaded, including images and external resources. */
     window.addEventListener('load', this.renderComponentTree);
     window.addEventListener('resize', this.toggleFavoritesComponent);
@@ -187,9 +224,12 @@ class App extends Component<{}, IState> {
                 </div>
               </main>
               <Player
+                // Play button
                 isPlaying={this.state.isPlaying}
                 handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
-                animate={this.state.isLoading}
+                // Audio
+                onMuteAudio={this.muteAudio}
+                muted={this.state.audioMuted}
                 changeAudioVolume={this.changeAudioVolume}
                 volume={this.state.volume}
               />
