@@ -14,7 +14,7 @@ const grow = keyframes`
 `;
 const heartbeat = keyframes`
   0% {
-    transform: scale(1);
+    transform: scale(0.9);
   }
 
   65% {
@@ -30,7 +30,7 @@ const heartbeat = keyframes`
 const FavoriteEmpty = styled(MdFavoriteBorder)`
   color: ${props => props.theme.colors.lightgray};
   animation: ${grow} 0.1s linear forwards;
-  transition: color 0.1s linear;
+  transition: all 0.1s linear;
 
   &:hover {
     color: ${props => props.theme.colors.purple};
@@ -41,10 +41,6 @@ const FavoriteFill = styled(MdFavorite)`
   fill: ${props => props.theme.colors.purple};
   animation: ${heartbeat} 0.2s ease-out;
   transition: transform 0.07s linear;
-
-  &:active {
-    transform: scale(0.9);
-  }
 `;
 
 const ButtonBase = styled.button`
@@ -53,6 +49,11 @@ const ButtonBase = styled.button`
   justify-content: center;
   cursor: default;
   font-size: ${props => props.theme.sizes.iconButton.tiny};
+
+  &:active {
+    transform: scale(0.9);
+    fill: ${props => props.theme.colors.purple};
+  }
 
   @media (max-width: ${props => props.theme.breakpoints.lg - 1}px) {
     font-size: ${props => props.theme.sizes.iconButton.small};

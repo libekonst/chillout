@@ -4,10 +4,11 @@ import styled, { css } from 'styled-components';
 
 interface IProps {
   isPlaying?: boolean;
+  isLoading: boolean;
   onClick?: (e: React.MouseEvent) => void;
 }
 
-const IconButton = styled.button<IProps>`
+const IconButton = styled.button`
   /* Flex */
   display: flex;
   justify-content: center;
@@ -19,9 +20,8 @@ const IconButton = styled.button<IProps>`
   font-size: ${props => props.theme.sizes.iconButton.medium};
 `;
 
-export const PlayButton: FC<IProps> = ({ isPlaying, ...rest }) => (
-  <IconButton isPlaying={isPlaying} title={isPlaying ? 'Pause' : 'Play'} {...rest}>
-    {isPlaying ? <IoIosPause /> : <IoIosPlay />}
+export const PlayButton: FC<IProps> = ({ isPlaying, isLoading, ...rest }) => (
+  <IconButton title={isPlaying ? 'Pause' : 'Play'} {...rest}>
+    {isPlaying || isLoading ? <IoIosPause /> : <IoIosPlay />}
   </IconButton>
 );
-

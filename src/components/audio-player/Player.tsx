@@ -7,6 +7,7 @@ interface IProps {
   // Play button
   isPlaying: boolean;
   handlePlay: () => void;
+  isLoading: boolean;
 
   // Volume
   onMuteAudio: () => void;
@@ -17,7 +18,11 @@ interface IProps {
 const Player: FC<IProps> = props => {
   return (
     <Footer>
-      <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
+      <PlayButton
+        isLoading={props.isLoading}
+        isPlaying={props.isPlaying}
+        onClick={props.handlePlay}
+      />
       <VolumeBar
         handlePlay={props.handlePlay}
         onMuteAudio={props.onMuteAudio}
