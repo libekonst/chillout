@@ -54,6 +54,7 @@ class App extends Component<{}, IState> {
 
   // <- AUDIO ->
   audioRef = React.createRef<HTMLAudioElement>();
+  resetAudioSrc = 'about:blank';
 
   changeAudioVolume = (e: any) => {
     const audio = this.audioRef.current;
@@ -98,7 +99,13 @@ class App extends Component<{}, IState> {
       );
     }
   };
+  handleLoadStarted = () => {
+    const audio = this.audioRef.current;
+    console.log(audio!.src);
 
+    if (audio && audio.src !== this.resetAudioSrc)
+      this.setState({ isPlaying: false, isLoading: true });
+  };
   /**
    * Manipulates the audio element to play/stop the media.
    * Separate event handlers respond to the events raised by the audio element.
@@ -115,8 +122,8 @@ class App extends Component<{}, IState> {
     // Restricts unnecessary data usage and prevents playing old content downloaded after pausing.
     if (this.state.selectedRadioId === id && this.state.isPlaying) {
       audio.pause();
-      audio.src = '';
-      return;
+      audio.src = this.resetAudioSrc;
+      return audio.load();
     }
 
     // Try to play the audio. Non null assertion on find().
@@ -238,7 +245,7 @@ class App extends Component<{}, IState> {
           </ThemeProvider>
           <audio
             ref={this.audioRef}
-            onLoadStart={() => this.setState({ isPlaying: false, isLoading: true })}
+            onLoadStart={this.handleLoadStarted}
             onPlaying={this.handleAudioStarted}
             onError={this.handleAudioError}
             onEnded={this.handleAudioStopped}
