@@ -225,6 +225,7 @@ class App extends Component<{}, IState> {
               </main>
               <Player
                 // Play button
+                isLoading={this.state.isLoading}
                 isPlaying={this.state.isPlaying}
                 handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
                 // Audio
