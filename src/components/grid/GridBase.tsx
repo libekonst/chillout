@@ -10,7 +10,6 @@ type BoxAlignment =
   | 'baseline';
 
 interface IGridBaseProps {
-  isHovered?: boolean;
   gutter?: boolean;
   highlightOnHover?: boolean;
   large?: boolean;
@@ -33,8 +32,8 @@ export const GridBase = styled.div<IGridBaseProps>`
   justify-items: ${({ justifyItems = 'start' }) => justifyItems};
 
   /* Highlight On Hover */
-  ${({ highlightOnHover, isHovered }) =>
-    highlightOnHover &&
+  ${props =>
+    props.highlightOnHover &&
     css`
       &::before {
         content: '';
@@ -45,8 +44,14 @@ export const GridBase = styled.div<IGridBaseProps>`
         background-color: rgba(210, 210, 210, 0.2);
         z-index: -1;
         will-change: opacity;
-        opacity: ${isHovered ? 1 : 0};
-        transition: opacity 0.2s linear;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s linear;
+      }
+
+      &:hover::before {
+        opacity: 1;
+        visibility: visible;
       }
     `}
 
@@ -54,8 +59,7 @@ export const GridBase = styled.div<IGridBaseProps>`
   ${props =>
     props.large &&
     css`
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding: 0.5rem 0;
     `}
 
   /* Gutter */

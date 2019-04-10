@@ -1,6 +1,7 @@
 import { IoIosVolumeHigh, IoIosPause, IoIosPlay } from 'react-icons/io';
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+import { GridBase } from './GridBase';
 
 interface IProps {
   isPlaying?: boolean;
@@ -22,6 +23,22 @@ const IconButton = styled.button<IProps>`
   cursor: default;
   color: ${props => props.theme.colors.lightblack};
   font-size: ${props => props.theme.sizes.iconButton.small};
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.05s linear;
+
+  /* Make visible when the parent is hovered or when playing */
+  ${GridBase}:hover & {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  ${props =>
+    props.isPlaying &&
+    css`
+      opacity: 1;
+      visibility: visible;
+    `};
 
   /* Different color if radio is active */
   ${({ isPlaying, isSelected, theme }) =>
