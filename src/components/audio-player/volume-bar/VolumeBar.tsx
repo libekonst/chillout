@@ -13,18 +13,17 @@ const VolumeBarWrapper = styled.div`
 `;
 
 interface IProps {
-  handlePlay: () => void;
   onMuteAudio: () => void;
   muted: boolean;
   changeAudioVolume: (e: any) => void;
   volume: number;
 }
 const VolumeBar: FC<IProps> = props => {
-  const { handlePlay, onMuteAudio, muted, changeAudioVolume, volume } = props;
+  const { onMuteAudio, muted, changeAudioVolume, volume } = props;
 
   return (
     <VolumeBarWrapper>
-      <MuteButton volume={volume} onClick={props.onMuteAudio} audioMuted={muted} />
+      <MuteButton volume={volume} onClick={onMuteAudio} audioMuted={muted} />
       <InputWrapper>
         <TrackBar />
         <LowerFillBar style={{ transform: `scaleX(${muted ? 0 : volume})` }} />
@@ -42,7 +41,7 @@ const VolumeBar: FC<IProps> = props => {
           max="1"
           step="0.01"
           value={muted ? 0 : volume}
-          onChange={props.changeAudioVolume}
+          onChange={changeAudioVolume}
         />
       </InputWrapper>
     </VolumeBarWrapper>

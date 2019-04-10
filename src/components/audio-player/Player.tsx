@@ -22,7 +22,6 @@ const Player: FC<IProps> = props => {
         onClick={props.handlePlay}
       />
       <VolumeBar
-        handlePlay={props.handlePlay}
         onMuteAudio={props.onMuteAudio}
         muted={props.muted}
         changeAudioVolume={props.changeAudioVolume}
