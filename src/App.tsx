@@ -201,6 +201,7 @@ class App extends Component<{}, IState> {
                   top: 0,
                   left: 0,
                   right: 0,
+                  zIndex: 10,
                   opacity: this.state.isLoading ? 1 : 0,
                 }}
               >

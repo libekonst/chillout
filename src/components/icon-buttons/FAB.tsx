@@ -17,13 +17,31 @@ const grow = keyframes`
     }
   `;
 
+const rotateRight = keyframes`
+  from {
+    transform: rotate(-45deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+`;
+const rotateLeft = keyframes`
+  from {
+    transform: rotate(30deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+`;
 const FabBase = styled.button`
   /* Positioning */
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 1rem;
+  bottom: 5rem;
   right: 1rem;
   z-index: 10;
 
@@ -45,22 +63,16 @@ const FabBase = styled.button`
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
   }
 `;
-const rotateOn = keyframes`
-  from {
-    transform: rotate(-45deg);
-  }
-
-  to {
-    transform: rotate(0);
-  }
-`;
 
 // Close icon styles
 const Close = styled(MdClose)`
   margin: auto;
-  animation: ${rotateOn} 0.1s ease-out forwards;
+  animation: ${rotateRight} 0.1s ease-out forwards;
 `;
-
+const Favorite = styled(MdFavorite)`
+  margin: auto;
+  animation: ${rotateLeft} 0.1s ease-out forwards;
+`;
 // FAB
 interface IProps {
   isOpen?: boolean;
@@ -69,7 +81,7 @@ type Props = IProps & ComponentProps<typeof FabBase>;
 export const FAB: FC<Props> = ({ isOpen, children, ...rest }) => {
   return (
     <FabBase title={isOpen ? 'Close Favorites' : 'Open Favorites'} {...rest}>
-      {isOpen ? <Close /> : <MdFavorite />}
+      {isOpen ? <Close /> : <Favorite />}
     </FabBase>
   );
 };
