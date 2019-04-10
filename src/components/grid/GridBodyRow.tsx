@@ -36,16 +36,13 @@ export class GridBodyRow extends Component<Props, IState> {
         areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
+        onClick={this.props.handlePlay}
         highlightOnHover
         large
         gutter
         // {...this.props}
       >
-        <GridItem
-          gridArea="playcontrol"
-          justifySelf="end"
-          onClick={this.props.handlePlay}
-        >
+        <GridItem gridArea="playcontrol" justifySelf="end">
           <ControlsButton
             isPlaying={this.props.isPlaying}
             isHover={this.state.hovered}

@@ -49,6 +49,7 @@ const ButtonBase = styled.button`
   justify-content: center;
   cursor: default;
   font-size: ${props => props.theme.sizes.iconButton.tiny};
+  border: 0.3rem solid transparent;
 
   &:active {
     transform: scale(0.9);
@@ -68,7 +69,7 @@ export const Favorite: FC<Props> = props => {
   const { isFavorite, ...rest } = props;
   return (
     <ButtonBase
-      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      title={isFavorite ? 'Remove from Your Favorites' : 'Save to Your Favorites'}
       {...rest}
     >
       {isFavorite ? <FavoriteFill /> : <FavoriteEmpty />}

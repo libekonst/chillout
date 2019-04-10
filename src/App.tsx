@@ -141,7 +141,8 @@ class App extends Component<{}, IState> {
   };
 
   // <- FAVORITES ->
-  addFavorite = (radio: IRadio) => (): void => {
+  addFavorite = (radio: IRadio) => (e: any): void => {
+    e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
     this.setState(prevState => {
       if (prevState.favorites.includes(radio))
         return { favorites: prevState.favorites.filter(item => item !== radio) };
