@@ -5,7 +5,7 @@ import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 import { Favorite } from '../icon-buttons/Favorite';
-import styled, { css } from 'styled-components';
+
 interface IProps {
   handleAddFavorite: (e: React.MouseEvent) => void;
   handlePlay: (e: React.MouseEvent) => void;

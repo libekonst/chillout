@@ -19,7 +19,8 @@ interface IState {
 
   // Radio state
   favoritesOpened: boolean;
-  selectedRadioId?: number;
+  activeRadioId?: number;
+  pendingRadioId?: number;
   favorites: IRadio[];
 
   // Playback state
@@ -40,7 +41,8 @@ class App extends Component<{}, IState> {
 
     // Radio State
     favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
-    selectedRadioId: undefined,
+    activeRadioId: undefined,
+    pendingRadioId: undefined,
     favorites: [],
 
     // Playback/Radio state
@@ -93,18 +95,23 @@ class App extends Component<{}, IState> {
   handleAudioStarted = (e: any): void => {
     const radio = data.find(r => r.source === e.target.src);
     if (radio) {
-      this.setState(
-        { isPlaying: true, isLoading: false, selectedRadioId: radio.id },
-        () => setDocTitle(radio.name),
+      this.setState({ isPlaying: true, isLoading: false, activeRadioId: radio.id }, () =>
+        setDocTitle(radio.name),
       );
     }
   };
-  handleLoadStarted = () => {
+  handleLoadStarted = (e: any): void => {
     const audio = this.audioRef.current;
+    const radio = data.find(r => r.source === e.target.src);
+
     console.log(audio!.src);
 
     if (audio && audio.src !== this.resetAudioSrc)
-      this.setState({ isPlaying: false, isLoading: true });
+      this.setState({
+        isPlaying: false,
+        isLoading: true,
+        pendingRadioId: radio && radio.id,
+      });
   };
   /**
    * Manipulates the audio element to play/stop the media.
@@ -120,19 +127,17 @@ class App extends Component<{}, IState> {
 
     // Pause the audio and reset the source to force-stop buffering.
     // Restricts unnecessary data usage and prevents playing old content downloaded after pausing.
-    if (this.state.selectedRadioId === id && this.state.isPlaying) {
+    if (this.state.activeRadioId === id && this.state.isPlaying) {
       audio.pause();
       audio.src = this.resetAudioSrc;
       return audio.load();
     }
 
-    // Try to play the audio. Non null assertion on find().
+    // Non null assertion on find().
     // If undefined, the promise will be rejected and handled by the onError handler.
-    try {
-      const radio = data.find(radio => radio.id === id)!;
-      audio.src = radio.source;
-      return await audio.play();
-    } catch {} // TODO: show notification
+    const radio = data.find(radio => radio.id === id)!;
+    audio.src = radio.source;
+    return await audio.play();
   };
 
   // <- FAVORITES ->
@@ -220,10 +225,11 @@ class App extends Component<{}, IState> {
                           handlePlay={this.togglePlayRadio(item.id)}
                           isFavorite={this.state.favorites.includes(item)}
                           isPlaying={
-                            this.state.selectedRadioId === item.id &&
-                            this.state.isPlaying
+                            (this.state.isLoading &&
+                              this.state.pendingRadioId === item.id) ||
+                            (this.state.isPlaying &&
+                              this.state.activeRadioId === item.id)
                           }
-                          isSelected={this.state.selectedRadioId === item.id}
                         />
                       </li>
                     ))}
@@ -232,9 +238,8 @@ class App extends Component<{}, IState> {
               </main>
               <Player
                 // Play button
-                isLoading={this.state.isLoading}
-                isPlaying={this.state.isPlaying}
-                handlePlay={this.togglePlayRadio(this.state.selectedRadioId)}
+                isPlaying={this.state.isPlaying || this.state.isLoading}
+                handlePlay={this.togglePlayRadio(this.state.activeRadioId)}
                 // Audio
                 onMuteAudio={this.muteAudio}
                 muted={this.state.audioMuted}
@@ -250,7 +255,9 @@ class App extends Component<{}, IState> {
             onError={this.handleAudioError}
             onEnded={this.handleAudioStopped}
             onSuspend={this.handleAudioStopped}
-          />
+          >
+            {" Your browser doesn't support the audio element. :( "}
+          </audio>
         </div>
         {/* )} */}
       </>
