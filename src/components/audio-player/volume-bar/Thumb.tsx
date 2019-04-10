@@ -24,21 +24,23 @@ export const Thumb = styled.div`
   &::before {
     content: '';
     position: absolute;
-    top: -25%;
-    right: -25%;
-    bottom: -25%;
-    left: -25%;
+    top: -40%;
+    right: -40%;
+    bottom: -40%;
+    left: -40%;
     background-color: white;
     border-radius: 50%;
     opacity: 0;
+    visibility: hidden;
     transition: all 0.2s ease-out;
 
     ${InputWrapper}:hover & {
       opacity: 0.2;
+      visibility: visible;
     }
   }
 
   ${InputWrapper}:hover & {
-    transform: scale(2);
+    transform: scale(1.7);
   }
 `;
