@@ -33,7 +33,7 @@ export class GridBodyRow extends Component<Props, IState> {
   render() {
     return (
       <GridBase
-        areas={['playcontrol', 'favorite', 'image', 'title', 'genre', 'options']}
+        areas={['playcontrol', 'favorite', 'image', 'title', 'genre']}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onClick={this.props.handlePlay}
@@ -71,10 +71,7 @@ export class GridBodyRow extends Component<Props, IState> {
           {this.props.name}
         </GridItem>
         <GridItem gridArea="genre">{this.props.label}</GridItem>
-        <GridItem gridArea="options">
-          {/* <PlayIcon /> */}
-          {'icon'}
-        </GridItem>
+        
       </GridBase>
     );
   }

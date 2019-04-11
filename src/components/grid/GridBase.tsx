@@ -15,21 +15,29 @@ interface IGridBaseProps {
   large?: boolean;
   justifyItems?: BoxAlignment; // x-axis
   alignItems?: BoxAlignment; // y-axis
-  areas: [string, string, string, string, string, string];
+  areas: [string, string, string, string, string];
 }
 
 export const GridBase = styled.div<IGridBaseProps>`
   width: 100%;
   height: auto;
-  position: relative;  /* For pseudo-element absolute positioning. */
+  position: relative;
+  cursor: default;
 
   /* Grid layout */
   display: grid;
-  grid-template-columns: 3rem 3rem 3rem auto 8rem 6rem;
+  grid-template-columns: 3rem 3rem 3rem auto 8rem;
   grid-column-gap: 0.5rem;
   grid-template-areas: "${props => props.areas.join(' ')}";
   align-items: ${({ alignItems = 'center' }) => alignItems};
   justify-items: ${({ justifyItems = 'start' }) => justifyItems};
+
+  @media (max-width: ${props => props.theme.breakpoints.md}px) {
+    grid-template-columns: 0 3rem 3rem auto 8rem;
+  }
+  @media (max-width: ${props => props.theme.breakpoints.sm}px) {
+    grid-template-columns: 0 3rem 3rem auto 0;
+  }
 
   /* Highlight On Hover */
   ${props =>

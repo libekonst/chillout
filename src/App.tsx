@@ -216,7 +216,7 @@ class App extends Component<{}, IState> {
                 />
                 <div>
                   <GridHeader />
-                  <ul>
+                  <ul style={{paddingBottom: '4rem'}}>
                     {data.map(item => (
                       <li key={item.id}>
                         <GridBodyRow
