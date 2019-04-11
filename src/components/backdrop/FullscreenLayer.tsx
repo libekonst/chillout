@@ -1,12 +1,10 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from 'styled-components';
 
 export const FullscreenLayer = styled.ul<{ open: boolean }>`
   /* Positioning */
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - 4rem); /* Minus the height of the player */
 
   /* Flex */
   display: flex;
