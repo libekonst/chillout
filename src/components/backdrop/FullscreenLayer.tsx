@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 export const FullscreenLayer = styled.ul<{ open: boolean }>`
   /* Positioning */
   position: fixed;
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 4rem); /* Minus the height of the player */
 
   /* Flex */
