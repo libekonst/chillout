@@ -62,5 +62,6 @@ const StickyTop = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
+  padding-bottom: 1rem;
   background-color: #fafafa;
 `;
