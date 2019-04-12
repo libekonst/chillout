@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Footer } from './Footer';
 import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
+import { Media } from './Media';
+import { Image } from '../styled/Image';
 
 interface IProps {
   // Play button
@@ -13,14 +15,17 @@ interface IProps {
   muted: boolean;
   changeAudioVolume: (e: any) => void;
   volume: number;
+
+  // Image
+  image?: string;
 }
 const Player: FC<IProps> = props => {
   return (
     <Footer>
-      <PlayButton
-        isPlaying={props.isPlaying}
-        onClick={props.handlePlay}
-      />
+      <Media>
+        <Image src={props.image} />
+      </Media>
+      <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
       <VolumeBar
         onMuteAudio={props.onMuteAudio}
         muted={props.muted}

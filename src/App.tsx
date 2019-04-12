@@ -156,6 +156,12 @@ class App extends Component<{}, IState> {
     return await audio.play();
   };
 
+  getImage = () => {
+    const pending = data.find(it => it.id === this.state.pendingRadioId);
+    if (!pending) return;
+
+    return pending.image;
+  }
   // <- FAVORITES ->
   addFavorite = (radio: IRadio) => (e: any): void => {
     e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
@@ -259,6 +265,8 @@ class App extends Component<{}, IState> {
                 muted={this.state.audioMuted}
                 changeAudioVolume={this.changeAudioVolume}
                 volume={this.state.volume}
+                // Image
+                image={this.getImage()}
               />
             </>
           </ThemeProvider>

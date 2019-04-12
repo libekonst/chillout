@@ -9,7 +9,7 @@ const VolumeBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 20rem;
+  max-width: 20rem;
 `;
 
 interface IProps {
