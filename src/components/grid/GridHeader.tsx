@@ -1,11 +1,15 @@
-import { GridBase } from './GridBase';
+import { GridBase, GridItem } from './GridBase';
 import React, { FC, ComponentProps } from 'react';
 
 type Props = Partial<ComponentProps<typeof GridBase>>;
 
 export const GridHeader: FC<Props> = props => (
-  <GridBase areas={['.', '.', '.', 'title', 'genre']} {...props}>
-    <div style={{ gridArea: 'title',  textTransform: 'uppercase' }}>title</div>
-    <div style={{ gridArea: 'genre' }}>genre</div>
+  <GridBase {...props}>
+    <GridItem gridArea="title" style={{ textTransform: 'uppercase' }}>
+      title
+    </GridItem>
+    <GridItem gridArea="genre" style={{ textTransform: 'uppercase' }}>
+      genre
+    </GridItem>
   </GridBase>
 );

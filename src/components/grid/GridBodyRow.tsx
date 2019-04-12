@@ -33,14 +33,13 @@ export class GridBodyRow extends Component<Props, IState> {
   render() {
     return (
       <GridBase
-        areas={['playcontrol', 'favorite', 'image', 'title', 'genre']}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onClick={this.props.handlePlay}
         highlightOnHover
         large
         gutter
-        // {...this.props}
+        {...this.props}
       >
         <GridItem gridArea="playcontrol" justifySelf="end">
           <ControlsButton
@@ -58,20 +57,13 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            {/* <Placeholder shouldFadeOut={this.state.loaded} gradient> */}
-            <Image
-              src={this.props.image}
-              // onLoad={this.onImageLoad}
-              // loaded={this.state.loaded}
-            />
-            {/* </Placeholder> */}
+            <Image src={this.props.image} />
           </Media>
         </GridItem>
         <GridItem gridArea="title" truncate>
           {this.props.name}
         </GridItem>
         <GridItem gridArea="genre">{this.props.label}</GridItem>
-        
       </GridBase>
     );
   }

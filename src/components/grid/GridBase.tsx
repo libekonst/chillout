@@ -13,9 +13,6 @@ interface IGridBaseProps {
   gutter?: boolean;
   highlightOnHover?: boolean;
   large?: boolean;
-  justifyItems?: BoxAlignment; // x-axis
-  alignItems?: BoxAlignment; // y-axis
-  areas: [string, string, string, string, string];
 }
 
 export const GridBase = styled.div<IGridBaseProps>`
@@ -26,17 +23,17 @@ export const GridBase = styled.div<IGridBaseProps>`
 
   /* Grid layout */
   display: grid;
-  grid-template-columns: 3rem 3rem 3rem auto 8rem;
+  grid-template-columns: 0 3rem 3rem auto 0;
   grid-column-gap: 0.5rem;
-  grid-template-areas: "${props => props.areas.join(' ')}";
-  align-items: ${({ alignItems = 'center' }) => alignItems};
-  justify-items: ${({ justifyItems = 'start' }) => justifyItems};
+  grid-template-areas: "playcontrol favorite image title genre";
+  align-items: center;
+  justify-items: start;
 
-  @media (max-width: ${props => props.theme.breakpoints.md}px) {
+  @media (min-width: ${props => props.theme.breakpoints.sm}px) {
     grid-template-columns: 0 3rem 3rem auto 8rem;
   }
-  @media (max-width: ${props => props.theme.breakpoints.sm}px) {
-    grid-template-columns: 0 3rem 3rem auto 0;
+  @media (min-width: ${props => props.theme.breakpoints.md}px) {
+    grid-template-columns: 3rem 3rem 3rem auto 8rem;
   }
 
   /* Highlight On Hover */
@@ -87,7 +84,7 @@ export const GridBase = styled.div<IGridBaseProps>`
 `;
 
 interface IGridItemProps {
-  gridArea: string;
+  gridArea?: 'playcontrol' | 'favorite' | 'image' | 'title' | 'genre';
   alignSelf?: BoxAlignment;
   truncate?: boolean;
   shouldOverflow?: boolean;
@@ -96,13 +93,14 @@ interface IGridItemProps {
 
 /**
  * Set justifySelf OR parent grid's justifyItems prop to 'stretch', if text should be truncated.
- * Overflow prevents truncating
+ * Overflow prevents truncating.
  */
 export const GridItem = styled.div<IGridItemProps>`
   /* Grid placement */
   grid-area: ${props => props.gridArea};
   align-self: ${({ alignSelf = 'auto' }) => alignSelf};
   justify-self: ${({ justifySelf = 'stretch' }) => justifySelf};
+  overflow: hidden;
 
   /* <- Define the element's width using 'justify-self: stretch' instead
   of 'width: 100%' to truncate text on Chrome. Firefox is OK with both width and justify-self. */
@@ -110,7 +108,7 @@ export const GridItem = styled.div<IGridItemProps>`
   /* Text ellipsis */
   ${props => props.truncate && truncateText}
 
-  /* Allow overflow, e.g. for animated elements. Overflowing prevents text truncating. */
+  /* Allow overflow, e.g. for animated elements. Overflowing prevents text truncating and hiding items with grid-template-columns. */
   ${props =>
     props.shouldOverflow &&
     css`

@@ -230,7 +230,6 @@ class App extends Component<{}, IState> {
                   togglePlayRadio={this.togglePlayRadio}
                   {...this.state}
                 />
-                <GridHeader />
                 <ul>
                   {data.map(item => (
                     <li key={item.id}>
