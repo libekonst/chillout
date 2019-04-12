@@ -1,5 +1,6 @@
 {
   "name": "the-chillout-app",
+  "homepage": "https://kostaslib.github.io/chillout",
   "version": "1.0.0",
   "description": "A modern web radio platform.",
   "author": "Kostas Liberopoulos",
@@ -20,6 +21,7 @@
     "@types/react-dom": "16.8.2",
     "@types/styled-components": "^4.1.10",
     "babel-plugin-styled-components": "^1.10.0",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
@@ -41,6 +43,8 @@
     "tslint-plugin-prettier": "^2.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
