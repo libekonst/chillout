@@ -90,8 +90,21 @@ class App extends Component<{}, IState> {
 
   handleAudioStopped = (e: any): void =>
     this.setState({ isPlaying: false }, setDocTitle);
-  handleAudioError = (e: any): void =>
-    this.setState({ isLoading: false, isPlaying: false }, setDocTitle);
+  handleAudioError = (e: any): void => {
+    const radio = data.find(r => r.source === e.target.src);
+
+    if (radio) {
+      return this.setState(
+        prev => ({
+          isLoading: false,
+          isPlaying: false,
+          pendingRadioId: prev.activeRadioId,
+        }),
+        setDocTitle,
+      );
+    }
+    return this.setState({ isLoading: false, isPlaying: false }, setDocTitle);
+  };
   handleAudioStarted = (e: any): void => {
     const radio = data.find(r => r.source === e.target.src);
     if (radio) {
@@ -127,7 +140,10 @@ class App extends Component<{}, IState> {
 
     // Pause the audio and reset the source to force-stop buffering.
     // Restricts unnecessary data usage and prevents playing old content downloaded after pausing.
-    if (this.state.activeRadioId === id && this.state.isPlaying) {
+    if (
+      (this.state.activeRadioId === id && this.state.isPlaying) ||
+      (this.state.pendingRadioId === id && this.state.isLoading)
+    ) {
       audio.pause();
       audio.src = this.resetAudioSrc;
       return audio.load();
@@ -207,36 +223,33 @@ class App extends Component<{}, IState> {
               >
                 <LoadingBar animate={this.state.isLoading} />
               </aside>
-              <main style={{ paddingBottom: '2rem' }}>
+              <main style={{ paddingBottom: '6rem' }}>
                 <Favorites
                   expandFavorites={this.expandFavorites}
                   openFavorites={this.openFavorites}
                   togglePlayRadio={this.togglePlayRadio}
                   {...this.state}
                 />
-                <div>
-                  <GridHeader />
-                  <ul style={{paddingBottom: '4rem'}}>
-                    {data.map(item => (
-                      <li key={item.id}>
-                        <GridBodyRow
-                          name={item.name}
-                          image={item.image}
-                          label={item.label}
-                          handleAddFavorite={this.addFavorite(item)}
-                          handlePlay={this.togglePlayRadio(item.id)}
-                          isFavorite={this.state.favorites.includes(item)}
-                          isPlaying={
-                            (this.state.isLoading &&
-                              this.state.pendingRadioId === item.id) ||
-                            (this.state.isPlaying &&
-                              this.state.activeRadioId === item.id)
-                          }
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <GridHeader />
+                <ul>
+                  {data.map(item => (
+                    <li key={item.id}>
+                      <GridBodyRow
+                        name={item.name}
+                        image={item.image}
+                        label={item.label}
+                        handleAddFavorite={this.addFavorite(item)}
+                        handlePlay={this.togglePlayRadio(item.id)}
+                        isFavorite={this.state.favorites.includes(item)}
+                        isPlaying={
+                          (this.state.isLoading &&
+                            this.state.pendingRadioId === item.id) ||
+                          (this.state.isPlaying && this.state.activeRadioId === item.id)
+                        }
+                      />
+                    </li>
+                  ))}
+                </ul>
               </main>
               <Player
                 // Play button
