@@ -3,7 +3,7 @@ import { isLarge } from './styles';
 import { Carousel } from './components/carousel';
 import { Backdrop } from './components/backdrop';
 import { IRadio } from './data';
-import { MdFavorite } from 'react-icons/md';
+import styled from 'styled-components';
 import { FAB } from './components/icon-buttons/FAB';
 
 interface IProps {
@@ -29,14 +29,16 @@ export const Favorites: FC<IProps> = props => {
 
   if (isLarge())
     return (
-      <Carousel
-        data={favorites}
-        handleExpand={expandFavorites}
-        expanded={favoritesOpened}
-        isPlaying={isPlaying}
-        selectedRadio={selectedRadioId}
-        onSelectRadio={togglePlayRadio}
-      />
+      <StickyTop>
+        <Carousel
+          data={favorites}
+          handleExpand={expandFavorites}
+          expanded={favoritesOpened}
+          isPlaying={isPlaying}
+          selectedRadio={selectedRadioId}
+          onSelectRadio={togglePlayRadio}
+        />
+      </StickyTop>
     );
 
   if (!isLarge() && favorites.length)
@@ -55,3 +57,10 @@ export const Favorites: FC<IProps> = props => {
 
   return null;
 };
+
+const StickyTop = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fafafa;
+`;
