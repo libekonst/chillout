@@ -41,7 +41,6 @@ const LoadingBar = styled.div<IProps>`
     /* background-color: #4834d4; */
     /* background-color: #be2edd; */
     border-radius: 5px;
-    will-change: transform;
     ${props =>
       props.animate &&
       css`

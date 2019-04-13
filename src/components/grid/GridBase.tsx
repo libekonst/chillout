@@ -48,7 +48,6 @@ export const GridBase = styled.div<IGridBaseProps>`
         border-radius: 5px;
         background-color: rgba(210, 210, 210, 0.2);
         z-index: -1;
-        will-change: opacity;
         opacity: 0;
         visibility: hidden;
         transition: all 0.2s linear;
