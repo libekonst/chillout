@@ -255,7 +255,7 @@ class App extends Component<{}, IState> {
               <Player
                 // Play button
                 isPlaying={this.state.isPlaying || this.state.isLoading}
-                handlePlay={this.togglePlayRadio(this.state.activeRadioId)}
+                handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
                 // Audio
                 onMuteAudio={this.muteAudio}
                 muted={this.state.audioMuted}
