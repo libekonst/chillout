@@ -40,7 +40,7 @@ const VolumeBar: FC<IProps> = props => {
           type="range"
           min="0"
           max="1"
-          step="0.01"
+          step="0.05"
           value={muted ? 0 : volume}
           onChange={changeAudioVolume}
         />
