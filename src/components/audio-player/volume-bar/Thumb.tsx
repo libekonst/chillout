@@ -32,7 +32,7 @@ export const Thumb = styled.div`
     border-radius: 50%;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease-out;
+    transition: all 0.3s ease-out;
 
     ${InputWrapper}:hover & {
       opacity: 0.2;
