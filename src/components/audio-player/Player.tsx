@@ -4,6 +4,7 @@ import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
 import { Media } from './Media';
 import { Image } from '../styled/Image';
+import { IRadio } from '../../data';
 
 interface IProps {
   // Play button
@@ -17,14 +18,41 @@ interface IProps {
   volume: number;
 
   // Image
-  image?: string;
+  radio?: IRadio;
 }
 const Player: FC<IProps> = props => {
   return (
     <Footer>
-      <Media>
-        <Image src={props.image} />
-      </Media>
+      {props.radio ? (
+        <section>
+          <a
+            href="https://www.github.com/kostaslib"
+            target="blank"
+            style={{ display: 'flex' }}
+          >
+            <Media>
+              <Image src={props.radio.image} />
+            </Media>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', marginLeft: '0.5rem', width: '100%' }}
+            >
+              <p
+                style={{
+                  color: 'white',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {props.radio.name}
+              </p>
+              <p>{props.radio.label}</p>
+            </div>
+          </a>
+        </section>
+      ) : (
+        <div />
+      )}
       <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
       <VolumeBar
         onMuteAudio={props.onMuteAudio}
