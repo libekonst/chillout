@@ -62,21 +62,14 @@ class App extends Component<{}, IState> {
     const audio = this.audioRef.current;
     if (!audio) return;
 
-    audio.volume = e.target.value;
+    // Update the audio
+    const volume = e.target.value;
+    audio.volume = volume;
     if (audio.muted) audio.muted = false;
-    this.setVolumeState();
+
+    return this.setState({ volume, audioMuted: false });
   };
-
-  muteAudio = () => {
-    const audio = this.audioRef.current;
-    if (!audio) return;
-
-    this.setState(prev => {
-      audio.muted = !prev.audioMuted;
-      return { audioMuted: !prev.audioMuted };
-    });
-  };
-
+  
   /**
    * Sets `volume` and `audioMuted` states to update the controlled range input element.
    * This function is called only after the user stops moving the slider for 100ms.
@@ -87,6 +80,16 @@ class App extends Component<{}, IState> {
 
     this.setState({ volume: audio.volume, audioMuted: false });
   }, 100);
+
+  muteAudio = () => {
+    const audio = this.audioRef.current;
+    if (!audio) return;
+
+    this.setState(prev => {
+      audio.muted = !prev.audioMuted;
+      return { audioMuted: !prev.audioMuted };
+    });
+  };
 
   handleAudioStopped = (e: any): void =>
     this.setState({ isPlaying: false }, setDocTitle);
