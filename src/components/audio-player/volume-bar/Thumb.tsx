@@ -6,7 +6,8 @@ export const ThumbWrapper = styled.div`
   width: 100%;
   height: 2px;
   pointer-events: none;
-  transition: transform 0.2s ease-out;
+
+  /* Flex */
   display: flex;
   align-items: center;
   justify-content: flex-start;

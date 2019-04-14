@@ -25,7 +25,6 @@ export const LowerFillBar = styled.div`
   pointer-events: none;
   border-radius: 30px;
   transform-origin: left;
-  transition: transform 0.2s ease-out;
 `;
 
 export const TrackBar = styled.div`
@@ -33,12 +32,6 @@ export const TrackBar = styled.div`
   width: 100%;
   height: 1px;
   border-radius: 30px;
-
-  /* background: rgb(221, 221, 221); */
-
-  /* background: rgb(91, 91, 91); */
   background: rgba(180, 180, 180, 0.7);
-
-  /* background: rgb(33, 33, 33); */
   margin: auto;
 `;
