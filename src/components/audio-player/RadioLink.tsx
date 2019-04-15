@@ -1,6 +1,7 @@
 import React, { FC, ComponentProps } from 'react';
 import styled from 'styled-components';
 import { truncateText } from '../../styles';
+import { Favorite } from '../icon-buttons/Favorite';
 
 const Link = styled.a`
   text-decoration: none;
@@ -13,13 +14,19 @@ const Link = styled.a`
   }
 `;
 
-const Title = styled.p`
-  width: 100%;
+const RadioName = styled.p`
+  font-weight: 500;
   ${truncateText}
+`;
+const Title = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 `;
 const Subtitle = styled.p`
   font-size: 0.8rem;
-  opacity: 0.8;
+  opacity: 0.9;
 `;
 
 interface IProps {
@@ -30,7 +37,16 @@ interface IProps {
 type Props = IProps & ComponentProps<typeof Link>;
 export const RadioLink: FC<Props> = props => (
   <Link {...props}>
-    {!!props.radioTitle && <Title>{props.radioTitle}</Title>}
+    {!!props.radioTitle && (
+      <Title>
+        <RadioName>{props.radioTitle}</RadioName>
+        <Favorite
+          // isFavorite={props.isRadioFavorite}
+          // onClick={props.handleAddFavorite}
+          style={{ marginLeft: '0.2rem' }}
+        />
+      </Title>
+    )}
     {!!props.radioSubtitle && <Subtitle>{props.radioSubtitle}</Subtitle>}
   </Link>
 );

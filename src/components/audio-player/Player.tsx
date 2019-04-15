@@ -18,8 +18,10 @@ interface IProps {
   changeAudioVolume: (e: any) => void;
   volume: number;
 
-  // Image
+  // Radio
   radio?: IRadio;
+  isRadioFavorite?: boolean;
+  handleAddFavorite?: (e: any) => void;
 }
 const Player: FC<IProps> = props => {
   return (

@@ -10,11 +10,14 @@ export const Footer = styled.footer`
 
   /* Grid */
   display: grid;
-  grid-template-columns: 3rem 10rem 5rem auto;
   grid-column-gap: 0.5rem;
-  grid-template-areas: 'image info playbutton volume';
   align-items: center;
   justify-items: center;
+  grid-template-areas: 'image link playbutton volume';
+  grid-template-columns: 3rem 10rem auto 0;
+  @media (min-width: ${props => props.theme.breakpoints.sm}px) {
+    grid-template-columns: 3rem 10rem auto auto;
+  }
 
   /* Styles */
   z-index: 10;
