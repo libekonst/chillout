@@ -2,7 +2,6 @@ import React, { FC, ComponentProps } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { MdClose, MdFavorite } from 'react-icons/md';
 
-// Floating action button base
 const grow = keyframes`
     0% {
       transform: scale(0);
@@ -35,6 +34,7 @@ const rotateLeft = keyframes`
     transform: rotate(0);
   }
 `;
+// Floating action button base
 const FabBase = styled.button`
   /* Positioning */
   position: fixed;
@@ -53,7 +53,7 @@ const FabBase = styled.button`
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background-color: ${props => props.theme.colors.lightblue};
+  background-color: ${props => props.theme.colors.purple};
   box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.5);
   animation: ${grow} 0.3s ease-out;
   transition: all 0.1s ease-out;

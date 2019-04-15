@@ -7,18 +7,12 @@ const theme = {
     lightblack: 'rgb(80, 82, 83)',
     lightgray: '#afafaf',
 
-
     blue: '#052fb8',
     // blue: '#0099FF',
     lightblue: '#3498db',
 
-
     // purple: 'rgb(255, 32, 117)',
-    // purple: '#d57eeb',
-    // purple: '#f68084',
-    amethyst: '#9b59b6',
-    purple: '#e74c3c',
-    // purple: '#fccb90',
+    purple: 'rgb(255, 32, 62)',
   },
 
   /**
