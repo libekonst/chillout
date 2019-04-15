@@ -22,7 +22,7 @@ const IconButton = styled.button<IProps>`
   align-items: center;
   cursor: default;
   color: ${props => props.theme.colors.lightblack};
-  font-size: ${props => props.theme.sizes.iconButton.small};
+  font-size: ${props => props.theme.iconButton.small};
   opacity: 0;
   visibility: hidden;
   transition: all 0.05s linear;

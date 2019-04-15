@@ -23,7 +23,7 @@ const IconButton = styled.button`
   cursor: default;
   color: white;
   margin-right: 0.8rem;
-  font-size: ${props => props.theme.sizes.iconButton.small};
+  font-size: ${props => props.theme.iconButton.small};
   opacity: 0.85;
   transition: opacity 0.1s linear;
 

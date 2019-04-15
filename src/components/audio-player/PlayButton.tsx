@@ -20,7 +20,7 @@ const IconButton = styled.button`
   background: transparent;
   cursor: pointer;
   color: white;
-  font-size: ${props => props.theme.sizes.iconButton.medium};
+  font-size: ${props => props.theme.iconButton.medium};
   transition: all 0.2s linear;
 
   /* Background circle */

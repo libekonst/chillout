@@ -26,7 +26,7 @@ const IconButton = styled.button<{ border?: boolean }>`
   color: white;
   padding: 0.2rem;
   background-color: rgba(45, 45, 45, 0.6);
-  font-size: ${props => props.theme.sizes.iconButton.big};
+  font-size: ${props => props.theme.iconButton.big};
 
   /* Border */
   border-radius: 50%;

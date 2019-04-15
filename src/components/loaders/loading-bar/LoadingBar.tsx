@@ -18,14 +18,8 @@ const LoadingBar = styled.div<IProps>`
   width: 100%;
   height: 0.3rem;
   overflow: hidden;
-  background-color: rgb(255, 173, 184);
-  /* background-color: rgb(255, 181, 218); */
-  /* background-color: #ffbe76; */
-  /* background-color: #7ed6df; */
-  /* background-color: #c7ecee; */
-  /* background-color: #686de0; */
-  /* background-color: #f1afff; */
-  
+  background-color: ${props => props.theme.colors.lightPurple};
+
   &::after {
     content: '';
     position: absolute;
@@ -33,21 +27,13 @@ const LoadingBar = styled.div<IProps>`
     bottom: 0;
     left: 0;
     width: 25%;
-    background-color: rgb(255, 32, 62);
-    /* background-color: rgb(255, 32, 117); */
-    /* background-color: #f0932b; */
-    /* background-color: #22a6b3; */
-    /* background-color: #95afc0; */
-    /* background-color: #4834d4; */
-    /* background-color: #be2edd; */
+    background-color: ${props => props.theme.colors.purple};
     border-radius: 5px;
     ${props =>
       props.animate &&
       css`
         animation: ${slide} 1.5s ease-in-out infinite;
       `};
-
-    /* background-image: linear-gradient(90deg, #f093fb 0%, rgb(255, 32, 117) 100%); */
   }
 `;
 export default LoadingBar;

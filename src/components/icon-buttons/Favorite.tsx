@@ -48,7 +48,7 @@ const ButtonBase = styled.button`
   align-items: center;
   justify-content: center;
   cursor: default;
-  font-size: ${props => props.theme.sizes.iconButton.tiny};
+  font-size: ${props => props.theme.iconButton.tiny};
 
   &:active {
     transform: scale(0.9);
@@ -56,7 +56,7 @@ const ButtonBase = styled.button`
   }
 
   @media (max-width: ${props => props.theme.breakpoints.md - 1}px) {
-    font-size: ${props => props.theme.sizes.iconButton.small};
+    font-size: ${props => props.theme.iconButton.small};
   }
 `;
 

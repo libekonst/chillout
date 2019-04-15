@@ -1,18 +1,16 @@
-const theme = {
+import { IDefaultTheme } from 'styled-components';
+
+const theme: IDefaultTheme = {
   colors: {
-    white: '#fafafa',
-    palewhite: '#E3DBDD',
+    // white: '#fafafa',
+    // palewhite: '#E3DBDD',
 
-    // lightblack: 'rgb(45, 45, 45)',
-    lightblack: 'rgb(80, 82, 83)',
     lightgray: '#afafaf',
-
+    lightblack: 'rgb(80, 82, 83)',
     blue: '#052fb8',
-    // blue: '#0099FF',
     lightblue: '#3498db',
-
-    // purple: 'rgb(255, 32, 117)',
     purple: 'rgb(255, 32, 62)',
+    lightPurple: 'rgb(255, 178, 188)',
   },
 
   /**
@@ -27,14 +25,12 @@ const theme = {
     xl: 1920,
   },
 
-  sizes: {
-    iconButton: {
-      tiny: '1.3rem',
-      small: '1.7rem',
-      medium: '2rem',
-      big: '3.2rem',
-      xbig: '4rem',
-    },
+  iconButton: {
+    tiny: '1.3rem',
+    small: '1.7rem',
+    medium: '2rem',
+    big: '3.2rem',
+    xbig: '4rem',
   },
 };
 
