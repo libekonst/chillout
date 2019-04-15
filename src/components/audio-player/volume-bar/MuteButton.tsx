@@ -24,6 +24,12 @@ const IconButton = styled.button`
   color: white;
   margin-right: 0.8rem;
   font-size: ${props => props.theme.sizes.iconButton.small};
+  opacity: 0.85;
+  transition: opacity 0.1s linear;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const Speaker: FC<IProps> = ({ volume, audioMuted }) => {

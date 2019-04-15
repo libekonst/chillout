@@ -15,12 +15,35 @@ const IconButton = styled.button`
   align-items: center;
 
   /* Styles */
+  position: relative;
   border-radius: 50%;
-  border: 0.5rem solid #29273a;
-  background: #29273a;
-  cursor: default;
+  background: transparent;
+  cursor: pointer;
   color: white;
   font-size: ${props => props.theme.sizes.iconButton.medium};
+  transition: all 0.2s linear;
+
+  /* Background circle */
+  &::before {
+    /* Positioning */
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    /* Styles */
+    background-color: #29273a;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.3);
+    transition: all 0.2s ease-out;
+  }
+
+  &:hover::before {
+    transform: scale(1.5);
+    opacity: 1;
+  }
 `;
 
 export const PlayButton: FC<IProps> = ({ isPlaying, ...rest }) => (
