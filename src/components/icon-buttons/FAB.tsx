@@ -7,7 +7,7 @@ const grow = keyframes`
       transform: scale(0);
     }
 
-    80% {
+    70% {
       transform: scale(1.2);
     }
 
@@ -59,7 +59,7 @@ const FabBase = styled.button`
   transition: all 0.1s ease-out;
 
   &:active {
-    transform: scale(0.85);
+    transform: scale(0.9);
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
   }
 `;
