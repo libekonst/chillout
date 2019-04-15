@@ -14,19 +14,23 @@ const Link = styled.a`
   }
 `;
 
-const RadioName = styled.p`
+const Title = styled.p`
+  width: 100%;
   font-weight: 500;
   ${truncateText}
 `;
-const Title = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-`;
+
 const Subtitle = styled.p`
+  width: 100%;
   font-size: 0.8rem;
   opacity: 0.9;
+`;
+
+const Section = styled.section`
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
 `;
 
 interface IProps {
@@ -38,17 +42,15 @@ interface IProps {
 
 type Props = IProps & ComponentProps<typeof Link>;
 export const RadioLink: FC<Props> = props => (
-  <Link {...props}>
-    {!!props.radioTitle && (
-      <Title>
-        <RadioName>{props.radioTitle}</RadioName>
-        <Favorite
-          isFavorite={props.isRadioFavorite}
-          onClick={props.handleAddFavorite}
-          style={{ marginLeft: '0.2rem' }}
-        />
-      </Title>
-    )}
-    {!!props.radioSubtitle && <Subtitle>{props.radioSubtitle}</Subtitle>}
-  </Link>
+  <Section>
+    <Link {...props}>
+      {!!props.radioTitle && <Title>{props.radioTitle}</Title>}
+      {!!props.radioSubtitle && <Subtitle>{props.radioSubtitle}</Subtitle>}
+    </Link>
+    <Favorite
+      isFavorite={props.isRadioFavorite}
+      onClick={props.handleAddFavorite}
+      style={{ marginLeft: '0.5rem' }}
+    />
+  </Section>
 );
