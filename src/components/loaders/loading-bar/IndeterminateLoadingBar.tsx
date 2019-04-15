@@ -1,15 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 
 const slideRight = keyframes`
-  0% {
+  from {
     transform: translate3d(-100%, 0, 0);
   }
 
-  40% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
+  to {
     transform: translate3d(100%, 0, 0);
   }
 `;
@@ -37,7 +33,7 @@ const IndeterminateLoadingBar = styled.div`
     /* Animation */
     transform-origin: left;
     transform: translate3d(-100%, 0, 0);
-    animation: ${slideRight} 1s ease-in-out infinite;
+    animation: ${slideRight} 1s ease-out infinite;
   }
 `;
 export default IndeterminateLoadingBar;
