@@ -32,6 +32,8 @@ const Subtitle = styled.p`
 interface IProps {
   radioTitle?: string;
   radioSubtitle?: string;
+  isRadioFavorite?: boolean;
+  handleAddFavorite?: (e: any) => void;
 }
 
 type Props = IProps & ComponentProps<typeof Link>;
@@ -41,8 +43,8 @@ export const RadioLink: FC<Props> = props => (
       <Title>
         <RadioName>{props.radioTitle}</RadioName>
         <Favorite
-          // isFavorite={props.isRadioFavorite}
-          // onClick={props.handleAddFavorite}
+          isFavorite={props.isRadioFavorite}
+          onClick={props.handleAddFavorite}
           style={{ marginLeft: '0.2rem' }}
         />
       </Title>

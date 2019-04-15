@@ -36,6 +36,8 @@ const Player: FC<IProps> = props => {
             target="blank"
             radioTitle={props.radio.name}
             radioSubtitle={props.radio.label}
+            isRadioFavorite={props.isRadioFavorite}
+            handleAddFavorite={props.handleAddFavorite}
           />
         </>
       ) : (

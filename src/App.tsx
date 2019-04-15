@@ -69,7 +69,7 @@ class App extends Component<{}, IState> {
 
     return this.setState({ volume, audioMuted: false });
   };
-  
+
   /**
    * Sets `volume` and `audioMuted` states to update the controlled range input element.
    * This function is called only after the user stops moving the slider for 100ms.
@@ -158,8 +158,6 @@ class App extends Component<{}, IState> {
     audio.src = radio.source;
     return await audio.play();
   };
-
-  getRadio = () => data.find(it => it.id === this.state.pendingRadioId);
 
   // <- FAVORITES ->
   addFavorite = (radio: IRadio) => (e: any): void => {
@@ -265,7 +263,13 @@ class App extends Component<{}, IState> {
                 changeAudioVolume={this.changeAudioVolume}
                 volume={this.state.volume}
                 // Radio
-                radio={this.getRadio()}
+                radio={data.find(it => it.id === this.state.pendingRadioId)}
+                isRadioFavorite={this.state.favorites.includes(
+                  data.find(it => it.id === this.state.pendingRadioId)!,
+                )}
+                handleAddFavorite={this.addFavorite(
+                  data.find(it => it.id === this.state.pendingRadioId)!,
+                )}
               />
             </>
           </ThemeProvider>

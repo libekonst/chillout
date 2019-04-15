@@ -55,7 +55,7 @@ const ButtonBase = styled.button`
     fill: ${props => props.theme.colors.purple};
   }
 
-  @media (max-width: ${props => props.theme.breakpoints.lg - 1}px) {
+  @media (max-width: ${props => props.theme.breakpoints.md - 1}px) {
     font-size: ${props => props.theme.sizes.iconButton.small};
   }
 `;
