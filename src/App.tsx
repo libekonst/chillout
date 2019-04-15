@@ -10,7 +10,7 @@ import './normalize.css';
 import { Player } from './components/audio-player';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
-import { LoadingBar, Tuner } from './components/loaders';
+import { IndeterminateLoadingBar, Tuner } from './components/loaders';
 
 interface IState {
   // App state
@@ -206,9 +206,7 @@ class App extends Component<{}, IState> {
   render() {
     return (
       <>
-        {/* Don't wait for everything to load. */}
         {!this.state.contentReady && <Tuner />}
-        {/* {this.state.contentReady && ( */}
         <div
           style={{ opacity: this.state.contentReady ? 1 : 0, transition: 'opacity 1s' }}
         >
@@ -221,10 +219,9 @@ class App extends Component<{}, IState> {
                   left: 0,
                   right: 0,
                   zIndex: 10,
-                  opacity: this.state.isLoading ? 1 : 0,
                 }}
               >
-                <LoadingBar animate={this.state.isLoading} />
+                {this.state.isLoading && <IndeterminateLoadingBar />}
               </aside>
               <main style={{ paddingBottom: '6rem' }}>
                 <Favorites
@@ -284,7 +281,6 @@ class App extends Component<{}, IState> {
             {" Your browser doesn't support the audio element. :( "}
           </audio>
         </div>
-        {/* )} */}
       </>
     );
   }
