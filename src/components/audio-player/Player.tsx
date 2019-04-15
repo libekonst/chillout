@@ -32,7 +32,7 @@ const Player: FC<IProps> = props => {
             <Image src={props.radio.image} style={{ borderRadius: '5px' }} />
           </Media>
           <RadioLink
-            href={props.radio.linkToWebsite}
+            href={props.radio.website}
             target="blank"
             radioTitle={props.radio.name}
             radioSubtitle={props.radio.label}
