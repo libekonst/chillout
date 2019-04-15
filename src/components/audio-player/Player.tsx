@@ -27,7 +27,7 @@ const Player: FC<IProps> = props => {
       {props.radio ? (
         <>
           <Media>
-            <Image src={props.radio.image} />
+            <Image src={props.radio.image} style={{ borderRadius: '5px' }} />
           </Media>
           <RadioLink
             href={props.radio.linkToWebsite}
@@ -37,6 +37,7 @@ const Player: FC<IProps> = props => {
           />
         </>
       ) : (
+        // Return empty divs as placeholders to fill up the grid.
         <>
           <div />
           <div />

@@ -10,9 +10,9 @@ export const Footer = styled.footer`
 
   /* Grid */
   display: grid;
-  grid-template-columns: 10rem 5rem auto;
+  grid-template-columns: 3rem 10rem 5rem auto;
   grid-column-gap: 0.5rem;
-  grid-template-areas: 'info playbutton volume';
+  grid-template-areas: 'image info playbutton volume';
   align-items: center;
   justify-items: center;
 
