@@ -1,6 +1,7 @@
 // export namespace IRadio {
   export interface IRadioDto {
     id?: string | number;
+    linkToWebsite?: string;
     name: string;
     source: string;
     image: string;

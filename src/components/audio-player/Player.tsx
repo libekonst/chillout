@@ -3,6 +3,7 @@ import { Footer } from './Footer';
 import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
 import { Media } from './Media';
+import { RadioLink } from './RadioLink';
 import { Image } from '../styled/Image';
 import { IRadio } from '../../data';
 
@@ -24,34 +25,22 @@ const Player: FC<IProps> = props => {
   return (
     <Footer>
       {props.radio ? (
-        <section>
-          <a
-            href="https://www.github.com/kostaslib"
+        <>
+          <Media>
+            <Image src={props.radio.image} />
+          </Media>
+          <RadioLink
+            href={props.radio.linkToWebsite}
             target="blank"
-            style={{ display: 'flex' }}
-          >
-            <Media>
-              <Image src={props.radio.image} />
-            </Media>
-            <div
-              style={{ display: 'flex', flexDirection: 'column', marginLeft: '0.5rem', width: '100%' }}
-            >
-              <p
-                style={{
-                  color: 'white',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {props.radio.name}
-              </p>
-              <p>{props.radio.label}</p>
-            </div>
-          </a>
-        </section>
+            radioTitle={props.radio.name}
+            radioSubtitle={props.radio.label}
+          />
+        </>
       ) : (
-        <div />
+        <>
+          <div />
+          <div />
+        </>
       )}
       <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
       <VolumeBar
