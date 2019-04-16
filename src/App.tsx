@@ -181,7 +181,7 @@ class App extends Component<{}, IState> {
 
   /**
    * Converts the `favorites: IRadio[]` into an object with each radio's id as a key
-   * and the radio object as the value, then stringifies it and saves it to local storage 
+   * and the radio object as the value, then stringifies it and saves it to local storage
    * under the `window.localStorage.favorites` collection.
    */
   saveFavoritesToLocalStorage = () => {
@@ -230,10 +230,6 @@ class App extends Component<{}, IState> {
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
     window.removeEventListener('resize', this.toggleFavoritesComponent);
-  }
-
-  get pendingRadio() {
-    return data.find(it => it.id === this.state.pendingRadioId);
   }
 
   render() {
@@ -297,9 +293,11 @@ class App extends Component<{}, IState> {
                 isRadioFavorite={
                   !!this.state.favorites.find(f => f.id === this.state.pendingRadioId)
                 }
-                handleAddFavorite={this.addFavorite(
-                  data.find(it => it.id === this.state.pendingRadioId)!,
-                )}
+                handleAddFavorite={() => {
+                  const requested = data.find(it => it.id === this.state.pendingRadioId);
+                  if (!requested) return;
+                  return this.addFavorite(requested);
+                }}
               />
             </>
           </ThemeProvider>
