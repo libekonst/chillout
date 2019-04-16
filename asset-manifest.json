@@ -1,13 +1,13 @@
 {
   "main.css": "/chillout/static/css/main.67f55bbc.chunk.css",
-  "main.js": "/chillout/static/js/main.3f305e3b.chunk.js",
-  "main.js.map": "/chillout/static/js/main.3f305e3b.chunk.js.map",
+  "main.js": "/chillout/static/js/main.12dfeda0.chunk.js",
+  "main.js.map": "/chillout/static/js/main.12dfeda0.chunk.js.map",
   "runtime~main.js": "/chillout/static/js/runtime~main.5840173e.js",
   "runtime~main.js.map": "/chillout/static/js/runtime~main.5840173e.js.map",
-  "static/js/2.83e82874.chunk.js": "/chillout/static/js/2.83e82874.chunk.js",
-  "static/js/2.83e82874.chunk.js.map": "/chillout/static/js/2.83e82874.chunk.js.map",
+  "static/js/2.81fa119d.chunk.js": "/chillout/static/js/2.81fa119d.chunk.js",
+  "static/js/2.81fa119d.chunk.js.map": "/chillout/static/js/2.81fa119d.chunk.js.map",
   "index.html": "/chillout/index.html",
-  "precache-manifest.398c281cb20fe8721925e19df5048847.js": "/chillout/precache-manifest.398c281cb20fe8721925e19df5048847.js",
+  "precache-manifest.6be71872796d211f9fc8d7ea91748a57.js": "/chillout/precache-manifest.6be71872796d211f9fc8d7ea91748a57.js",
   "service-worker.js": "/chillout/service-worker.js",
   "static/css/main.67f55bbc.chunk.css.map": "/chillout/static/css/main.67f55bbc.chunk.css.map"
 }
