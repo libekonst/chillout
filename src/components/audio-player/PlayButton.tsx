@@ -35,8 +35,8 @@ const IconButton = styled.button`
     background-color: #302d47;
     border-radius: 50%;
     opacity: 0.5;
-    transform: scale(1.3);
-    transition: all 0.2s ease-out;
+    transform: scale(1.4);
+    transition: all 0.1s ease-out;
   }
 
   &:hover::before {

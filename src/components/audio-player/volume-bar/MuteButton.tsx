@@ -40,7 +40,7 @@ const IconButton = styled.button`
     border-radius: 50%;
     opacity: 0;
     transform: scale(1.2);
-    transition: all 0.2s ease-out;
+    transition: all 0.15s ease-out;
   }
 
   &:hover::before {
