@@ -34,6 +34,17 @@ interface IState {
 
 const initialVolume = 0.6;
 class App extends Component<{}, IState> {
+  /**
+   * Retrieves the favorites JSON from `window.localStorage.favorites` and converts it to a `IRadio[]`,
+   * or returns undefined if the collection is empty.
+   */
+  getFavoritesFromLocalStorage = () => {
+    const favorites = localStorage.getItem('favorites');
+    if (!favorites) return;
+
+    return Object.values(JSON.parse(favorites)) as IRadio[];
+  };
+
   readonly state: IState = {
     // App state
     isScreenLarge: isLarge(),
@@ -43,7 +54,7 @@ class App extends Component<{}, IState> {
     favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
     activeRadioId: undefined,
     pendingRadioId: undefined,
-    favorites: [],
+    favorites: this.getFavoritesFromLocalStorage() || [], // Initialize to an empty array if the collection is empty.
 
     // Playback/Radio state
     isPlaying: false,
@@ -96,7 +107,7 @@ class App extends Component<{}, IState> {
   handleAudioError = (e: any): void => {
     const radio = data.find(r => r.source === e.target.src);
 
-    if (radio) {
+    if (radio)
       return this.setState(
         prev => ({
           isLoading: false,
@@ -105,7 +116,7 @@ class App extends Component<{}, IState> {
         }),
         setDocTitle,
       );
-    }
+
     return this.setState({ isLoading: false, isPlaying: false }, setDocTitle);
   };
   handleAudioStarted = (e: any): void => {
@@ -122,11 +133,12 @@ class App extends Component<{}, IState> {
 
     if (audio && audio.src !== this.resetAudioSrc)
       this.setState({
-        isPlaying: false,
         isLoading: true,
+        isPlaying: false,
         pendingRadioId: radio && radio.id,
       });
   };
+
   /**
    * Manipulates the audio element to play/stop the media.
    * Separate event handlers respond to the events raised by the audio element.
@@ -152,7 +164,7 @@ class App extends Component<{}, IState> {
 
     // Non null assertion on find().
     // If undefined, the promise will be rejected and handled by the onError handler.
-    const radio = data.find(radio => radio.id === id)!;
+    const radio = data.find(r => r.id === id)!;
     audio.src = radio.source;
     return await audio.play();
   };
@@ -161,11 +173,30 @@ class App extends Component<{}, IState> {
   addFavorite = (radio: IRadio) => (e: any): void => {
     e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
     this.setState(prevState => {
-      if (prevState.favorites.includes(radio))
-        return { favorites: prevState.favorites.filter(item => item !== radio) };
-      return { favorites: [radio, ...prevState.favorites] };
-    });
+      if (!!prevState.favorites.find(f => f.id === radio.id))
+        return { favorites: prevState.favorites.filter(f => f.id !== radio.id) };
+      return { favorites: [radio, ...prevState.favorites] }; // Add from left.
+    }, this.saveFavoritesToLocalStorage);
   };
+
+  /**
+   * Converts the `favorites: IRadio[]` into an object with each radio's id as a key
+   * and the radio object as the value, then stringifies it and saves it to local storage 
+   * under the `window.localStorage.favorites` collection.
+   */
+  saveFavoritesToLocalStorage = () => {
+    const favoritesObject = this.state.favorites.reduce(
+      (acc, radio) => ({ ...acc, [radio.id]: radio }),
+      {},
+    );
+
+    try {
+      localStorage.setItem('favorites', JSON.stringify(favoritesObject));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   expandFavorites = (callback?: () => any): void => {
     this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }), callback);
   };
@@ -199,6 +230,10 @@ class App extends Component<{}, IState> {
   componentWillUnmount() {
     window.removeEventListener('load', this.renderComponentTree);
     window.removeEventListener('resize', this.toggleFavoritesComponent);
+  }
+
+  get pendingRadio() {
+    return data.find(it => it.id === this.state.pendingRadioId);
   }
 
   render() {
@@ -237,7 +272,7 @@ class App extends Component<{}, IState> {
                         label={item.label}
                         handleAddFavorite={this.addFavorite(item)}
                         handlePlay={this.togglePlayRadio(item.id)}
-                        isFavorite={this.state.favorites.includes(item)}
+                        isFavorite={!!this.state.favorites.find(f => f.id === item.id)}
                         isPlaying={
                           (this.state.isLoading &&
                             this.state.pendingRadioId === item.id) ||
@@ -259,9 +294,9 @@ class App extends Component<{}, IState> {
                 volume={this.state.volume}
                 // Radio
                 radio={data.find(it => it.id === this.state.pendingRadioId)}
-                isRadioFavorite={this.state.favorites.includes(
-                  data.find(it => it.id === this.state.pendingRadioId)!,
-                )}
+                isRadioFavorite={
+                  !!this.state.favorites.find(f => f.id === this.state.pendingRadioId)
+                }
                 handleAddFavorite={this.addFavorite(
                   data.find(it => it.id === this.state.pendingRadioId)!,
                 )}
