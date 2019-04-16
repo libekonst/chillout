@@ -22,12 +22,14 @@ The app has been re-written from scratch with React and entirely custom CSS.
 
 ## TODOs
 * Add image placeholders to prevent upfront downloading and use the Intersection Observer to load them lazily.
-* Add a Nodejs back end to implement user profiles and save favorites.
+* Add Nodejs back end to implement user profiles and save favorites.
+* Add customizable collections.
+* Import playlists from Spotify.
+* Add fingerprinting / music recognition and link to spotify a) https://developer.spotify.com/ b) https://audd.io/ c) https://developer.gracenote.com/web-api d) https://www.acrcloud.com/ e) http://www.sonicapi.com/
 * Add rotating images from unsplash. https://unsplash.com/developers
 * Add different themes or rotating themes based on time of day.
 * Add different views for the radio items (grid view, etc).
 * Prompt the user to Add to Home Screen on mobile.
-* Add option to stream playlists from Spotify.
 
 ## Acknowledgements
 The logo for this app was created with assets from [The Noun Project](https://thenounproject.com/).
