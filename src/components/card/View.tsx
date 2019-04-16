@@ -52,7 +52,7 @@ export const View: FC<IProps> = ({
       <IconWrapper>
         <BlurredImage
           src={imageSource}
-          visibility={isHover}
+          showBlur={isHover}
           loaded={loaded}
           onLoad={onImageLoad}
         />

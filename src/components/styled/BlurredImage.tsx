@@ -2,19 +2,8 @@ import styled, { css, keyframes } from 'styled-components';
 
 interface ImageProps {
   loaded?: boolean;
-  visibility?: boolean;
+  showBlur?: boolean;
 }
-const grow = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-`;
 
 export const BlurredImage = styled.img<ImageProps>`
   /* Positioning */
@@ -32,7 +21,7 @@ export const BlurredImage = styled.img<ImageProps>`
 
   /* Blur effect. */
   ${props =>
-    props.visibility &&
+    props.showBlur &&
     css`
       opacity: 1;
       transform: scale(1.15);
