@@ -54,7 +54,7 @@ const Speaker: FC<IProps> = ({ volume, audioMuted }) => {
   if (volume >= 0.5) return <IoIosVolumeHigh />;
   if (volume >= 0.2) return <IoIosVolumeLow />;
   if (volume > 0) return <IoIosVolumeMute />;
-  return <IoIosVolumeHigh />;
+  return <IoIosVolumeOff />;
 };
 
 export const MuteButton: FC<IProps> = ({ volume, audioMuted, ...rest }) => (
