@@ -7,6 +7,7 @@ import { CardContent } from './CardContent';
 import { Title } from './Title';
 import { Placeholder } from '../styled/Placeholder';
 import { PlayControlsBorder } from '../icon-buttons/PlayControlsBorder';
+import { BlurredImage } from '../styled/BlurredImage';
 
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -46,8 +47,16 @@ export const View: FC<IProps> = ({
     >
       <Overlay show={!!isHover} type="light" />
       <Placeholder shouldFadeOut={loaded} gradient={true}>
-        <Image blur={isHover} src={imageSource} loaded={loaded} onLoad={onImageLoad} />
+        <Image src={imageSource} loaded={loaded} onLoad={onImageLoad} />
       </Placeholder>
+      <IconWrapper>
+        <BlurredImage
+          src={imageSource}
+          visibility={isHover}
+          loaded={loaded}
+          onLoad={onImageLoad}
+        />
+      </IconWrapper>
       <IconWrapper>
         {(isHover || isActive) && (
           <PlayControlsBorder isHover={isHover} isPlaying={isActive} />

@@ -7,13 +7,27 @@ import styled from 'styled-components';
 import { FAB } from './components/icon-buttons/FAB';
 
 interface IProps {
-  favorites: IRadio[];
-  favoritesOpened: boolean;
-  isPlaying: boolean;
-  selectedRadioId?: number;
   expandFavorites: () => void;
   openFavorites: () => void;
   togglePlayRadio: (id: number) => (e: React.MouseEvent<Element, MouseEvent>) => void;
+
+  // App state
+  contentReady: boolean;
+  isScreenLarge: boolean;
+
+  // Radio state
+  favoritesOpened: boolean;
+  activeRadioId?: number;
+  pendingRadioId?: number;
+  favorites: IRadio[];
+
+  // Playback state
+  isPlaying: boolean;
+  isLoading: boolean;
+
+  // Audio state
+  volume: number;
+  audioMuted: boolean;
 }
 
 export const Favorites: FC<IProps> = props => {
@@ -21,10 +35,12 @@ export const Favorites: FC<IProps> = props => {
     favorites,
     favoritesOpened,
     isPlaying,
-    selectedRadioId,
     expandFavorites,
     togglePlayRadio,
     openFavorites,
+    isLoading,
+    activeRadioId,
+    pendingRadioId,
   } = props;
 
   if (isLarge())
@@ -34,8 +50,8 @@ export const Favorites: FC<IProps> = props => {
           data={favorites}
           handleExpand={expandFavorites}
           expanded={favoritesOpened}
-          isPlaying={isPlaying}
-          selectedRadio={selectedRadioId}
+          isPlaying={isPlaying || isLoading}
+          selectedRadio={pendingRadioId || activeRadioId}
           onSelectRadio={togglePlayRadio}
         />
       </StickyTop>
@@ -48,8 +64,8 @@ export const Favorites: FC<IProps> = props => {
           open={favoritesOpened}
           data={favorites}
           onRadioClick={togglePlayRadio}
-          isPlaying={isPlaying}
-          selectedRadio={selectedRadioId}
+          isPlaying={isPlaying || isLoading}
+          selectedRadio={pendingRadioId || activeRadioId}
         />
         <FAB isOpen={favoritesOpened} onClick={openFavorites} />
       </>
