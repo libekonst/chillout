@@ -18,15 +18,4 @@ export const Image = styled.img<ImageProps>`
     css`
       opacity: 1;
     `};
-
-  /* Blur effect. */
-  ${props =>
-    props.blur &&
-    css`
-      @media (min-width: ${props => props.theme.breakpoints.lg}px) {
-        filter: blur(7px);
-        transform: scale(1.07);
-        transition: all 0.1s ease-out;
-      }
-    `}
 `;
