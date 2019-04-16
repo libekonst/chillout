@@ -36,7 +36,7 @@ const IconButton = styled.button`
     border-radius: 50%;
     opacity: 0.5;
     transform: scale(1.4);
-    transition: all 0.1s ease-out;
+    transition: all 0.15s ease-out;
   }
 
   &:hover::before {
