@@ -120,8 +120,6 @@ class App extends Component<{}, IState> {
     const audio = this.audioRef.current;
     const radio = data.find(r => r.source === e.target.src);
 
-    console.log(audio!.src);
-
     if (audio && audio.src !== this.resetAudioSrc)
       this.setState({
         isPlaying: false,

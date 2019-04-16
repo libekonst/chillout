@@ -21,7 +21,6 @@ const IconButton = styled.button`
   cursor: pointer;
   color: white;
   font-size: ${props => props.theme.iconButton.medium};
-  transition: all 0.2s linear;
 
   /* Background circle */
   &::before {
@@ -33,9 +32,9 @@ const IconButton = styled.button`
     z-index: -1;
 
     /* Styles */
-    background-color: #29273a;
+    background-color: #302d47;
     border-radius: 50%;
-    opacity: 0;
+    opacity: 0.5;
     transform: scale(1.3);
     transition: all 0.2s ease-out;
   }

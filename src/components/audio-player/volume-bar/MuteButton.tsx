@@ -20,15 +20,32 @@ const IconButton = styled.button`
   align-items: center;
 
   /* Styles */
-  cursor: default;
+  cursor: pointer;
   color: white;
+  position: relative;
   margin-right: 0.8rem;
   font-size: ${props => props.theme.iconButton.small};
-  opacity: 0.85;
-  transition: opacity 0.1s linear;
+  opacity: 1;
 
-  &:hover {
-    opacity: 1;
+  &::before {
+    /* Positioning */
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    /* Styles */
+    background-color: #302d47;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.2);
+    transition: all 0.2s ease-out;
+  }
+
+  &:hover::before {
+    transform: scale(1.5);
+    opacity: 0.8;
   }
 `;
 
