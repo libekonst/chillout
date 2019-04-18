@@ -33,16 +33,27 @@ interface IState {
 }
 
 const initialVolume = 0.6;
+const collections = {
+  favorites: 'favorites',
+  active: 'active',
+};
 class App extends Component<{}, IState> {
   /**
    * Retrieves the favorites JSON from `window.localStorage.favorites` and converts it to a `IRadio[]`,
    * or returns undefined if the collection is empty.
    */
   getFavoritesFromLocalStorage = () => {
-    const favorites = localStorage.getItem('favorites');
+    const favorites = localStorage.getItem(collections.favorites);
     if (!favorites) return;
 
     return Object.values(JSON.parse(favorites)) as IRadio[];
+  };
+
+  getActiveRadioFromLocalStorage = () => {
+    const active = localStorage.getItem(collections.active);
+    if (!active) return;
+
+    return JSON.parse(active)['id'];
   };
 
   readonly state: IState = {
@@ -52,8 +63,8 @@ class App extends Component<{}, IState> {
 
     // Radio State
     favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
-    activeRadioId: undefined,
-    pendingRadioId: undefined,
+    pendingRadioId: this.getActiveRadioFromLocalStorage(),
+    activeRadioId: this.getActiveRadioFromLocalStorage(),
     favorites: this.getFavoritesFromLocalStorage() || [], // Initialize to an empty array if the collection is empty.
 
     // Playback/Radio state
@@ -67,7 +78,7 @@ class App extends Component<{}, IState> {
 
   // <- AUDIO ->
   audioRef = React.createRef<HTMLAudioElement>();
-  resetAudioSrc = 'about:blank';
+  resetAudioSrc = 'javascript:void(0)';
 
   changeAudioVolume = (e: any) => {
     const audio = this.audioRef.current;
@@ -122,9 +133,21 @@ class App extends Component<{}, IState> {
   handleAudioStarted = (e: any): void => {
     const radio = data.find(r => r.source === e.target.src);
     if (radio) {
-      this.setState({ isPlaying: true, isLoading: false, activeRadioId: radio.id }, () =>
-        setDocTitle(radio.name),
+      this.setState(
+        { isPlaying: true, isLoading: false, activeRadioId: radio.id },
+        () => {
+          setDocTitle(radio.name);
+          this.saveActiveRadioToLocalStorage(radio);
+        },
       );
+    }
+  };
+
+  saveActiveRadioToLocalStorage = (radio: IRadio) => {
+    try {
+      localStorage.setItem(collections.active, JSON.stringify(radio));
+    } catch (e) {
+      console.error(e);
     }
   };
   handleLoadStarted = (e: any): void => {
@@ -191,7 +214,7 @@ class App extends Component<{}, IState> {
     );
 
     try {
-      localStorage.setItem('favorites', JSON.stringify(favoritesObject));
+      localStorage.setItem(collections.favorites, JSON.stringify(favoritesObject));
     } catch (e) {
       console.error(e);
     }
