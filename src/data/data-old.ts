@@ -47,6 +47,13 @@ export const radios: IOldJson = {
       website: 'http://www.pepper966.gr/',
     },
     {
+      id: 'radioactivesifnos',
+      name: 'RadioActive 91,3 - Sifnos ',
+      source: 'http://46.165.220.22:8050/radioactive',
+      image: 'https://cdn.e-radio.gr/logos/gr/big/radioactive.png',
+      website: 'https://radioactivefm.gr/',
+    },
+    {
       id: 'fly',
       name: 'Fly 104',
       source: 'http://37.59.32.115:6168/stream',
