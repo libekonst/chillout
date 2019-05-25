@@ -11,6 +11,7 @@ import { Player } from './components/audio-player';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { IndeterminateLoadingBar, Tuner } from './components/loaders';
+import { AppContext } from './AppContext';
 
 interface IState {
   // App state
@@ -259,80 +260,86 @@ class App extends Component<{}, IState> {
     return (
       <>
         {!this.state.contentReady && <Tuner />}
-        <div
-          style={{ opacity: this.state.contentReady ? 1 : 0, transition: 'opacity 1s' }}
-        >
-          <ThemeProvider theme={theme}>
-            <>
-              <aside
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  zIndex: 10,
-                }}
-              >
-                {this.state.isLoading && <IndeterminateLoadingBar />}
-              </aside>
-              <main style={{ paddingBottom: '6rem' }}>
-                <Favorites
-                  expandFavorites={this.expandFavorites}
-                  openFavorites={this.openFavorites}
-                  togglePlayRadio={this.togglePlayRadio}
-                  {...this.state}
-                />
-                <ul>
-                  {data.map(item => (
-                    <li key={item.id}>
-                      <GridBodyRow
-                        name={item.name}
-                        image={item.image}
-                        label={item.label}
-                        handleAddFavorite={this.addFavorite(item)}
-                        handlePlay={this.togglePlayRadio(item.id)}
-                        isFavorite={!!this.state.favorites.find(f => f.id === item.id)}
-                        isPlaying={
-                          (this.state.isLoading &&
-                            this.state.pendingRadioId === item.id) ||
-                          (this.state.isPlaying && this.state.activeRadioId === item.id)
-                        }
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </main>
-              <Player
-                // Play button
-                isPlaying={this.state.isPlaying || this.state.isLoading}
-                handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
-                // Audio
-                onMuteAudio={this.muteAudio}
-                muted={this.state.audioMuted}
-                changeAudioVolume={this.changeAudioVolume}
-                volume={this.state.volume}
-                // Radio
-                radio={data.find(it => it.id === this.state.pendingRadioId)}
-                isRadioFavorite={
-                  !!this.state.favorites.find(f => f.id === this.state.pendingRadioId)
-                }
-                handleAddFavorite={this.addFavorite(
-                  data.find(it => it.id === this.state.pendingRadioId)!,
-                )}
-              />
-            </>
-          </ThemeProvider>
-          <audio
-            ref={this.audioRef}
-            onLoadStart={this.handleLoadStarted}
-            onPlaying={this.handleAudioStarted}
-            onError={this.handleAudioError}
-            onEnded={this.handleAudioStopped}
-            onSuspend={this.handleAudioStopped}
+        <AppContext.Provider value={this.state.contentReady}>
+          <div
+            style={{
+              opacity: this.state.contentReady ? 1 : 0,
+              transition: 'opacity 0.5s',
+            }}
           >
-            {" Your browser doesn't support the audio element. :( "}
-          </audio>
-        </div>
+            <ThemeProvider theme={theme}>
+              <>
+                <aside
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 10,
+                  }}
+                >
+                  {this.state.isLoading && <IndeterminateLoadingBar />}
+                </aside>
+                <main style={{ paddingBottom: '6rem' }}>
+                  <Favorites
+                    expandFavorites={this.expandFavorites}
+                    openFavorites={this.openFavorites}
+                    togglePlayRadio={this.togglePlayRadio}
+                    {...this.state}
+                  />
+                  <ul>
+                    {data.map(item => (
+                      <li key={item.id}>
+                        <GridBodyRow
+                          name={item.name}
+                          image={item.image}
+                          label={item.label}
+                          handleAddFavorite={this.addFavorite(item)}
+                          handlePlay={this.togglePlayRadio(item.id)}
+                          isFavorite={!!this.state.favorites.find(f => f.id === item.id)}
+                          isPlaying={
+                            (this.state.isLoading &&
+                              this.state.pendingRadioId === item.id) ||
+                            (this.state.isPlaying &&
+                              this.state.activeRadioId === item.id)
+                          }
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </main>
+                <Player
+                  // Play button
+                  isPlaying={this.state.isPlaying || this.state.isLoading}
+                  handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
+                  // Audio
+                  onMuteAudio={this.muteAudio}
+                  muted={this.state.audioMuted}
+                  changeAudioVolume={this.changeAudioVolume}
+                  volume={this.state.volume}
+                  // Radio
+                  radio={data.find(it => it.id === this.state.pendingRadioId)}
+                  isRadioFavorite={
+                    !!this.state.favorites.find(f => f.id === this.state.pendingRadioId)
+                  }
+                  handleAddFavorite={this.addFavorite(
+                    data.find(it => it.id === this.state.pendingRadioId)!,
+                  )}
+                />
+              </>
+            </ThemeProvider>
+            <audio
+              ref={this.audioRef}
+              onLoadStart={this.handleLoadStarted}
+              onPlaying={this.handleAudioStarted}
+              onError={this.handleAudioError}
+              onEnded={this.handleAudioStopped}
+              onSuspend={this.handleAudioStopped}
+            >
+              {" Your browser doesn't support the audio element. :( "}
+            </audio>
+          </div>
+        </AppContext.Provider>
       </>
     );
   }

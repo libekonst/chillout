@@ -1,10 +1,9 @@
 import styled, { css } from 'styled-components';
 
 interface IProps {
-  shouldFadeOut?: boolean;
-  gradient?: boolean;
+  fadeOutOn?: boolean;
 }
-export const Placeholder = styled.div`
+export const Placeholder = styled.div<IProps>`
   position: relative;
   width: 100%;
   height: 100%;
@@ -14,21 +13,26 @@ export const Placeholder = styled.div`
   background-color: white;
 
   &::after {
+    /* Position */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: ${props =>
-      props.gradient && 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)'};
 
-    /* Opacity fade out */
-    transition: opacity 0.1s;
-    ${(props: IProps) =>
-      props.shouldFadeOut &&
+    /* Styles */
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.2s ease-out;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+
+    /* Fade out */
+    ${props =>
+      props.fadeOutOn &&
       css`
-        opacity: ${props.shouldFadeOut ? 0 : 1};
+        opacity: 0;
+        visibility: hidden;
       `};
   }
 `;

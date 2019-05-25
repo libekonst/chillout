@@ -5,6 +5,7 @@ import { Placeholder } from '../styled/Placeholder';
 import { GridBase, GridItem } from './GridBase';
 import { Media } from './Media';
 import { Favorite } from '../icon-buttons/Favorite';
+import { AsyncImage } from '../async-image';
 
 interface IProps {
   handleAddFavorite: (e: React.MouseEvent) => void;
@@ -57,7 +58,8 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <Image src={this.props.image} />
+            <AsyncImage src={this.props.image}/>
+            {/* <Image src={this.props.image} /> */}
           </Media>
         </GridItem>
         <GridItem gridArea="title" truncate>

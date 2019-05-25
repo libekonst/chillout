@@ -8,6 +8,7 @@ import { Title } from './Title';
 import { Placeholder } from '../styled/Placeholder';
 import { PlayControlsBorder } from '../icon-buttons/PlayControlsBorder';
 import { BlurredImage } from '../styled/BlurredImage';
+import { AsyncImage } from '../async-image';
 
 interface IProps {
   onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -46,9 +47,10 @@ export const View: FC<IProps> = ({
       // shadowColor="rgba(161, 243, 28, 0.1)"
     >
       <Overlay show={!!isHover} type="light" />
-      <Placeholder shouldFadeOut={loaded} gradient={true}>
+      <AsyncImage src={imageSource} />
+      {/* <Placeholder fadeOutOn={loaded}>
         <Image src={imageSource} loaded={loaded} onLoad={onImageLoad} />
-      </Placeholder>
+      </Placeholder> */}
       <IconWrapper>
         <BlurredImage
           src={imageSource}
