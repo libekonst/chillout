@@ -1,4 +1,0 @@
-/* Import this so that webpack loads it after the fonts are downloaded. */
-#loader::before {
-  content: 'Tuning...';
-}

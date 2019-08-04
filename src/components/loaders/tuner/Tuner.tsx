@@ -1,6 +1,5 @@
 import React from 'react';
 // import './Tuner.css';
-import './TunerText.css';
 
 const Tuner = () => (
   <div id="loader-wrapper">
