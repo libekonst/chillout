@@ -1,3 +1,2 @@
 import { createContext } from 'react';
-
-export const AppContext = createContext(false);
+export const AppReadyState = createContext(false);

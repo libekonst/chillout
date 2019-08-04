@@ -1,21 +1,21 @@
 import React, { Component, SyntheticEvent } from 'react';
-import data, { IRadio } from './data';
-import { theme } from './styles';
 import { ThemeProvider } from 'styled-components';
-import { GridBodyRow, GridHeader } from './components/grid';
-import { isLarge } from './styles';
-import { debounce, setDocTitle } from './utils';
 import './App.css';
-import './normalize.css';
+import { AppReadyState } from './AppContext';
 import { Player } from './components/audio-player';
+import { GridBodyRow, GridHeader } from './components/grid';
+import { IndeterminateLoadingBar, Tuner } from './components/loaders';
+import data, { IRadio } from './data';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
-import { IndeterminateLoadingBar, Tuner } from './components/loaders';
-import { AppContext } from './AppContext';
+import './normalize.css';
+import { isLarge } from './styles';
+import { theme } from './styles';
+import { debounce, setDocTitle } from './utils';
 
 interface IState {
   // App state
-  contentReady: boolean;
+  appReady: boolean;
   isScreenLarge: boolean;
 
   // Radio state
@@ -54,13 +54,13 @@ class App extends Component<{}, IState> {
     const active = localStorage.getItem(collections.active);
     if (!active) return;
 
-    return JSON.parse(active)['id'];
+    return JSON.parse(active).id;
   };
 
   readonly state: IState = {
     // App state
     isScreenLarge: isLarge(),
-    contentReady: false,
+    appReady: false,
 
     // Radio State
     favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
@@ -240,10 +240,10 @@ class App extends Component<{}, IState> {
       }));
   });
 
-  renderComponentTree = () => this.setState({ contentReady: true });
+  renderComponentTree = () => this.setState({ appReady: true });
 
   componentDidMount() {
-    const audio = this.audioRef.current!; //Non null assertion. The ref is available in componentDidMount.
+    const audio = this.audioRef.current!; // Non null assertion. The ref is available in componentDidMount.
     audio.volume = initialVolume;
 
     /** The load event is fired when everything has been loaded, including images and external resources. */
@@ -259,11 +259,11 @@ class App extends Component<{}, IState> {
   render() {
     return (
       <>
-        {!this.state.contentReady && <Tuner />}
-        <AppContext.Provider value={this.state.contentReady}>
+        {!this.state.appReady && <Tuner />}
+        <AppReadyState.Provider value={this.state.appReady}>
           <div
             style={{
-              opacity: this.state.contentReady ? 1 : 0,
+              opacity: this.state.appReady ? 1 : 0,
               transition: 'opacity 0.5s',
             }}
           >
@@ -296,6 +296,7 @@ class App extends Component<{}, IState> {
                           label={item.label}
                           handleAddFavorite={this.addFavorite(item)}
                           handlePlay={this.togglePlayRadio(item.id)}
+                          selected={item.id === this.state.pendingRadioId}
                           isFavorite={!!this.state.favorites.find(f => f.id === item.id)}
                           isPlaying={
                             (this.state.isLoading &&
@@ -339,7 +340,7 @@ class App extends Component<{}, IState> {
               {" Your browser doesn't support the audio element. :( "}
             </audio>
           </div>
-        </AppContext.Provider>
+        </AppReadyState.Provider>
       </>
     );
   }

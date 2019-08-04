@@ -13,6 +13,7 @@ interface IGridBaseProps {
   gutter?: boolean;
   highlightOnHover?: boolean;
   large?: boolean;
+  selected?: boolean;
 }
 
 export const GridBase = styled.div<IGridBaseProps>`
@@ -79,6 +80,14 @@ export const GridBase = styled.div<IGridBaseProps>`
         height: 1px;
         background-color: rgba(70, 70, 70, 0.05);
       }
+    `}
+
+  /* Selected */
+  ${props =>
+    props.selected &&
+    css`
+      color: ${props.theme.colors.blue};
+      font-weight: bold;
     `}
 `;
 

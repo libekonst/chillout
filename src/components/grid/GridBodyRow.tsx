@@ -12,6 +12,7 @@ interface IProps {
   handlePlay: (e: React.MouseEvent) => void;
   isFavorite: boolean;
   isPlaying: boolean;
+  selected: boolean;
   name: string;
   image: string;
   label: string;
@@ -58,7 +59,7 @@ export class GridBodyRow extends Component<Props, IState> {
         </GridItem>
         <GridItem gridArea="image" justifySelf="center">
           <Media>
-            <AsyncImage src={this.props.image}/>
+            <AsyncImage src={this.props.image} />
             {/* <Image src={this.props.image} /> */}
           </Media>
         </GridItem>

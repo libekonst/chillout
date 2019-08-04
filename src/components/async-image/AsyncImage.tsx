@@ -1,7 +1,7 @@
-import React, { FC, useState, SyntheticEvent, ComponentProps } from 'react';
-import { Placeholder } from '../styled/Placeholder';
+import React, { ComponentProps, FC, SyntheticEvent, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { AppContext } from '../../AppContext';
+import { AppReadyState } from '../../AppContext';
+import { Placeholder } from '../styled/Placeholder';
 
 interface IImageProps {
   loaded?: boolean;
@@ -22,14 +22,14 @@ export const AsyncImage: FC<ComponentProps<typeof Image>> = props => {
   const { src, ...rest } = props;
   const [isLoaded, setIsLoaded] = useState(false);
   const handleLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => setIsLoaded(true);
-  const windowReady = React.useContext(AppContext);
+  const appReady = React.useContext(AppReadyState);
 
   return (
     <Placeholder fadeOutOn={isLoaded}>
       <Image
         onLoad={handleLoad}
         loaded={isLoaded}
-        src={windowReady ? src : undefined}
+        src={appReady ? src : undefined}
         {...rest}
       />
     </Placeholder>

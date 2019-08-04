@@ -12,7 +12,7 @@ interface IProps {
   togglePlayRadio: (id: number) => (e: React.MouseEvent<Element, MouseEvent>) => void;
 
   // App state
-  contentReady: boolean;
+  // contentReady: boolean;
   isScreenLarge: boolean;
 
   // Radio state
