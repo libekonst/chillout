@@ -1,9 +1,10 @@
 import React from 'react';
-import './Tuner.css'
+// import './Tuner.css';
+import './TunerText.css';
 
 const Tuner = () => (
-  <div className="loader-wrapper">
-    <div className="loader">
+  <div id="loader-wrapper">
+    <div id="loader">
       <span />
       <span />
       <span />

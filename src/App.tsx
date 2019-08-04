@@ -4,7 +4,7 @@ import './App.css';
 import { AppReadyState } from './AppContext';
 import { Player } from './components/audio-player';
 import { GridBodyRow, GridHeader } from './components/grid';
-import { IndeterminateLoadingBar, Tuner } from './components/loaders';
+import { IndeterminateLoadingBar } from './components/loaders';
 import data, { IRadio } from './data';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
@@ -259,7 +259,7 @@ class App extends Component<{}, IState> {
   render() {
     return (
       <>
-        {!this.state.appReady && <Tuner />}
+        {/* {!this.state.appReady && <Tuner />} */}
         <AppReadyState.Provider value={this.state.appReady}>
           <div
             style={{

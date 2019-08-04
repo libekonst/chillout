@@ -32,10 +32,116 @@
     <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
     <title>The Chillout App</title>
+    <style>
+    #loader-wrapper {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fafafa;
+}
+
+#loader {
+  margin: auto;
+  width: 15rem;
+  height: 5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+#loader::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 80%;
+  width: 5px;
+  background-color: rgb(255, 32, 62);
+  animation: tune 3s ease-in-out infinite;
+}
+
+#loader::before {
+  /* content: 'Tuning...'; Add this style later by webpack import to avoid ugly fonts. */
+  position: absolute;
+  bottom: -2.5rem;
+}
+
+#loader span {
+  background-color: rgb(75, 75, 75);
+  width: 2px;
+  height: 2rem;
+}
+
+#loader span:nth-child(6n + 1) {
+  height: 3rem;
+}
+
+#loader span:not(:first-child) {
+  margin-left: 5px;
+}
+
+@keyframes tune {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(50px);
+  }
+
+  40% {
+    transform: translateX(-10px);
+  }
+
+  60% {
+    transform: translateX(20px);
+  }
+
+  80% {
+    transform: translateX(-40px);
+  }
+  
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!-- 
+      Add inline loader and a tiny script that removes it for perceived performance.
+      This inline HTML instructs the browser to show the loader before parsing the js files and
+      populating the DOM.
+    -->
+    <div id="loader-wrapper">
+      <div id="loader">
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+        <span> </span>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -46,5 +152,13 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  <script>
+    /** Add an event handler that deletes the loader element when the DOM is ready. */
+    function removeLoader(){
+      var loader = document.getElementById('loader-wrapper');
+      loader.parentNode.removeChild(loader);
+    }
+    window.addEventListener('load', removeLoader);
+  </script>
   </body>
 </html>
