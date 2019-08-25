@@ -55,7 +55,7 @@ const Player: FC<IProps> = props => {
 
   return (
     <Footer>
-      {props.radio ? renderNowPlaying() : <div />}
+      <div style={{width: '100%'}}>{renderNowPlaying()}</div>
       <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
       <VolumeBar
         onMuteAudio={props.onMuteAudio}
