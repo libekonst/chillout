@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 /** Truncating will only be activated if the element's width is specified. Constraint its width */
 const truncateText = css`

@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { Footer } from './Footer';
 import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
-import { Media } from './Media';
-import { RadioLink } from './RadioLink';
-import { Image } from '../styled/Image';
+import { NowPlayingLayout } from './NowPlaying';
 import { IRadio } from '../../data';
+import { AsyncImage } from '../async-image';
+import { Favorite } from '../icon-buttons/Favorite';
 
 interface IProps {
   // Play button
@@ -23,30 +23,39 @@ interface IProps {
   isRadioFavorite?: boolean;
   handleAddFavorite?: (e: any) => void;
 }
+
+const NowPlaying: FC<{ radio: IRadio; controls: JSX.Element }> = props => {
+  const Info = () => (
+    <>
+      <a href={props.radio!.website} target="blank">
+        {props.radio!.name}
+      </a>
+      <p>{props.radio!.label}</p>
+    </>
+  );
+
+  return (
+    <NowPlayingLayout
+      imageSlot={<AsyncImage src={props.radio!.image} />}
+      controlsSlot={props.controls}
+      infoSlot={<Info />}
+    />
+  );
+};
+
 const Player: FC<IProps> = props => {
+  const Controls = () => (
+    <Favorite isFavorite={props.isRadioFavorite} onClick={props.handleAddFavorite} />
+  );
+
+  function renderNowPlaying() {
+    if (!props.radio) return;
+    return <NowPlaying radio={props.radio} controls={<Controls />} />;
+  }
+
   return (
     <Footer>
-      {props.radio ? (
-        <>
-          <Media>
-            <Image src={props.radio.image} style={{ borderRadius: '5px' }} />
-          </Media>
-          <RadioLink
-            href={props.radio.website}
-            target="blank"
-            radioTitle={props.radio.name}
-            radioSubtitle={props.radio.label}
-            isRadioFavorite={props.isRadioFavorite}
-            handleAddFavorite={props.handleAddFavorite}
-          />
-        </>
-      ) : (
-        // Return empty divs as placeholders to fill up the grid.
-        <>
-          <div />
-          <div />
-        </>
-      )}
+      {props.radio ? renderNowPlaying() : <div />}
       <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
       <VolumeBar
         onMuteAudio={props.onMuteAudio}
