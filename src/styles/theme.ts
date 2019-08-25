@@ -8,6 +8,7 @@ const theme: IDefaultTheme = {
     lightgray: '#afafaf',
     lightblack: 'rgb(80, 82, 83)',
     blue: '#052fb8',
+    cyan: 'rgb(59, 140, 168)',
     lightblue: '#3498db',
     purple: 'rgb(255, 32, 62)',
     // lightPurple: 'rgb(255, 178, 188)',

@@ -16,6 +16,7 @@ declare module 'styled-components' {
       lightblue: string;
       purple: string;
       lightPurple: string;
+      cyan: string;
       // [colorName: string]: string;
     };
     /**

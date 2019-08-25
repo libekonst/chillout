@@ -1,6 +1,5 @@
 import React, { Component, SyntheticEvent } from 'react';
 import { ThemeProvider } from 'styled-components';
-import './App.css';
 import { AppReadyState } from './AppContext';
 import { Player } from './components/audio-player';
 import { GridBodyRow, GridHeader } from './components/grid';
@@ -8,10 +7,12 @@ import { IndeterminateLoadingBar } from './components/loaders';
 import data, { IRadio } from './data';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
-import './normalize.css';
 import { isLarge } from './styles';
 import { theme } from './styles';
 import { debounce, setDocTitle } from './utils';
+import './App.css';
+import './normalize.css';
+import './reset.css';
 
 interface IState {
   // App state
@@ -281,6 +282,7 @@ class App extends Component<{}, IState> {
                   {this.state.isLoading && <IndeterminateLoadingBar />}
                 </aside>
                 <main style={{ paddingBottom: '6rem' }}>
+                  <div style={{height: '1.5rem', display: 'flex', width: '100%', backgroundColor: 'rgb(59, 140, 168)', color: 'white' }}>The Chillout App</div>
                   <Favorites
                     expandFavorites={this.expandFavorites}
                     openFavorites={this.openFavorites}

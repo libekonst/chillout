@@ -19,6 +19,9 @@ button {
 ol, ul, li {
   list-style: none;
 }
+a{
+  text-decoration: none;
+}
 body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
   overflow-x: hidden;
