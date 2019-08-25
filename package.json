@@ -28,7 +28,7 @@
     "react-icons": "^3.7.0",
     "react-scripts": "2.1.5",
     "styled-components": "^4.3.2",
-    "typescript": "^3.5.3"
+    "typescript": "^3.3.4000"
   },
   "devDependencies": {
     "prettier": "^1.18.2",
