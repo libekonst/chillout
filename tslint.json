@@ -15,6 +15,7 @@
     "object-literal-sort-keys": true,
     "curly": false,
     "jsx-no-multine-js": false,
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "ordered-imports": false
   }
 }
