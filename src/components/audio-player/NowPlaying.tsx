@@ -53,6 +53,8 @@ const Media = styled.div`
   width: 3rem;
   height: 3rem;
   overflow: hidden;
+  /* background-color: ${props => props.theme.colors.primaryBlack}; */
+  background-color: white;
 `;
 
 const Controls = styled.div`

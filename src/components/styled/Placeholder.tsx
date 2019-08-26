@@ -10,7 +10,7 @@ export const Placeholder = styled.div<IProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  /* background-color: white; */
 
   &::after {
     /* Position */

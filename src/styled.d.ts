@@ -17,7 +17,7 @@ declare module 'styled-components' {
       purple: string;
       lightPurple: string;
       cyan: string;
-      // [colorName: string]: string;
+      [colorName: string]: string;
     };
     /**
      * Various breakpoints, size in pixels.
