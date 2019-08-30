@@ -5,7 +5,7 @@ interface CardProps {
 }
 export const CardMedia = styled.div<CardProps>`
   /* Styles */
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
   height: 10rem;
   width: 10rem;

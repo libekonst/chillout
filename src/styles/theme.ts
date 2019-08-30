@@ -14,6 +14,14 @@ const theme: IDefaultTheme = {
     // lightPurple: 'rgb(255, 178, 188)',
     lightPurple: 'rgb(255, 211, 217)',
     primaryBlack:  'rgba(11, 10, 21, 1)',
+
+
+    // New colors
+    primaryBlue: '#008CFF',
+    primaryBlueLight: '#AFD9FC',
+    grayLight: '#FBFBFB',
+    textCyan: '#84949D',
+    textBlack: '#252525',
   },
 
   /**
