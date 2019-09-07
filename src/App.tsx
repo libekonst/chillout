@@ -281,8 +281,26 @@ class App extends Component<{}, IState> {
                 >
                   {this.state.isLoading && <IndeterminateLoadingBar />}
                 </aside>
-                <main style={{ paddingBottom: '6rem' }}>
-                  <div style={{height: '1.5rem', display: 'flex', width: '100%', backgroundColor: 'rgb(59, 140, 168)', color: 'white' }}>The Chillout App</div>
+                <div style={{width: '100%', height: '100%', display: 'flex'}}>
+                  <div style={{minWidth: '300px', minHeight: '100%', backgroundColor: '#fafafa'}}>
+                    <p>Hello from the left side</p>
+                    <p>Hey hey</p>
+                  </div>
+                <main style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}>
+                  <div style={{ width: '100%', height: '10rem', overflow: 'hidden' }}>
+                    <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80" />
+                  </div>
+                  <div
+                    style={{
+                      height: '1.5rem',
+                      display: 'flex',
+                      width: '100%',
+                      backgroundColor: 'rgb(59, 140, 168)',
+                      color: 'white',
+                    }}
+                  >
+                    The Chillout App
+                  </div>
                   <Favorites
                     expandFavorites={this.expandFavorites}
                     openFavorites={this.openFavorites}
@@ -311,6 +329,8 @@ class App extends Component<{}, IState> {
                     ))}
                   </ul>
                 </main>
+                </div>
+
                 <Player
                   // Play button
                   isPlaying={this.state.isPlaying || this.state.isLoading}
