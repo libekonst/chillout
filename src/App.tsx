@@ -14,6 +14,8 @@ import './App.css';
 import './normalize.css';
 import './reset.css';
 
+import { HomeView } from './views/HomeView';
+
 interface IState {
   // App state
   appReady: boolean;
@@ -281,73 +283,96 @@ class App extends Component<{}, IState> {
                 >
                   {this.state.isLoading && <IndeterminateLoadingBar />}
                 </aside>
-                <div style={{width: '100%', height: '100%', display: 'flex'}}>
-                  <div style={{minWidth: '300px', minHeight: '100%', backgroundColor: '#fafafa'}}>
-                    <p>Hello from the left side</p>
-                    <p>Hey hey</p>
-                  </div>
-                <main style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}>
-                  <div style={{ width: '100%', height: '10rem', overflow: 'hidden' }}>
-                    <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80" />
-                  </div>
-                  <div
-                    style={{
-                      height: '1.5rem',
-                      display: 'flex',
-                      width: '100%',
-                      backgroundColor: 'rgb(59, 140, 168)',
-                      color: 'white',
-                    }}
-                  >
-                    The Chillout App
-                  </div>
-                  <Favorites
-                    expandFavorites={this.expandFavorites}
-                    openFavorites={this.openFavorites}
-                    togglePlayRadio={this.togglePlayRadio}
-                    {...this.state}
-                  />
-                  <ul>
-                    {data.map(item => (
-                      <li key={item.id}>
-                        <GridBodyRow
-                          name={item.name}
-                          image={item.image}
-                          label={item.label}
-                          handleAddFavorite={this.addFavorite(item)}
-                          handlePlay={this.togglePlayRadio(item.id)}
-                          selected={item.id === this.state.pendingRadioId}
-                          isFavorite={!!this.state.favorites.find(f => f.id === item.id)}
-                          isPlaying={
-                            (this.state.isLoading &&
-                              this.state.pendingRadioId === item.id) ||
-                            (this.state.isPlaying &&
-                              this.state.activeRadioId === item.id)
-                          }
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </main>
-                </div>
-
-                <Player
-                  // Play button
-                  isPlaying={this.state.isPlaying || this.state.isLoading}
-                  handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
-                  // Audio
-                  onMuteAudio={this.muteAudio}
-                  muted={this.state.audioMuted}
-                  changeAudioVolume={this.changeAudioVolume}
-                  volume={this.state.volume}
-                  // Radio
-                  radio={data.find(it => it.id === this.state.pendingRadioId)}
-                  isRadioFavorite={
-                    !!this.state.favorites.find(f => f.id === this.state.pendingRadioId)
+                <HomeView
+                  sidebar={
+                    <div
+                      style={{
+                        // minWidth: '300px',
+                        // minHeight: '100%',
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: '#fafafa',
+                      }}
+                    >
+                      <p>Hello from the left side</p>
+                      <p>Hey hey</p>
+                    </div>
                   }
-                  handleAddFavorite={this.addFavorite(
-                    data.find(it => it.id === this.state.pendingRadioId)!,
-                  )}
+                  footer={
+                    <Player
+                      // Play button
+                      isPlaying={this.state.isPlaying || this.state.isLoading}
+                      handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
+                      // Audio
+                      onMuteAudio={this.muteAudio}
+                      muted={this.state.audioMuted}
+                      changeAudioVolume={this.changeAudioVolume}
+                      volume={this.state.volume}
+                      // Radio
+                      radio={data.find(it => it.id === this.state.pendingRadioId)}
+                      isRadioFavorite={
+                        !!this.state.favorites.find(
+                          f => f.id === this.state.pendingRadioId,
+                        )
+                      }
+                      handleAddFavorite={this.addFavorite(
+                        data.find(it => it.id === this.state.pendingRadioId)!,
+                      )}
+                    />
+                  }
+                  mainContent={
+                    <div style={{ width: '100%', height: '100%', display: 'flex' }}>
+                      <main
+                        style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}
+                      >
+                        <div
+                          style={{ width: '100%', height: '10rem', overflow: 'hidden' }}
+                        >
+                          <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80" />
+                        </div>
+                        <div
+                          style={{
+                            height: '1.5rem',
+                            display: 'flex',
+                            width: '100%',
+                            backgroundColor: 'rgb(59, 140, 168)',
+                            color: 'white',
+                          }}
+                        >
+                          The Chillout App
+                        </div>
+                        <Favorites
+                          expandFavorites={this.expandFavorites}
+                          openFavorites={this.openFavorites}
+                          togglePlayRadio={this.togglePlayRadio}
+                          {...this.state}
+                        />
+                        <ul style={{padding: '0 2rem'}}>
+                          {data.map(item => (
+                            <li key={item.id}>
+                              <GridBodyRow
+                                name={item.name}
+                                image={item.image}
+                                label={item.label}
+                                handleAddFavorite={this.addFavorite(item)}
+                                handlePlay={this.togglePlayRadio(item.id)}
+                                selected={item.id === this.state.pendingRadioId}
+                                isFavorite={
+                                  !!this.state.favorites.find(f => f.id === item.id)
+                                }
+                                isPlaying={
+                                  (this.state.isLoading &&
+                                    this.state.pendingRadioId === item.id) ||
+                                  (this.state.isPlaying &&
+                                    this.state.activeRadioId === item.id)
+                                }
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </main>
+                    </div>
+                  }
                 />
               </>
             </ThemeProvider>
