@@ -347,7 +347,7 @@ class App extends Component<{}, IState> {
                           togglePlayRadio={this.togglePlayRadio}
                           {...this.state}
                         />
-                        <ul style={{padding: '0 2rem'}}>
+                        <ul style={{padding: '0 1rem'}}>
                           {data.map(item => (
                             <li key={item.id}>
                               <GridBodyRow
