@@ -326,9 +326,12 @@ class App extends Component<{}, IState> {
                         style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}
                       >
                         <div
-                          style={{ width: '100%', height: '10rem', overflow: 'hidden' }}
+                          style={{ width: '100%', height: '10rem', overflow: 'hidden', margin: '1rem' }}
                         >
-                          <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80" />
+                          <img
+                            style={{ width: '100%', height: '100%', backgroundSize: 'stretch' }}
+                            src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80"
+                          />
                         </div>
                         <div
                           style={{
@@ -347,7 +350,7 @@ class App extends Component<{}, IState> {
                           togglePlayRadio={this.togglePlayRadio}
                           {...this.state}
                         />
-                        <ul style={{padding: '0 1rem'}}>
+                        <ul style={{ padding: '0 1rem' }}>
                           {data.map(item => (
                             <li key={item.id}>
                               <GridBodyRow

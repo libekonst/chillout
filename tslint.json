@@ -14,8 +14,8 @@
     "arrow-parens": false,
     "object-literal-sort-keys": true,
     "curly": false,
-    "jsx-no-multine-js": false,
     "jsx-boolean-value": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "jsx-no-multine-js": [false]
   }
 }
