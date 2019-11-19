@@ -22,6 +22,8 @@ export const Footer = styled.footer`
   /* Styles */
   z-index: 10;
   background-color: ${props => props.theme.colors.primaryBlack};
+  backdrop-filter: saturate(180%) blur(20px);
+
   /* background-image: linear-gradient(
     to right top,
     #0b0a15,

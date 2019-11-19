@@ -13,7 +13,7 @@ const theme: IDefaultTheme = {
     purple: 'rgb(255, 32, 62)',
     // lightPurple: 'rgb(255, 178, 188)',
     lightPurple: 'rgb(255, 211, 217)',
-    primaryBlack:  'rgba(11, 10, 21, 1)',
+    primaryBlack:  'rgba(11, 10, 21, 0.8)',
 
 
     // New colors

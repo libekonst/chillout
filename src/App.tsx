@@ -15,6 +15,7 @@ import './normalize.css';
 import './reset.css';
 
 import { HomeView } from './views/HomeView';
+import { CardPlayer } from './CardPlayer';
 
 interface IState {
   // App state
@@ -291,11 +292,24 @@ class App extends Component<{}, IState> {
                         // minHeight: '100%',
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#fafafa',
+                        // backgroundColor: '#fafafa',
+                        backgroundColor: 'rgba(11, 10, 21, 0.05)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        alignItems:  'center',
+                        padding: '2rem 0 6rem',
+                        overflow: 'hidden'
                       }}
                     >
-                      <p>Hello from the left side</p>
-                      <p>Hey hey</p>
+                      <div>
+                        <p>Hello from the left side</p>
+                        <p>Hey hey</p>
+                      </div>
+                      <CardPlayer
+                        radio={data.find(it => it.id === this.state.pendingRadioId)}
+                        isPlaying={this.state.isPlaying || this.state.isLoading}
+                      />
                     </div>
                   }
                   footer={
@@ -326,10 +340,19 @@ class App extends Component<{}, IState> {
                         style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}
                       >
                         <div
-                          style={{ width: '100%', height: '10rem', overflow: 'hidden', margin: '1rem' }}
+                          style={{
+                            width: '100%',
+                            height: '10rem',
+                            overflow: 'hidden',
+                            margin: '1rem',
+                          }}
                         >
                           <img
-                            style={{ width: '100%', height: '100%', backgroundSize: 'stretch' }}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundSize: 'stretch',
+                            }}
                             src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80"
                           />
                         </div>
