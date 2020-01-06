@@ -16,7 +16,9 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/prefer-default-export': 0,
-    'react/prop-types': 0
+    'react/prop-types': 0,
+    '@typescript-eslint/interface-name-prefix': 0,
+    'react/state-in-constructor': 0
   },
   parserOptions: {
     jsx: true,
