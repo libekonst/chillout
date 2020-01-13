@@ -1,6 +1,9 @@
+/* eslint-disable no-undef */
 /** Changes the document.title property or resets it if no text is provided, and returns the new title. */
-const setDocTitle = (text?: string): string => {
-  if (text) return (document.title = `${text} - The Chillout App`);
-  return (document.title = 'The Chillout App');
+const setDocTitle = (text?: string) => {
+	const base = 'The Chillout App';
+	const title = text ? `${text} - ${base}` : base;
+
+	document.title = title;
 };
 export default setDocTitle;

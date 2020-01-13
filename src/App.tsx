@@ -1,22 +1,22 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, { Component, SyntheticEvent, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AppReadyState } from './AppContext';
 import { Player } from './components/audio-player';
 import { GridBodyRow, GridHeader } from './components/grid';
 import { IndeterminateLoadingBar } from './components/loaders';
-import { Radio, fetchRadios } from './data';
+import { Radio, getRadios } from './data';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { isLarge, theme } from './styles';
-import { debounce, setDocTitle } from './utils';
+import { debounce, setDocTitle, useObservable } from './utils';
 import './App.css';
 import './normalize.css';
 import './reset.css';
 
 import { HomeView } from './views/HomeView';
 import { CardPlayer } from './CardPlayer';
+import radioBloc from './blocs/radio.bloc';
 
-const data = fetchRadios();
 interface IState {
 	// App state
 	appReady: boolean;
@@ -37,12 +37,25 @@ interface IState {
 	audioMuted: boolean;
 }
 
+interface Props {
+	data: Radio[];
+}
+
 const initialVolume = 0.6;
 const collections = {
 	favorites: 'favorites',
 	active: 'active'
 };
-class App extends Component<{}, IState> {
+
+const WrappedApp = () => {
+	const radios = useObservable(radioBloc.radios$);
+	useEffect(() => radioBloc.fetchRadios(), []);
+
+	return <App data={radios || []} />;
+};
+export default WrappedApp;
+
+class App extends Component<Props, IState> {
 	/**
 	 * Retrieves the favorites JSON from `window.localStorage.favorites` and converts it to a `IRadio[]`,
 	 * or returns undefined if the collection is empty.
@@ -123,7 +136,7 @@ class App extends Component<{}, IState> {
 		this.setState({ isPlaying: false }, setDocTitle);
 
 	handleAudioError = (e: any): void => {
-		const radio = data.find(r => r.source === e.target.src);
+		const radio = this.props.data.find(r => r.source === e.target.src);
 
 		if (radio)
 			return this.setState(
@@ -139,7 +152,7 @@ class App extends Component<{}, IState> {
 	};
 
 	handleAudioStarted = (e: any): void => {
-		const radio = data.find(r => r.source === e.target.src);
+		const radio = this.props.data.find(r => r.source === e.target.src);
 		if (radio) {
 			this.setState(
 				{ isPlaying: true, isLoading: false, activeRadioId: radio.id },
@@ -161,7 +174,7 @@ class App extends Component<{}, IState> {
 
 	handleLoadStarted = (e: any): void => {
 		const audio = this.audioRef.current;
-		const radio = data.find(r => r.source === e.target.src);
+		const radio = this.props.data.find(r => r.source === e.target.src);
 
 		if (audio && audio.src !== this.resetAudioSrc)
 			this.setState({
@@ -196,7 +209,7 @@ class App extends Component<{}, IState> {
 
 		// Non null assertion on find().
 		// If undefined, the promise will be rejected and handled by the onError handler.
-		const radio = data.find(r => r.id === id)!;
+		const radio = this.props.data.find(r => r.id === id)!;
 		audio.src = radio.source;
 		return await audio.play();
 	};
@@ -308,9 +321,20 @@ class App extends Component<{}, IState> {
 											<div>
 												<p>Hello from the left side</p>
 												<p>Hey hey</p>
+												<button onClick={() => radioBloc.filter()} type="button">
+													All
+												</button>
+												<button onClick={() => radioBloc.filter('news')} type="button">
+													News
+												</button>
+												<button onClick={() => radioBloc.filter('music')} type="button">
+													Music
+												</button>
 											</div>
 											<CardPlayer
-												radio={data.find(it => it.id === this.state.pendingRadioId)}
+												radio={this.props.data.find(
+													it => it.id === this.state.pendingRadioId
+												)}
 												isPlaying={this.state.isPlaying || this.state.isLoading}
 											/>
 										</div>
@@ -326,14 +350,16 @@ class App extends Component<{}, IState> {
 											changeAudioVolume={this.changeAudioVolume}
 											volume={this.state.volume}
 											// Radio
-											radio={data.find(it => it.id === this.state.pendingRadioId)}
+											radio={this.props.data.find(
+												it => it.id === this.state.pendingRadioId
+											)}
 											isRadioFavorite={
 												!!this.state.favorites.find(
 													f => f.id === this.state.pendingRadioId
 												)
 											}
 											handleAddFavorite={this.addFavorite(
-												data.find(it => it.id === this.state.pendingRadioId)!
+												this.props.data.find(it => it.id === this.state.pendingRadioId)!
 											)}
 										/>
 									}
@@ -374,7 +400,7 @@ class App extends Component<{}, IState> {
 													{...this.state}
 												/>
 												<ul style={{ padding: '0 1rem' }}>
-													{data.map(item => (
+													{this.props.data.map(item => (
 														<li key={item.id}>
 															<GridBodyRow
 																name={item.name}
@@ -418,4 +444,4 @@ class App extends Component<{}, IState> {
 	}
 }
 
-export default App;
+// export default App;

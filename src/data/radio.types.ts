@@ -18,3 +18,5 @@ export interface Radio {
 export interface RadioData {
 	[label: string]: RadioModel[];
 }
+
+export type RadioProvider = () => Promise<Radio[]>;
