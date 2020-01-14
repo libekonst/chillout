@@ -39,6 +39,8 @@ interface IState {
 
 interface Props {
 	data: Radio[];
+	loading: boolean;
+	onFetch: () => void;
 }
 
 const initialVolume = 0.6;
@@ -49,9 +51,16 @@ const collections = {
 
 const WrappedApp = () => {
 	const radios = useObservable(radioBloc.radios$);
+	const loading = useObservable(radioBloc.isLoading$);
 	useEffect(() => radioBloc.fetchRadios(), []);
 
-	return <App data={radios || []} />;
+	return (
+		<App
+			data={radios || []}
+			loading={!!loading}
+			onFetch={() => radioBloc.fetchRadios()}
+		/>
+	);
 };
 export default WrappedApp;
 
@@ -330,6 +339,7 @@ class App extends Component<Props, IState> {
 												<button onClick={() => radioBloc.filter('music')} type="button">
 													Music
 												</button>
+												<button onClick={this.props.onFetch}>Fetch</button>
 											</div>
 											<CardPlayer
 												radio={this.props.data.find(
@@ -393,6 +403,7 @@ class App extends Component<Props, IState> {
 													}}>
 													The Chillout App
 												</div>
+												{this.props.loading && <p>Loading...</p>}
 												<Favorites
 													expandFavorites={this.expandFavorites}
 													openFavorites={this.openFavorites}
