@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 import React, { Component, SyntheticEvent, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AppReadyState } from './AppContext';
@@ -16,6 +18,7 @@ import './reset.css';
 import { HomeView } from './views/HomeView';
 import { CardPlayer } from './CardPlayer';
 import radioBloc from './blocs/radio.bloc';
+import audioService from './services/Audio.service';
 
 interface IState {
 	// App state
@@ -43,7 +46,7 @@ interface Props {
 	onFetch: () => void;
 }
 
-const initialVolume = 0.6;
+const initialVolume = '0.6';
 const collections = {
 	favorites: 'favorites',
 	active: 'active'
@@ -83,6 +86,9 @@ class App extends Component<Props, IState> {
 		return JSON.parse(active).id;
 	};
 
+	getVolumeFromLocalStorage = () =>
+		parseInt(localStorage.getItem('volume') || initialVolume, 10);
+
 	readonly state: IState = {
 		// App state
 		isScreenLarge: isLarge(),
@@ -100,24 +106,15 @@ class App extends Component<Props, IState> {
 
 		// Audio state
 		audioMuted: false,
-		volume: initialVolume
+		volume: this.getVolumeFromLocalStorage()
 	};
 
 	// <- AUDIO ->
-	audioRef = React.createRef<HTMLAudioElement>();
-
-	resetAudioSrc = 'javascript:void(0)';
-
 	changeAudioVolume = (e: any) => {
-		const audio = this.audioRef.current;
-		if (!audio) return;
-
-		// Update the audio
 		const volume = e.target.value;
-		audio.volume = volume;
-		if (audio.muted) audio.muted = false;
+		audioService.volume = volume;
 
-		return this.setState({ volume, audioMuted: false });
+		return this.setState({ volume, audioMuted: false }, this.saveVolumeToLocalStorage);
 	};
 
 	/**
@@ -125,18 +122,15 @@ class App extends Component<Props, IState> {
 	 * This function is called only after the user stops moving the slider for 100ms.
 	 */
 	setVolumeState = debounce(() => {
-		const audio = this.audioRef.current;
-		if (!audio) return;
-
-		this.setState({ volume: audio.volume, audioMuted: false });
+		this.setState(
+			{ volume: audioService.volume, audioMuted: false },
+			this.saveVolumeToLocalStorage
+		);
 	}, 100);
 
 	muteAudio = () => {
-		const audio = this.audioRef.current;
-		if (!audio) return;
-
 		this.setState(prev => {
-			audio.muted = !prev.audioMuted;
+			audioService.mute(!prev.audioMuted);
 			return { audioMuted: !prev.audioMuted };
 		});
 	};
@@ -145,7 +139,8 @@ class App extends Component<Props, IState> {
 		this.setState({ isPlaying: false }, setDocTitle);
 
 	handleAudioError = (e: any): void => {
-		const radio = this.props.data.find(r => r.source === e.target.src);
+		const { data } = this.props;
+		const radio = data.find(r => r.source === e.target.src);
 
 		if (radio)
 			return this.setState(
@@ -181,16 +176,25 @@ class App extends Component<Props, IState> {
 		}
 	};
 
-	handleLoadStarted = (e: any): void => {
-		const audio = this.audioRef.current;
-		const radio = this.props.data.find(r => r.source === e.target.src);
+	saveVolumeToLocalStorage = () => {
+		try {
+			localStorage.setItem('volume', audioService.volume.toString());
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
-		if (audio && audio.src !== this.resetAudioSrc)
-			this.setState({
-				isLoading: true,
-				isPlaying: false,
-				pendingRadioId: radio && radio.id
-			});
+	handleLoadStarted = (e: any): void => {
+		if (!audioService.source) return;
+
+		const { data } = this.props;
+		const radio = data.find(r => r.source === e.target.src);
+
+		this.setState({
+			isLoading: true,
+			isPlaying: false,
+			pendingRadioId: radio?.id
+		});
 	};
 
 	/**
@@ -198,29 +202,18 @@ class App extends Component<Props, IState> {
 	 * Separate event handlers respond to the events raised by the audio element.
 	 */
 	togglePlayRadio = (id?: number) => async (): Promise<void> => {
-		// If the ref is not available, do nothing.
-		const audio = this.audioRef.current;
-		if (!audio) return;
-
 		// If the provided ID is undefined, then no radio is selected.
 		if (id === undefined) return alert('Select a radio first!');
 
-		// Pause the audio and reset the source to force-stop buffering.
-		// Restricts unnecessary data usage and prevents playing old content downloaded after pausing.
-		if (
-			(this.state.activeRadioId === id && this.state.isPlaying) ||
-			(this.state.pendingRadioId === id && this.state.isLoading)
-		) {
-			audio.pause();
-			audio.src = this.resetAudioSrc;
-			return audio.load();
+		const { activeRadioId, pendingRadioId, isPlaying, isLoading } = this.state;
+		if ((activeRadioId === id && isPlaying) || (pendingRadioId === id && isLoading)) {
+			return audioService.stop();
 		}
 
-		// Non null assertion on find().
-		// If undefined, the promise will be rejected and handled by the onError handler.
-		const radio = this.props.data.find(r => r.id === id)!;
-		audio.src = radio.source;
-		return await audio.play();
+		const { data } = this.props;
+		const radio = data.find(r => r.id === id);
+		if (!radio) return undefined;
+		return audioService.play(radio.source);
 	};
 
 	// <- FAVORITES ->
@@ -239,7 +232,8 @@ class App extends Component<Props, IState> {
 	 * under the `window.localStorage.favorites` collection.
 	 */
 	saveFavoritesToLocalStorage = () => {
-		const favoritesObject = this.state.favorites.reduce(
+		const { favorites } = this.state;
+		const favoritesObject = favorites.reduce(
 			(acc, radio) => ({ ...acc, [radio.id]: radio }),
 			{}
 		);
@@ -264,18 +258,27 @@ class App extends Component<Props, IState> {
 	 * If so, toggle `this.state.isScreenLarge`.
 	 */
 	toggleFavoritesComponent: () => void = debounce(() => {
-		if (isLarge() !== this.state.isScreenLarge)
+		const { isScreenLarge } = this.state;
+		if (isLarge() !== isScreenLarge)
 			this.setState(prev => ({
 				isScreenLarge: !prev.isScreenLarge,
 				favoritesOpened: !prev.isScreenLarge
 			}));
 	});
 
-	renderComponentTree = () => this.setState({ appReady: true });
-
 	componentDidMount() {
-		const audio = this.audioRef.current!; // Non null assertion. The ref is available in componentDidMount.
-		audio.volume = initialVolume;
+		const { volume } = this.state;
+		audioService.volume = volume;
+
+		const handlers = {
+			loadstart: this.handleLoadStarted,
+			playing: this.handleAudioStarted,
+			error: this.handleAudioError,
+			ended: this.handleAudioStopped,
+			suspend: this.handleAudioStopped
+		};
+
+		audioService.on(handlers);
 
 		/** The load event is fired when everything has been loaded, including images and external resources. */
 		window.addEventListener('load', this.renderComponentTree);
@@ -287,6 +290,8 @@ class App extends Component<Props, IState> {
 		window.removeEventListener('load', this.renderComponentTree);
 		window.removeEventListener('resize', this.toggleFavoritesComponent);
 	}
+
+	renderComponentTree = () => this.setState({ appReady: true });
 
 	render() {
 		return (
@@ -411,9 +416,10 @@ class App extends Component<Props, IState> {
 													{...this.state}
 												/>
 												<ul style={{ padding: '0 1rem' }}>
-													{this.props.data.map(item => (
+													{this.props.data.map((item, i) => (
 														<li key={item.id}>
 															<GridBodyRow
+																style={{ animationDelay: `${i * 0.05}s` }}
 																name={item.name}
 																image={item.image}
 																label={item.label}
@@ -439,15 +445,6 @@ class App extends Component<Props, IState> {
 								/>
 							</>
 						</ThemeProvider>
-						<audio
-							ref={this.audioRef}
-							onLoadStart={this.handleLoadStarted}
-							onPlaying={this.handleAudioStarted}
-							onError={this.handleAudioError}
-							onEnded={this.handleAudioStopped}
-							onSuspend={this.handleAudioStopped}>
-							{" Your browser doesn't support the audio element. :( "}
-						</audio>
 					</div>
 				</AppReadyState.Provider>
 			</>
