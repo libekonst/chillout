@@ -19,11 +19,11 @@ interface IGridBaseProps {
 
 const animation = keyframes`
   from {
-    transform: translateY(10px);
+    transform: translateY(10px) scaleX(0.9);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scaleX(1);
     opacity: 1;
   }
 `;
@@ -33,8 +33,9 @@ export const GridBase = styled.div<IGridBaseProps>`
   height: auto;
   position: relative;
   cursor: default;
-  opacity: 0;
-  animation: ${animation} 0.08s ease-out forwards;
+	opacity: 0;
+	transform-origin: bottom left;
+  animation: ${animation} 0.2s ease-out forwards;
 
   /* Grid layout */
   display: grid;

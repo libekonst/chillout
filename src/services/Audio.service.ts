@@ -36,7 +36,7 @@ export class AudioService {
 		this._audio.muted = val;
 	}
 
-	on(handlers: { [ev: string]: (e: any) => void }) {
+	on(handlers: { [ev: string]: EventListener }) {
 		Object.entries(handlers).forEach(([ev, handler]) =>
 			this._audio.addEventListener(ev, handler)
 		);

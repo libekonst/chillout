@@ -17,8 +17,9 @@ import './reset.css';
 
 import { HomeView } from './views/HomeView';
 import { CardPlayer } from './CardPlayer';
-import radioBloc from './blocs/radio.bloc';
+import radioBloc from './blocs/radio.repository';
 import audioService from './services/Audio.service';
+import storageService from './services/Storage.service';
 
 interface IState {
 	// App state
@@ -68,27 +69,6 @@ const WrappedApp = () => {
 export default WrappedApp;
 
 class App extends Component<Props, IState> {
-	/**
-	 * Retrieves the favorites JSON from `window.localStorage.favorites` and converts it to a `IRadio[]`,
-	 * or returns undefined if the collection is empty.
-	 */
-	getFavoritesFromLocalStorage = () => {
-		const favorites = localStorage.getItem(collections.favorites);
-		if (!favorites) return;
-
-		return Object.values(JSON.parse(favorites)) as Radio[];
-	};
-
-	getActiveRadioFromLocalStorage = () => {
-		const active = localStorage.getItem(collections.active);
-		if (!active) return;
-
-		return JSON.parse(active).id;
-	};
-
-	getVolumeFromLocalStorage = () =>
-		parseInt(localStorage.getItem('volume') || initialVolume, 10);
-
 	readonly state: IState = {
 		// App state
 		isScreenLarge: isLarge(),
@@ -96,9 +76,9 @@ class App extends Component<Props, IState> {
 
 		// Radio State
 		favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
-		pendingRadioId: this.getActiveRadioFromLocalStorage(),
-		activeRadioId: this.getActiveRadioFromLocalStorage(),
-		favorites: this.getFavoritesFromLocalStorage() || [], // Initialize to an empty array if the collection is empty.
+		pendingRadioId: undefined,
+		activeRadioId: undefined,
+		favorites: [],
 
 		// Playback/Radio state
 		isPlaying: false,
@@ -106,7 +86,7 @@ class App extends Component<Props, IState> {
 
 		// Audio state
 		audioMuted: false,
-		volume: this.getVolumeFromLocalStorage()
+		volume: parseInt(initialVolume, 10)
 	};
 
 	// <- AUDIO ->
@@ -114,7 +94,9 @@ class App extends Component<Props, IState> {
 		const volume = e.target.value;
 		audioService.volume = volume;
 
-		return this.setState({ volume, audioMuted: false }, this.saveVolumeToLocalStorage);
+		return this.setState({ volume, audioMuted: false }, () => {
+			storageService.saveVolume(audioService.volume);
+		});
 	};
 
 	/**
@@ -122,10 +104,9 @@ class App extends Component<Props, IState> {
 	 * This function is called only after the user stops moving the slider for 100ms.
 	 */
 	setVolumeState = debounce(() => {
-		this.setState(
-			{ volume: audioService.volume, audioMuted: false },
-			this.saveVolumeToLocalStorage
-		);
+		this.setState({ volume: audioService.volume, audioMuted: false }, () => {
+			storageService.saveVolume(audioService.volume);
+		});
 	}, 100);
 
 	muteAudio = () => {
@@ -157,31 +138,12 @@ class App extends Component<Props, IState> {
 
 	handleAudioStarted = (e: any): void => {
 		const radio = this.props.data.find(r => r.source === e.target.src);
-		if (radio) {
-			this.setState(
-				{ isPlaying: true, isLoading: false, activeRadioId: radio.id },
-				() => {
-					setDocTitle(radio.name);
-					this.saveActiveRadioToLocalStorage(radio);
-				}
-			);
-		}
-	};
+		if (!radio) return;
 
-	saveActiveRadioToLocalStorage = (radio: Radio) => {
-		try {
-			localStorage.setItem(collections.active, JSON.stringify(radio));
-		} catch (e) {
-			console.error(e);
-		}
-	};
-
-	saveVolumeToLocalStorage = () => {
-		try {
-			localStorage.setItem('volume', audioService.volume.toString());
-		} catch (e) {
-			console.error(e);
-		}
+		this.setState({ isPlaying: true, isLoading: false, activeRadioId: radio.id }, () => {
+			setDocTitle(radio.name);
+			storageService.saveLatestRadio(radio);
+		});
 	};
 
 	handleLoadStarted = (e: any): void => {
@@ -219,11 +181,17 @@ class App extends Component<Props, IState> {
 	// <- FAVORITES ->
 	addFavorite = (radio: Radio) => (e: any): void => {
 		e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
-		this.setState(prevState => {
-			if (prevState.favorites.find(f => f.id === radio.id))
-				return { favorites: prevState.favorites.filter(f => f.id !== radio.id) };
-			return { favorites: [radio, ...prevState.favorites] }; // Add from left.
-		}, this.saveFavoritesToLocalStorage);
+		this.setState(
+			prevState => {
+				if (prevState.favorites.find(f => f.id === radio.id))
+					return { favorites: prevState.favorites.filter(f => f.id !== radio.id) };
+				return { favorites: [radio, ...prevState.favorites] }; // Add from left.
+			},
+			() => {
+				const { favorites } = this.state;
+				storageService.updateFavorites(favorites);
+			}
+		);
 	};
 
 	/**
@@ -231,19 +199,11 @@ class App extends Component<Props, IState> {
 	 * and the radio object as the value, then stringifies it and saves it to local storage
 	 * under the `window.localStorage.favorites` collection.
 	 */
-	saveFavoritesToLocalStorage = () => {
-		const { favorites } = this.state;
-		const favoritesObject = favorites.reduce(
-			(acc, radio) => ({ ...acc, [radio.id]: radio }),
-			{}
-		);
+	// saveFavoritesToLocalStorage = () => {
+	// 	const { favorites } = this.state;
 
-		try {
-			localStorage.setItem(collections.favorites, JSON.stringify(favoritesObject));
-		} catch (e) {
-			console.error(e);
-		}
-	};
+	// 	storageService.updateFavorites(favorites);
+	// };
 
 	expandFavorites = (callback?: () => any): void => {
 		this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }), callback);
@@ -279,6 +239,22 @@ class App extends Component<Props, IState> {
 		};
 
 		audioService.on(handlers);
+
+		storageService.preferences$.subscribe(pref => {
+			if (!pref) return;
+
+			this.setState({
+				volume: pref.volume,
+				activeRadioId: pref.radio?.id,
+				pendingRadioId: pref.radio?.id
+			});
+		});
+
+		storageService.favorites$.subscribe(favorites => {
+			if (!favorites) return;
+
+			this.setState({ favorites });
+		});
 
 		/** The load event is fired when everything has been loaded, including images and external resources. */
 		window.addEventListener('load', this.renderComponentTree);

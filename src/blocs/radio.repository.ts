@@ -4,7 +4,7 @@ import { RadioProvider } from '../data/radio.types';
 import { Radio } from '../data';
 import { fetchRadios } from '../data/radio.provider';
 
-export class RadioBloc {
+export class RadioRepository {
 	constructor(private readonly _radioProvider: RadioProvider) {}
 
 	private readonly _refresh = new BehaviorSubject(null);
@@ -48,4 +48,4 @@ export class RadioBloc {
 
 type Label = 'news' | 'music';
 
-export default new RadioBloc(fetchRadios);
+export default new RadioRepository(fetchRadios);
