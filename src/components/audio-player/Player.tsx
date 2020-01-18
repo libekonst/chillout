@@ -10,7 +10,7 @@ import { Favorite } from '../icon-buttons/Favorite';
 interface IProps {
 	// Play button
 	isPlaying: boolean;
-	handlePlay: () => void;
+	handlePlay?: () => void;
 
 	// Volume
 	onMuteAudio: () => void;

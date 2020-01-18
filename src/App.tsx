@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-env browser */
 
 import React, { Component, SyntheticEvent, useEffect } from 'react';
@@ -6,7 +7,6 @@ import { AppReadyState } from './AppContext';
 import { Player } from './components/audio-player';
 import { GridBodyRow, GridHeader } from './components/grid';
 import { IndeterminateLoadingBar } from './components/loaders';
-import { Radio, getRadios } from './data';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { isLarge, theme } from './styles';
@@ -17,9 +17,10 @@ import './reset.css';
 
 import { HomeView } from './views/HomeView';
 import { CardPlayer } from './CardPlayer';
-import radioBloc from './blocs/radio.repository';
-import audioService from './services/Audio.service';
-import storageService from './services/Storage.service';
+import radioRepo, { Radio } from './data';
+import audioService from './services/audio.service';
+import storageService from './services/storage.service';
+import playerBloc from './blocs/player.bloc';
 
 interface IState {
 	// App state
@@ -28,8 +29,8 @@ interface IState {
 
 	// Radio state
 	favoritesOpened: boolean;
-	activeRadioId?: number;
-	pendingRadioId?: number;
+	activeRadio?: Radio;
+	pendingRadio?: Radio;
 	favorites: Radio[];
 
 	// Playback state
@@ -54,15 +55,15 @@ const collections = {
 };
 
 const WrappedApp = () => {
-	const radios = useObservable(radioBloc.radios$);
-	const loading = useObservable(radioBloc.isLoading$);
-	useEffect(() => radioBloc.fetchRadios(), []);
+	const radios = useObservable(radioRepo.radios$);
+	const loading = useObservable(radioRepo.isLoading$);
+	useEffect(() => radioRepo.fetchRadios(), []);
 
 	return (
 		<App
 			data={radios || []}
 			loading={!!loading}
-			onFetch={() => radioBloc.fetchRadios()}
+			onFetch={() => radioRepo.fetchRadios()}
 		/>
 	);
 };
@@ -76,8 +77,8 @@ class App extends Component<Props, IState> {
 
 		// Radio State
 		favoritesOpened: isLarge(), // If large screen, favorites should be open. Else closed.
-		pendingRadioId: undefined,
-		activeRadioId: undefined,
+		pendingRadio: undefined,
+		activeRadio: undefined,
 		favorites: [],
 
 		// Playback/Radio state
@@ -128,7 +129,7 @@ class App extends Component<Props, IState> {
 				prev => ({
 					isLoading: false,
 					isPlaying: false,
-					pendingRadioId: prev.activeRadioId
+					pendingRadio: prev.activeRadio
 				}),
 				setDocTitle
 			);
@@ -140,7 +141,7 @@ class App extends Component<Props, IState> {
 		const radio = this.props.data.find(r => r.source === e.target.src);
 		if (!radio) return;
 
-		this.setState({ isPlaying: true, isLoading: false, activeRadioId: radio.id }, () => {
+		this.setState({ isPlaying: true, isLoading: false, activeRadio: radio }, () => {
 			setDocTitle(radio.name);
 			storageService.saveLatestRadio(radio);
 		});
@@ -155,7 +156,7 @@ class App extends Component<Props, IState> {
 		this.setState({
 			isLoading: true,
 			isPlaying: false,
-			pendingRadioId: radio?.id
+			pendingRadio: radio
 		});
 	};
 
@@ -163,19 +164,19 @@ class App extends Component<Props, IState> {
 	 * Manipulates the audio element to play/stop the media.
 	 * Separate event handlers respond to the events raised by the audio element.
 	 */
-	togglePlayRadio = (id?: number) => async (): Promise<void> => {
+	selectRadio = (radio: Radio) => () => {
 		// If the provided ID is undefined, then no radio is selected.
-		if (id === undefined) return alert('Select a radio first!');
+		if (!radio) return alert('Select a radio first!');
 
-		const { activeRadioId, pendingRadioId, isPlaying, isLoading } = this.state;
-		if ((activeRadioId === id && isPlaying) || (pendingRadioId === id && isLoading)) {
-			return audioService.stop();
-		}
+		// const { activeRadio, pendingRadio, isPlaying, isLoading } = this.state;
+		// if (
+		// 	(activeRadio?.id === radio?.id && isPlaying) ||
+		// 	(pendingRadio?.id === radio?.id && isLoading)
+		// ) {
+		// 	return playerBloc.stop();
+		// }
 
-		const { data } = this.props;
-		const radio = data.find(r => r.id === id);
-		if (!radio) return undefined;
-		return audioService.play(radio.source);
+		return playerBloc.select(radio);
 	};
 
 	// <- FAVORITES ->
@@ -245,8 +246,8 @@ class App extends Component<Props, IState> {
 
 			this.setState({
 				volume: pref.volume,
-				activeRadioId: pref.radio?.id,
-				pendingRadioId: pref.radio?.id
+				activeRadio: pref.radio,
+				pendingRadio: pref.radio
 			});
 		});
 
@@ -255,6 +256,10 @@ class App extends Component<Props, IState> {
 
 			this.setState({ favorites });
 		});
+
+		playerBloc.activeRadio$.subscribe(activeRadio =>
+			this.setState({ activeRadio, pendingRadio: activeRadio })
+		);
 
 		/** The load event is fired when everything has been loaded, including images and external resources. */
 		window.addEventListener('load', this.renderComponentTree);
@@ -289,7 +294,7 @@ class App extends Component<Props, IState> {
 										right: 0,
 										zIndex: 10
 									}}>
-									{this.state.isLoading && <IndeterminateLoadingBar />}
+									{this.props.loading && <IndeterminateLoadingBar />}
 								</aside>
 								<HomeView
 									sidebar={
@@ -311,20 +316,22 @@ class App extends Component<Props, IState> {
 											<div>
 												<p>Hello from the left side</p>
 												<p>Hey hey</p>
-												<button onClick={() => radioBloc.filter()} type="button">
+												<button onClick={() => radioRepo.filter()} type="button">
 													All
 												</button>
-												<button onClick={() => radioBloc.filter('news')} type="button">
+												<button onClick={() => radioRepo.filter('news')} type="button">
 													News
 												</button>
-												<button onClick={() => radioBloc.filter('music')} type="button">
+												<button onClick={() => radioRepo.filter('music')} type="button">
 													Music
 												</button>
-												<button onClick={this.props.onFetch}>Fetch</button>
+												<button type="button" onClick={this.props.onFetch}>
+													Fetch
+												</button>
 											</div>
 											<CardPlayer
 												radio={this.props.data.find(
-													it => it.id === this.state.pendingRadioId
+													it => it.id === this.state.pendingRadio?.id
 												)}
 												isPlaying={this.state.isPlaying || this.state.isLoading}
 											/>
@@ -334,7 +341,10 @@ class App extends Component<Props, IState> {
 										<Player
 											// Play button
 											isPlaying={this.state.isPlaying || this.state.isLoading}
-											handlePlay={this.togglePlayRadio(this.state.pendingRadioId)}
+											handlePlay={
+												this.state.pendingRadio &&
+												this.selectRadio(this.state.pendingRadio)
+											}
 											// Audio
 											onMuteAudio={this.muteAudio}
 											muted={this.state.audioMuted}
@@ -342,15 +352,17 @@ class App extends Component<Props, IState> {
 											volume={this.state.volume}
 											// Radio
 											radio={this.props.data.find(
-												it => it.id === this.state.pendingRadioId
+												it => it.id === this.state.pendingRadio?.id
 											)}
 											isRadioFavorite={
 												!!this.state.favorites.find(
-													f => f.id === this.state.pendingRadioId
+													f => f.id === this.state.pendingRadio?.id
 												)
 											}
 											handleAddFavorite={this.addFavorite(
-												this.props.data.find(it => it.id === this.state.pendingRadioId)!
+												this.props.data.find(
+													it => it.id === this.state.pendingRadio?.id
+												)!
 											)}
 										/>
 									}
@@ -371,24 +383,14 @@ class App extends Component<Props, IState> {
 															height: '100%',
 															backgroundSize: 'stretch'
 														}}
+														alt=""
 														src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80"
 													/>
 												</div>
-												<div
-													style={{
-														height: '1.5rem',
-														display: 'flex',
-														width: '100%',
-														backgroundColor: 'rgb(59, 140, 168)',
-														color: 'white'
-													}}>
-													The Chillout App
-												</div>
-												{this.props.loading && <p>Loading...</p>}
 												<Favorites
 													expandFavorites={this.expandFavorites}
 													openFavorites={this.openFavorites}
-													togglePlayRadio={this.togglePlayRadio}
+													togglePlayRadio={this.selectRadio}
 													{...this.state}
 												/>
 												<ul style={{ padding: '0 1rem' }}>
@@ -400,16 +402,16 @@ class App extends Component<Props, IState> {
 																image={item.image}
 																label={item.label}
 																handleAddFavorite={this.addFavorite(item)}
-																handlePlay={this.togglePlayRadio(item.id)}
-																selected={item.id === this.state.pendingRadioId}
+																handlePlay={this.selectRadio(item)}
+																selected={item.id === this.state.pendingRadio?.id}
 																isFavorite={
 																	!!this.state.favorites.find(f => f.id === item.id)
 																}
 																isPlaying={
 																	(this.state.isLoading &&
-																		this.state.pendingRadioId === item.id) ||
+																		this.state.pendingRadio?.id === item.id) ||
 																	(this.state.isPlaying &&
-																		this.state.activeRadioId === item.id)
+																		this.state.activeRadio?.id === item.id)
 																}
 															/>
 														</li>

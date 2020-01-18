@@ -7,6 +7,10 @@ export class AudioService {
 		return this._audio.src;
 	}
 
+	get isPlaying() {
+		return !this._audio.paused;
+	}
+
 	play(url: string) {
 		this._audio.src = url;
 		this._audio.play();

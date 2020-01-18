@@ -11,7 +11,7 @@ interface IState {
 interface IProps {
 	data: Radio[];
 	handleExpand: (fn?: () => any) => void;
-	onSelectRadio: (id: number) => (e: MouseEvent) => void;
+	onSelectRadio: (radio: Radio) => (e: MouseEvent) => void;
 	expanded: boolean;
 	selectedRadio?: number;
 	title?: string;

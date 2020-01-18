@@ -1,4 +1,4 @@
 import { Radio as R } from './radio.types';
 
-export { getRadios } from './radio.provider';
+export { default } from './radio.repository';
 export type Radio = R;

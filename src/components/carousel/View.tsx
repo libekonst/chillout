@@ -10,7 +10,7 @@ interface IViewProps {
 	canClickNext: boolean;
 	selectedRadio?: number;
 	canClickBack: boolean;
-	onSelectRadio: (id: number) => (e: MouseEvent) => void;
+	onSelectRadio: (radio: Radio) => (e: MouseEvent) => void;
 	cardRef: React.RefObject<HTMLLIElement>;
 	radios: Radio[];
 	isPlaying?: boolean;
@@ -28,7 +28,7 @@ export const View = React.forwardRef<HTMLUListElement, Props>((props, ref) => {
 					<Card
 						title={r.name}
 						image={r.image}
-						onClick={props.onSelectRadio(r.id)}
+						onClick={props.onSelectRadio(r)}
 						isActive={selectedRadio === r.id && isPlaying}
 					/>
 				</ListItem>

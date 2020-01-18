@@ -9,7 +9,7 @@ import { FAB } from './components/icon-buttons/FAB';
 interface IProps {
 	expandFavorites: () => void;
 	openFavorites: () => void;
-	togglePlayRadio: (id: number) => (e: React.MouseEvent<Element, MouseEvent>) => void;
+	togglePlayRadio: (radio: Radio) => (e: React.MouseEvent<Element, MouseEvent>) => void;
 
 	// App state
 	// contentReady: boolean;

@@ -1,8 +1,7 @@
 import { BehaviorSubject, from, combineLatest, merge } from 'rxjs';
 import { debounceTime, map, exhaustMap } from 'rxjs/operators';
-import { RadioProvider } from '../data/radio.types';
-import { Radio } from '../data';
-import { fetchRadios } from '../data/radio.provider';
+import { RadioProvider, Radio } from './radio.types';
+import { fetchRadios } from './radio.provider';
 
 export class RadioRepository {
 	constructor(private readonly _radioProvider: RadioProvider) {}
