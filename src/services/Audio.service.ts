@@ -36,6 +36,10 @@ export class AudioService {
 		return this._audio.volume;
 	}
 
+	get muted() {
+		return this._audio.muted;
+	}
+
 	mute(val = true) {
 		this._audio.muted = val;
 	}

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-env browser */
 
@@ -21,6 +22,7 @@ import radioRepo, { Radio } from './data';
 import audioService from './services/audio.service';
 import storageService from './services/storage.service';
 import playerBloc from './blocs/player.bloc';
+import collectionsBloc from './blocs/collections.bloc';
 
 interface IState {
 	// App state
@@ -93,28 +95,7 @@ class App extends Component<Props, IState> {
 	// <- AUDIO ->
 	changeAudioVolume = (e: any) => {
 		const volume = e.target.value;
-		audioService.volume = volume;
-
-		return this.setState({ volume, audioMuted: false }, () => {
-			storageService.saveVolume(audioService.volume);
-		});
-	};
-
-	/**
-	 * Sets `volume` and `audioMuted` states to update the controlled range input element.
-	 * This function is called only after the user stops moving the slider for 100ms.
-	 */
-	setVolumeState = debounce(() => {
-		this.setState({ volume: audioService.volume, audioMuted: false }, () => {
-			storageService.saveVolume(audioService.volume);
-		});
-	}, 100);
-
-	muteAudio = () => {
-		this.setState(prev => {
-			audioService.mute(!prev.audioMuted);
-			return { audioMuted: !prev.audioMuted };
-		});
+		playerBloc.changeVolume(volume);
 	};
 
 	handleAudioStopped = (e: any): void =>
@@ -160,21 +141,9 @@ class App extends Component<Props, IState> {
 		});
 	};
 
-	/**
-	 * Manipulates the audio element to play/stop the media.
-	 * Separate event handlers respond to the events raised by the audio element.
-	 */
 	selectRadio = (radio: Radio) => () => {
 		// If the provided ID is undefined, then no radio is selected.
 		if (!radio) return alert('Select a radio first!');
-
-		// const { activeRadio, pendingRadio, isPlaying, isLoading } = this.state;
-		// if (
-		// 	(activeRadio?.id === radio?.id && isPlaying) ||
-		// 	(pendingRadio?.id === radio?.id && isLoading)
-		// ) {
-		// 	return playerBloc.stop();
-		// }
 
 		return playerBloc.select(radio);
 	};
@@ -182,29 +151,8 @@ class App extends Component<Props, IState> {
 	// <- FAVORITES ->
 	addFavorite = (radio: Radio) => (e: any): void => {
 		e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
-		this.setState(
-			prevState => {
-				if (prevState.favorites.find(f => f.id === radio.id))
-					return { favorites: prevState.favorites.filter(f => f.id !== radio.id) };
-				return { favorites: [radio, ...prevState.favorites] }; // Add from left.
-			},
-			() => {
-				const { favorites } = this.state;
-				storageService.updateFavorites(favorites);
-			}
-		);
+		collectionsBloc.addFavorite(radio);
 	};
-
-	/**
-	 * Converts the `favorites: IRadio[]` into an object with each radio's id as a key
-	 * and the radio object as the value, then stringifies it and saves it to local storage
-	 * under the `window.localStorage.favorites` collection.
-	 */
-	// saveFavoritesToLocalStorage = () => {
-	// 	const { favorites } = this.state;
-
-	// 	storageService.updateFavorites(favorites);
-	// };
 
 	expandFavorites = (callback?: () => any): void => {
 		this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }), callback);
@@ -346,7 +294,7 @@ class App extends Component<Props, IState> {
 												this.selectRadio(this.state.pendingRadio)
 											}
 											// Audio
-											onMuteAudio={this.muteAudio}
+											onMuteAudio={playerBloc.mute}
 											muted={this.state.audioMuted}
 											changeAudioVolume={this.changeAudioVolume}
 											volume={this.state.volume}
