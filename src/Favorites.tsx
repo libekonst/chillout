@@ -79,5 +79,6 @@ const StickyTop = styled.div`
 	top: 0;
 	z-index: 1;
 	padding-bottom: 1rem;
-	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.8);
+	backdrop-filter: saturate(180%) blur(20px);
 `;

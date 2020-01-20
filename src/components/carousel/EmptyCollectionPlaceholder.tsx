@@ -4,7 +4,8 @@ import { MdFavorite } from 'react-icons/md';
 
 const TextWrapper = styled.div`
   flex: 1;
-  background-color: ${props => props.theme.colors.grayLight};
+  background-color: rgba(250, 250, 250, 0.);
+  background-opacity: 0.6;
   margin: 0.3rem 0.75rem;
   padding: 0 0.5rem;
   border-radius: 30px;
