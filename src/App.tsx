@@ -93,11 +93,6 @@ class App extends Component<Props, IState> {
 	};
 
 	// <- AUDIO ->
-	changeAudioVolume = (e: any) => {
-		const volume = e.target.value;
-		playerBloc.changeVolume(volume);
-	};
-
 	handleAudioStopped = (e: any): void =>
 		this.setState({ isPlaying: false }, setDocTitle);
 
@@ -158,8 +153,9 @@ class App extends Component<Props, IState> {
 		this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }), callback);
 	};
 
-	openFavorites = (): void =>
+	openFavorites = (): void => {
 		this.setState(prev => ({ favoritesOpened: !prev.favoritesOpened }));
+	};
 
 	/**
 	 * Exclusive OR. Evaluates to true if one and only one input is true.
@@ -187,7 +183,7 @@ class App extends Component<Props, IState> {
 			suspend: this.handleAudioStopped
 		};
 
-		audioService.on(handlers);
+		audioService.onMany(handlers);
 
 		storageService.preferences$.subscribe(pref => {
 			if (!pref) return;
@@ -199,7 +195,7 @@ class App extends Component<Props, IState> {
 			});
 		});
 
-		storageService.favorites$.subscribe(favorites => {
+		collectionsBloc.favorites$.subscribe(favorites => {
 			if (!favorites) return;
 
 			this.setState({ favorites });
@@ -294,9 +290,7 @@ class App extends Component<Props, IState> {
 												this.selectRadio(this.state.pendingRadio)
 											}
 											// Audio
-											onMuteAudio={playerBloc.mute}
 											muted={this.state.audioMuted}
-											changeAudioVolume={this.changeAudioVolume}
 											volume={this.state.volume}
 											// Radio
 											radio={this.props.data.find(

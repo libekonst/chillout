@@ -44,7 +44,19 @@ export class AudioService {
 		this._audio.muted = val;
 	}
 
-	on(handlers: { [ev: string]: EventListener }) {
+	/** Registers an event handler for the specified event type and returns a registration cleanup function. */
+	on<K extends keyof HTMLMediaElementEventMap>(
+		type: K,
+		listener: (this: HTMLAudioElement, ev: HTMLMediaElementEventMap[K]) => any
+	) {
+		this._audio.addEventListener(type, listener);
+
+		return () => {
+			this._audio.removeEventListener(type, listener);
+		};
+	}
+
+	onMany(handlers: { [ev: string]: EventListener }) {
 		Object.entries(handlers).forEach(([ev, handler]) =>
 			this._audio.addEventListener(ev, handler)
 		);

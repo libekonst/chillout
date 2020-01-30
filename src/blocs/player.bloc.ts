@@ -20,14 +20,15 @@ export class Player {
 	) {}
 
 	// Update volume
-	private _updateVolumeSubj = new Subject<number>();
+	private _updateVolumeSubj = new BehaviorSubject<number>(this._audioService.volume);
 
-	private _updateSub = this._updateVolumeSubj
-		.pipe(debounceTime(500))
-		.subscribe(volume => {
-			this._audioService.volume = volume;
-			this._storageService.saveVolume(volume);
-		});
+	readonly audioVolume$ = this._updateVolumeSubj.pipe(filter(v => v >= 0 && v <= 1));
+	// Pass only the value that falls bet
+
+	private _updateSub = this.audioVolume$.subscribe(volume => {
+		this._audioService.volume = volume;
+		this._storageService.saveVolume(volume);
+	});
 
 	private _radioSubject = new BehaviorSubject<Radio | undefined>(undefined);
 

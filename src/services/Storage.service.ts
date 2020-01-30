@@ -10,15 +10,11 @@ export class StorageService {
 
 	private _getPrefsSubj = new BehaviorSubject(null);
 
-	private _favoritesSubj = new BehaviorSubject<Radio[]>([]);
+	private _favoritesSubj = new Subject<Radio[]>();
 
 	private _getFavoritesSubj = new BehaviorSubject(null);
 
 	// private _updateFavoritesSubj = new Subject<UpdateFavoriteAction>();
-
-	private _loadPreferences$ = of(getPreferences());
-
-	private _loadFavorites$ = of(getFavorites());
 
 	private _preferencesSub = combineLatest(this._volumeSubj, this._lastRadioSubj)
 		.pipe(debounceTime(500))
@@ -49,9 +45,9 @@ export class StorageService {
 	// 	this._updateFavoritesSubj.next(action);
 	// }
 
-	preferences$ = this._getPrefsSubj.pipe(exhaustMap(() => this._loadPreferences$));
+	preferences$ = this._getPrefsSubj.pipe(exhaustMap(() => of(getPreferences())));
 
-	favorites$ = this._getFavoritesSubj.pipe(exhaustMap(() => this._loadFavorites$));
+	favorites$ = this._getFavoritesSubj.pipe(exhaustMap(() => of(getFavorites())));
 
 	dispose() {
 		this._volumeSubj.complete();
