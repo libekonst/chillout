@@ -1,5 +1,5 @@
 import { BehaviorSubject, Subject, of } from 'rxjs';
-import { throttleTime, withLatestFrom, switchAll } from 'rxjs/operators';
+import { throttleTime, withLatestFrom, switchAll, flatMap, map } from 'rxjs/operators';
 import storage, { StorageService } from '../services/storage.service';
 import { Radio } from '../data';
 
@@ -29,6 +29,15 @@ export class CollectionsBloc {
 	readonly favorites$ = of(this._storageService.favorites$, this._favoritesState).pipe(
 		switchAll()
 	);
+
+	isFavorite(radio?: Radio) {
+		return this.favorites$.pipe(
+			map(favs => {
+				if (!favs) return false;
+				return !!favs.find(r => r.id === radio?.id);
+			})
+		);
+	}
 
 	addFavorite(radio: Radio) {
 		this._favoritesSubject.next(radio);

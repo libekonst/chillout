@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, merge, concat, of } from 'rxjs';
 import {
 	map,
 	debounceTime,
@@ -7,7 +7,10 @@ import {
 	distinct,
 	tap,
 	pairwise,
-	distinctUntilChanged
+	distinctUntilChanged,
+	switchMap,
+	switchMapTo,
+	mapTo
 } from 'rxjs/operators';
 import { Radio } from '../data';
 import { AudioService } from '../services/audio.service';
@@ -19,22 +22,36 @@ export class Player {
 		private readonly _storageService: StorageService
 	) {}
 
-	// Update volume
-	private _updateVolumeSubj = new BehaviorSubject<number>(this._audioService.volume);
+	// Update volume subject. Push to this subject to update the state and save to local storage.
+	private _updateVolumeSubj = new BehaviorSubject<number>(0.6);
 
-	readonly audioVolume$ = this._updateVolumeSubj.pipe(filter(v => v >= 0 && v <= 1));
-	// Pass only the value that falls bet
+	private _muteSubj = new Subject<null>();
 
-	private _updateSub = this.audioVolume$.subscribe(volume => {
+	muted$ = this._muteSubj.pipe(
+		mapTo(!this._audioService.muted),
+		tap(isMuted => this._audioService.mute(isMuted))
+	);
+
+	// Keep only valid volume levels.
+	private _incomingVolume$ = this._updateVolumeSubj.pipe(
+		filter((vol): vol is number => typeof vol === 'number'),
+		filter(v => v >= 0 && v <= 1)
+	);
+
+	audioVolume$ = merge(this._incomingVolume$, this._storageService.volume$);
+
+	private _updateSub = this._incomingVolume$.subscribe(volume => {
 		this._audioService.volume = volume;
 		this._storageService.saveVolume(volume);
 	});
 
+	// Select radio. Use undefined to pause.
 	private _radioSubject = new BehaviorSubject<Radio | undefined>(undefined);
 
-	readonly activeRadio$ = this._radioSubject.pipe(
-		distinctUntilChanged((prev, curr) => prev?.id === curr?.id),
-		tap(x => console.log(x))
+	activeRadio$ = merge(
+		// Only emit if the radio hasn't changed, to avoid unnecessary storage calls etc.
+		this._radioSubject.pipe(distinctUntilChanged((prev, curr) => prev?.id === curr?.id)),
+		this._storageService.lastRadio$
 	);
 
 	private readonly _sub = this._radioSubject
@@ -53,17 +70,19 @@ export class Player {
 				this._audioService.stop();
 				return;
 			}
-
+			console.log(this._audioService.volume);
 			this._audioService.play(selectedRadio.source);
 			this._storageService.saveLatestRadio(selectedRadio);
 		});
+
+	isPlaying$ = of(this._audioService.isPlaying);
 
 	changeVolume(val: number) {
 		this._updateVolumeSubj.next(val);
 	}
 
 	mute() {
-		this._audioService.mute(!this._audioService.muted);
+		this._muteSubj.next(null);
 	}
 
 	select(radio: Radio) {

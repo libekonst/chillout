@@ -12,6 +12,7 @@ export const CardPlayer: FC<IProps> = ({ radio, isPlaying }) => {
 		<Parent>
 			<Blurred image={radio.image} />
 			<Inner image={radio.image} big={isPlaying} />
+			<LiveNow>LIVE</LiveNow>
 			<Title>{radio.name}</Title>
 		</Parent>
 	);
@@ -31,21 +32,30 @@ const Parent = styled.div`
 	/* overflow: hidden; */
 `;
 
+const scaleIn = keyframes`
+	from { transform: scaleX(1) scaleY(1.4); opacity: 0.1;}
+	to { transform: scaleX(1.3) scaleY(1.7); opacity: 0.2;}
+`;
+
 const Blurred = styled.div<{ image: string }>`
 	background-image: url(${props => props.image});
 	background-color: white;
 	background-size: cover;
+	background-position: center;
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	filter: blur(20px) saturate(180%);
-	transform: scaleX(1.3) scaleY(1.7);
+	animation: ${scaleIn} 0.5s ease-in-out forwards;
 	opacity: 0.2;
 `;
 
 const Inner = styled.div<{ image: string; big?: boolean }>`
 	background: url(${props => props.image});
-	background-size: cover;
+	background-size: contain;
+	background-repeat: repeat;
+	background-position: center;
+	background-color: rgb(250, 250, 250);
 	width: 60%;
 	height: 60%;
 	transition: transform 0.1s ease-out;
@@ -66,4 +76,19 @@ const Title = styled.p`
 	/* color: rgb(11, 10, 21); */
 	font-size: 2rem;
 	z-index: 1;
+`;
+
+const LiveNow = styled.div`
+	// color: rgb(90, 90, 90);
+	color: rgb(245, 245, 245);
+	background-color: rgba(120, 120, 120, 0.6);
+	backdrop-filter: blur(20px);
+	border-radius: 5px;
+	padding: 5px;
+	position: absolute;
+	top: 20px;
+	left: 80px;
+	font-weight: bold;
+	z-index: 10;
+	cursor: default;
 `;

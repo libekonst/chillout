@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /** Changes the document.title property or resets it if no text is provided, and returns the new title. */
 const setDocTitle = (text?: string) => {
 	const base = 'The Chillout App';

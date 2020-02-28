@@ -1,6 +1,13 @@
 /* eslint-env browser */
-import { of, BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { map, exhaustMap, debounceTime, exhaust } from 'rxjs/operators';
+import { of, BehaviorSubject, combineLatest, Subject, ReplaySubject } from 'rxjs';
+import {
+	map,
+	exhaustMap,
+	debounceTime,
+	exhaust,
+	tap,
+	shareReplay
+} from 'rxjs/operators';
 import { Radio } from '../data';
 
 export class StorageService {
@@ -45,9 +52,19 @@ export class StorageService {
 	// 	this._updateFavoritesSubj.next(action);
 	// }
 
-	preferences$ = this._getPrefsSubj.pipe(exhaustMap(() => of(getPreferences())));
+	preferences$ = this._getPrefsSubj.pipe(
+		exhaustMap(() => of(getPreferences())),
+		shareReplay(1)
+	);
 
-	favorites$ = this._getFavoritesSubj.pipe(exhaustMap(() => of(getFavorites())));
+	volume$ = this.preferences$.pipe(map(pref => pref?.volume));
+
+	lastRadio$ = this.preferences$.pipe(map(pref => pref?.radio));
+
+	favorites$ = this._getFavoritesSubj.pipe(
+		exhaustMap(() => of(getFavorites())),
+		tap(() => console.log('prefs fetched from local'))
+	);
 
 	dispose() {
 		this._volumeSubj.complete();

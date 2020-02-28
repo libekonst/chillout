@@ -38,10 +38,6 @@ interface IState {
 	// Playback state
 	isPlaying: boolean;
 	isLoading: boolean;
-
-	// Audio state
-	volume: number;
-	audioMuted: boolean;
 }
 
 interface Props {
@@ -85,11 +81,7 @@ class App extends Component<Props, IState> {
 
 		// Playback/Radio state
 		isPlaying: false,
-		isLoading: false,
-
-		// Audio state
-		audioMuted: false,
-		volume: parseInt(initialVolume, 10)
+		isLoading: false
 	};
 
 	// <- AUDIO ->
@@ -172,8 +164,8 @@ class App extends Component<Props, IState> {
 	});
 
 	componentDidMount() {
-		const { volume } = this.state;
-		audioService.volume = volume;
+		// const { volume } = this.state;
+		// audioService.volume = volume;
 
 		const handlers = {
 			loadstart: this.handleLoadStarted,
@@ -189,7 +181,7 @@ class App extends Component<Props, IState> {
 			if (!pref) return;
 
 			this.setState({
-				volume: pref.volume,
+				// volume: pref.volume,
 				activeRadio: pref.radio,
 				pendingRadio: pref.radio
 			});
@@ -281,33 +273,7 @@ class App extends Component<Props, IState> {
 											/>
 										</div>
 									}
-									footer={
-										<Player
-											// Play button
-											isPlaying={this.state.isPlaying || this.state.isLoading}
-											handlePlay={
-												this.state.pendingRadio &&
-												this.selectRadio(this.state.pendingRadio)
-											}
-											// Audio
-											muted={this.state.audioMuted}
-											volume={this.state.volume}
-											// Radio
-											radio={this.props.data.find(
-												it => it.id === this.state.pendingRadio?.id
-											)}
-											isRadioFavorite={
-												!!this.state.favorites.find(
-													f => f.id === this.state.pendingRadio?.id
-												)
-											}
-											handleAddFavorite={this.addFavorite(
-												this.props.data.find(
-													it => it.id === this.state.pendingRadio?.id
-												)!
-											)}
-										/>
-									}
+									footer={<Player />}
 									mainContent={
 										<div style={{ width: '100%', height: '100%', display: 'flex' }}>
 											<main

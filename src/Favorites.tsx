@@ -24,10 +24,6 @@ interface IProps {
 	// Playback state
 	isPlaying: boolean;
 	isLoading: boolean;
-
-	// Audio state
-	volume: number;
-	audioMuted: boolean;
 }
 
 export const Favorites: FC<IProps> = props => {
