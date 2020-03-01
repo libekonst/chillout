@@ -7,8 +7,9 @@ import { Radio } from './data';
 import { FAB } from './components/icon-buttons/FAB';
 
 interface IProps {
-	expandFavorites: () => void;
-	openFavorites: () => void;
+	// expandFavorites: () => void;
+	// openFavorites: () => void;
+	toggleFavoritesOpenAndThen: (cb?: () => any) => void;
 	togglePlayRadio: (radio: Radio) => (e: React.MouseEvent<Element, MouseEvent>) => void;
 
 	// App state
@@ -18,12 +19,10 @@ interface IProps {
 	// Radio state
 	favoritesOpened: boolean;
 	activeRadioId?: number;
-	pendingRadioId?: number;
 	favorites: Radio[];
 
 	// Playback state
 	isPlaying: boolean;
-	isLoading: boolean;
 }
 
 export const Favorites: FC<IProps> = props => {
@@ -31,39 +30,37 @@ export const Favorites: FC<IProps> = props => {
 		favorites,
 		favoritesOpened,
 		isPlaying,
-		expandFavorites,
+		toggleFavoritesOpenAndThen,
 		togglePlayRadio,
-		openFavorites,
-		isLoading,
 		activeRadioId,
-		pendingRadioId
+		isScreenLarge
 	} = props;
 
-	if (isLarge())
+	if (isScreenLarge)
 		return (
 			<StickyTop>
 				<Carousel
 					data={favorites}
-					handleExpand={expandFavorites}
+					handleExpand={toggleFavoritesOpenAndThen}
 					expanded={favoritesOpened}
-					isPlaying={isPlaying || isLoading}
-					selectedRadio={pendingRadioId || activeRadioId}
+					isPlaying={isPlaying}
+					selectedRadio={activeRadioId}
 					onSelectRadio={togglePlayRadio}
 				/>
 			</StickyTop>
 		);
 
-	if (!isLarge() && favorites.length)
+	if (!isScreenLarge && favorites.length)
 		return (
 			<>
 				<Backdrop
 					open={favoritesOpened}
 					data={favorites}
 					onRadioClick={togglePlayRadio}
-					isPlaying={isPlaying || isLoading}
-					selectedRadio={pendingRadioId || activeRadioId}
+					isPlaying={isPlaying}
+					selectedRadio={activeRadioId}
 				/>
-				<FAB isOpen={favoritesOpened} onClick={openFavorites} />
+				<FAB isOpen={favoritesOpened} onClick={toggleFavoritesOpenAndThen} />
 			</>
 		);
 
