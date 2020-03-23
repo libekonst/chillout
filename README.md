@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/kliberopoulos/a0ec978a-10e3-45de-a54d-aea0c9c7f1ec/ea12dae0-ba48-4a32-bb9c-f5ff126d4458/_apis/work/boardbadge/d528cfe1-4a64-4629-82a2-eed15c4ac569)](https://dev.azure.com/kliberopoulos/a0ec978a-10e3-45de-a54d-aea0c9c7f1ec/_boards/board/t/ea12dae0-ba48-4a32-bb9c-f5ff126d4458/Microsoft.RequirementCategory)
 # The Chillout App
 <img src="assets/logo-no-bg.png" alt="The chillout logo" height="350">
 
