@@ -1,13 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { Radio } from './data';
+import { AppServices } from './context';
+import { useObservable } from './utils';
+import { PlaybackStatus } from './services/audio.service';
 
-interface IProps {
+type Props = {
 	radio?: Radio;
-	isPlaying?: boolean;
-}
-export const CardPlayer: FC<IProps> = ({ radio, isPlaying }) => {
+};
+export function CardPlayer({ radio }: Props) {
 	if (!radio) return null;
+	const { audio } = useContext(AppServices);
+	const playback = useObservable(audio.playbackState$);
+	const isPlaying = useMemo(
+		() => playback === PlaybackStatus.LOADING || playback === PlaybackStatus.PLAYING,
+		[playback]
+	);
 	return (
 		<Parent>
 			<Blurred image={radio.image} />
@@ -16,7 +24,7 @@ export const CardPlayer: FC<IProps> = ({ radio, isPlaying }) => {
 			<Title>{radio.name}</Title>
 		</Parent>
 	);
-};
+}
 
 const Parent = styled.div`
 	position: relative;
@@ -38,7 +46,7 @@ const scaleIn = keyframes`
 `;
 
 const Blurred = styled.div<{ image: string }>`
-	background-image: url(${props => props.image});
+	background-image: url(${(props) => props.image});
 	background-color: white;
 	background-size: cover;
 	background-position: center;
@@ -51,7 +59,7 @@ const Blurred = styled.div<{ image: string }>`
 `;
 
 const Inner = styled.div<{ image: string; big?: boolean }>`
-	background: url(${props => props.image});
+	background: url(${(props) => props.image});
 	background-size: contain;
 	background-repeat: repeat;
 	background-position: center;
@@ -64,7 +72,7 @@ const Inner = styled.div<{ image: string; big?: boolean }>`
 	/* box-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.3); */
 	transform: scale(1);
 
-	${props =>
+	${(props) =>
 		props.big &&
 		css`
 			transform: scale(1.3);

@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useContext } from 'react';
 import { Footer } from './Footer';
 import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
@@ -10,8 +10,9 @@ import { Favorite } from '../icon-buttons/Favorite';
 import useObservable from '../../utils/useObservable';
 import playerBloc from '../../blocs/player.bloc';
 import collectionsBloc from '../../blocs/collections.bloc';
+import { AppServices } from '../../context';
 
-const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = props => {
+const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = (props) => {
 	const Info = () => (
 		<>
 			<a href={props.radio.website} target="blank">
@@ -30,7 +31,7 @@ const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = props => {
 	);
 };
 
-const Player: FC = props => {
+const Player: FC = (props) => {
 	const audioVolume = useObservable(playerBloc.audioVolume$);
 	const audioMuted = useObservable(playerBloc.muted$);
 	const activeRadio = useObservable(playerBloc.activeRadio$);
@@ -39,6 +40,10 @@ const Player: FC = props => {
 		activeRadio
 	]);
 	const isFavorite = useObservable(isFavorite$, false);
+
+	const { audio } = useContext(AppServices);
+	const volume = useObservable(audio.volume$);
+	console.log('volume from audio service', volume);
 
 	const handlePlay = () => {
 		if (activeRadio) playerBloc.select(activeRadio);
@@ -62,10 +67,13 @@ const Player: FC = props => {
 			<PlayButton isPlaying={isPlaying} onClick={handlePlay} />
 			{audioVolume !== undefined && (
 				<VolumeBar
-					onMuteAudio={() => playerBloc.mute()}
-					muted={!!audioMuted}
-					changeAudioVolume={(vol: number) => playerBloc.changeVolume(vol)}
-					volume={audioVolume}
+					onMuteAudio={audio.toggleMute}
+					muted={volume === 0}
+					changeAudioVolume={(vol: number) => {
+						// playerBloc.changeVolume(vol);
+						audio.setVolume(vol);
+					}}
+					volume={volume ?? 0}
 				/>
 			)}
 		</Footer>

@@ -7,7 +7,9 @@ import React, {
 	SyntheticEvent,
 	useEffect,
 	useState,
-	useCallback
+	useCallback,
+	useMemo,
+	useContext
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AppReadyState } from './AppContext';
@@ -25,10 +27,15 @@ import './reset.css';
 import { HomeView } from './views/HomeView';
 import { CardPlayer } from './CardPlayer';
 import radioRepo, { Radio } from './data';
-import audioService from './services/audio.service';
+import audioService, {
+	AudioService,
+	audioService as fAudioService,
+	PlaybackStatus
+} from './services/audio.service';
 import storageService from './services/storage.service';
 import playerBloc from './blocs/player.bloc';
 import collectionsBloc from './blocs/collections.bloc';
+import { AppServices } from './context';
 
 interface IState {
 	// App state
@@ -63,12 +70,21 @@ const WrappedApp = () => {
 	const loading = useObservable(radioRepo.isLoading$);
 	useEffect(() => radioRepo.fetchRadios(), []);
 
+	const audio = useMemo(() => fAudioService(new Audio()), []);
+	// const initVolume = audio.savedVolume;
+	const initVolume = 0.6;
+	useEffect(() => {
+		if (initVolume) audio.setVolume(initVolume);
+	}, []);
+
 	return (
-		<App
-			data={radios || []}
-			loading={!!loading}
-			onFetch={() => radioRepo.fetchRadios()}
-		/>
+		<AppServices.Provider value={{ audio }}>
+			<App
+				data={radios || []}
+				loading={!!loading}
+				onFetch={() => radioRepo.fetchRadios()}
+			/>
+		</AppServices.Provider>
 	);
 };
 export default WrappedApp;
@@ -84,32 +100,32 @@ function App({ data, loading, onFetch }: Props) {
 	const [activeRadio, setActiveRadio] = useState<Radio>();
 
 	// Playback State
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isPlaying, setIsPlaying] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 
 	const favorites = useObservable(collectionsBloc.favorites$, []) || [];
 	const selectedRadio = useObservable(playerBloc.activeRadio$);
 
 	// Methods
 	const handleAudioStopped = () => {
-		setIsPlaying(false);
-		setIsLoading(false);
+		// setIsPlaying(false);
+		// setIsLoading(false);
 		setDocTitle();
 	};
 
 	const handleAudioError = (e: any): void => {
-		const radio = data.find(r => r.source === e.target.src);
+		const radio = data.find((r) => r.source === e.target.src);
 
 		handleAudioStopped();
 		if (radio) setPendingRadio(activeRadio);
 	};
 
 	const handleAudioStarted = (e: any): void => {
-		const radio = data.find(r => r.source === e.target.src);
+		const radio = data.find((r) => r.source === e.target.src);
 		if (!radio) return;
 
-		setIsPlaying(true);
-		setIsLoading(false);
+		// setIsPlaying(true);
+		// setIsLoading(false);
 		// setActiveRadio(radio);
 		setDocTitle(radio.name);
 		storageService.saveLatestRadio(radio);
@@ -118,9 +134,9 @@ function App({ data, loading, onFetch }: Props) {
 	const handleLoadStarted = (e: any): void => {
 		if (!audioService.source) return;
 
-		const radio = data.find(r => r.source === e.target.src);
-		setIsLoading(true);
-		setIsPlaying(false);
+		const radio = data.find((r) => r.source === e.target.src);
+		// setIsLoading(true);
+		// setIsPlaying(false);
 		setPendingRadio(radio);
 	};
 
@@ -132,7 +148,7 @@ function App({ data, loading, onFetch }: Props) {
 	};
 
 	const isFavorite = useCallback(
-		(radio: Radio) => !!favorites.find(f => f.id === radio.id),
+		(radio: Radio) => !!favorites.find((f) => f.id === radio.id),
 		[favorites]
 	);
 
@@ -142,7 +158,7 @@ function App({ data, loading, onFetch }: Props) {
 	};
 
 	const toggleOpenFavoritesAndThen = (cb?: () => any) => {
-		setFavoritesOpened(prev => !prev);
+		setFavoritesOpened((prev) => !prev);
 		if (typeof cb === 'function') cb();
 	};
 
@@ -157,7 +173,7 @@ function App({ data, loading, onFetch }: Props) {
 		const toggleFavoritesComponent = debounce(() => {
 			if (isLarge() === isScreenLarge) return;
 
-			setIsScreenLarge(prev => !prev);
+			setIsScreenLarge((prev) => !prev);
 			setFavoritesOpened(isLarge());
 		});
 		window.addEventListener('resize', toggleFavoritesComponent);
@@ -166,17 +182,31 @@ function App({ data, loading, onFetch }: Props) {
 
 	useEffect(() => madeWithLove());
 
-	useEffect(() => {
-		const handlers = {
-			loadstart: handleLoadStarted,
-			playing: handleAudioStarted,
-			error: handleAudioError,
-			ended: handleAudioStopped,
-			suspend: handleAudioStopped
-		};
+	// useEffect(() => {
+	// 	const handlers = {
+	// 		loadstart: handleLoadStarted,
+	// 		playing: handleAudioStarted,
+	// 		error: handleAudioError,
+	// 		ended: handleAudioStopped,
+	// 		suspend: handleAudioStopped
+	// 	};
 
-		audioService.onMany(handlers);
-	});
+	// 	audioService.onMany(handlers);
+	// });
+
+	const { audio } = useContext(AppServices);
+	const playback = useObservable(audio.playbackState$);
+	const isPlaying = useMemo(
+		() => playback === PlaybackStatus.LOADING || playback === PlaybackStatus.PLAYING,
+		[playback]
+	);
+
+	const playRadio = (radio: Radio) => () => {
+		// If the provided ID is undefined, then no radio is selected.
+		if (!radio) return alert('Select a radio first!');
+
+		return audio.play(radio.source);
+	};
 
 	return (
 		<>
@@ -228,10 +258,7 @@ function App({ data, loading, onFetch }: Props) {
 												Fetch
 											</button>
 										</div>
-										<CardPlayer
-											radio={data.find(it => it.id === selectedRadio?.id)}
-											isPlaying={isPlaying || isLoading}
-										/>
+										<CardPlayer radio={data.find((it) => it.id === selectedRadio?.id)} />
 									</div>
 								}
 								footer={<Player />}
@@ -241,10 +268,10 @@ function App({ data, loading, onFetch }: Props) {
 											style={{ paddingBottom: '6rem', width: '100%', height: '100%' }}>
 											<Favorites
 												toggleFavoritesOpenAndThen={toggleOpenFavoritesAndThen}
-												togglePlayRadio={selectRadio}
+												togglePlayRadio={playRadio}
 												favorites={favorites}
 												favoritesOpened={favoritesOpened}
-												isPlaying={isPlaying || isLoading}
+												isPlaying={isPlaying}
 												isScreenLarge={isScreenLarge}
 												activeRadioId={activeRadio?.id}
 											/>
@@ -257,12 +284,10 @@ function App({ data, loading, onFetch }: Props) {
 															image={radio.image}
 															label={radio.label}
 															handleAddFavorite={addFavorite(radio)}
-															handlePlay={selectRadio(radio)}
+															handlePlay={playRadio(radio)}
 															selected={radio.id === activeRadio?.id}
 															isFavorite={isFavorite(radio)}
-															isPlaying={
-																(isLoading || isPlaying) && activeRadio?.id === radio.id
-															}
+															isPlaying={isPlaying && activeRadio?.id === radio.id}
 														/>
 													</li>
 												))}

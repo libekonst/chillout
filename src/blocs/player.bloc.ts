@@ -16,6 +16,17 @@ import { Radio } from '../data';
 import { AudioService } from '../services/audio.service';
 import storage, { StorageService } from '../services/storage.service';
 
+// TODO
+// 1. split audio service to small audio ports (a. audio-api, b. storage-api). Some are not ports but logic
+// 2. use in Player facade
+// 3. decide when to use storage
+// 4. have own audio instance to use (maybe func that returns it) (getHtMLAudio)
+// 5. set doc title // not usable in RN -- is IO
+// getAudioActions = (audio: HTMLAudio) => {play, pause, ...} // can re-use in RN?
+
+// TODO
+// Pairwise for prev-radio, if audio failed
+// implement toggle-play (if playing & src is different -> play, else -> pause)
 export class Player {
 	constructor(
 		private readonly _audioService: AudioService,
@@ -29,18 +40,18 @@ export class Player {
 
 	muted$ = this._muteSubj.pipe(
 		mapTo(!this._audioService.muted),
-		tap(isMuted => this._audioService.mute(isMuted))
+		tap((isMuted) => this._audioService.mute(isMuted))
 	);
 
 	// Keep only valid volume levels.
 	private _incomingVolume$ = this._updateVolumeSubj.pipe(
 		filter((vol): vol is number => typeof vol === 'number'),
-		filter(v => v >= 0 && v <= 1)
+		filter((v) => v >= 0 && v <= 1)
 	);
 
 	audioVolume$ = merge(this._incomingVolume$, this._storageService.volume$);
 
-	private _updateSub = this._incomingVolume$.subscribe(volume => {
+	private _updateSub = this._incomingVolume$.subscribe((volume) => {
 		this._audioService.volume = volume;
 		this._storageService.saveVolume(volume);
 	});
@@ -75,6 +86,7 @@ export class Player {
 			this._storageService.saveLatestRadio(selectedRadio);
 		});
 
+	// use playback state
 	isPlaying$ = of(this._audioService.isPlaying);
 
 	changeVolume(val: number) {
@@ -99,4 +111,4 @@ export class Player {
 	}
 }
 
-export default new Player(new AudioService(), storage);
+export default new Player(new AudioService(new Audio()), storage);

@@ -1,12 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import { isLarge } from './styles';
 import { Carousel } from './components/carousel';
 import { Backdrop } from './components/backdrop';
 import { Radio } from './data';
 import { FAB } from './components/icon-buttons/FAB';
+import { AppServices } from './context';
+import { useObservable } from './utils';
+import { PlaybackStatus } from './services/audio.service';
 
-interface IProps {
+type Props = {
 	// expandFavorites: () => void;
 	// openFavorites: () => void;
 	toggleFavoritesOpenAndThen: (cb?: () => any) => void;
@@ -23,17 +26,17 @@ interface IProps {
 
 	// Playback state
 	isPlaying: boolean;
-}
+};
 
-export const Favorites: FC<IProps> = props => {
+export function Favorites(props: Props) {
 	const {
 		favorites,
 		favoritesOpened,
-		isPlaying,
 		toggleFavoritesOpenAndThen,
 		togglePlayRadio,
 		activeRadioId,
-		isScreenLarge
+		isScreenLarge,
+		isPlaying
 	} = props;
 
 	if (isScreenLarge)
@@ -65,7 +68,7 @@ export const Favorites: FC<IProps> = props => {
 		);
 
 	return null;
-};
+}
 
 const StickyTop = styled.div`
 	position: sticky;

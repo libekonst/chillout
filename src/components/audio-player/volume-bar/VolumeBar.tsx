@@ -5,13 +5,7 @@ import { InputWrapper, TrackBar, LowerFillBar } from './SliderElements';
 import { ThumbWrapper, Thumb } from './Thumb';
 import { Input } from './Input';
 
-const VolumeBarWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	max-width: 20rem;
-	width: 100%;
-`;
+
 
 interface IProps {
 	onMuteAudio: () => void;
@@ -29,11 +23,11 @@ const VolumeBar: FC<IProps> = props => {
 			<MuteButton volume={volume} onClick={onMuteAudio} audioMuted={muted} />
 			<InputWrapper>
 				<TrackBar />
-				<LowerFillBar style={{ transform: `scaleX(${muted ? 0 : volume})` }} />
+				<LowerFillBar style={{ transform: `scaleX(${volume})` }} />
 				<ThumbWrapper
 					style={{
 						// Subtract half the thumb's width to center it.
-						transform: `translateX(calc(${muted ? 0 : volume * 100}% - 0.25rem))`
+						transform: `translateX(calc(${volume * 100}% - 0.25rem))`
 					}}>
 					<Thumb />
 				</ThumbWrapper>
@@ -49,5 +43,13 @@ const VolumeBar: FC<IProps> = props => {
 		</VolumeBarWrapper>
 	);
 };
+
+const VolumeBarWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 20rem;
+	width: 100%;
+`;
 
 export default VolumeBar;
