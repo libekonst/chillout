@@ -1,10 +1,10 @@
-import { AudioService, audioService } from './services/audio.service';
+import { AudioService, htmlAudioControls } from './services/audio.service';
 import { createContext } from 'react';
 
 type AppContext = {
-	audio: ReturnType<typeof audioService>;
+	audio: ReturnType<typeof htmlAudioControls>;
 };
 
 export const AppServices = createContext<AppContext>({
-	audio: audioService(new Audio())
+	audio: htmlAudioControls(new Audio())
 });

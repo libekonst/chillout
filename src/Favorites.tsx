@@ -7,7 +7,7 @@ import { Radio } from './data';
 import { FAB } from './components/icon-buttons/FAB';
 import { AppServices } from './context';
 import { useObservable } from './utils';
-import { PlaybackStatus } from './services/audio.service';
+import { PlaybackStatus } from "./services/PlaybackStatus";
 
 type Props = {
 	// expandFavorites: () => void;

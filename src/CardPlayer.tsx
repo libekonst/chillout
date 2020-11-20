@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { Radio } from './data';
 import { AppServices } from './context';
 import { useObservable } from './utils';
-import { PlaybackStatus } from './services/audio.service';
+import { PlaybackStatus } from "./services/PlaybackStatus";
 
 type Props = {
 	radio?: Radio;

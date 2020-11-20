@@ -1,14 +1,71 @@
 /* eslint-env browser */
 
 import { fromEvent, Observable, merge } from 'rxjs';
-import { map, mapTo, share, tap, debounceTime } from 'rxjs/operators';
+import { map, mapTo, share, tap, debounceTime, startWith } from 'rxjs/operators';
+import { StorageSet, StorageGet } from './storage';
+import { PlaybackStatus } from './PlaybackStatus';
+import { IAudioService } from './IAudioService';
 
-const VOLUME_KEY = 'AUDIO_VOLUME';
 const audio = new Audio();
 
-export const audioService = (audio: HTMLAudioElement) => {
+export class HtmlAudioService implements IAudioService {
+	private _audio = new Audio();
+
+	// TODO remember to validate input
+	setVolume(val: number) {
+		this._audio.volume = val;
+		this._audio.muted = false;
+	}
+
+	// Event fired when the `volume` or `muted` changes
+	volume$ = fromEvent(this._audio, 'volumechange').pipe(
+		tap(x => console.log('volume change ', x)),
+		map(() => {
+			if (this._audio.muted) return 0;
+			return this._audio.volume;
+		}),
+		share(),
+		tap(x => console.log('volume change 2', x)),
+
+		startWith(0.5)
+	);
+
+	// Triggers the `volumechange` event
+	mute(val = true) {
+		this._audio.muted = val;
+	}
+
+	// Triggers the `volumechange` event
+	toggleMute() {
+		this._audio.muted = !this._audio.muted;
+	}
+
+	play(url: string) {
+		this._audio.src = url;
+		this._audio.play();
+	}
+
+	/** Pauses the audio and resets its source to prevent memory leaks and mobile data burns. */
+	stop() {
+		this._audio.pause(); // Downloading continues in the background.
+
+		this._audio.src = 'about:'; // Tries to empty the source, throws MEDIA_ELEMENT_ERROR on error handler, then sets to hostname. This stops the download.
+		this._audio.removeAttribute('src'); // Resets to '', as if never set. Doesn't stop download, must be stopped beforehand. Silences error.
+		this._audio.load(); // ? Resets the media element to its initial state, discarding cached playback.
+	}
+
+	playbackState$ = merge(
+		fromEvent(audio, 'loadstart'),
+		fromEvent(audio, 'playing'),
+		fromEvent(audio, 'error'),
+		fromEvent(audio, 'ended'),
+		fromEvent(audio, 'suspend')
+	).pipe(map(eventTypeToStatus));
+}
+
+export const htmlAudioControls = (audio: HTMLAudioElement) => {
 	const setVolume = (val: number) => {
-		if (val < 0 || val > 1) return; // Valid volume input.
+		if (!isValidVolumeRange(val)) return; // Validate volume input.
 
 		audio.volume = val;
 		audio.muted = false;
@@ -53,28 +110,16 @@ export const audioService = (audio: HTMLAudioElement) => {
 		audio.load(); // ? Resets the media element to its initial state, discarding cached playback.
 	};
 
-	// -- Persistence
-	const saveVolume = (volume: number) => {
-		if (volume < 0 || volume > 1) return;
-		localStorage.setItem(VOLUME_KEY, volume.toString(10));
-	};
-
-	const getSavedVolume = (): number | undefined => {
-		const storedVolume = localStorage.getItem(VOLUME_KEY);
-		if (!storedVolume) return undefined;
-		return parseInt(storedVolume, 10);
-	};
-
-	// TODO remember to cleanup
-	const sub = volume$.pipe(debounceTime(1000)).subscribe(saveVolume);
+	// TODO remember to cleanup, move to player.
+	// const sub = volume$.pipe(debounceTime(1000)).subscribe(saveVolume);
 
 	return {
 		setVolume,
 		volume$,
 		mute,
 		toggleMute,
-		saveVolume,
-		getSavedVolume,
+		// saveVolume,
+		// getSavedVolume,
 		playbackState$,
 		play,
 		stop
@@ -111,6 +156,35 @@ export const audioService = (audio: HTMLAudioElement) => {
 	// };
 };
 
+export type AudioControls = ReturnType<typeof htmlAudioControls>;
+
+// -- Persistence
+const VOLUME_KEY = 'AUDIO_VOLUME';
+
+export const saveVolume = (save: StorageSet, volume: number) => {
+	if (!isValidVolumeRange(volume)) return;
+
+	save(VOLUME_KEY, volume.toString(10));
+};
+
+export const getSavedVolume = (get: StorageGet): number | undefined => {
+	const storedVolume = get(VOLUME_KEY);
+	if (!storedVolume) return undefined;
+
+	return parseInt(storedVolume, 10);
+};
+
+export const audioPersistence = (get: StorageGet, set: StorageSet) => ({
+	saveVolume: (volume: number) => saveVolume(set, volume),
+	getVolume: () => getSavedVolume(get)
+});
+
+export type AudioPersistence = ReturnType<typeof audioPersistence>;
+
+const isValidVolumeRange = (volume: number) => {
+	return volume >= 0 && volume <= 1;
+};
+
 const eventTypeToStatus = (ev: Event) => {
 	switch (ev.type) {
 		case 'loadstart':
@@ -121,14 +195,9 @@ const eventTypeToStatus = (ev: Event) => {
 		case 'ended':
 		case 'suspend':
 		default:
-			return PlaybackStatus.PAUSED;
+			return PlaybackStatus.STOPPED;
 	}
 };
-export enum PlaybackStatus {
-	PLAYING = 'PLAYING',
-	LOADING = 'LOADING',
-	PAUSED = 'PAUSED'
-}
 export class AudioService {
 	constructor(private readonly audio: HTMLAudioElement) {}
 

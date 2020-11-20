@@ -11,8 +11,14 @@ import useObservable from '../../utils/useObservable';
 import playerBloc from '../../blocs/player.bloc';
 import collectionsBloc from '../../blocs/collections.bloc';
 import { AppServices } from '../../context';
+import {
+	PlayerBloc2,
+	PlayClicked,
+	MuteClicked,
+	VolumeChanged
+} from '../../blocs/PlayerBloc';
 
-const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = (props) => {
+const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = props => {
 	const Info = () => (
 		<>
 			<a href={props.radio.website} target="blank">
@@ -31,22 +37,23 @@ const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = (props) => {
 	);
 };
 
-const Player: FC = (props) => {
-	const audioVolume = useObservable(playerBloc.audioVolume$);
-	const audioMuted = useObservable(playerBloc.muted$);
-	const activeRadio = useObservable(playerBloc.activeRadio$);
-	const isPlaying = useObservable(playerBloc.isPlaying$);
+const Player: FC = props => {
+	const audioVolume = useObservable(PlayerBloc2.volume$);
+	const audioMuted = useObservable(PlayerBloc2.muted$, false);
+	const activeRadio = useObservable(PlayerBloc2.selectedRadio$);
+	const isPlaying = useObservable(PlayerBloc2.isPlaying$, false);
 	const isFavorite$ = useMemo(() => collectionsBloc.isFavorite(activeRadio), [
 		activeRadio
 	]);
 	const isFavorite = useObservable(isFavorite$, false);
 
 	const { audio } = useContext(AppServices);
-	const volume = useObservable(audio.volume$);
+	const volume = useObservable(PlayerBloc2.volume$);
 	console.log('volume from audio service', volume);
 
 	const handlePlay = () => {
-		if (activeRadio) playerBloc.select(activeRadio);
+		// if (activeRadio) playerBloc.select(activeRadio);
+		PlayerBloc2.dispatch(new PlayClicked());
 	};
 
 	const handleAddFavorite = () => {
@@ -67,11 +74,13 @@ const Player: FC = (props) => {
 			<PlayButton isPlaying={isPlaying} onClick={handlePlay} />
 			{audioVolume !== undefined && (
 				<VolumeBar
-					onMuteAudio={audio.toggleMute}
-					muted={volume === 0}
+					// onMuteAudio={audio.toggleMute}
+					onMuteAudio={() => PlayerBloc2.dispatch(new MuteClicked())}
+					muted={audioMuted}
 					changeAudioVolume={(vol: number) => {
 						// playerBloc.changeVolume(vol);
-						audio.setVolume(vol);
+						// audio.setVolume(vol);
+						PlayerBloc2.dispatch(new VolumeChanged(vol));
 					}}
 					volume={volume ?? 0}
 				/>

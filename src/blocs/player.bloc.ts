@@ -35,8 +35,10 @@ export class Player {
 
 	// Update volume subject. Push to this subject to update the state and save to local storage.
 	private _updateVolumeSubj = new BehaviorSubject<number>(0.6);
+	//
 
 	private _muteSubj = new Subject<null>();
+	//
 
 	muted$ = this._muteSubj.pipe(
 		mapTo(!this._audioService.muted),
@@ -50,23 +52,31 @@ export class Player {
 	);
 
 	audioVolume$ = merge(this._incomingVolume$, this._storageService.volume$);
+	//
 
 	private _updateSub = this._incomingVolume$.subscribe((volume) => {
 		this._audioService.volume = volume;
 		this._storageService.saveVolume(volume);
 	});
+	//
+
+	changeVolume(val: number) {
+		this._updateVolumeSubj.next(val);
+	}
+	//
 
 	// Select radio. Use undefined to pause.
 	private _radioSubject = new BehaviorSubject<Radio | undefined>(undefined);
-
+//
 	activeRadio$ = merge(
 		// Only emit if the radio hasn't changed, to avoid unnecessary storage calls etc.
 		this._radioSubject.pipe(distinctUntilChanged((prev, curr) => prev?.id === curr?.id)),
 		this._storageService.lastRadio$
 	);
+	//
 
 	private readonly _sub = this._radioSubject
-		.pipe(pairwise())
+		.pipe(pairwise()) // Store in pairs to compare with previous radio.
 		.subscribe(([prevRadio, selectedRadio]) => {
 			/**
 			 * Business rules:
@@ -88,10 +98,7 @@ export class Player {
 
 	// use playback state
 	isPlaying$ = of(this._audioService.isPlaying);
-
-	changeVolume(val: number) {
-		this._updateVolumeSubj.next(val);
-	}
+	//
 
 	mute() {
 		this._muteSubj.next(null);

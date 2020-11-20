@@ -1,23 +1,28 @@
 import { BehaviorSubject, from, combineLatest, merge } from 'rxjs';
-import { debounceTime, map, exhaustMap } from 'rxjs/operators';
+import { debounceTime, map, exhaustMap, startWith, share } from 'rxjs/operators';
 import { RadioProvider, Radio } from './radio.types';
 import { fetchRadios } from './radio.provider';
 
 export class RadioRepository {
-	constructor(private readonly _radioProvider: RadioProvider) {}
+	constructor(private _getRadios: RadioProvider) {}
 
-	private readonly _refresh = new BehaviorSubject(null);
+	private _refresh = new BehaviorSubject(null);
 
-	private readonly subscription = this._refresh
-		.pipe(
-			debounceTime(2000), // network delay
-			exhaustMap(() => from(this._radioProvider()))
-		)
-		.subscribe(radios => this._radiosSubject.next(radios));
+	// private subscription = this._refresh
+	// 	.pipe(exhaustMap(this._getRadios))
+	// 	.subscribe(radios => this._radiosSubject.next(radios));
 
-	private readonly _radiosSubject = new BehaviorSubject<Radio[]>([]);
+	private _radioEntities$ = this._refresh.pipe(
+		exhaustMap(this._getRadios),
+		startWith([] as Radio[]),
+		share()
+	);
 
-	private readonly _filterSubject = new BehaviorSubject<Label | undefined>(undefined);
+	// private selectedRadio
+
+	// private _radiosSubject = new BehaviorSubject<Radio[]>([]);
+
+	private _filterSubject = new BehaviorSubject<Label | undefined>(undefined);
 
 	filter(label?: Label) {
 		this._filterSubject.next(label);
@@ -27,11 +32,11 @@ export class RadioRepository {
 		this._refresh.next(null);
 	}
 
-	readonly isLoading$ = merge(this._refresh, this._radiosSubject).pipe(
-		map(x => x === null)
+	isLoading$ = merge(this._refresh, this._radioEntities$).pipe(
+		map(x => x === null) // Whenever refresh emits, it's loading.
 	);
 
-	readonly radios$ = combineLatest(this._radiosSubject, this._filterSubject).pipe(
+	radios$ = combineLatest(this._radioEntities$, this._filterSubject).pipe(
 		map(([radios, filter]) => {
 			if (!filter) return radios;
 			return radios.filter(r => r.label === filter);
@@ -39,9 +44,9 @@ export class RadioRepository {
 	);
 
 	dispose() {
-		this._radiosSubject.complete();
+		// this._radiosSubject.complete();
 		this._refresh.complete();
-		this.subscription.unsubscribe();
+		// this.subscription.unsubscribe();
 	}
 }
 
