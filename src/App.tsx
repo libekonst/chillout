@@ -19,7 +19,7 @@ import { IndeterminateLoadingBar } from './components/loaders';
 import { Favorites } from './Favorites';
 import { madeWithLove } from './made-with-love';
 import { isLarge, theme } from './styles';
-import { debounce, setDocTitle, useObservable } from './utils';
+import { debounce, useObservable } from './utils';
 import './App.css';
 import './normalize.css';
 import './reset.css';
@@ -35,6 +35,7 @@ import collectionsBloc from './blocs/collections.bloc';
 import { AppServices } from './context';
 import { PlayerBloc2, RadioSelected } from './blocs/PlayerBloc';
 import { radioStore, Refresh, Filters, Filter } from './data/RadioEntityStore';
+import { setDocumentTitle } from './utils/setDocumentTitle';
 
 interface IState {
 	// App state
@@ -114,7 +115,7 @@ function App({ data, loading, onFetch }: Props) {
 	const handleAudioStopped = () => {
 		// setIsPlaying(false);
 		// setIsLoading(false);
-		setDocTitle();
+		setDocumentTitle();
 	};
 
 	const handleAudioError = (e: any): void => {
@@ -131,7 +132,7 @@ function App({ data, loading, onFetch }: Props) {
 		// setIsPlaying(true);
 		// setIsLoading(false);
 		// setActiveRadio(radio);
-		setDocTitle(radio.name);
+		setDocumentTitle(radio.name);
 		storageService.saveLatestRadio(radio);
 	};
 
