@@ -5,7 +5,7 @@
 
 Created with React, TypeScript and Styled Components, this app features a responsive layout and a local Favorites collection which renders different components based on viewport width. The app enables users to swap between radios with ease and enjoy a personalized experience without having to leave the page.
 
-Simply click on a radio and enjoy the music! [Tune in to your groove.](https://kostaslib.github.io/chillout/)
+Simply click on a radio and enjoy the music! [Tune in to your groove.](https://libekonst.github.io/chillout/)
 
 You can also add this app to your home screen on any device:
 * On mobile, open in Chrome, click the **three dots** in the right corner and select **Add to Home Screen**.
