@@ -1,0 +1,6 @@
+- clean up unnecessary code from multiple paradigms
+- redesign the audio player
+  - Don't show audio player if no radio is selected
+  - selector that returns the active radio object, not just the id
+- use notifyPlatform function for alerts
+- set document title when radio changes, use platformTitle fn

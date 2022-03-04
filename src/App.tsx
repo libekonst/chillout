@@ -2,18 +2,10 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-env browser */
 
-import React, {
-	Component,
-	SyntheticEvent,
-	useEffect,
-	useState,
-	useCallback,
-	useMemo,
-	useContext
-} from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AppReadyState } from './AppContext';
-import { Player } from './components/audio-player';
+import { Player } from './components/audio-player/Player';
 import { GridBodyRow, GridHeader } from './components/grid';
 import { IndeterminateLoadingBar } from './components/loaders';
 import { Favorites } from './Favorites';
@@ -25,17 +17,14 @@ import './normalize.css';
 import './reset.css';
 
 import { HomeView } from './views/HomeView';
-import { CardPlayer } from './CardPlayer';
-import radioRepo, { Radio } from './data';
-import audioService, { AudioService, htmlAudioControls } from './services/audio.service';
-import { PlaybackStatus } from './services/PlaybackStatus';
-import storageService from './services/storage.service';
-import playerBloc from './blocs/player.bloc';
+import { Radio } from './data/radio/Radio';
+import { htmlAudioControls } from './features/audio-engine/HtmlAudioEngine';
+import { PlaybackStatus } from './features/audio-engine/PlaybackStatus';
+import storageService from './features/storage/storage.service';
 import collectionsBloc from './blocs/collections.bloc';
 import { AppServices } from './context';
-import { PlayerBloc2, RadioSelected } from './blocs/PlayerBloc';
-import { radioStore, Refresh, Filters, Filter } from './data/RadioEntityStore';
 import { setDocumentTitle } from './utils/setDocumentTitle';
+import { AudioEngineProvider } from './features/audio-engine/AudioEngineProvider';
 
 interface IState {
 	// App state
@@ -66,15 +55,6 @@ const collections = {
 };
 
 const WrappedApp = () => {
-	// const radios = useObservable(radioRepo.radios$);
-	// const loading = useObservable(radioRepo.isLoading$);
-
-	// TODO move this to a bloc
-	const radios = useObservable(radioStore.radios$);
-	const loading = useObservable(radioStore.isLoading$);
-
-	useEffect(() => radioStore.dispatch(new Refresh()), []);
-
 	const audio = useMemo(() => htmlAudioControls(new Audio()), []);
 	// const initVolume = audio.savedVolume;
 	const initVolume = 0.6;
@@ -83,13 +63,11 @@ const WrappedApp = () => {
 	}, []);
 
 	return (
-		<AppServices.Provider value={{ audio }}>
-			<App
-				data={radios || []}
-				loading={!!loading}
-				onFetch={() => radioStore.dispatch(new Refresh())}
-			/>
-		</AppServices.Provider>
+		<AudioEngineProvider>
+			<AppServices.Provider value={{ audio }}>
+				<App data={[]} loading={false} onFetch={() => {}} />
+			</AppServices.Provider>
+		</AudioEngineProvider>
 	);
 };
 export default WrappedApp;
@@ -105,16 +83,10 @@ function App({ data, loading, onFetch }: Props) {
 	const [activeRadio, setActiveRadio] = useState<Radio>();
 
 	// Playback State
-	// const [isPlaying, setIsPlaying] = useState(false);
-	// const [isLoading, setIsLoading] = useState(false);
-
 	const favorites = useObservable(collectionsBloc.favorites$, []) || [];
-	const selectedRadio = useObservable(PlayerBloc2.selectedRadio$);
 
 	// Methods
 	const handleAudioStopped = () => {
-		// setIsPlaying(false);
-		// setIsLoading(false);
 		setDocumentTitle();
 	};
 
@@ -136,31 +108,17 @@ function App({ data, loading, onFetch }: Props) {
 		storageService.saveLatestRadio(radio);
 	};
 
-	const handleLoadStarted = (e: any): void => {
-		if (!audioService.source) return;
-
-		const radio = data.find(r => r.source === e.target.src);
-		// setIsLoading(true);
-		// setIsPlaying(false);
-		setPendingRadio(radio);
-	};
-
-	const selectRadio = (radio: Radio) => () => {
-		// If the provided ID is undefined, then no radio is selected.
-		if (!radio) return alert('Select a radio first!');
-
-		return playerBloc.select(radio);
-	};
-
 	const isFavorite = useCallback(
 		(radio: Radio) => !!favorites.find(f => f.id === radio.id),
 		[favorites]
 	);
 
-	const addFavorite = (radio: Radio) => (e: any): void => {
-		e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
-		collectionsBloc.addFavorite(radio);
-	};
+	const addFavorite =
+		(radio: Radio) =>
+		(e: any): void => {
+			e.stopPropagation(); // Parent's onClick event handler runs this.togglePlayRadio
+			collectionsBloc.addFavorite(radio);
+		};
 
 	const toggleOpenFavoritesAndThen = (cb?: () => any) => {
 		setFavoritesOpened(prev => !prev);
@@ -206,14 +164,7 @@ function App({ data, loading, onFetch }: Props) {
 		[playback]
 	);
 
-	const playRadio = (radio: Radio) => () => {
-		// If the provided ID is undefined, then no radio is selected.
-		if (!radio) alert('Select a radio first!');
-
-		PlayerBloc2.dispatch(new RadioSelected(radio));
-
-		// return audio.play(radio.source);
-	};
+	const playRadio = (radio: Radio) => () => {};
 
 	return (
 		<>
@@ -252,26 +203,11 @@ function App({ data, loading, onFetch }: Props) {
 										<div>
 											<p>Hello from the left side</p>
 											<p>Hey hey</p>
-											<button
-												onClick={() => radioStore.dispatch(new Filter(Filters.NONE))}
-												type="button">
-												All
-											</button>
-											<button
-												onClick={() => radioStore.dispatch(new Filter(Filters.NEWS))}
-												type="button">
-												News
-											</button>
-											<button
-												onClick={() => radioStore.dispatch(new Filter(Filters.MUSIC))}
-												type="button">
-												Music
-											</button>
 											<button type="button" onClick={onFetch}>
 												Fetch
 											</button>
 										</div>
-										<CardPlayer radio={data.find(it => it.id === selectedRadio?.id)} />
+										{/* <CardPlayer radio={data.find(it => it.id === selectedRadio?.id)} /> */}
 									</div>
 								}
 								footer={<Player />}

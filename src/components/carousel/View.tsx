@@ -1,5 +1,5 @@
 import React, { ComponentProps, FC, MouseEvent } from 'react';
-import { Radio } from '../../data';
+import { Radio } from '../../data/radio/Radio';
 import { Card } from '../card';
 import { CarouselHeader } from './CarouselHeader';
 import { EmptyCollectionPlaceholder } from './EmptyCollectionPlaceholder';
@@ -8,7 +8,7 @@ import { HorizontalList, ListItem } from './HorizontalList';
 interface IViewProps {
 	show: boolean;
 	canClickNext: boolean;
-	selectedRadio?: number;
+	selectedRadio?: string;
 	canClickBack: boolean;
 	onSelectRadio: (radio: Radio) => (e: MouseEvent) => void;
 	cardRef: React.RefObject<HTMLLIElement>;

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { isLarge } from './styles';
 import { Carousel } from './components/carousel';
 import { Backdrop } from './components/backdrop';
-import { Radio } from './data';
+import { Radio } from './data/radio/Radio';
 import { FAB } from './components/icon-buttons/FAB';
 import { AppServices } from './context';
 import { useObservable } from './utils';
-import { PlaybackStatus } from "./services/PlaybackStatus";
 
 type Props = {
 	// expandFavorites: () => void;
@@ -21,7 +20,7 @@ type Props = {
 
 	// Radio state
 	favoritesOpened: boolean;
-	activeRadioId?: number;
+	activeRadioId?: string;
 	favorites: Radio[];
 
 	// Playback state

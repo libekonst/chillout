@@ -2,22 +2,23 @@
 
 import { fromEvent, Observable, merge } from 'rxjs';
 import { map, mapTo, share, tap, debounceTime, startWith } from 'rxjs/operators';
-import { StorageSet, StorageGet } from './storage';
+import { StorageSet, StorageGet } from '../storage/storage';
 import { PlaybackStatus } from './PlaybackStatus';
-import { IAudioService } from './IAudioService';
+import { AudioEngine } from './AudioEngine';
 
 const audio = new Audio();
 
-export class HtmlAudioService implements IAudioService {
+export class HtmlAudioEngine implements AudioEngine {
 	private _audio = new Audio();
 
 	// TODO remember to validate input
 	setVolume(val: number) {
+		if (val < 0 || val > 1) return;
 		this._audio.volume = val;
 		this._audio.muted = false;
 	}
 
-	// Event fired when the `volume` or `muted` changes
+	// Event fired when `volume` or `muted` changes
 	volume$ = fromEvent(this._audio, 'volumechange').pipe(
 		tap(x => console.log('volume change ', x)),
 		map(() => {
@@ -285,5 +286,3 @@ export class AudioService {
 		return parseInt(storedVolume, 10);
 	}
 }
-
-export default new AudioService(new Audio());

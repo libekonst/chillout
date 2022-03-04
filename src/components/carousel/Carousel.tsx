@@ -1,5 +1,5 @@
 import React, { Component, MouseEvent } from 'react';
-import { Radio } from '../../data';
+import { Radio } from '../../data/radio/Radio';
 import { debounce } from '../../utils';
 import { parse } from '../../utils/parse';
 import { View } from './View';
@@ -13,7 +13,7 @@ interface IProps {
 	handleExpand: (fn?: () => any) => void;
 	onSelectRadio: (radio: Radio) => (e: MouseEvent) => void;
 	expanded: boolean;
-	selectedRadio?: number;
+	selectedRadio?: string;
 	title?: string;
 	isPlaying?: boolean;
 }

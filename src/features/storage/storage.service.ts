@@ -8,22 +8,18 @@ import {
 	tap,
 	shareReplay
 } from 'rxjs/operators';
-import { Radio } from '../data';
+import { Radio } from '../../data/radio/Radio';
 
 export class StorageService {
 	private _volumeSubj = new BehaviorSubject<number | undefined>(undefined);
-
 	private _lastRadioSubj = new BehaviorSubject<Radio | undefined>(undefined);
-
 	private _getPrefsSubj = new BehaviorSubject(null);
-
 	private _favoritesSubj = new Subject<Radio[]>();
-
 	private _getFavoritesSubj = new BehaviorSubject(null);
 
 	// private _updateFavoritesSubj = new Subject<UpdateFavoriteAction>();
 
-	private _preferencesSub = combineLatest(this._volumeSubj, this._lastRadioSubj)
+	private _preferencesSub = combineLatest([this._volumeSubj, this._lastRadioSubj])
 		.pipe(debounceTime(500))
 		.subscribe(([volume, radio]) => savePreferences(volume, radio));
 
@@ -87,13 +83,13 @@ interface UpdateFavoriteAction {
 	payload: Radio;
 }
 
-enum Storage {
+enum StorageKeys {
 	PREFS = 'preferences',
 	FAVS = 'favorites'
 }
 
 const getPreferences = () => {
-	const pref = localStorage.getItem(Storage.PREFS);
+	const pref = localStorage.getItem(StorageKeys.PREFS);
 	if (!pref) return undefined;
 
 	const parsed: Preferences = JSON.parse(pref);
@@ -103,11 +99,14 @@ const getPreferences = () => {
 const savePreferences = (volume?: number, radio?: Radio) => {
 	if (volume === undefined || radio === undefined) return;
 
-	localStorage.setItem(Storage.PREFS, JSON.stringify({ volume, radio } as Preferences));
+	localStorage.setItem(
+		StorageKeys.PREFS,
+		JSON.stringify({ volume, radio } as Preferences)
+	);
 };
 
 const getFavorites = () => {
-	const favorites = localStorage.getItem(Storage.FAVS);
+	const favorites = localStorage.getItem(StorageKeys.FAVS);
 	if (!favorites) return undefined;
 
 	const parsed: Radio[] = JSON.parse(favorites);
@@ -116,21 +115,21 @@ const getFavorites = () => {
 };
 
 const saveFavorites = (radios: Radio[]) => {
-	return localStorage.setItem(Storage.FAVS, JSON.stringify(radios));
+	return localStorage.setItem(StorageKeys.FAVS, JSON.stringify(radios));
 };
 
-// Reducer
+
 const addFavorite = (collection: Radio[], radio: Radio) => {
-	if (collection.find(r => r.id === radio.id)) return undefined;
+	if (collection.some(r => r.id === radio.id)) return;
 
 	const updated = [...collection, radio];
-	return localStorage.setItem(Storage.FAVS, JSON.stringify(updated));
+	localStorage.setItem(StorageKeys.FAVS, JSON.stringify(updated));
 };
 
 const removeFavorite = (collection: Radio[], radio: Radio) => {
 	const updated = collection.filter(r => r.id !== radio.id);
 
-	return localStorage.setItem(Storage.FAVS, JSON.stringify(updated));
+	return localStorage.setItem(StorageKeys.FAVS, JSON.stringify(updated));
 };
 
 const favoritesReducer = (favorites: Radio[], action: UpdateFavoriteAction) => {

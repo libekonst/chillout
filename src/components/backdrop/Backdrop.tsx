@@ -1,12 +1,12 @@
 import React, { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card';
-import { Radio } from '../../data';
+import { Radio } from '../../data/radio/Radio';
 import { FullscreenLayer } from './FullscreenLayer';
 
 interface IProps {
 	isPlaying?: boolean;
-	selectedRadio?: number;
+	selectedRadio?: string;
 	onRadioClick: (radio: Radio) => (e: MouseEvent) => void;
 	data: Radio[];
 	open: boolean;

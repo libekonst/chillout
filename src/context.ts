@@ -1,5 +1,5 @@
-import { AudioService, htmlAudioControls } from './services/audio.service';
 import { createContext } from 'react';
+import { htmlAudioControls } from './features/audio-engine/HtmlAudioEngine';
 
 type AppContext = {
 	audio: ReturnType<typeof htmlAudioControls>;

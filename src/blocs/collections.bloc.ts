@@ -1,7 +1,7 @@
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { throttleTime, withLatestFrom, switchAll, flatMap, map } from 'rxjs/operators';
-import storage, { StorageService } from '../services/storage.service';
-import { Radio } from '../data';
+import storage, { StorageService } from '../features/storage/storage.service';
+import { Radio } from '../data/radio/Radio';
 
 // let favorites = [] as Radio[];
 

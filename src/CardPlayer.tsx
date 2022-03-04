@@ -1,21 +1,22 @@
 import React, { FC, useContext, useMemo } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { Radio } from './data';
+import { Radio } from './data/radio/Radio';
 import { AppServices } from './context';
 import { useObservable } from './utils';
-import { PlaybackStatus } from "./services/PlaybackStatus";
+import { PlaybackStatus } from './features/audio-engine/PlaybackStatus';
 
 type Props = {
 	radio?: Radio;
 };
 export function CardPlayer({ radio }: Props) {
-	if (!radio) return null;
 	const { audio } = useContext(AppServices);
 	const playback = useObservable(audio.playbackState$);
 	const isPlaying = useMemo(
 		() => playback === PlaybackStatus.LOADING || playback === PlaybackStatus.PLAYING,
 		[playback]
 	);
+	if (!radio) return null;
+
 	return (
 		<Parent>
 			<Blurred image={radio.image} />
@@ -26,6 +27,13 @@ export function CardPlayer({ radio }: Props) {
 	);
 }
 
+const CardView = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	/* max-width:  */
+`;
+
 const Parent = styled.div`
 	position: relative;
 	width: 320px;
@@ -34,7 +42,7 @@ const Parent = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	/* background-color: rgba(255, 255, 255, 0.1); */
+	background-color: rgba(223, 96, 96, 0.1);
 	border-radius: 10px;
 	padding: 1rem;
 	/* overflow: hidden; */
@@ -46,7 +54,7 @@ const scaleIn = keyframes`
 `;
 
 const Blurred = styled.div<{ image: string }>`
-	background-image: url(${(props) => props.image});
+	background-image: url(${props => props.image});
 	background-color: white;
 	background-size: cover;
 	background-position: center;
@@ -59,7 +67,7 @@ const Blurred = styled.div<{ image: string }>`
 `;
 
 const Inner = styled.div<{ image: string; big?: boolean }>`
-	background: url(${(props) => props.image});
+	background: url(${props => props.image});
 	background-size: contain;
 	background-repeat: repeat;
 	background-position: center;
@@ -72,7 +80,7 @@ const Inner = styled.div<{ image: string; big?: boolean }>`
 	/* box-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.3); */
 	transform: scale(1);
 
-	${(props) =>
+	${props =>
 		props.big &&
 		css`
 			transform: scale(1.3);

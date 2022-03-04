@@ -5,8 +5,6 @@ import { InputWrapper, TrackBar, LowerFillBar } from './SliderElements';
 import { ThumbWrapper, Thumb } from './Thumb';
 import { Input } from './Input';
 
-
-
 interface IProps {
 	onMuteAudio: () => void;
 	muted: boolean;

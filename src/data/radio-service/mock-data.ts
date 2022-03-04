@@ -1,4 +1,4 @@
-import { RadioData } from './radio.types';
+import { RadioData } from './radio-dto';
 
 export const data: RadioData = {
 	music: [

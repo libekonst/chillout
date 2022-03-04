@@ -4,10 +4,10 @@ module.exports = {
 		'airbnb-typescript',
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		'prettier/@typescript-eslint',
+		// 'prettier/@typescript-eslint',
 		'prettier',
-		'prettier/react',
-		'plugin:react-native/all',
+		// 'prettier/react',
+		// 'plugin:react-native/all',
 		'plugin:jest/recommended'
 	],
 	plugins: ['react-hooks'],
@@ -15,11 +15,12 @@ module.exports = {
 		'react/jsx-fragments': [1, 'syntax'],
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
+		'react/require-default-props': 0,
 		'import/prefer-default-export': 0,
 		'react/prop-types': 0,
-		'react-native/sort-styles': 0,
-		'react-native/no-raw-text': 0,
-		'@typescript-eslint/explicit-function-return-type': 0,
+		// 'react-native/sort-styles': 0,
+		// 'react-native/no-raw-text': 0,
+		'@typescript-eslint/explicit-module-boundary-types': 0,
 		'no-underscore-dangle': 0,
 		'@typescript-eslint/no-use-before-define': 0,
 		'react/jsx-props-no-spreading': 1,
@@ -28,6 +29,7 @@ module.exports = {
 	},
 	parserOptions: {
 		jsx: true,
-		useJSXTextNode: true
+		useJSXTextNode: true,
+		project: ['tsconfig.json']
 	}
 };
