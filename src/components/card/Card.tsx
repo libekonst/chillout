@@ -1,45 +1,41 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, FC } from 'react';
 import { View } from './View';
 import { isLarge } from '../../styles';
 
-interface IProps {
-  title: ReactNode;
-  image: string;
-  isActive?: boolean;
-  cardRef?: React.RefObject<HTMLDivElement>;
-  onClick?: (e: React.MouseEvent) => void;
+interface Props {
+	title: ReactNode;
+	image: string;
+	isActive?: boolean;
+	cardRef?: React.RefObject<HTMLDivElement>;
+	onClick?: (e: React.MouseEvent) => void;
 }
-interface IState {
-  hovered: boolean;
-  loaded: boolean;
-}
-export default class Card extends React.Component<IProps, IState> {
-  readonly state: IState = {
-    hovered: false,
-    loaded: false,
-  };
-  onMouseEnter = () => isLarge() && this.setState({ hovered: true });
-  onMouseLeave = () => isLarge() && this.setState({ hovered: false });
-  onImageLoad = () => this.setState({ loaded: true });
 
-  render() {
-    const { title } = this.props;
+const Card: FC<Props> = props => {
+	const [hovered, setHovered] = useState(false);
+	const [loaded, setLoaded] = useState(false);
+	const isScreenLarge = isLarge();
 
-    return (
-      <View
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onClick={this.props.onClick}
-        isHover={this.state.hovered}
-        isActive={this.props.isActive}
-        imageSource={this.props.image}
-        title={title}
-        loaded={this.state.loaded}
-        onImageLoad={this.onImageLoad}
-        cardRef={this.props.cardRef}
-      >
-        {this.props.children}
-      </View>
-    );
-  }
-}
+	const onMouseEnter = () => isScreenLarge && setHovered(true);
+	const onMouseLeave = () => isScreenLarge && setHovered(false);
+	const onImageLoad = () => setLoaded(true);
+
+	const { title, onClick, isActive, image, cardRef, children } = props;
+
+	return (
+		<View
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onClick={onClick}
+			isHover={hovered}
+			isActive={isActive}
+			imageSource={image}
+			title={title}
+			loaded={loaded}
+			onImageLoad={onImageLoad}
+			cardRef={cardRef}>
+			{children}
+		</View>
+	);
+};
+
+export default Card;

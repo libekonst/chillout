@@ -1,5 +1,10 @@
 import styled, { keyframes, css } from 'styled-components';
 
+const scaleIn = keyframes`
+  from { transform: scale(0.8) }
+  to { transform: scale(1) }
+`;
+
 const slideIn = keyframes`
   from {
     transform: translate3d(-3px, -2px, 0);
@@ -60,6 +65,7 @@ export const HorizontalList = styled.ul`
 
 export const ListItem = styled.li`
   margin-left: 0.7rem;
+  animation: ${scaleIn} 0.15s ease-out;
 
   &:last-child {
     margin-right: 0.7rem;

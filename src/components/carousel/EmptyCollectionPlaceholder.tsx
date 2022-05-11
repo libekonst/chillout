@@ -4,10 +4,11 @@ import { MdFavorite } from 'react-icons/md';
 
 const TextWrapper = styled.div`
   flex: 1;
-  background-color: #f4f4f4;
+  background-color: rgba(250, 250, 250, 0.);
+  background-opacity: 0.6;
   margin: 0.3rem 0.75rem;
   padding: 0 0.5rem;
-  border-radius: 15px;
+  border-radius: 30px;
 
   /* Flex layout */
   display: flex;

@@ -1,83 +1,79 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
+import styled from 'styled-components';
 import { isLarge } from './styles';
 import { Carousel } from './components/carousel';
 import { Backdrop } from './components/backdrop';
-import { IRadio } from './data';
-import styled from 'styled-components';
+import { Radio } from './data/radio/Radio';
 import { FAB } from './components/icon-buttons/FAB';
+import { AppServices } from './context';
+import { useObservable } from './utils';
 
-interface IProps {
-  expandFavorites: () => void;
-  openFavorites: () => void;
-  togglePlayRadio: (id: number) => (e: React.MouseEvent<Element, MouseEvent>) => void;
+type Props = {
+	// expandFavorites: () => void;
+	// openFavorites: () => void;
+	toggleFavoritesOpenAndThen: (cb?: () => any) => void;
+	togglePlayRadio: (radio: Radio) => (e: React.MouseEvent<Element, MouseEvent>) => void;
 
-  // App state
-  // contentReady: boolean;
-  isScreenLarge: boolean;
+	// App state
+	// contentReady: boolean;
+	isScreenLarge: boolean;
 
-  // Radio state
-  favoritesOpened: boolean;
-  activeRadioId?: number;
-  pendingRadioId?: number;
-  favorites: IRadio[];
+	// Radio state
+	favoritesOpened: boolean;
+	activeRadioId?: string;
+	favorites: Radio[];
 
-  // Playback state
-  isPlaying: boolean;
-  isLoading: boolean;
-
-  // Audio state
-  volume: number;
-  audioMuted: boolean;
-}
-
-export const Favorites: FC<IProps> = props => {
-  const {
-    favorites,
-    favoritesOpened,
-    isPlaying,
-    expandFavorites,
-    togglePlayRadio,
-    openFavorites,
-    isLoading,
-    activeRadioId,
-    pendingRadioId,
-  } = props;
-
-  if (isLarge())
-    return (
-      <StickyTop>
-        <Carousel
-          data={favorites}
-          handleExpand={expandFavorites}
-          expanded={favoritesOpened}
-          isPlaying={isPlaying || isLoading}
-          selectedRadio={pendingRadioId || activeRadioId}
-          onSelectRadio={togglePlayRadio}
-        />
-      </StickyTop>
-    );
-
-  if (!isLarge() && favorites.length)
-    return (
-      <>
-        <Backdrop
-          open={favoritesOpened}
-          data={favorites}
-          onRadioClick={togglePlayRadio}
-          isPlaying={isPlaying || isLoading}
-          selectedRadio={pendingRadioId || activeRadioId}
-        />
-        <FAB isOpen={favoritesOpened} onClick={openFavorites} />
-      </>
-    );
-
-  return null;
+	// Playback state
+	isPlaying: boolean;
 };
 
+export function Favorites(props: Props) {
+	const {
+		favorites,
+		favoritesOpened,
+		toggleFavoritesOpenAndThen,
+		togglePlayRadio,
+		activeRadioId,
+		isScreenLarge,
+		isPlaying
+	} = props;
+
+	if (isScreenLarge)
+		return (
+			<StickyTop>
+				<Carousel
+					data={favorites}
+					handleExpand={toggleFavoritesOpenAndThen}
+					expanded={favoritesOpened}
+					isPlaying={isPlaying}
+					selectedRadio={activeRadioId}
+					onSelectRadio={togglePlayRadio}
+				/>
+			</StickyTop>
+		);
+
+	if (!isScreenLarge && favorites.length)
+		return (
+			<>
+				<Backdrop
+					open={favoritesOpened}
+					data={favorites}
+					onRadioClick={togglePlayRadio}
+					isPlaying={isPlaying}
+					selectedRadio={activeRadioId}
+				/>
+				<FAB isOpen={favoritesOpened} onClick={toggleFavoritesOpenAndThen} />
+			</>
+		);
+
+	return null;
+}
+
 const StickyTop = styled.div`
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding-bottom: 1rem;
-  background-color: #fafafa;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	padding-bottom: 1rem;
+	background-color: rgba(255, 255, 255, 0.8);
+	backdrop-filter: saturate(180%) blur(20px);
 `;

@@ -1,60 +1,83 @@
-import React, { FC } from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { FC, useMemo, useContext } from 'react';
 import { Footer } from './Footer';
 import { PlayButton } from './PlayButton';
 import { VolumeBar } from './volume-bar';
-import { Media } from './Media';
-import { RadioLink } from './RadioLink';
-import { Image } from '../styled/Image';
-import { IRadio } from '../../data';
+import { NowPlayingLayout } from './NowPlaying';
+import { Radio } from '../../data/radio/Radio';
+import { AsyncImage } from '../async-image';
+import { Favorite } from '../icon-buttons/Favorite';
+import useObservable from '../../utils/useObservable';
+import collectionsBloc from '../../blocs/collections.bloc';
 
-interface IProps {
-  // Play button
-  isPlaying: boolean;
-  handlePlay: () => void;
+const NowPlaying: FC<{ radio: Radio; controls: JSX.Element }> = props => {
+	const Info = () => (
+		<>
+			<a href={props.radio.website} target="blank">
+				{props.radio.name}
+			</a>
+			<p>{props.radio.label}</p>
+		</>
+	);
 
-  // Volume
-  onMuteAudio: () => void;
-  muted: boolean;
-  changeAudioVolume: (e: any) => void;
-  volume: number;
-
-  // Radio
-  radio?: IRadio;
-  isRadioFavorite?: boolean;
-  handleAddFavorite?: (e: any) => void;
-}
-const Player: FC<IProps> = props => {
-  return (
-    <Footer>
-      {props.radio ? (
-        <>
-          <Media>
-            <Image src={props.radio.image} style={{ borderRadius: '5px' }} />
-          </Media>
-          <RadioLink
-            href={props.radio.website}
-            target="blank"
-            radioTitle={props.radio.name}
-            radioSubtitle={props.radio.label}
-            isRadioFavorite={props.isRadioFavorite}
-            handleAddFavorite={props.handleAddFavorite}
-          />
-        </>
-      ) : (
-        // Return empty divs as placeholders to fill up the grid.
-        <>
-          <div />
-          <div />
-        </>
-      )}
-      <PlayButton isPlaying={props.isPlaying} onClick={props.handlePlay} />
-      <VolumeBar
-        onMuteAudio={props.onMuteAudio}
-        muted={props.muted}
-        changeAudioVolume={props.changeAudioVolume}
-        volume={props.volume}
-      />
-    </Footer>
-  );
+	return (
+		<NowPlayingLayout
+			imageSlot={<AsyncImage src={props.radio.image} />}
+			controlsSlot={props.controls}
+			infoSlot={<Info />}
+		/>
+	);
 };
-export default Player;
+
+export function Player() {
+	const audioVolume = 0.6;
+	const audioMuted = false;
+	const activeRadio = undefined;
+	const isPlaying = false;
+	// const playerBloc = usePlayerBloc();
+	// const audioVolume = useObservable(playerBloc.volume$);
+	// const audioMuted = useObservable(playerBloc.muted$, false);
+	// const activeRadio = useObservable(playerBloc.selectedRadio$);
+	// const isPlaying = useObservable(playerBloc.isPlaying$, false);
+	const isFavorite$ = useMemo(
+		() => collectionsBloc.isFavorite(activeRadio),
+		[activeRadio]
+	);
+	const isFavorite = useObservable(isFavorite$, false);
+
+	const handlePlay = () => {
+		// if (activeRadio) playerBloc.select(activeRadio);
+		// playerBloc.dispatch(new PlayClicked());
+	};
+
+	const handleAddFavorite = () => {
+		if (activeRadio) collectionsBloc.addFavorite(activeRadio);
+	};
+
+	const Controls = () => (
+		<Favorite isFavorite={isFavorite} onClick={handleAddFavorite} />
+	);
+
+	return (
+		<Footer>
+			<div style={{ width: '100%' }}>
+				{activeRadio && <NowPlaying radio={activeRadio} controls={<Controls />} />}
+			</div>
+			<PlayButton isPlaying={isPlaying} onClick={handlePlay} />
+			{audioVolume !== undefined && (
+				<VolumeBar
+					// onMuteAudio={audio.toggleMute}
+					// onMuteAudio={() => playerBloc.dispatch(new MuteClicked())}
+					onMuteAudio={() => {}}
+					muted={audioMuted}
+					changeAudioVolume={(vol: number) => {
+						// playerBloc.changeVolume(vol);
+						// audio.setVolume(vol);
+						// playerBloc.dispatch(new VolumeChanged(vol));
+					}}
+					volume={audioVolume}
+				/>
+			)}
+		</Footer>
+	);
+}

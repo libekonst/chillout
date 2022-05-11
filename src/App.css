@@ -1,62 +1,70 @@
 html {
-  box-sizing: border-box;
-  font-size: 16px;
+	box-sizing: border-box;
+	font-size: 16px;
 }
 button {
-  font-size: 100%;
-  font-family: inherit;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  width: auto;
-  overflow: visible;
-  outline: none;
-  line-height: normal;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+	font-size: 100%;
+	font-family: inherit;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	width: auto;
+	overflow: visible;
+	outline: none;
+	line-height: normal;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
-ol, ul, li {
-  list-style: none;
+ol,
+ul,
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
 }
 body {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
-  overflow-x: hidden;
-  color: rgb(26, 26, 26);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
-  /* background-color: #f9f9f9; */
-  /* background-color: #eef0f4; */
-  font-family: 'Montserrat', sans-serif;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
+	overflow-x: hidden;
+	color: rgb(51, 51, 51);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #fff;
+	/* background-color: #f9f9f9; */
+	/* background-color: #eef0f4; */
+	font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	/* font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; */
 }
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .palette {
-  color: #2EDB81;
-  color: #5998C5;
-  color: #FF203E;
+	color: #2edb81;
+	color: #5998c5;
+	color: #ff203e;
 }
-.palette2{
-  color: #29ff7f;
-  color: #ff3e29
+.palette2 {
+	color: #29ff7f;
+	color: #ff3e29;
 }
-.palette3{
-  color: #AF68E9;
-  color: #00A47E;
-  color: #ff3e29
+.palette3 {
+	color: #af68e9;
+	color: #00a47e;
+	color: #ff3e29;
 }
-.palette4{
-  color: #B21E0E;
-  color: #FF5542;
-  color: #FF3E29;
-  color: #00B255;
-  color: #29FF8E;
+.palette4 {
+	color: #b21e0e;
+	color: #ff5542;
+	color: #ff3e29;
+	color: #00b255;
+	color: #29ff8e;
 }

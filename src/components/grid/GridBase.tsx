@@ -1,26 +1,41 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes} from 'styled-components';
 import { truncateText } from '../../styles';
+
 type BoxAlignment =
-  | 'auto'
-  | 'normal'
-  | 'start'
-  | 'end'
-  | 'center'
-  | 'stretch'
-  | 'baseline';
+	| 'auto'
+	| 'normal'
+	| 'start'
+	| 'end'
+	| 'center'
+	| 'stretch'
+	| 'baseline';
 
 interface IGridBaseProps {
-  gutter?: boolean;
-  highlightOnHover?: boolean;
-  large?: boolean;
-  selected?: boolean;
+	gutter?: boolean;
+	highlightOnHover?: boolean;
+	large?: boolean;
+	selected?: boolean;
 }
+
+const animation = keyframes`
+  from {
+    transform: translateY(10px) scaleX(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scaleX(1);
+    opacity: 1;
+  }
+`;
 
 export const GridBase = styled.div<IGridBaseProps>`
   width: 100%;
   height: auto;
   position: relative;
   cursor: default;
+	opacity: 0;
+	transform-origin: bottom left;
+  animation: ${animation} 0.2s ease-out forwards;
 
   /* Grid layout */
   display: grid;
@@ -39,64 +54,64 @@ export const GridBase = styled.div<IGridBaseProps>`
 
   /* Highlight On Hover */
   ${props =>
-    props.highlightOnHover &&
-    css`
-      &::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-        background-color: rgba(210, 210, 210, 0.2);
-        z-index: -1;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.2s linear;
-      }
+		props.highlightOnHover &&
+		css`
+			&::before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius: 5px;
+				background-color: rgba(210, 210, 210, 0.2);
+				z-index: -1;
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.2s linear;
+			}
 
-      &:hover::before {
-        opacity: 1;
-        visibility: visible;
-      }
-    `}
+			&:hover::before {
+				opacity: 1;
+				visibility: visible;
+			}
+		`}
 
   /* Spacing */
   ${props =>
-    props.large &&
-    css`
-      padding: 0.5rem 0;
-    `}
+		props.large &&
+		css`
+			padding: 0.5rem 0;
+		`}
 
   /* Gutter */
   ${props =>
-    props.gutter &&
-    css`
-      &::after {
-        content: '';
-        position: absolute;
-        left: 2rem;
-        right: 2rem;
-        bottom: 0;
-        height: 1px;
-        background-color: rgba(70, 70, 70, 0.05);
-      }
-    `}
+		props.gutter &&
+		css`
+			&::after {
+				content: '';
+				position: absolute;
+				left: 2rem;
+				right: 2rem;
+				bottom: 0;
+				height: 1px;
+				background-color: rgba(70, 70, 70, 0.05);
+			}
+		`}
 
   /* Selected */
   ${props =>
-    props.selected &&
-    css`
-      color: ${props.theme.colors.blue};
-      font-weight: bold;
-    `}
+		props.selected &&
+		css`
+			color: ${props.theme.colors.blue};
+			font-weight: bold;
+		`}
 `;
 
 interface IGridItemProps {
-  gridArea?: 'playcontrol' | 'favorite' | 'image' | 'title' | 'genre';
-  alignSelf?: BoxAlignment;
-  truncate?: boolean;
-  shouldOverflow?: boolean;
-  justifySelf?: BoxAlignment;
+	gridArea?: 'playcontrol' | 'favorite' | 'image' | 'title' | 'genre';
+	alignSelf?: BoxAlignment;
+	truncate?: boolean;
+	shouldOverflow?: boolean;
+	justifySelf?: BoxAlignment;
 }
 
 /**
@@ -118,8 +133,8 @@ export const GridItem = styled.div<IGridItemProps>`
 
   /* Allow overflow, e.g. for animated elements. Overflowing prevents text truncating and hiding items with grid-template-columns. */
   ${props =>
-    props.shouldOverflow &&
-    css`
-      overflow: visible;
-    `}
+		props.shouldOverflow &&
+		css`
+			overflow: visible;
+		`}
 `;

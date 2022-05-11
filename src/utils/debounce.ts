@@ -12,12 +12,12 @@
  * Useful for suspending subsequent setState calls caused by user events and only execute the latest call.
  */
 const debounce = (callback: () => any, delay = 250): (() => void) => {
-  let timeoutID: number;
+	let timeoutID: NodeJS.Timeout;
 
-  return () => {
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(callback, delay);
-  };
+	return () => {
+		clearTimeout(timeoutID);
+		timeoutID = setTimeout(callback, delay);
+	};
 };
 
 export default debounce;
