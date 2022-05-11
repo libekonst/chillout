@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Radio } from '../radio/Radio';
 
-export type RadioData = Record<Label, RadioDto[]>;
+export type RadioData = Record<string, RadioDto[]>;
 export type RadioProvider = () => Observable<Radio[]>;
 export type Label = string;
 

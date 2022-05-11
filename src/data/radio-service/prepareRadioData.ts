@@ -1,5 +1,5 @@
 import { pipe } from 'ramda';
-import { createId } from '../../utils/createId';
+import { uid } from '../../utils/uid';
 import { Radio } from '../radio/Radio';
 import { RadioData, RadioDto } from './radio-dto';
 
@@ -11,6 +11,6 @@ export const prepareRadioData = (data: RadioData): Radio[] =>
 const addLabel = ([label, radios]: [string, RadioDto[]]) =>
 	radios.map(radio => ({ ...radio, label }));
 
-const addId = <T extends {}>(obj: T) => ({ ...obj, id: createId() });
+const addId = <T extends {}>(obj: T) => ({ ...obj, id: uid() });
 
 const addLabelAndId = pipe(addLabel, addId);
